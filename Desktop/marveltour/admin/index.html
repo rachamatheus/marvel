@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Marvel Tour</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">✈️ Marvel <span>Tour</span></div>
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:4px;">Admin панел</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-label">Главно меню</div>
+      <button class="sidebar-link active" onclick="showPage('dashboard')" id="nav-dashboard">
+        <span class="icon">📊</span> Табло
+      </button>
+      <button class="sidebar-link" onclick="showPage('inquiries')" id="nav-inquiries">
+        <span class="icon">📬</span> Запитвания
+        <span id="newBadge" style="margin-left:auto;background:#ef4444;color:white;font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:100px;display:none;"></span>
+      </button>
+      <button class="sidebar-link" onclick="showPage('offers')" id="nav-offers">
+        <span class="icon">🗺️</span> Оферти
+      </button>
+      <button class="sidebar-link" onclick="showPage('analytics')" id="nav-analytics">
+        <span class="icon">📈</span> Статистики
+      </button>
+      <div class="sidebar-label" style="margin-top:1rem;">Настройки</div>
+      <button class="sidebar-link" onclick="showPage('settings')" id="nav-settings">
+        <span class="icon">⚙️</span> Настройки
+      </button>
+      <button class="sidebar-link" onclick="doLogout()">
+        <span class="icon">🚪</span> Изход
+      </button>
+    </nav>
+    <div style="padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,0.08);">
+      <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);">Версия 1.0</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="admin-content">
+
+    <!-- TOPBAR -->
+    <div class="admin-topbar">
+      <h1 id="pageTitle">Табло</h1>
+      <div class="admin-topbar-actions">
+        <a href="../index.html" target="_blank" style="font-size:0.85rem;color:var(--gray-600);text-decoration:none;padding:8px 14px;border:1.5px solid var(--gray-200);border-radius:8px;">↗ Виж сайта</a>
+        <div class="admin-avatar" title="Admin">A</div>
+      </div>
+    </div>
+
+    <div class="admin-main">
+
+      <!-- ===== DASHBOARD PAGE ===== -->
+      <div id="page-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">📬</div>
+            <div class="stat-num" id="statInquiries">0</div>
+            <div class="stat-label">Общо запитвания</div>
+            <div class="stat-change up" id="statNewInq">0 нови</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">👁️</div>
+            <div class="stat-num" id="statViews">0</div>
+            <div class="stat-label">Разгледани оферти</div>
+            <div class="stat-change up">Днес</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🗺️</div>
+            <div class="stat-num" id="statOffers">0</div>
+            <div class="stat-label">Активни оферти</div>
+            <div class="stat-change up">Всички</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-num" id="statBooked">0</div>
+            <div class="stat-label">Потвърдени</div>
+            <div class="stat-change up">Запитвания</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:1.5rem;">
+          <!-- Recent Inquiries -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div class="admin-card-title">📬 Последни запитвания</div>
+              <button onclick="showPage('inquiries')" style="font-size:0.8rem;color:var(--primary);border:none;background:none;cursor:pointer;font-weight:600;">Виж всички →</button>
+            </div>
+            <div class="admin-card-body" style="padding:0;">
+              <table class="inquiries-table" id="recentTable">
+                <thead>
+                  <tr>
+                    <th>Клиент</th>
+                    <th>Оферта</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                  </tr>
+                </thead>
+                <tbody id="recentBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Popular Offers -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div class="admin-card-title">🔥 Популярни оферти</div>
+            </div>
+            <div class="admin-card-body">
+              <div class="popular-list" id="popularList"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini chart -->
+        <div class="admin-card" style="margin-top:1.5rem;">
+          <div class="admin-card-header">
+            <div class="admin-card-title">📊 Запитвания по ден (последните 7 дни)</div>
+          </div>
+          <div class="admin-card-body">
+            <canvas id="weekChart" style="max-height:200px;"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== INQUIRIES PAGE ===== -->
+      <div id="page-inquiries" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;" id="inqStatusFilters">
+            <button class="filter-btn active" onclick="filterInquiries('all', this)">Всички</button>
+            <button class="filter-btn" onclick="filterInquiries('new', this)">🔵 Нови</button>
+            <button class="filter-btn" onclick="filterInquiries('contacted', this)">🟡 Контактувани</button>
+            <button class="filter-btn" onclick="filterInquiries('booked', this)">🟢 Резервирани</button>
+            <button class="filter-btn" onclick="filterInquiries('closed', this)">⚫ Затворени</button>
+          </div>
+          <button onclick="exportInquiries()" style="padding:8px 16px;border:1.5px solid var(--gray-200);border-radius:8px;background:white;font-size:0.85rem;cursor:pointer;font-family:inherit;">⬇ Експортирай</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-body" style="padding:0;overflow-x:auto;">
+            <table class="inquiries-table" id="inqTable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Клиент</th>
+                  <th>Телефон</th>
+                  <th>Email</th>
+                  <th>Оферта</th>
+                  <th>Дата пътуване</th>
+                  <th>Хора</th>
+                  <th>Изпратено на</th>
+                  <th>Статус</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="inqBody"></tbody>
+            </table>
+            <div id="inqEmpty" style="display:none;text-align:center;padding:3rem;color:var(--gray-400);">
+              <div style="font-size:2.5rem;margin-bottom:0.75rem;">📭</div>
+              <div>Няма запитвания</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== OFFERS PAGE ===== -->
+      <div id="page-offers" style="display:none;">
+        <div style="margin-bottom:1.5rem;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <input type="text" class="form-input" id="offerSearch" placeholder="Търси оферта..." style="max-width:300px;" oninput="renderAdminOffers()">
+          <select class="form-select" id="offerCountryFilter" onchange="renderAdminOffers()" style="max-width:200px;">
+            <option value="">Всички дестинации</option>
+          </select>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-body" style="padding:0;overflow-x:auto;">
+            <table class="inquiries-table" id="offersAdminTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Оферта</th>
+                  <th>Категория</th>
+                  <th>Дестинация</th>
+                  <th>Цена от</th>
+                  <th>Продължителност</th>
+                  <th>Следваща дата</th>
+                  <th>Прегледи</th>
+                  <th>Запитвания</th>
+                </tr>
+              </thead>
+              <tbody id="offersAdminBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ANALYTICS PAGE ===== -->
+      <div id="page-analytics" style="display:none;">
+        <div class="stats-grid" style="margin-bottom:1.5rem;">
+          <div class="stat-card">
+            <div class="stat-icon">👁️</div>
+            <div class="stat-num" id="anlViews">0</div>
+            <div class="stat-label">Общо разгледани</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📬</div>
+            <div class="stat-num" id="anlInq">0</div>
+            <div class="stat-label">Общо запитвания</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-num" id="anlRate">0%</div>
+            <div class="stat-label">Конверсия</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-num" id="anlTop">—</div>
+            <div class="stat-label">Топ оферта</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+          <div class="admin-card">
+            <div class="admin-card-header"><div class="admin-card-title">📊 Запитвания по статус</div></div>
+            <div class="admin-card-body">
+              <canvas id="statusChart" style="max-height:220px;"></canvas>
+            </div>
+          </div>
+          <div class="admin-card">
+            <div class="admin-card-header"><div class="admin-card-title">🌍 Запитвания по дестинация</div></div>
+            <div class="admin-card-body">
+              <canvas id="destChart" style="max-height:220px;"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card" style="margin-top:1.5rem;">
+          <div class="admin-card-header"><div class="admin-card-title">🔥 Топ 10 разгледани оферти</div></div>
+          <div class="admin-card-body">
+            <div class="popular-list" id="topViewsList"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SETTINGS PAGE ===== -->
+      <div id="page-settings" style="display:none;">
+        <div class="admin-card">
+          <div class="admin-card-header"><div class="admin-card-title">🔑 Промяна на парола</div></div>
+          <div class="admin-card-body" style="max-width:400px;">
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label">Нова парола</label>
+              <input type="password" class="form-input" id="newPass" placeholder="Минимум 6 символа">
+            </div>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label">Потвърди паролата</label>
+              <input type="password" class="form-input" id="confirmPass" placeholder="Повтори паролата">
+            </div>
+            <button class="form-submit" style="max-width:200px;" onclick="changePassword()">Запази паролата</button>
+          </div>
+        </div>
+        <div class="admin-card" style="margin-top:1.5rem;">
+          <div class="admin-card-header"><div class="admin-card-title">🗄️ Supabase конфигурация</div></div>
+          <div class="admin-card-body" style="max-width:500px;">
+            <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1rem;">
+              За да записвате запитванията и да виждате статистики от всички устройства, свържете Supabase:
+            </p>
+            <ol style="font-size:0.85rem;color:var(--gray-600);padding-left:1.25rem;line-height:2;">
+              <li>Отидете на <strong>supabase.com</strong> → Нов проект</li>
+              <li>Създайте таблиците (виж <code>supabase-setup.sql</code>)</li>
+              <li>Копирайте URL и anon key в <code>app.js</code></li>
+            </ol>
+            <div class="form-group" style="margin-bottom:12px;margin-top:1rem;">
+              <label class="form-label">Supabase URL</label>
+              <input type="text" class="form-input" id="sbUrl" placeholder="https://xxx.supabase.co">
+            </div>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label">Anon Key</label>
+              <input type="text" class="form-input" id="sbKey" placeholder="eyJ...">
+            </div>
+            <button class="form-submit" style="max-width:200px;" onclick="saveSupabase()">Запази</button>
+          </div>
+        </div>
+        <div class="admin-card" style="margin-top:1.5rem;">
+          <div class="admin-card-header"><div class="admin-card-title">🗑️ Изчисти данни</div></div>
+          <div class="admin-card-body">
+            <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1rem;">Изчистване на локални данни (само за тестване).</p>
+            <button onclick="clearData()" style="padding:10px 20px;background:#fef2f2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600;font-size:0.85rem;">🗑️ Изчисти всички данни</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- INQUIRY DETAIL MODAL -->
+<div class="modal-overlay" id="inqDetailModal" onclick="if(event.target===this)closeInqModal()">
+  <div class="modal" style="border-radius:var(--radius);max-height:80vh;max-width:600px;">
+    <div class="modal-handle"></div>
+    <div class="modal-body">
+      <h2 class="modal-title" style="font-size:1.2rem;" id="inqDetailTitle">Запитване</h2>
+      <div id="inqDetailContent"></div>
+      <div style="display:flex;gap:10px;margin-top:1.5rem;flex-wrap:wrap;" id="inqDetailActions"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="../data/offers.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
