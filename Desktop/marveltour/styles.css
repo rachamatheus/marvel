@@ -1238,3 +1238,320 @@ footer {
   from { background-position: 200% 0; }
   to { background-position: -200% 0; }
 }
+
+/* ===== LOGO ===== */
+.nav-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: filter var(--transition);
+}
+.navbar.scrolled .nav-logo-img { filter: none; }
+
+/* ===== MOBILE MENU ===== */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: all var(--transition);
+}
+.navbar.scrolled .nav-hamburger span { background: var(--dark); }
+.mobile-menu {
+  position: fixed;
+  top: 72px;
+  left: 0; right: 0;
+  background: rgba(15,25,35,0.98);
+  backdrop-filter: blur(20px);
+  z-index: 999;
+  padding: 1rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transform: translateY(-110%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.mobile-menu.open { transform: translateY(0); }
+.mobile-menu a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: color var(--transition);
+}
+.mobile-menu a:hover { color: var(--gold); }
+
+/* ===== CONTINENT MAP ===== */
+.continent-section {
+  background: linear-gradient(180deg, #0a1628 0%, #0f2040 60%, #0a1628 100%);
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.continent-section .section-badge { background: rgba(201,168,76,0.2); }
+.continent-section .section-title { color: white; }
+.continent-section .section-sub { color: rgba(255,255,255,0.55); }
+
+.world-map-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto 2rem;
+}
+
+.world-map {
+  position: relative;
+  width: 100%;
+  padding-bottom: 50%;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(42,82,152,0.18) 0%, transparent 70%);
+  border: 1px solid rgba(201,168,76,0.12);
+  overflow: hidden;
+}
+
+.world-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.conn-line {
+  animation: dashMove 8s linear infinite;
+}
+@keyframes dashMove {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -60; }
+}
+
+/* Continent pin & bubble */
+.continent-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  cursor: pointer;
+}
+
+.continent-bubble {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2.5px solid rgba(201,168,76,0.5);
+  box-shadow: 0 0 30px rgba(201,168,76,0.15), 0 8px 32px rgba(0,0,0,0.4);
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.continent-bubble:hover,
+.continent-bubble.active {
+  border-color: var(--gold);
+  box-shadow: 0 0 50px rgba(201,168,76,0.4), 0 12px 48px rgba(0,0,0,0.5);
+  transform: scale(1.12);
+}
+.continent-bubble.active {
+  border-color: #e8c96b;
+  box-shadow: 0 0 60px rgba(201,168,76,0.6), 0 12px 48px rgba(0,0,0,0.5);
+}
+
+.continent-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+  filter: brightness(0.6) saturate(1.2);
+}
+.continent-bubble:hover .continent-img,
+.continent-bubble.active .continent-img {
+  transform: scale(1.1);
+  filter: brightness(0.75) saturate(1.4);
+}
+
+.continent-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.continent-bubble:hover .continent-glow,
+.continent-bubble.active .continent-glow { opacity: 1; }
+
+.continent-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  z-index: 2;
+}
+.continent-icon { font-size: 1.6rem; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)); }
+.continent-name {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+}
+.continent-count {
+  font-size: 0.65rem;
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+/* Pulse ring */
+.continent-pulse {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.3);
+  animation: pulsePing 2.5s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes pulsePing {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+/* Floating icons */
+.float-icon {
+  position: absolute;
+  font-size: 1.2rem;
+  animation: floatAround 6s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0.7;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+}
+@keyframes floatAround {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(5deg); }
+  66% { transform: translateY(5px) rotate(-3deg); }
+}
+
+/* Continent detail panel */
+.continent-panel {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 20px;
+  padding: 1.75rem 2rem;
+  backdrop-filter: blur(12px);
+  animation: panelSlide 0.4s cubic-bezier(0.4,0,0.2,1);
+  max-width: 960px;
+  margin: 0 auto;
+}
+@keyframes panelSlide {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.continent-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.continent-panel-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.continent-panel-close {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7);
+  padding: 6px 16px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-family: 'Inter', sans-serif;
+  transition: all var(--transition);
+}
+.continent-panel-close:hover { background: rgba(255,255,255,0.2); color: white; }
+
+.continent-countries {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.country-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+  display: block;
+}
+.country-card:hover {
+  border-color: rgba(201,168,76,0.5);
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.country-card-img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  filter: brightness(0.75);
+  transition: all var(--transition);
+}
+.country-card:hover .country-card-img { filter: brightness(0.9); transform: scale(1.04); }
+.country-card-img-wrap { overflow: hidden; }
+
+.country-card-body {
+  padding: 0.9rem 1rem;
+}
+.country-flag-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.country-flag { font-size: 1.2rem; }
+.country-name-text { font-weight: 700; color: white; font-size: 0.9rem; }
+.country-offer-count {
+  font-size: 0.75rem;
+  color: var(--gold-light);
+  font-weight: 600;
+}
+.country-price {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .nav-hamburger { display: flex; }
+  .nav-links { display: none; }
+  .world-map { padding-bottom: 120%; }
+  .continent-bubble { width: 90px; height: 90px; }
+  .continent-icon { font-size: 1.2rem; }
+  .continent-name { font-size: 0.62rem; }
+  .continent-countries { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .continent-countries { grid-template-columns: 1fr; }
+}

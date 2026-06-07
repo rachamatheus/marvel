@@ -26,12 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
   initSupabase();
   updateStatCounter();
   renderFeatured();
-  renderDestinations();
+  initContinentMap();
   renderOffers();
   initNavbar();
   initHeroSearch();
   trackPageView('home');
 });
+
+// ===== MOBILE MENU =====
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
 
 // ===== NAVBAR SCROLL =====
 function initNavbar() {
@@ -119,20 +124,115 @@ function renderFeatured() {
   grid.innerHTML = html;
 }
 
-// ===== DESTINATIONS =====
-function renderDestinations() {
-  const grid = document.getElementById('destinationsGrid');
-  if (!grid) return;
-  grid.innerHTML = COUNTRIES.map(c => {
-    const count = OFFERS.filter(o => o.country === c.id).length;
-    return `
-      <a class="dest-card" href="javascript:void(0)" onclick="filterByCountry('${c.id}')">
-        <span class="dest-flag">${c.flag}</span>
-        <div class="dest-name">${c.label}</div>
-        <div class="dest-count">${count} оферт${count === 1 ? 'а' : 'и'}</div>
-      </a>
-    `;
-  }).join('');
+// ===== CONTINENT MAP =====
+const CONTINENT_DATA = {
+  europe: {
+    label: 'Европа', icon: '🏰',
+    countries: ['greece','france','spain','italy','albania','poland'],
+    images: {
+      greece: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&q=80',
+      france:  'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80',
+      spain:   'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=400&q=80',
+      italy:   'https://images.unsplash.com/photo-1555993539-1732b0258235?w=400&q=80',
+      albania: 'https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=400&q=80',
+      poland:  'https://images.unsplash.com/photo-1519197924294-4ba991a11128?w=400&q=80',
+    }
+  },
+  africa: {
+    label: 'Африка', icon: '🦁',
+    countries: ['egypt','tunisia','morocco'],
+    images: {
+      egypt:   'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80',
+      tunisia: 'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80',
+      morocco: 'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80',
+    }
+  },
+  asia: {
+    label: 'Азия', icon: '🏯',
+    countries: ['turkey','uae','jordan'],
+    images: {
+      turkey:  'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400&q=80',
+      uae:     'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80',
+      jordan:  'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80',
+    }
+  },
+  america: {
+    label: 'Америка', icon: '🗽',
+    countries: [],
+    images: {}
+  }
+};
+
+let activeContinent = null;
+
+function initContinentMap() {
+  // Count offers per continent and update badges
+  Object.entries(CONTINENT_DATA).forEach(([key, data]) => {
+    const count = OFFERS.filter(o => data.countries.includes(o.country)).length;
+    const el = document.getElementById(`cnt-${key}`);
+    if (el) el.textContent = count > 0 ? `${count} оферти` : 'Скоро';
+  });
+}
+
+function selectContinent(key) {
+  const data = CONTINENT_DATA[key];
+  if (!data) return;
+
+  // Toggle off
+  if (activeContinent === key) {
+    closeContinent();
+    return;
+  }
+  activeContinent = key;
+
+  // Update bubble states
+  document.querySelectorAll('.continent-bubble').forEach(b => {
+    b.classList.toggle('active', b.dataset.continent === key);
+  });
+
+  // Build country cards
+  const panel = document.getElementById('continentPanel');
+  const title = document.getElementById('panelTitle');
+  const grid  = document.getElementById('continentCountries');
+
+  title.innerHTML = `<span>${data.icon}</span> ${data.label}`;
+
+  if (!data.countries.length) {
+    grid.innerHTML = `<div style="color:rgba(255,255,255,0.5);font-size:0.9rem;padding:1rem 0;grid-column:1/-1;">Оферти за тази дестинация скоро...</div>`;
+  } else {
+    grid.innerHTML = data.countries.map(countryId => {
+      const country = COUNTRIES.find(c => c.id === countryId);
+      if (!country) return '';
+      const offers = OFFERS.filter(o => o.country === countryId);
+      const minPrice = offers.length ? Math.min(...offers.map(o => o.price_bgn)) : 0;
+      const img = data.images[countryId] || '';
+      return `
+        <a class="country-card" href="javascript:void(0)" onclick="filterByCountry('${countryId}');closeContinent()">
+          <div class="country-card-img-wrap">
+            <img class="country-card-img" src="${img}" alt="${country.label}" loading="lazy">
+          </div>
+          <div class="country-card-body">
+            <div class="country-flag-name">
+              <span class="country-flag">${country.flag}</span>
+              <span class="country-name-text">${country.label}</span>
+            </div>
+            <div class="country-offer-count">${offers.length} оферт${offers.length === 1 ? 'а' : 'и'}</div>
+            ${minPrice ? `<div class="country-price">от ${minPrice.toFixed(0)} лв.</div>` : ''}
+          </div>
+        </a>
+      `;
+    }).join('');
+  }
+
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closeContinent() {
+  activeContinent = null;
+  document.querySelectorAll('.continent-bubble').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('continentPanel');
+  panel.style.display = 'none';
 }
 
 // ===== OFFERS GRID =====

@@ -13,10 +13,13 @@
 <!-- NAVBAR -->
 <nav class="navbar transparent" id="navbar">
   <a href="index.html" class="nav-logo">
-    <div class="nav-logo-icon">✈️</div>
-    <div>
-      <div class="nav-logo-text">Marvel Tour</div>
-      <div class="nav-logo-sub">Туроператор</div>
+    <img src="logo.png" alt="Marvel Tour" class="nav-logo-img" onerror="this.style.display='none';document.getElementById('nav-logo-fallback').style.display='flex'">
+    <div id="nav-logo-fallback" style="display:none;align-items:center;gap:10px;">
+      <div class="nav-logo-icon">✈️</div>
+      <div>
+        <div class="nav-logo-text">Marvel Tour</div>
+        <div class="nav-logo-sub">Туроператор</div>
+      </div>
     </div>
   </a>
   <ul class="nav-links">
@@ -26,7 +29,17 @@
     <li><a href="mailto:info@marveltourbg.com">Контакти</a></li>
     <li><a href="admin/login.html" class="nav-cta">Вход Админ</a></li>
   </ul>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#offers" onclick="toggleMobileMenu()">Оферти</a>
+  <a href="#destinations" onclick="toggleMobileMenu()">Дестинации</a>
+  <a href="#why-us" onclick="toggleMobileMenu()">За нас</a>
+  <a href="mailto:info@marveltourbg.com">Контакти</a>
+  <a href="admin/login.html">Admin панел</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -75,15 +88,106 @@
   </div>
 </section>
 
-<!-- DESTINATIONS -->
-<section class="section" id="destinations" style="background:var(--white);padding:4rem 2rem;">
-  <div style="max-width:1300px;margin:0 auto;">
+<!-- DESTINATIONS — CONTINENT MAP -->
+<section class="section continent-section" id="destinations">
+  <div style="max-width:1400px;margin:0 auto;">
     <div class="section-header">
       <div class="section-badge">🌍 Дестинации</div>
-      <h2 class="section-title">Изберете дестинация</h2>
-      <p class="section-sub">Разгледайте офертите по страна</p>
+      <h2 class="section-title">Изберете своя континент</h2>
+      <p class="section-sub">Кликнете върху континент и открийте офертите за него</p>
     </div>
-    <div class="destinations-grid" id="destinationsGrid"></div>
+
+    <!-- World Map Continents -->
+    <div class="world-map-wrap">
+      <div class="world-map">
+
+        <!-- EUROPE -->
+        <div class="continent-pin" id="pin-europe" style="left:44%;top:18%;" onclick="selectContinent('europe')">
+          <div class="continent-bubble" data-continent="europe">
+            <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80')"></div>
+            <div class="continent-glow"></div>
+            <div class="continent-label">
+              <span class="continent-icon">🏰</span>
+              <span class="continent-name">Европа</span>
+              <span class="continent-count" id="cnt-europe">0 оферти</span>
+            </div>
+            <div class="continent-pulse"></div>
+          </div>
+        </div>
+
+        <!-- AFRICA -->
+        <div class="continent-pin" id="pin-africa" style="left:46%;top:42%;" onclick="selectContinent('africa')">
+          <div class="continent-bubble" data-continent="africa">
+            <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80')"></div>
+            <div class="continent-glow"></div>
+            <div class="continent-label">
+              <span class="continent-icon">🦁</span>
+              <span class="continent-name">Африка</span>
+              <span class="continent-count" id="cnt-africa">0 оферти</span>
+            </div>
+            <div class="continent-pulse"></div>
+          </div>
+        </div>
+
+        <!-- ASIA -->
+        <div class="continent-pin" id="pin-asia" style="left:64%;top:22%;" onclick="selectContinent('asia')">
+          <div class="continent-bubble" data-continent="asia">
+            <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80')"></div>
+            <div class="continent-glow"></div>
+            <div class="continent-label">
+              <span class="continent-icon">🏯</span>
+              <span class="continent-name">Азия</span>
+              <span class="continent-count" id="cnt-asia">0 оферти</span>
+            </div>
+            <div class="continent-pulse"></div>
+          </div>
+        </div>
+
+        <!-- AMERICA -->
+        <div class="continent-pin" id="pin-america" style="left:20%;top:30%;" onclick="selectContinent('america')">
+          <div class="continent-bubble" data-continent="america">
+            <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400&q=80')"></div>
+            <div class="continent-glow"></div>
+            <div class="continent-label">
+              <span class="continent-icon">🗽</span>
+              <span class="continent-name">Америка</span>
+              <span class="continent-count" id="cnt-america">Скоро</span>
+            </div>
+            <div class="continent-pulse"></div>
+          </div>
+        </div>
+
+        <!-- SVG world map background lines -->
+        <svg class="world-lines" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet">
+          <!-- Grid lines -->
+          <line x1="0" y1="250" x2="1000" y2="250" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="4,8"/>
+          <line x1="500" y1="0" x2="500" y2="500" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="4,8"/>
+          <ellipse cx="500" cy="250" rx="490" ry="240" fill="none" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+          <ellipse cx="500" cy="250" rx="330" ry="240" fill="none" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
+          <ellipse cx="500" cy="250" rx="165" ry="240" fill="none" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
+          <!-- Connection lines between continents -->
+          <line x1="440" y1="190" x2="460" y2="360" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="3,6" class="conn-line"/>
+          <line x1="440" y1="190" x2="640" y2="210" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="3,6" class="conn-line"/>
+          <line x1="440" y1="190" x2="200" y2="250" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="3,6" class="conn-line"/>
+          <line x1="640" y1="210" x2="460" y2="360" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="3,6" class="conn-line"/>
+        </svg>
+
+        <!-- Floating travel icons -->
+        <div class="float-icon" style="left:35%;top:12%;animation-delay:0s;">✈️</div>
+        <div class="float-icon" style="left:55%;top:60%;animation-delay:1.5s;">🌴</div>
+        <div class="float-icon" style="left:75%;top:50%;animation-delay:3s;">⛱️</div>
+        <div class="float-icon" style="left:15%;top:55%;animation-delay:2s;">🗺️</div>
+      </div>
+    </div>
+
+    <!-- Selected Continent Panel -->
+    <div class="continent-panel" id="continentPanel" style="display:none;">
+      <div class="continent-panel-header">
+        <div class="continent-panel-title" id="panelTitle"></div>
+        <button class="continent-panel-close" onclick="closeContinent()">✕ Затвори</button>
+      </div>
+      <div class="continent-countries" id="continentCountries"></div>
+    </div>
   </div>
 </section>
 
