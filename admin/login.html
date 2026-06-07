@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход — Marvel Tour Admin</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">✈️</div>
+      <div class="login-title">Marvel Tour Admin</div>
+      <div class="login-sub">Въведете данните за достъп</div>
+    </div>
+
+    <div class="login-error" id="loginError" style="display:none;"></div>
+
+    <div class="form-group" style="margin-bottom:14px;">
+      <label class="form-label">Потребителско ime</label>
+      <input type="text" class="form-input" id="username" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="form-group" style="margin-bottom:20px;">
+      <label class="form-label">Парола</label>
+      <input type="password" class="form-input" id="password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="form-submit" onclick="doLogin()">Влез в системата</button>
+
+    <p style="text-align:center;margin-top:1.5rem;font-size:0.8rem;color:var(--gray-400);">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;">← Обратно към сайта</a>
+    </p>
+  </div>
+</div>
+<script>
+  // Default credentials (change in admin/admin.js ADMIN_CREDENTIALS)
+  document.getElementById('password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+  document.getElementById('username').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+
+  function doLogin() {
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value;
+    const ADMIN_USER = 'admin';
+    const ADMIN_PASS = 'marvel2026';
+
+    if (user === ADMIN_USER && pass === ADMIN_PASS) {
+      sessionStorage.setItem('mt_admin_auth', '1');
+      window.location.href = 'index.html';
+    } else {
+      const err = document.getElementById('loginError');
+      err.textContent = '❌ Грешно потребителско ime или парола.';
+      err.style.display = 'block';
+      document.getElementById('password').value = '';
+    }
+  }
+
+  // Already logged in?
+  if (sessionStorage.getItem('mt_admin_auth') === '1') {
+    window.location.href = 'index.html';
+  }
+</script>
+</body>
+</html>

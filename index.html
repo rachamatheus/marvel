@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marvel Tour — Вашият туроператор</title>
+  <meta name="description" content="Marvel Tour — туристически оферти, екскурзии и почивки от Пловдив. Гърция, Турция, Египет, Италия и още.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar transparent" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Marvel Tour" class="nav-logo-img" onerror="this.style.display='none';document.getElementById('nav-logo-fallback').style.display='flex'">
+    <div id="nav-logo-fallback" style="display:none;align-items:center;gap:10px;">
+      <div class="nav-logo-icon">✈️</div>
+      <div>
+        <div class="nav-logo-text">Marvel Tour</div>
+        <div class="nav-logo-sub">Туроператор</div>
+      </div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#offers">Оферти</a></li>
+    <li><a href="#destinations">Дестинации</a></li>
+    <li><a href="#why-us">За нас</a></li>
+    <li><a href="mailto:info@marveltourbg.com">Контакти</a></li>
+    <li><a href="admin/login.html" class="nav-cta">Вход Админ</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#offers" onclick="toggleMobileMenu()">Оферти</a>
+  <a href="#destinations" onclick="toggleMobileMenu()">Дестинации</a>
+  <a href="#why-us" onclick="toggleMobileMenu()">За нас</a>
+  <a href="mailto:info@marveltourbg.com">Контакти</a>
+  <a href="admin/login.html">Admin панел</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⭐ Над 20 години опит в туризма</div>
+    <h1 class="hero-title">
+      Открийте света с<br><span>Marvel Tour</span>
+    </h1>
+    <p class="hero-subtitle">Екскурзии, почивки и незабравими приключения от Пловдив.<br>Намерете перфектната оферта за вас.</p>
+    <div class="hero-search">
+      <svg width="18" height="18" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="heroSearch" placeholder="Търсете дестинация, оферта..." autocomplete="off">
+      <button class="hero-search-btn" onclick="doHeroSearch()">Търси</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <span class="hero-stat-num" id="stat-total">0</span>
+        <span class="hero-stat-label">Активни оферти</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">12+</span>
+        <span class="hero-stat-label">Дестинации</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">20+</span>
+        <span class="hero-stat-label">Години опит</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('offers').scrollIntoView({behavior:'smooth'})">
+    <div class="hero-scroll-dot"></div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="section" id="featured" style="padding-top:3rem">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-badge">🔥 Топ избори</div>
+      <h2 class="section-title">Препоръчани оферти</h2>
+      <p class="section-sub">Нашите най-популярни дестинации за сезона</p>
+    </div>
+    <div class="featured-grid" id="featuredGrid"></div>
+  </div>
+</section>
+
+<!-- DESTINATIONS — CONTINENT MAP -->
+<section class="section continent-section" id="destinations">
+  <div style="max-width:1400px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-badge">🌍 Дестинации</div>
+      <h2 class="section-title">Изберете своя континент</h2>
+      <p class="section-sub">Кликнете върху континент и открийте офертите за него</p>
+    </div>
+
+    <!-- World Map with SVG Continents -->
+    <div class="world-map-wrap">
+      <div class="world-map">
+
+        <!-- SVG World Map -->
+        <svg class="world-svg" viewBox="0 0 1010 510" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <!-- Grid / graticule -->
+          <defs>
+            <filter id="glow-gold">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Parallels -->
+          <line x1="5" y1="255" x2="1005" y2="255" stroke="rgba(201,168,76,0.12)" stroke-width="0.8" stroke-dasharray="4,10"/>
+          <line x1="5" y1="170" x2="1005" y2="170" stroke="rgba(201,168,76,0.07)" stroke-width="0.6" stroke-dasharray="3,12"/>
+          <line x1="5" y1="340" x2="1005" y2="340" stroke="rgba(201,168,76,0.07)" stroke-width="0.6" stroke-dasharray="3,12"/>
+          <!-- Meridians -->
+          <line x1="505" y1="5" x2="505" y2="505" stroke="rgba(201,168,76,0.12)" stroke-width="0.8" stroke-dasharray="4,10"/>
+          <line x1="255" y1="5" x2="255" y2="505" stroke="rgba(201,168,76,0.06)" stroke-width="0.6" stroke-dasharray="3,12"/>
+          <line x1="755" y1="5" x2="755" y2="505" stroke="rgba(201,168,76,0.06)" stroke-width="0.6" stroke-dasharray="3,12"/>
+          <!-- Outer oval border -->
+          <ellipse cx="505" cy="255" rx="498" ry="248" fill="none" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
+
+          <!-- ══════════ NORTH AMERICA ══════════ -->
+          <path class="cont-shape" id="shape-america" fill="rgba(99,179,237,0.13)" stroke="rgba(99,179,237,0.4)" stroke-width="1.2"
+            d="M155,60 L195,52 L240,48 L265,55 L272,70 L260,85 L250,100
+               L248,118 L255,130 L250,145 L238,152 L232,168 L240,180
+               L248,195 L244,215 L230,228 L218,242 L210,258 L200,272
+               L190,285 L178,295 L162,300 L148,310 L138,322 L130,335
+               L120,345 L115,358 L118,370 L128,375 L140,372 L148,380
+               L145,390 L135,395 L125,390 L115,382 L105,378 L95,380
+               L88,390 L82,400 L75,408 L70,418 L65,428 L62,415
+               L58,402 L60,388 L68,375 L72,362 L78,350 L82,338
+               L88,325 L92,312 L90,298 L85,285 L82,270 L85,255
+               L92,242 L98,228 L102,215 L98,200 L92,188 L90,175
+               L95,162 L102,150 L108,138 L112,125 L110,112 L105,100
+               L100,88 L102,75 L110,65 L125,58 L140,55 Z"/>
+
+          <!-- ══════════ EUROPE ══════════ -->
+          <path class="cont-shape" id="shape-europe" fill="rgba(154,205,50,0.15)" stroke="rgba(154,205,50,0.45)" stroke-width="1.2"
+            d="M440,80 L460,72 L478,70 L492,75 L500,85 L508,95
+               L515,105 L518,118 L512,128 L520,135 L528,128 L535,120
+               L542,115 L548,120 L545,132 L538,142 L530,150 L522,158
+               L515,168 L510,178 L505,188 L500,198 L492,205 L482,210
+               L472,215 L462,218 L452,222 L442,225 L432,220 L422,215
+               L415,205 L410,195 L408,182 L410,170 L415,158 L418,145
+               L420,132 L418,120 L422,108 L430,98 Z"/>
+
+          <!-- Scandinavian peninsula -->
+          <path class="cont-shape" fill="rgba(154,205,50,0.12)" stroke="rgba(154,205,50,0.3)" stroke-width="1"
+            d="M468,50 L480,45 L490,48 L495,58 L488,68 L478,72 L468,70 L460,62 Z"/>
+          <path class="cont-shape" fill="rgba(154,205,50,0.12)" stroke="rgba(154,205,50,0.3)" stroke-width="1"
+            d="M452,52 L462,48 L468,55 L464,65 L455,68 L448,62 Z"/>
+
+          <!-- Iberian peninsula -->
+          <path class="cont-shape" fill="rgba(154,205,50,0.12)" stroke="rgba(154,205,50,0.3)" stroke-width="1"
+            d="M408,195 L418,188 L428,190 L435,200 L432,212 L420,218 L410,212 Z"/>
+
+          <!-- ══════════ AFRICA ══════════ -->
+          <path class="cont-shape" id="shape-africa" fill="rgba(237,137,54,0.15)" stroke="rgba(237,137,54,0.45)" stroke-width="1.2"
+            d="M440,228 L455,222 L472,220 L488,225 L500,235 L508,248
+               L512,262 L510,278 L505,292 L502,308 L498,322 L492,335
+               L485,348 L478,360 L470,372 L462,382 L455,390 L448,395
+               L440,392 L432,385 L425,375 L418,362 L412,348 L408,334
+               L405,320 L404,305 L406,290 L410,276 L415,262 L420,248
+               L428,236 Z"/>
+          <!-- Madagascar -->
+          <path class="cont-shape" fill="rgba(237,137,54,0.12)" stroke="rgba(237,137,54,0.3)" stroke-width="1"
+            d="M515,310 L522,305 L528,312 L525,328 L518,335 L512,328 Z"/>
+
+          <!-- ══════════ ASIA ══════════ -->
+          <path class="cont-shape" id="shape-asia" fill="rgba(255,105,180,0.13)" stroke="rgba(255,105,180,0.42)" stroke-width="1.2"
+            d="M508,95 L525,88 L545,82 L568,78 L592,75 L618,72
+               L645,70 L672,72 L698,78 L722,85 L745,92 L768,98
+               L788,108 L805,120 L818,132 L825,145 L822,158 L812,168
+               L800,175 L790,185 L782,198 L778,212 L775,225 L768,238
+               L758,248 L745,255 L730,260 L715,262 L700,258 L685,252
+               L670,248 L655,245 L640,242 L625,238 L610,232 L595,225
+               L580,218 L565,212 L550,205 L535,198 L522,190 L512,180
+               L505,168 L505,155 L508,142 L512,128 L515,115 Z"/>
+          <!-- Japanese islands -->
+          <path class="cont-shape" fill="rgba(255,105,180,0.12)" stroke="rgba(255,105,180,0.3)" stroke-width="1"
+            d="M812,110 L820,105 L828,108 L832,118 L825,125 L815,122 Z"/>
+          <!-- Indian subcontinent -->
+          <path class="cont-shape" fill="rgba(255,105,180,0.12)" stroke="rgba(255,105,180,0.3)" stroke-width="1"
+            d="M630,230 L645,235 L658,248 L662,262 L655,275 L642,280 L628,272 L620,258 L622,244 Z"/>
+          <!-- Southeast Asia -->
+          <path class="cont-shape" fill="rgba(255,105,180,0.12)" stroke="rgba(255,105,180,0.3)" stroke-width="1"
+            d="M740,245 L758,250 L772,260 L778,275 L770,285 L755,282 L742,270 L738,258 Z"/>
+
+          <!-- ══════════ AUSTRALIA ══════════ -->
+          <path class="cont-shape" fill="rgba(160,82,45,0.15)" stroke="rgba(160,82,45,0.4)" stroke-width="1.2"
+            d="M760,330 L780,322 L800,320 L820,325 L835,338 L842,352
+               L838,368 L825,378 L808,382 L790,380 L775,372 L762,358
+               L756,344 Z"/>
+
+          <!-- ══════════ SOUTH AMERICA ══════════ -->
+          <path class="cont-shape" fill="rgba(99,179,237,0.12)" stroke="rgba(99,179,237,0.35)" stroke-width="1.2"
+            d="M185,295 L205,288 L225,285 L245,290 L260,302 L268,318
+               L270,335 L265,352 L258,368 L248,382 L235,392 L222,398
+               L208,400 L195,395 L182,385 L172,372 L165,358 L162,342
+               L162,325 L168,310 Z"/>
+
+          <!-- Flight route arcs -->
+          <path d="M430,195 Q505,140 640,210" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+          <path d="M440,225 Q445,290 455,360" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+          <path d="M430,195 Q310,230 200,295" fill="none" stroke="rgba(201,168,76,0.18)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+          <path d="M640,210 Q680,290 790,340" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+        </svg>
+
+        <!-- EUROPE bubble — positioned over Europe shape -->
+        <div class="continent-pin" id="pin-europe" style="left:47%;top:33%;" onclick="selectContinent('europe')">
+          <div class="continent-bubble" data-continent="europe">
+            <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80')"></div>
+            <div class="continent-glow"></div>
+            <div class="continent-label">
+              <span class="continent-icon">🏰</span>
+              <span class="continent-name">Европа</span>
+              <span class="continent-count" id="cnt-europe">0 оферти</span>
+            </div>
+            <div class="continent-pulse"></div>
+          </div>
+        </div>
+
+        <!-- AFRICA bubble -->
+        <div class="continent-pin" id="pin-africa" style="left:46%;top:67%;" onclick="selectContinent('africa')">
+          <div class="continent-bubble" data-continent="africa">
+            <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80')"></div>
+            <div class="continent-glow"></div>
+            <div class="continent-label">
+              <span class="continent-icon">🦁</span>
+              <span class="continent-name">Африка</span>
+              <span class="continent-count" id="cnt-africa">0 оферти</span>
+            </div>
+            <div class="continent-pulse"></div>
+          </div>
+        </div>
+
+        <!-- ASIA bubble -->
+        <div class="continent-pin" id="pin-asia" style="left:66%;top:40%;" onclick="selectContinent('asia')">
+          <div class="continent-bubble" data-continent="asia">
+            <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80')"></div>
+            <div class="continent-glow"></div>
+            <div class="continent-label">
+              <span class="continent-icon">🏯</span>
+              <span class="continent-name">Азия</span>
+              <span class="continent-count" id="cnt-asia">0 оферти</span>
+            </div>
+            <div class="continent-pulse"></div>
+          </div>
+        </div>
+
+        <!-- AMERICA bubble -->
+        <div class="continent-pin" id="pin-america" style="left:18%;top:50%;" onclick="selectContinent('america')">
+          <div class="continent-bubble" data-continent="america">
+            <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400&q=80')"></div>
+            <div class="continent-glow"></div>
+            <div class="continent-label">
+              <span class="continent-icon">🗽</span>
+              <span class="continent-name">Америка</span>
+              <span class="continent-count" id="cnt-america">Скоро</span>
+            </div>
+            <div class="continent-pulse"></div>
+          </div>
+        </div>
+
+        <!-- Floating travel icons -->
+        <div class="float-icon" style="left:37%;top:8%;animation-delay:0s;">✈️</div>
+        <div class="float-icon" style="left:72%;top:72%;animation-delay:1.5s;">🌴</div>
+        <div class="float-icon" style="left:82%;top:55%;animation-delay:3s;">⛱️</div>
+        <div class="float-icon" style="left:8%;top:30%;animation-delay:2s;">🗺️</div>
+      </div>
+    </div>
+
+    <!-- Selected Continent Panel -->
+    <div class="continent-panel" id="continentPanel" style="display:none;">
+      <div class="continent-panel-header">
+        <div class="continent-panel-title" id="panelTitle"></div>
+        <button class="continent-panel-close" onclick="closeContinent()">✕ Затвори</button>
+      </div>
+      <div class="continent-countries" id="continentCountries"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ALL OFFERS -->
+<section class="section" id="offers">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-badge">✈️ Всички оферти</div>
+      <h2 class="section-title">Намерете вашата мечтана ваканция</h2>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters-bar">
+      <div class="filter-group" id="catFilters">
+        <button class="filter-btn active" data-filter="all" onclick="filterByCategory('all')">Всички</button>
+        <button class="filter-btn" data-filter="vacation" onclick="filterByCategory('vacation')">🏖️ Почивки</button>
+        <button class="filter-btn" data-filter="excursion" onclick="filterByCategory('excursion')">🗺️ Екскурзии</button>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-group" id="tagFilters">
+        <button class="filter-btn" data-tag="lyato-gartsia" onclick="filterByTag('lyato-gartsia')">Лято 2026 Гърция</button>
+        <button class="filter-btn" data-tag="ranni-zapisvaniya" onclick="filterByTag('ranni-zapisvaniya')">Ранни записвания</button>
+        <button class="filter-btn" data-tag="uikend" onclick="filterByTag('uikend')">Уикенд</button>
+      </div>
+      <div class="filter-divider"></div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--gray-400);">
+        Сортирай:
+        <select id="sortSelect" onchange="applySortAndRender()" style="border:none;background:transparent;font-family:inherit;color:var(--dark);font-size:0.85rem;cursor:pointer;">
+          <option value="default">По подразбиране</option>
+          <option value="price-asc">Цена: ниска → висока</option>
+          <option value="price-desc">Цена: висока → ниска</option>
+          <option value="duration-asc">Продължителност: кратко</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="offers-grid" id="offersGrid"></div>
+    <div class="no-results" id="noResults" style="display:none;">
+      <div class="no-results-icon">🔍</div>
+      <h3>Няма намерени оферти</h3>
+      <p>Опитайте с различни филтри или <button onclick="resetFilters()" style="border:none;background:none;color:var(--primary);cursor:pointer;font-size:inherit;font-weight:600;">изчистете всички</button></p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section" id="why-us" style="background:var(--white);padding:4rem 2rem;">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-badge">💎 Защо ние</div>
+      <h2 class="section-title">Защо да изберете Marvel Tour?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🏆</div>
+        <div class="why-title">20+ години опит</div>
+        <div class="why-desc">Над две десетилетия в туризма. Опитен екип, който знае как да направи вашата ваканция съвършена.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <div class="why-title">Най-добрите цени</div>
+        <div class="why-desc">Директни договори с хотели и авиокомпании. Ранни записвания с отстъпки до 30%.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🛡️</div>
+        <div class="why-title">Пълна защита</div>
+        <div class="why-desc">Медицинска застраховка включена. Лицензиран туроператор. Вашата безопасност е наш приоритет.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">👨‍✈️</div>
+        <div class="why-title">Водач на Български</div>
+        <div class="why-desc">Много от нашите екскурзии включват водач на Български език. Никога не се чувствате сами.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">✈️</div>
+        <div class="why-title">Полети от Пловдив</div>
+        <div class="why-desc">Специални оферти с директни полети от Пловдив — без да се налага да пътувате до София.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📞</div>
+        <div class="why-title">Лична грижа</div>
+        <div class="why-desc">Отговаряме на всяко запитване в рамките на 24 часа. Ние сме тук за вас преди, по време и след пътуването.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT BANNER -->
+<div class="contact-banner">
+  <h2>Готови за приключение?</h2>
+  <p>Свържете се с нас и ние ще намерим перфектната оферта за вас.</p>
+  <div class="contact-actions">
+    <a href="tel:+359878904104" class="contact-btn contact-btn-primary">📞 +359 878 904 104</a>
+    <a href="mailto:info@marveltourbg.com" class="contact-btn contact-btn-outline">✉️ info@marveltourbg.com</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-text">Marvel <span>Tour</span></div>
+        <p class="footer-desc">Вашият доверен туроператор от Пловдив. Организираме незабравими пътувания от над 20 години — екскурзии, почивки и индивидуални програми.</p>
+        <div class="footer-social">
+          <a href="https://facebook.com" target="_blank">f</a>
+          <a href="https://instagram.com" target="_blank">ig</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Оферти</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="filterByTag('lyato-gartsia')">Лято 2026 Гърция</a></li>
+          <li><a href="#" onclick="filterByTag('ranni-zapisvaniya')">Ранни записвания</a></li>
+          <li><a href="#" onclick="filterByTag('uikend')">Уикенд оферти</a></li>
+          <li><a href="#" onclick="filterByCategory('vacation')">Почивки</a></li>
+          <li><a href="#" onclick="filterByCategory('excursion')">Екскурзии</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Информация</div>
+        <ul class="footer-links">
+          <li><a href="#">За нас</a></li>
+          <li><a href="#">Общи условия</a></li>
+          <li><a href="#">Политика за поверителност</a></li>
+          <li><a href="#">Застраховки</a></li>
+          <li><a href="#">Трансфери</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Контакти</div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">📍</span>
+          <span>Пловдив, България</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">📞</span>
+          <a href="tel:+359878904104" style="color:inherit;text-decoration:none;">+359 878 904 104</a>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">✉️</span>
+          <a href="mailto:info@marveltourbg.com" style="color:inherit;text-decoration:none;">info@marveltourbg.com</a>
+        </div>
+        <div class="footer-contact-item" style="margin-top:0.5rem;">
+          <span class="footer-contact-icon">⏰</span>
+          <span>Пон-Пет: 09:00 - 18:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Marvel Tour. Всички права запазени.</span>
+      <span>Лицензиран туроператор</span>
+    </div>
+  </div>
+</footer>
+
+<!-- OFFER MODAL -->
+<div class="modal-overlay" id="offerModal" onclick="closeModal(event)">
+  <div class="modal" id="modalContent">
+    <div class="modal-handle"></div>
+    <img src="" alt="" class="modal-img" id="modalImg">
+    <div class="modal-body">
+      <div class="modal-badge-row" id="modalBadges"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-price-row">
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-price-sub" id="modalPriceSub"></div>
+      </div>
+      <p class="modal-desc" id="modalDesc"></p>
+
+      <div id="modalHighlights"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+        <div>
+          <div class="modal-section-title">✅ Включено</div>
+          <ul class="modal-list" id="modalIncludes"></ul>
+        </div>
+        <div>
+          <div class="modal-section-title">❌ Не е включено</div>
+          <ul class="modal-list excludes" id="modalExcludes"></ul>
+        </div>
+      </div>
+
+      <div id="modalDatesSection">
+        <div class="modal-section-title">📅 Налични дати</div>
+        <div class="modal-dates-grid" id="modalDates"></div>
+      </div>
+
+      <div class="inquiry-form" id="inquirySection">
+        <h3>📬 Изпратете запитване</h3>
+        <div id="inquiryFormContent">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Вашето ime *</label>
+              <input type="text" class="form-input" id="inqName" placeholder="Иван Иванов">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Телефон *</label>
+              <input type="tel" class="form-input" id="inqPhone" placeholder="+359 88 888 8888">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" id="inqEmail" placeholder="ivan@example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Брой пътуващи</label>
+              <select class="form-select" id="inqPeople">
+                <option value="1">1 човек</option>
+                <option value="2" selected>2 човека</option>
+                <option value="3">3 човека</option>
+                <option value="4">4 човека</option>
+                <option value="5+">5+ човека</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:12px;">
+            <label class="form-label">Предпочитана дата</label>
+            <select class="form-select" id="inqDate"></select>
+          </div>
+          <div class="form-group" style="margin-bottom:12px;">
+            <label class="form-label">Съобщение (по желание)</label>
+            <textarea class="form-textarea" id="inqMsg" placeholder="Специални изисквания, въпроси..."></textarea>
+          </div>
+          <button class="form-submit" onclick="submitInquiry()">✉️ Изпрати запитване</button>
+        </div>
+        <div class="form-success" id="inquirySuccess" style="display:none;">
+          <div class="form-success-icon">🎉</div>
+          <h4>Запитването е изпратено!</h4>
+          <p>Ще се свържем с вас в рамките на 24 часа. Благодарим!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="data/offers.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
