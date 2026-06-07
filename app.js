@@ -318,32 +318,34 @@ function renderFeatured() {
 const CONTINENT_DATA = {
   europe: {
     label: 'Европа', icon: '🏰',
-    countries: ['greece','france','spain','italy','albania','poland'],
+    countries: ['greece','france','spain','italy','albania','poland','austria'],
     images: {
-      greece: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&q=80',
+      greece:  'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&q=80',
       france:  'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80',
       spain:   'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=400&q=80',
       italy:   'https://images.unsplash.com/photo-1555993539-1732b0258235?w=400&q=80',
       albania: 'https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=400&q=80',
       poland:  'https://images.unsplash.com/photo-1519197924294-4ba991a11128?w=400&q=80',
+      austria: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80',
     }
   },
   africa: {
     label: 'Африка', icon: '🦁',
-    countries: ['egypt','tunisia','morocco'],
+    countries: ['egypt','morocco'],
     images: {
       egypt:   'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80',
-      tunisia: 'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80',
-      morocco: 'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80',
+      morocco: 'https://images.unsplash.com/photo-1548697741-cc45ab89ef66?w=400&q=80',
     }
   },
   asia: {
     label: 'Азия', icon: '🏯',
-    countries: ['turkey','uae','jordan'],
+    countries: ['turkey','uae','jordan','thailand','vietnam'],
     images: {
-      turkey:  'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400&q=80',
-      uae:     'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80',
-      jordan:  'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80',
+      turkey:   'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400&q=80',
+      uae:      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80',
+      jordan:   'https://images.unsplash.com/photo-1548607595-dc2f55dcf63c?w=400&q=80',
+      thailand: 'https://images.unsplash.com/photo-1508009603885-50cf7c8dd0d5?w=400&q=80',
+      vietnam:  'https://images.unsplash.com/photo-1557750255-c76072a7aad1?w=400&q=80',
     }
   },
   america: {

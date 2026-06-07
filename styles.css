@@ -107,18 +107,20 @@ body {
 .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
 
 .nav-customer-btn {
-  background: rgba(201,168,76,0.15);
-  color: var(--gold) !important;
-  border: 1.5px solid var(--gold);
-  padding: 7px 16px;
+  background: var(--gold);
+  color: var(--dark) !important;
+  border: none;
+  padding: 8px 18px;
   border-radius: 100px;
   font-weight: 600;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
 }
-.nav-customer-btn:hover { background: var(--gold); color: var(--dark) !important; }
+.nav-customer-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
 
 /* ===== HERO ===== */
 .hero {
@@ -132,7 +134,16 @@ body {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #0f1923 0%, #1a3a6b 50%, #0d2f5a 100%);
+  background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=85');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(8,15,35,0.75) 0%, rgba(15,35,80,0.60) 50%, rgba(8,15,35,0.70) 100%);
 }
 .hero-particles {
   position: absolute;

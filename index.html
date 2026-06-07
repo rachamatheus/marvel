@@ -105,103 +105,106 @@
         <!-- Dark overlay -->
         <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(5,20,60,0.50) 0%,rgba(10,30,80,0.35) 50%,rgba(5,20,60,0.45) 100%);z-index:1;border-radius:20px;"></div>
 
-        <!-- SVG World Map -->
+        <!-- SVG World Map — realistic continent shapes (equirectangular projection 1010×510) -->
         <svg class="world-svg" viewBox="0 0 1010 510" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;">
           <defs>
-            <filter id="cont-glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="cont-glow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
-          <!-- Graticule -->
-          <line x1="5" y1="255" x2="1005" y2="255" stroke="rgba(255,255,255,0.12)" stroke-width="0.8" stroke-dasharray="4,10"/>
-          <line x1="505" y1="5" x2="505" y2="505" stroke="rgba(255,255,255,0.10)" stroke-width="0.8" stroke-dasharray="4,10"/>
-          <line x1="253" y1="5" x2="253" y2="505" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="3,14"/>
-          <line x1="758" y1="5" x2="758" y2="505" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="3,14"/>
-          <line x1="5" y1="128" x2="1005" y2="128" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="3,14"/>
-          <line x1="5" y1="383" x2="1005" y2="383" stroke="rgba(255,255,255,0.05)" stroke-width="0.5" stroke-dasharray="3,14"/>
-          <ellipse cx="505" cy="255" rx="500" ry="252" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <!-- Grid lines -->
+          <line x1="5" y1="255" x2="1005" y2="255" stroke="rgba(255,255,255,0.10)" stroke-width="0.7" stroke-dasharray="4,12"/>
+          <line x1="505" y1="5" x2="505" y2="505" stroke="rgba(255,255,255,0.08)" stroke-width="0.7" stroke-dasharray="4,12"/>
+          <ellipse cx="505" cy="255" rx="500" ry="250" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="0.8"/>
 
-          <!-- NORTH AMERICA -->
-          <path class="cont-shape cont-america" fill="rgba(99,179,237,0.22)" stroke="rgba(99,179,237,0.65)" stroke-width="1.2" filter="url(#cont-glow)"
-            d="M 62,52 L 75,42 L 95,38 L 118,42 L 135,48 L 150,52 L 158,62 L 162,78 L 158,95
-               L 152,112 L 150,128 L 148,145 L 145,162 L 142,178 L 138,195 L 132,212
-               L 122,228 L 118,238 L 128,242 L 140,238 L 148,245 L 135,252 L 118,262
-               L 108,272 L 110,282 L 125,285 L 142,278 L 158,268 L 170,255 L 180,238
-               L 188,218 L 188,198 L 185,178 L 185,158 L 188,138 L 195,118 L 205,98
-               L 215,78 L 225,60 L 238,48 L 255,42 L 272,42 L 285,48 L 292,62
-               L 295,78 L 290,95 L 282,108 L 275,122 L 272,135 L 268,148
-               L 262,138 L 255,125 L 245,118 L 235,122 L 228,132 L 222,145
-               L 218,155 L 215,145 L 212,132 L 208,120 L 200,112 L 192,115
-               L 185,122 L 180,132 L 175,142 L 170,132 L 162,120 L 155,108
-               L 148,98 L 140,88 L 128,78 L 115,68 L 100,62 L 85,62 L 72,58 Z"/>
+          <!-- ══ NORTH AMERICA ══ -->
+          <path class="cont-shape cont-north-america" fill="rgba(99,179,237,0.28)" stroke="rgba(99,179,237,0.85)" stroke-width="1.5" filter="url(#cont-glow)"
+            d="M 33,105 L 50,71 L 78,57 L 109,62 L 130,68 L 154,62 L 169,71
+               L 162,88 L 157,108 L 162,130 L 169,150 L 166,170 L 173,185
+               L 196,192 L 220,202 L 252,212 L 260,200 L 252,188 L 248,178
+               L 255,172 L 275,184 L 281,170 L 290,155 L 298,139 L 318,122
+               L 331,128 L 352,122 L 350,108 L 338,91 L 298,88 L 281,79
+               L 270,105 L 252,108 L 234,85 L 220,71 L 196,65 L 169,71
+               L 154,62 L 121,68 L 109,79 L 85,75 Z"/>
+          <!-- Greenland -->
+          <path class="cont-shape" fill="rgba(99,179,237,0.16)" stroke="rgba(99,179,237,0.45)" stroke-width="0.8"
+            d="M 351,34 L 369,22 L 392,17 L 413,22 L 424,34 L 420,48 L 406,57 L 388,60 L 369,57 L 355,45 Z"/>
 
-          <!-- GREENLAND -->
-          <path class="cont-shape" fill="rgba(99,179,237,0.15)" stroke="rgba(99,179,237,0.4)" stroke-width="0.8"
-            d="M 305,18 L 320,12 L 338,12 L 352,18 L 360,28 L 358,40 L 348,48 L 332,52 L 318,48 L 308,38 Z"/>
+          <!-- ══ SOUTH AMERICA ══ -->
+          <path class="cont-shape cont-south-america" fill="rgba(72,187,120,0.28)" stroke="rgba(72,187,120,0.85)" stroke-width="1.5" filter="url(#cont-glow)"
+            d="M 290,218 L 310,215 L 326,224 L 352,230 L 378,248 L 400,265
+               L 408,278 L 405,295 L 396,315 L 385,335 L 370,352 L 355,368
+               L 342,385 L 330,405 L 318,425 L 308,438 L 298,428 L 288,410
+               L 280,390 L 275,368 L 272,345 L 270,320 L 268,295 L 265,270
+               L 265,248 L 270,232 L 278,224 Z"/>
 
-          <!-- SOUTH AMERICA -->
-          <path class="cont-shape cont-america" fill="rgba(99,179,237,0.18)" stroke="rgba(99,179,237,0.55)" stroke-width="1.2" filter="url(#cont-glow)"
-            d="M 188,262 L 202,255 L 218,252 L 232,255 L 245,262 L 255,272 L 262,285
-               L 265,300 L 262,315 L 258,330 L 252,345 L 245,360 L 238,372 L 228,382
-               L 218,390 L 208,395 L 198,395 L 188,388 L 180,378 L 175,365 L 172,350
-               L 172,335 L 175,320 L 178,305 L 182,290 L 185,275 Z"/>
+          <!-- ══ EUROPE ══ -->
+          <path class="cont-shape cont-europe" fill="rgba(154,205,50,0.28)" stroke="rgba(154,205,50,0.85)" stroke-width="1.5" filter="url(#cont-glow)"
+            d="M 480,151 L 494,153 L 505,151 L 519,141 L 527,128 L 519,118
+               L 519,108 L 527,99 L 535,94 L 543,102 L 549,112 L 547,124
+               L 541,133 L 547,141 L 553,151 L 565,153 L 572,151 L 580,148
+               L 592,140 L 600,130 L 606,118 L 614,108 L 617,99 L 614,91
+               L 606,82 L 597,74 L 589,71 L 578,71 L 567,65 L 560,54
+               L 549,54 L 540,60 L 530,68 L 519,79 L 513,88 L 505,102
+               L 505,110 L 499,120 L 494,130 L 487,140 L 484,148 Z"/>
 
-          <!-- EUROPE -->
-          <path class="cont-shape cont-europe" fill="rgba(154,205,50,0.25)" stroke="rgba(154,205,50,0.7)" stroke-width="1.3" filter="url(#cont-glow)"
-            d="M 455,82 L 462,72 L 472,65 L 482,62 L 492,65 L 500,72 L 508,80
-               L 515,90 L 520,102 L 522,115 L 518,128 L 525,135 L 532,128 L 540,122
-               L 548,118 L 552,125 L 548,135 L 540,145 L 532,155 L 525,165
-               L 520,175 L 515,185 L 510,195 L 502,202 L 492,208 L 480,212
-               L 468,215 L 456,218 L 445,214 L 435,208 L 428,198 L 425,186
-               L 428,174 L 432,162 L 435,150 L 435,138 L 432,126 L 435,114
-               L 440,102 L 448,92 Z
-               M 490,55 L 500,50 L 510,52 L 515,60 L 510,68 L 500,70 L 490,65 Z
-               M 470,58 L 480,54 L 488,58 L 485,68 L 475,70 L 468,64 Z
-               M 432,192 L 442,188 L 448,196 L 444,206 L 434,208 Z
-               M 502,188 L 510,185 L 516,192 L 512,202 L 504,200 Z"/>
+          <!-- ══ AFRICA ══ -->
+          <path class="cont-shape cont-africa" fill="rgba(237,137,54,0.28)" stroke="rgba(237,137,54,0.85)" stroke-width="1.5" filter="url(#cont-glow)"
+            d="M 466,153 L 491,153 L 510,151 L 535,151 L 560,155 L 578,165
+               L 594,172 L 606,185 L 620,200 L 628,215 L 635,232 L 638,252
+               L 635,272 L 628,292 L 618,312 L 606,330 L 592,345 L 578,355
+               L 558,358 L 542,352 L 530,340 L 520,325 L 513,308 L 508,290
+               L 506,272 L 505,255 L 502,240 L 496,227 L 487,218 L 475,212
+               L 462,208 L 452,200 L 449,188 L 455,175 L 460,165 Z"/>
+          <!-- Horn of Africa -->
+          <path class="cont-shape cont-africa" fill="rgba(237,137,54,0.22)" stroke="rgba(237,137,54,0.60)" stroke-width="1"
+            d="M 635,232 L 648,224 L 658,228 L 652,245 L 638,252 Z"/>
 
-          <!-- AFRICA -->
-          <path class="cont-shape cont-africa" fill="rgba(237,137,54,0.25)" stroke="rgba(237,137,54,0.7)" stroke-width="1.3" filter="url(#cont-glow)"
-            d="M 428,158 L 442,152 L 458,150 L 472,152 L 485,158 L 495,165
-               L 502,175 L 508,185 L 512,198 L 512,212 L 508,225 L 502,238
-               L 496,250 L 492,262 L 490,275 L 490,290 L 492,305 L 495,320
-               L 498,335 L 498,350 L 495,362 L 488,372 L 478,380 L 468,384
-               L 458,382 L 448,374 L 440,362 L 435,348 L 432,334 L 430,320
-               L 430,305 L 432,290 L 432,275 L 430,262 L 426,250 L 420,238
-               L 416,225 L 414,212 L 415,198 L 418,185 L 422,172 Z
-               M 510,162 L 520,158 L 528,162 L 528,172 L 520,175 L 512,170 Z"/>
+          <!-- ══ ASIA ══ (main body — Russia + Central + East Asia) -->
+          <path class="cont-shape cont-asia" fill="rgba(255,150,80,0.26)" stroke="rgba(255,150,80,0.82)" stroke-width="1.5" filter="url(#cont-glow)"
+            d="M 606,148 L 620,136 L 632,120 L 644,108 L 659,99 L 678,91
+               L 700,82 L 722,74 L 748,62 L 778,51 L 812,45 L 850,48
+               L 888,51 L 924,57 L 958,65 L 981,71 L 981,88 L 970,105
+               L 958,120 L 948,135 L 935,148 L 920,158 L 905,165
+               L 890,168 L 875,172 L 860,175 L 845,180 L 830,188
+               L 818,198 L 808,210 L 800,224 L 795,238 L 790,250
+               L 780,245 L 765,238 L 750,232 L 735,232 L 718,232
+               L 706,228 L 706,212 L 708,198 L 715,185 L 722,172
+               L 726,158 L 722,145 L 712,135 L 700,124 L 690,115
+               L 678,108 L 667,99 L 658,91 L 650,82 L 644,74 L 638,80
+               L 632,91 L 625,102 L 618,112 L 614,120 L 608,128 Z"/>
+          <!-- Arabia + Middle East -->
+          <path class="cont-shape cont-asia" fill="rgba(255,150,80,0.22)" stroke="rgba(255,150,80,0.60)" stroke-width="1"
+            d="M 606,148 L 620,145 L 635,148 L 648,158 L 655,172 L 661,185
+               L 667,198 L 661,212 L 651,224 L 638,228 L 628,215
+               L 620,200 L 608,188 L 602,175 L 600,162 Z"/>
+          <!-- Indian subcontinent -->
+          <path class="cont-shape cont-asia" fill="rgba(255,150,80,0.22)" stroke="rgba(255,150,80,0.60)" stroke-width="1"
+            d="M 706,195 L 718,192 L 732,192 L 745,200 L 748,215
+               L 745,228 L 735,235 L 722,240 L 712,248 L 708,260
+               L 700,265 L 695,258 L 691,245 L 690,230 L 693,215
+               L 698,205 Z"/>
+          <!-- Southeast Asia + Indochina -->
+          <path class="cont-shape cont-asia" fill="rgba(255,150,80,0.20)" stroke="rgba(255,150,80,0.55)" stroke-width="1"
+            d="M 795,238 L 808,228 L 818,218 L 822,230 L 818,245
+               L 810,255 L 800,262 L 790,260 L 785,250 Z"/>
 
-          <!-- ASIA -->
-          <path class="cont-shape cont-asia" fill="rgba(255,150,100,0.22)" stroke="rgba(255,150,100,0.65)" stroke-width="1.2" filter="url(#cont-glow)"
-            d="M 510,80 L 525,72 L 545,65 L 568,60 L 592,58 L 618,56 L 645,55
-               L 672,56 L 700,60 L 728,65 L 755,72 L 778,82 L 798,92 L 815,105
-               L 828,118 L 835,132 L 838,148 L 832,162 L 822,175 L 808,185
-               L 795,195 L 785,208 L 780,222 L 778,235 L 772,248 L 762,258
-               L 750,265 L 735,268 L 720,265 L 705,260 L 692,255 L 678,250
-               L 665,248 L 652,248 L 640,245 L 628,242 L 615,238 L 602,232
-               L 590,225 L 578,218 L 565,212 L 552,205 L 540,198 L 528,190
-               L 518,182 L 510,172 L 506,160 L 506,148 L 508,135 L 512,122
-               L 515,108 L 515,95 Z
-               M 635,242 L 648,248 L 658,262 L 660,278 L 652,288 L 638,290
-               L 626,282 L 620,268 L 622,254 Z
-               M 750,252 L 768,258 L 778,272 L 775,285 L 760,288 L 748,278 L 745,264 Z
-               M 820,108 L 832,102 L 842,108 L 840,120 L 828,125 L 818,118 Z
-               M 855,108 L 865,102 L 875,108 L 872,120 L 860,124 L 852,116 Z"/>
+          <!-- ══ AUSTRALIA ══ -->
+          <path class="cont-shape cont-australia" fill="rgba(180,120,60,0.28)" stroke="rgba(180,120,60,0.82)" stroke-width="1.5" filter="url(#cont-glow)"
+            d="M 838,295 L 862,285 L 892,282 L 920,285 L 940,295 L 950,312
+               L 954,330 L 950,348 L 942,362 L 930,372 L 915,380 L 900,382
+               L 882,378 L 865,368 L 852,355 L 842,338 L 836,320 Z"/>
+          <!-- New Zealand -->
+          <path class="cont-shape" fill="rgba(180,120,60,0.20)" stroke="rgba(180,120,60,0.55)" stroke-width="0.8"
+            d="M 965,378 L 972,368 L 978,375 L 978,388 L 970,395 L 963,388 Z"/>
 
-          <!-- AUSTRALIA -->
-          <path class="cont-shape cont-australia" fill="rgba(180,120,60,0.22)" stroke="rgba(180,120,60,0.6)" stroke-width="1.2" filter="url(#cont-glow)"
-            d="M 742,322 L 758,315 L 775,312 L 792,315 L 808,322 L 822,332
-               L 832,345 L 838,360 L 835,375 L 825,385 L 810,390 L 794,390
-               L 778,385 L 764,375 L 754,362 L 748,348 L 745,334 Z
-               M 838,332 L 848,325 L 858,328 L 858,340 L 848,345 L 838,340 Z"/>
-
-          <!-- Flight route arcs -->
-          <path d="M 445,185 Q 500,145 640,215" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1.2" stroke-dasharray="6,8" class="route-arc"/>
-          <path d="M 445,188 Q 445,290 458,365" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
-          <path d="M 440,185 Q 320,220 195,265" fill="none" stroke="rgba(201,168,76,0.22)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
-          <path d="M 640,215 Q 700,300 790,355" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+          <!-- ══ Flight arcs (from Sofia/Bulgaria) ══ -->
+          <path d="M 568,138 Q 525,110 255,200" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+          <path d="M 568,138 Q 600,200 538,300" fill="none" stroke="rgba(201,168,76,0.22)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+          <path d="M 568,138 Q 650,120 810,215" fill="none" stroke="rgba(201,168,76,0.22)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+          <path d="M 568,138 Q 590,190 625,215" fill="none" stroke="rgba(201,168,76,0.20)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
         </svg>
 
-        <!-- EUROPE bubble — positioned over Europe shape -->
-        <div class="continent-pin" id="pin-europe" style="left:44%;top:18%;z-index:10;" onclick="selectContinent('europe')">
+        <!-- ★ EUROPE bubble (centered on Europe shape) -->
+        <div class="continent-pin" id="pin-europe" style="left:51%;top:14%;z-index:10;" onclick="selectContinent('europe')">
           <div class="continent-bubble" data-continent="europe">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -214,8 +217,8 @@
           </div>
         </div>
 
-        <!-- AFRICA bubble -->
-        <div class="continent-pin" id="pin-africa" style="left:46%;top:60%;z-index:10;" onclick="selectContinent('africa')">
+        <!-- ★ AFRICA bubble -->
+        <div class="continent-pin" id="pin-africa" style="left:51%;top:58%;z-index:10;" onclick="selectContinent('africa')">
           <div class="continent-bubble" data-continent="africa">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -228,8 +231,8 @@
           </div>
         </div>
 
-        <!-- ASIA bubble -->
-        <div class="continent-pin" id="pin-asia" style="left:65%;top:20%;z-index:10;" onclick="selectContinent('asia')">
+        <!-- ★ ASIA bubble -->
+        <div class="continent-pin" id="pin-asia" style="left:72%;top:22%;z-index:10;" onclick="selectContinent('asia')">
           <div class="continent-bubble" data-continent="asia">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -242,8 +245,8 @@
           </div>
         </div>
 
-        <!-- AMERICA bubble -->
-        <div class="continent-pin" id="pin-america" style="left:15%;top:30%;z-index:10;" onclick="selectContinent('america')">
+        <!-- ★ AMERICA bubble -->
+        <div class="continent-pin" id="pin-america" style="left:14%;top:28%;z-index:10;" onclick="selectContinent('america')">
           <div class="continent-bubble" data-continent="america">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400&q=80')"></div>
             <div class="continent-glow"></div>
