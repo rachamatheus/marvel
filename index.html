@@ -28,6 +28,7 @@
     <li><a href="#why-us">За нас</a></li>
     <li><a href="mailto:info@marveltourbg.com">Контакти</a></li>
     <li><a href="admin/login.html" class="nav-cta">Вход Админ</a></li>
+    <li id="customerAuthNav"><button class="nav-customer-btn" id="customerAuthBtn" onclick="openAuthModal()">👤 Вход / Регистрация</button></li>
   </ul>
   <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileMenu()">
     <span></span><span></span><span></span>
@@ -102,7 +103,7 @@
       <div class="world-map" style="background-image: url('https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1400&q=80'); background-size: cover; background-position: center;">
 
         <!-- Dark overlay -->
-        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(5,20,60,0.72) 0%,rgba(10,30,80,0.55) 50%,rgba(5,20,60,0.68) 100%);z-index:1;border-radius:20px;"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(5,20,60,0.50) 0%,rgba(10,30,80,0.35) 50%,rgba(5,20,60,0.45) 100%);z-index:1;border-radius:20px;"></div>
 
         <!-- SVG World Map -->
         <svg class="world-svg" viewBox="0 0 1010 510" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;">
@@ -200,7 +201,7 @@
         </svg>
 
         <!-- EUROPE bubble — positioned over Europe shape -->
-        <div class="continent-pin" id="pin-europe" style="left:47%;top:40%;z-index:10;" onclick="selectContinent('europe')">
+        <div class="continent-pin" id="pin-europe" style="left:44%;top:18%;z-index:10;" onclick="selectContinent('europe')">
           <div class="continent-bubble" data-continent="europe">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -214,7 +215,7 @@
         </div>
 
         <!-- AFRICA bubble -->
-        <div class="continent-pin" id="pin-africa" style="left:47%;top:72%;z-index:10;" onclick="selectContinent('africa')">
+        <div class="continent-pin" id="pin-africa" style="left:46%;top:60%;z-index:10;" onclick="selectContinent('africa')">
           <div class="continent-bubble" data-continent="africa">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -228,7 +229,7 @@
         </div>
 
         <!-- ASIA bubble -->
-        <div class="continent-pin" id="pin-asia" style="left:68%;top:42%;z-index:10;" onclick="selectContinent('asia')">
+        <div class="continent-pin" id="pin-asia" style="left:65%;top:20%;z-index:10;" onclick="selectContinent('asia')">
           <div class="continent-bubble" data-continent="asia">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -242,7 +243,7 @@
         </div>
 
         <!-- AMERICA bubble -->
-        <div class="continent-pin" id="pin-america" style="left:19%;top:45%;z-index:10;" onclick="selectContinent('america')">
+        <div class="continent-pin" id="pin-america" style="left:15%;top:30%;z-index:10;" onclick="selectContinent('america')">
           <div class="continent-bubble" data-continent="america">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400&q=80')"></div>
             <div class="continent-glow"></div>

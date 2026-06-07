@@ -73,17 +73,15 @@ function getCurrentCustomer() {
 
 function updateNavbarAuth() {
   const customer = getCurrentCustomer();
-  const authEl = document.getElementById('navAuthArea');
-  if (!authEl) return;
+  const btn = document.getElementById('customerAuthBtn');
+  if (!btn) return;
   if (customer) {
-    authEl.innerHTML = `
-      <span style="color:var(--primary);font-weight:600;font-size:0.9rem;">👤 ${customer.name}</span>
-      <button class="nav-auth-btn" onclick="logoutCustomer()" style="margin-left:8px;">Изход</button>
-    `;
+    btn.textContent = `👤 ${customer.name}`;
+    btn.onclick = logoutCustomer;
+    btn.title = 'Кликнете за изход';
   } else {
-    authEl.innerHTML = `
-      <button class="nav-auth-btn" onclick="openAuthModal()">Вход / Регистрация</button>
-    `;
+    btn.textContent = '👤 Вход / Регистрация';
+    btn.onclick = openAuthModal;
   }
 }
 
