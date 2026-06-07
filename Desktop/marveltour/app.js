@@ -7,6 +7,11 @@ let currentSort = 'default';
 let activeOffer = null;
 let favorites = JSON.parse(localStorage.getItem('mt_favorites') || '[]');
 
+// ===== MERGE CUSTOM OFFERS =====
+const customOffers = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
+const deletedIds = JSON.parse(localStorage.getItem('mt_deleted_offers') || '[]');
+const ALL_OFFERS = [...OFFERS.filter(o => !deletedIds.includes(o.id)), ...customOffers];
+
 // ===== SUPABASE CONFIG =====
 // Replace with your Supabase project URL and anon key after setup
 const SUPABASE_URL = 'YOUR_SUPABASE_URL';
@@ -21,15 +26,202 @@ function initSupabase() {
   return false;
 }
 
+// ===== CUSTOMER AUTH =====
+function registerCustomer(name, email, password) {
+  const customers = JSON.parse(localStorage.getItem('mt_customers') || '[]');
+  if (customers.find(c => c.email === email)) {
+    return { success: false, error: 'Имейлът вече е регистриран.' };
+  }
+  const customer = {
+    id: Date.now(),
+    name,
+    email,
+    password: btoa(password),
+    created_at: new Date().toISOString(),
+    favorites: []
+  };
+  customers.push(customer);
+  localStorage.setItem('mt_customers', JSON.stringify(customers));
+  return { success: true, customer };
+}
+
+function loginCustomer(email, password) {
+  const customers = JSON.parse(localStorage.getItem('mt_customers') || '[]');
+  const customer = customers.find(c => c.email === email && c.password === btoa(password));
+  if (!customer) {
+    return { success: false, error: 'Грешен имейл или парола.' };
+  }
+  const session = { id: customer.id, name: customer.name, email: customer.email };
+  sessionStorage.setItem('mt_customer_session', JSON.stringify(session));
+  // Sync favorites from customer profile
+  favorites = customer.favorites || [];
+  localStorage.setItem('mt_favorites', JSON.stringify(favorites));
+  return { success: true, customer: session };
+}
+
+function logoutCustomer() {
+  sessionStorage.removeItem('mt_customer_session');
+  favorites = JSON.parse(localStorage.getItem('mt_favorites') || '[]');
+  updateNavbarAuth();
+  renderOffers();
+  showToast('Излязохте от профила си.', 'success');
+}
+
+function getCurrentCustomer() {
+  return JSON.parse(sessionStorage.getItem('mt_customer_session') || 'null');
+}
+
+function updateNavbarAuth() {
+  const customer = getCurrentCustomer();
+  const authEl = document.getElementById('navAuthArea');
+  if (!authEl) return;
+  if (customer) {
+    authEl.innerHTML = `
+      <span style="color:var(--primary);font-weight:600;font-size:0.9rem;">👤 ${customer.name}</span>
+      <button class="nav-auth-btn" onclick="logoutCustomer()" style="margin-left:8px;">Изход</button>
+    `;
+  } else {
+    authEl.innerHTML = `
+      <button class="nav-auth-btn" onclick="openAuthModal()">Вход / Регистрация</button>
+    `;
+  }
+}
+
+function openAuthModal() {
+  const modal = document.getElementById('authModal');
+  if (!modal) {
+    // Create modal if it doesn't exist
+    const el = document.createElement('div');
+    el.id = 'authModal';
+    el.className = 'modal-overlay';
+    el.innerHTML = `
+      <div class="modal-box" style="max-width:420px;" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeAuthModal()">✕</button>
+        <div class="auth-tabs" style="display:flex;gap:0;margin-bottom:1.5rem;border-bottom:2px solid #eee;">
+          <button id="authTabLogin" class="auth-tab active" onclick="switchAuthTab('login')" style="flex:1;padding:10px;background:none;border:none;font-weight:700;font-size:1rem;cursor:pointer;color:var(--primary);border-bottom:3px solid var(--primary);margin-bottom:-2px;">Вход</button>
+          <button id="authTabRegister" class="auth-tab" onclick="switchAuthTab('register')" style="flex:1;padding:10px;background:none;border:none;font-weight:700;font-size:1rem;cursor:pointer;color:#999;border-bottom:3px solid transparent;margin-bottom:-2px;">Регистрация</button>
+        </div>
+        <div id="authFormLogin">
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Имейл</label>
+            <input id="loginEmail" type="email" class="form-input" placeholder="вашия@имейл.com" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
+          </div>
+          <div class="form-group" style="margin-bottom:1.5rem;">
+            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Парола</label>
+            <input id="loginPassword" type="password" class="form-input" placeholder="••••••••" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
+          </div>
+          <div id="loginError" style="color:#e53;font-size:0.85rem;margin-bottom:0.75rem;display:none;"></div>
+          <button class="offer-btn" style="width:100%;padding:12px;" onclick="handleLogin()">Вход</button>
+        </div>
+        <div id="authFormRegister" style="display:none;">
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Имe</label>
+            <input id="regName" type="text" class="form-input" placeholder="Вашето име" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Имейл</label>
+            <input id="regEmail" type="email" class="form-input" placeholder="вашия@имейл.com" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Парола</label>
+            <input id="regPassword" type="password" class="form-input" placeholder="••••••••" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
+          </div>
+          <div class="form-group" style="margin-bottom:1.5rem;">
+            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Потвърди парола</label>
+            <input id="regPasswordConfirm" type="password" class="form-input" placeholder="••••••••" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
+          </div>
+          <div id="regError" style="color:#e53;font-size:0.85rem;margin-bottom:0.75rem;display:none;"></div>
+          <button class="offer-btn" style="width:100%;padding:12px;" onclick="handleRegister()">Регистрация</button>
+        </div>
+      </div>
+    `;
+    el.addEventListener('click', e => { if (e.target === el) closeAuthModal(); });
+    document.body.appendChild(el);
+  }
+  document.getElementById('authModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuthModal() {
+  const modal = document.getElementById('authModal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+function switchAuthTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('authFormLogin').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('authFormRegister').style.display = isLogin ? 'none' : 'block';
+  document.getElementById('authTabLogin').style.color = isLogin ? 'var(--primary)' : '#999';
+  document.getElementById('authTabLogin').style.borderBottomColor = isLogin ? 'var(--primary)' : 'transparent';
+  document.getElementById('authTabRegister').style.color = isLogin ? '#999' : 'var(--primary)';
+  document.getElementById('authTabRegister').style.borderBottomColor = isLogin ? 'transparent' : 'var(--primary)';
+}
+
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  const result = loginCustomer(email, password);
+  if (!result.success) {
+    errEl.textContent = result.error;
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+  closeAuthModal();
+  updateNavbarAuth();
+  renderOffers();
+  showToast(`Добре дошли, ${result.customer.name}!`, 'success');
+}
+
+function handleRegister() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPassword').value;
+  const confirm = document.getElementById('regPasswordConfirm').value;
+  const errEl = document.getElementById('regError');
+
+  if (!name || !email || !password) {
+    errEl.textContent = 'Моля попълнете всички полета.';
+    errEl.style.display = 'block';
+    return;
+  }
+  if (password !== confirm) {
+    errEl.textContent = 'Паролите не съвпадат.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  const result = registerCustomer(name, email, password);
+  if (!result.success) {
+    errEl.textContent = result.error;
+    errEl.style.display = 'block';
+    return;
+  }
+
+  // Auto-login after registration
+  loginCustomer(email, password);
+  errEl.style.display = 'none';
+  closeAuthModal();
+  updateNavbarAuth();
+  renderOffers();
+  showToast(`Регистрацията е успешна! Добре дошли, ${name}!`, 'success');
+}
+
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
   initSupabase();
   updateStatCounter();
   renderFeatured();
   initContinentMap();
+  renderFilters();
   renderOffers();
   initNavbar();
   initHeroSearch();
+  updateNavbarAuth();
   trackPageView('home');
 });
 
@@ -76,7 +268,7 @@ function updateStatCounter() {
   const el = document.getElementById('stat-total');
   if (!el) return;
   let count = 0;
-  const target = OFFERS.length;
+  const target = ALL_OFFERS.length;
   const step = Math.ceil(target / 30);
   const timer = setInterval(() => {
     count = Math.min(count + step, target);
@@ -89,7 +281,7 @@ function updateStatCounter() {
 function renderFeatured() {
   const grid = document.getElementById('featuredGrid');
   if (!grid) return;
-  const featured = OFFERS.filter(o => o.featured).slice(0, 5);
+  const featured = ALL_OFFERS.filter(o => o.featured).slice(0, 5);
   if (!featured.length) return;
 
   const [main, ...rest] = featured;
@@ -100,8 +292,8 @@ function renderFeatured() {
         <div class="offer-destination">📍 ${main.destination}</div>
         <div class="offer-title">${main.title}</div>
         <div style="display:flex;align-items:baseline;gap:6px;margin-top:8px;">
-          <span class="offer-price">от ${main.price_bgn.toFixed(0)} лв.</span>
-          <span class="offer-price-eur">/ ${main.price_eur} €</span>
+          <span class="offer-price">от ${main.price_eur} €</span>
+          <span class="offer-price-eur">/ ${main.price_bgn.toFixed(0)} лв.</span>
         </div>
       </div>
     </a>
@@ -114,8 +306,8 @@ function renderFeatured() {
           <div class="offer-destination">📍 ${o.destination}</div>
           <div class="offer-title">${o.title}</div>
           <div style="display:flex;align-items:baseline;gap:6px;margin-top:6px;">
-            <span class="offer-price" style="font-size:1.1rem;">от ${o.price_bgn.toFixed(0)} лв.</span>
-            <span class="offer-price-eur">/ ${o.price_eur} €</span>
+            <span class="offer-price" style="font-size:1.1rem;">от ${o.price_eur} €</span>
+            <span class="offer-price-eur">/ ${o.price_bgn.toFixed(0)} лв.</span>
           </div>
         </div>
       </a>
@@ -168,7 +360,7 @@ let activeContinent = null;
 function initContinentMap() {
   // Count offers per continent and update badges
   Object.entries(CONTINENT_DATA).forEach(([key, data]) => {
-    const count = OFFERS.filter(o => data.countries.includes(o.country)).length;
+    const count = ALL_OFFERS.filter(o => data.countries.includes(o.country)).length;
     const el = document.getElementById(`cnt-${key}`);
     if (el) el.textContent = count > 0 ? `${count} оферти` : 'Скоро';
   });
@@ -203,8 +395,8 @@ function selectContinent(key) {
     grid.innerHTML = data.countries.map(countryId => {
       const country = COUNTRIES.find(c => c.id === countryId);
       if (!country) return '';
-      const offers = OFFERS.filter(o => o.country === countryId);
-      const minPrice = offers.length ? Math.min(...offers.map(o => o.price_bgn)) : 0;
+      const offers = ALL_OFFERS.filter(o => o.country === countryId);
+      const minPrice = offers.length ? Math.min(...offers.map(o => o.price_eur)) : 0;
       const img = data.images[countryId] || '';
       return `
         <a class="country-card" href="javascript:void(0)" onclick="filterByCountry('${countryId}');closeContinent()">
@@ -217,7 +409,7 @@ function selectContinent(key) {
               <span class="country-name-text">${country.label}</span>
             </div>
             <div class="country-offer-count">${offers.length} оферт${offers.length === 1 ? 'а' : 'и'}</div>
-            ${minPrice ? `<div class="country-price">от ${minPrice.toFixed(0)} лв.</div>` : ''}
+            ${minPrice ? `<div class="country-price">от ${minPrice.toFixed(0)} €</div>` : ''}
           </div>
         </a>
       `;
@@ -235,9 +427,23 @@ function closeContinent() {
   panel.style.display = 'none';
 }
 
+// ===== FILTER RENDERING =====
+function renderFilters() {
+  const container = document.getElementById('tagFilters');
+  if (!container) return;
+
+  const builtInTags = typeof TAGS !== 'undefined' ? TAGS : [];
+  const customTags = JSON.parse(localStorage.getItem('mt_custom_tags') || '[]');
+  const allTags = [...builtInTags, ...customTags.filter(t => !builtInTags.includes(t))];
+
+  container.innerHTML = allTags.map(tag => `
+    <button data-tag="${tag}" class="tag-btn${currentTag === tag ? ' active' : ''}" onclick="filterByTag('${tag}')">${tag}</button>
+  `).join('');
+}
+
 // ===== OFFERS GRID =====
 function getFilteredOffers() {
-  let list = [...OFFERS];
+  let list = [...ALL_OFFERS];
   if (currentCategory !== 'all') list = list.filter(o => o.category === currentCategory);
   if (currentTag) list = list.filter(o => o.tags.includes(currentTag));
   if (currentCountry) list = list.filter(o => o.country === currentCountry);
@@ -248,8 +454,8 @@ function getFilteredOffers() {
       o.description.toLowerCase().includes(currentSearch)
     );
   }
-  if (currentSort === 'price-asc') list.sort((a, b) => a.price_bgn - b.price_bgn);
-  if (currentSort === 'price-desc') list.sort((a, b) => b.price_bgn - a.price_bgn);
+  if (currentSort === 'price-asc') list.sort((a, b) => a.price_eur - b.price_eur);
+  if (currentSort === 'price-desc') list.sort((a, b) => b.price_eur - a.price_eur);
   if (currentSort === 'duration-asc') list.sort((a, b) => a.days - b.days);
   return list;
 }
@@ -299,8 +505,8 @@ function renderOffers() {
             <div>
               <div class="offer-price-label">Цена от</div>
               <div>
-                <span class="offer-price">${o.price_bgn.toFixed(0)} лв.</span>
-                <span class="offer-price-eur"> / ${o.price_eur} €</span>
+                <span class="offer-price">${o.price_eur} €</span>
+                <span class="offer-price-eur"> / ${o.price_bgn.toFixed(0)} лв.</span>
               </div>
             </div>
             <button class="offer-btn" onclick="openOffer(${o.id});event.stopPropagation()">Детайли →</button>
@@ -344,6 +550,7 @@ function filterByCountry(country) {
   currentSearch = '';
   document.getElementById('heroSearch').value = '';
   document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+  document.querySelectorAll('[data-tag]').forEach(b => b.classList.remove('active'));
   renderOffers();
   document.getElementById('offers').scrollIntoView({ behavior: 'smooth' });
 }
@@ -360,7 +567,8 @@ function resetFilters() {
   currentSearch = '';
   currentSort = 'default';
   document.getElementById('heroSearch').value = '';
-  document.getElementById('sortSelect').value = 'default';
+  const sortEl = document.getElementById('sortSelect');
+  if (sortEl) sortEl.value = 'default';
   document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
   document.querySelectorAll('[data-tag]').forEach(b => b.classList.remove('active'));
   renderOffers();
@@ -378,6 +586,18 @@ function toggleFav(event, id) {
     showToast('🤍 Премахнато от любими', 'success');
   }
   localStorage.setItem('mt_favorites', JSON.stringify(favorites));
+
+  // Sync to logged-in customer profile
+  const customer = getCurrentCustomer();
+  if (customer) {
+    const customers = JSON.parse(localStorage.getItem('mt_customers') || '[]');
+    const cust = customers.find(c => c.id === customer.id);
+    if (cust) {
+      cust.favorites = favorites;
+      localStorage.setItem('mt_customers', JSON.stringify(customers));
+    }
+  }
+
   renderOffers();
 }
 
@@ -385,7 +605,7 @@ function toggleFav(event, id) {
 let selectedDate = null;
 
 function openOffer(id) {
-  const offer = OFFERS.find(o => o.id === id);
+  const offer = ALL_OFFERS.find(o => o.id === id);
   if (!offer) return;
   activeOffer = offer;
   selectedDate = offer.dates[0] || null;
@@ -393,8 +613,8 @@ function openOffer(id) {
   document.getElementById('modalImg').src = offer.image;
   document.getElementById('modalImg').alt = offer.title;
   document.getElementById('modalTitle').textContent = offer.title;
-  document.getElementById('modalPrice').textContent = `от ${offer.price_bgn.toFixed(2)} лв.`;
-  document.getElementById('modalPriceSub').textContent = `/ ${offer.price_eur} €  · ${offer.duration}`;
+  document.getElementById('modalPrice').textContent = `от ${offer.price_eur} €`;
+  document.getElementById('modalPriceSub').textContent = `/ ${offer.price_bgn.toFixed(2)} лв.  · ${offer.duration}`;
   document.getElementById('modalDesc').textContent = offer.description;
 
   // Badges
@@ -427,13 +647,13 @@ function openOffer(id) {
   // Reset form
   document.getElementById('inquiryFormContent').style.display = 'block';
   document.getElementById('inquirySuccess').style.display = 'none';
-  ['inqName','inqPhone','inqEmail','inqMsg'].forEach(id => { document.getElementById(id).value = ''; });
+  ['inqName','inqPhone','inqEmail','inqMsg'].forEach(fid => { document.getElementById(fid).value = ''; });
 
   document.getElementById('offerModal').classList.add('active');
   document.body.style.overflow = 'hidden';
 
   // Track view
-  trackOfferView(offer.id, offer.title);
+  trackOfferView(offer.id, offer.title, offer.destination, offer.category);
 }
 
 function selectDate(date) {
@@ -457,6 +677,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     document.getElementById('offerModal').classList.remove('active');
     document.body.style.overflow = '';
+    closeAuthModal();
   }
 });
 
@@ -524,10 +745,19 @@ function trackPageView(page) {
   }
 }
 
-function trackOfferView(offerId, offerTitle) {
-  const views = JSON.parse(localStorage.getItem('mt_offerviews') || '{}');
-  views[offerId] = (views[offerId] || 0) + 1;
-  localStorage.setItem('mt_offerviews', JSON.stringify(views));
+function trackOfferView(offerId, offerTitle, destination, category) {
+  // Detailed array-based tracking in mt_offer_views
+  const views = JSON.parse(localStorage.getItem('mt_offer_views') || '[]');
+  views.push({
+    offer_id: offerId,
+    offer_title: offerTitle,
+    destination: destination || '',
+    category: category || '',
+    created_at: new Date().toISOString()
+  });
+  // Keep max 500 entries
+  if (views.length > 500) views.splice(0, views.length - 500);
+  localStorage.setItem('mt_offer_views', JSON.stringify(views));
 
   if (supabase) {
     supabase.from('offer_views').insert([{

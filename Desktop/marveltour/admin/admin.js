@@ -6,16 +6,21 @@ if (sessionStorage.getItem('mt_admin_auth') !== '1') {
 // ===== STATE =====
 let currentPage = 'dashboard';
 let inquiriesFilter = 'all';
+let inquiriesPeriod = 'all';
 let allInquiries = [];
+let allOffers = [];
+let currentEditOfferId = null;
 let weekChart = null;
 let statusChart = null;
 let destChart = null;
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
+  loadOffers();
   loadInquiries();
   populateCountryFilter();
   showPage('dashboard');
+  renderCustomTags();
 });
 
 function doLogout() {
@@ -46,13 +51,57 @@ function showPage(page) {
   if (page === 'inquiries') renderInquiriesTable();
   if (page === 'offers') renderAdminOffers();
   if (page === 'analytics') renderAnalytics();
+  if (page === 'settings') renderCustomTags();
 }
 
-// ===== LOAD DATA =====
+// ===== LOAD OFFERS =====
+function loadOffers() {
+  const customOffers = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
+  const deletedIds = JSON.parse(localStorage.getItem('mt_deleted_offer_ids') || '[]');
+
+  // Start with base OFFERS filtered by deleted
+  const baseFiltered = OFFERS.filter(o => !deletedIds.includes(o.id));
+
+  // Merge: custom offers override base by id
+  const customIds = customOffers.map(o => o.id);
+  const merged = baseFiltered.filter(o => !customIds.includes(o.id));
+  allOffers = [...merged, ...customOffers];
+}
+
+function saveOffer(data) {
+  let customOffers = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
+  const idx = customOffers.findIndex(o => o.id === data.id);
+  if (idx >= 0) {
+    customOffers[idx] = data;
+  } else {
+    customOffers.push(data);
+  }
+  localStorage.setItem('mt_custom_offers', JSON.stringify(customOffers));
+  loadOffers();
+}
+
+function deleteOffer(id) {
+  // Remove from custom offers if present
+  let customOffers = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
+  const wasCustom = customOffers.some(o => o.id === id);
+  customOffers = customOffers.filter(o => o.id !== id);
+  localStorage.setItem('mt_custom_offers', JSON.stringify(customOffers));
+
+  // If it was a base offer, mark as deleted
+  if (!wasCustom) {
+    const deletedIds = JSON.parse(localStorage.getItem('mt_deleted_offer_ids') || '[]');
+    if (!deletedIds.includes(id)) {
+      deletedIds.push(id);
+      localStorage.setItem('mt_deleted_offer_ids', JSON.stringify(deletedIds));
+    }
+  }
+  loadOffers();
+}
+
+// ===== LOAD INQUIRIES =====
 function loadInquiries() {
   allInquiries = JSON.parse(localStorage.getItem('mt_inquiries') || '[]');
 
-  // Seed demo data if empty
   if (!allInquiries.length) {
     allInquiries = generateDemoData();
     localStorage.setItem('mt_inquiries', JSON.stringify(allInquiries));
@@ -65,7 +114,7 @@ function generateDemoData() {
   const names = ['Иван Петров', 'Мария Стоянова', 'Георги Николов', 'Елена Димитрова', 'Петър Костов', 'Анна Тодорова', 'Симон Андреев', 'Виктория Илиева'];
   const phones = ['+359 88 123 4567', '+359 87 765 4321', '+359 89 222 3333', '+359 88 444 5555', '+359 87 666 7777'];
   const statuses = ['new', 'new', 'new', 'contacted', 'contacted', 'booked', 'closed'];
-  const offers = OFFERS.slice(0, 8);
+  const offers = allOffers.slice(0, 8);
   const data = [];
   const now = Date.now();
   for (let i = 0; i < 24; i++) {
@@ -79,7 +128,7 @@ function generateDemoData() {
       phone: phones[Math.floor(Math.random() * phones.length)],
       email: `demo${i}@example.com`,
       people: ['1', '2', '2', '3', '4'][Math.floor(Math.random() * 5)],
-      preferred_date: offer.dates[0] || '',
+      preferred_date: offer.dates ? offer.dates[0] || '' : '',
       message: i % 3 === 0 ? 'Имам специални изисквания относно храната.' : '',
       created_at: new Date(now - daysAgo * 86400000 - Math.random() * 86400000).toISOString(),
       status: statuses[Math.floor(Math.random() * statuses.length)]
@@ -110,7 +159,7 @@ function renderDashboard() {
   document.getElementById('statInquiries').textContent = total;
   document.getElementById('statNewInq').textContent = `${newCount} нови`;
   document.getElementById('statViews').textContent = totalViews || Math.floor(Math.random() * 80) + 40;
-  document.getElementById('statOffers').textContent = OFFERS.length;
+  document.getElementById('statOffers').textContent = allOffers.length;
   document.getElementById('statBooked').textContent = booked;
 
   renderRecentTable();
@@ -132,10 +181,8 @@ function renderRecentTable() {
 
 function renderPopularList() {
   const views = JSON.parse(localStorage.getItem('mt_offerviews') || '{}');
-
-  // Merge with inquiry counts
   const scores = {};
-  OFFERS.forEach(o => {
+  allOffers.forEach(o => {
     scores[o.id] = { title: o.title, views: views[o.id] || 0, inq: 0 };
   });
   allInquiries.forEach(i => {
@@ -166,14 +213,12 @@ function renderWeekChart() {
   const ctx = document.getElementById('weekChart');
   if (!ctx) return;
 
-  const days = [];
   const labels = [];
   const counts = [];
   for (let i = 6; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
     const dateStr = d.toISOString().slice(0, 10);
-    days.push(dateStr);
     labels.push(d.toLocaleDateString('bg', { weekday: 'short', day: 'numeric' }));
     counts.push(allInquiries.filter(inq => inq.created_at.startsWith(dateStr)).length);
   }
@@ -204,6 +249,55 @@ function renderWeekChart() {
   });
 }
 
+// ===== INQUIRIES — PERIOD FILTER =====
+function filterByPeriod(period, btn) {
+  inquiriesPeriod = period;
+  document.querySelectorAll('#inqPeriodFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const rangeDiv = document.getElementById('customDateRange');
+  if (period === 'custom') {
+    rangeDiv.style.display = 'flex';
+  } else {
+    rangeDiv.style.display = 'none';
+  }
+  renderInquiriesTable();
+}
+
+function getInquiriesByPeriod(list) {
+  if (inquiriesPeriod === 'all') return list;
+
+  const now = new Date();
+  if (inquiriesPeriod === 'week') {
+    const start = new Date(now);
+    start.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1));
+    start.setHours(0, 0, 0, 0);
+    return list.filter(i => new Date(i.created_at) >= start);
+  }
+
+  if (inquiriesPeriod === 'month') {
+    const start = new Date(now.getFullYear(), now.getMonth(), 1);
+    return list.filter(i => new Date(i.created_at) >= start);
+  }
+
+  if (inquiriesPeriod === 'custom') {
+    const fromVal = document.getElementById('dateFrom')?.value;
+    const toVal = document.getElementById('dateTo')?.value;
+    return list.filter(i => {
+      const d = new Date(i.created_at);
+      if (fromVal && d < new Date(fromVal)) return false;
+      if (toVal) {
+        const toEnd = new Date(toVal);
+        toEnd.setHours(23, 59, 59, 999);
+        if (d > toEnd) return false;
+      }
+      return true;
+    });
+  }
+
+  return list;
+}
+
 // ===== INQUIRIES TABLE =====
 function filterInquiries(status, btn) {
   inquiriesFilter = status;
@@ -215,6 +309,7 @@ function filterInquiries(status, btn) {
 function renderInquiriesTable() {
   let list = [...allInquiries];
   if (inquiriesFilter !== 'all') list = list.filter(i => i.status === inquiriesFilter);
+  list = getInquiriesByPeriod(list);
 
   const empty = document.getElementById('inqEmpty');
   const table = document.getElementById('inqTable');
@@ -256,7 +351,7 @@ function changeStatus(id, status) {
   inq.status = status;
   localStorage.setItem('mt_inquiries', JSON.stringify(allInquiries));
   updateNewBadge();
-  showToast(`✅ Статус: ${statusLabel(status)}`, 'success');
+  showToast(`Статус: ${statusLabel(status)}`, 'success');
 }
 
 function openInquiry(id) {
@@ -302,19 +397,19 @@ function openInquiry(id) {
       <div style="grid-column:span 2;">
         <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Статус</div>
         <select onchange="changeStatus(${inq.id}, this.value)" style="border:1.5px solid var(--gray-200);border-radius:8px;padding:8px 12px;font-size:0.88rem;font-family:inherit;cursor:pointer;background:white;width:100%;">
-          <option value="new" ${inq.status === 'new' ? 'selected' : ''}>🔵 Ново</option>
-          <option value="contacted" ${inq.status === 'contacted' ? 'selected' : ''}>🟡 Контактувано</option>
-          <option value="booked" ${inq.status === 'booked' ? 'selected' : ''}>🟢 Резервирано</option>
-          <option value="closed" ${inq.status === 'closed' ? 'selected' : ''}>⚫ Затворено</option>
+          <option value="new" ${inq.status === 'new' ? 'selected' : ''}>Ново</option>
+          <option value="contacted" ${inq.status === 'contacted' ? 'selected' : ''}>Контактувано</option>
+          <option value="booked" ${inq.status === 'booked' ? 'selected' : ''}>Резервирано</option>
+          <option value="closed" ${inq.status === 'closed' ? 'selected' : ''}>Затворено</option>
         </select>
       </div>
     </div>
   `;
 
   document.getElementById('inqDetailActions').innerHTML = `
-    <a href="tel:${inq.phone}" class="contact-btn contact-btn-primary" style="font-size:0.85rem;padding:10px 18px;">📞 Обади се</a>
-    ${inq.email ? `<a href="mailto:${inq.email}?subject=Marvel Tour - ${encodeURIComponent(inq.offer_title)}" class="contact-btn contact-btn-outline" style="background:var(--primary);font-size:0.85rem;padding:10px 18px;">✉️ Изпрати email</a>` : ''}
-    <button onclick="deleteInquiry(${inq.id})" style="padding:10px 18px;background:#fef2f2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:100px;cursor:pointer;font-family:inherit;font-weight:600;font-size:0.85rem;margin-left:auto;">🗑 Изтрий</button>
+    <a href="tel:${inq.phone}" class="contact-btn contact-btn-primary" style="font-size:0.85rem;padding:10px 18px;">Обади се</a>
+    ${inq.email ? `<a href="mailto:${inq.email}?subject=Marvel Tour - ${encodeURIComponent(inq.offer_title)}" class="contact-btn contact-btn-outline" style="background:var(--primary);font-size:0.85rem;padding:10px 18px;">Изпрати email</a>` : ''}
+    <button onclick="deleteInquiry(${inq.id})" style="padding:10px 18px;background:#fef2f2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:100px;cursor:pointer;font-family:inherit;font-weight:600;font-size:0.85rem;margin-left:auto;">Изтрий</button>
   `;
 
   document.getElementById('inqDetailModal').classList.add('active');
@@ -333,11 +428,13 @@ function deleteInquiry(id) {
   closeInqModal();
   renderInquiriesTable();
   updateNewBadge();
-  showToast('🗑️ Запитването е изтрито.', 'success');
+  showToast('Запитването е изтрито.', 'success');
 }
 
 function exportInquiries() {
-  const list = inquiriesFilter === 'all' ? allInquiries : allInquiries.filter(i => i.status === inquiriesFilter);
+  let list = [...allInquiries];
+  if (inquiriesFilter !== 'all') list = list.filter(i => i.status === inquiriesFilter);
+  list = getInquiriesByPeriod(list);
   const headers = ['Ime', 'Телефон', 'Email', 'Оферта', 'Дата пътуване', 'Хора', 'Съобщение', 'Изпратено', 'Статус'];
   const rows = list.map(i => [
     i.name, i.phone, i.email || '', i.offer_title, i.preferred_date || '',
@@ -349,14 +446,14 @@ function exportInquiries() {
   link.href = URL.createObjectURL(blob);
   link.download = `zapitvaniya_${new Date().toISOString().slice(0,10)}.csv`;
   link.click();
-  showToast('⬇ Файлът е изтеглен!', 'success');
+  showToast('Файлът е изтеглен!', 'success');
 }
 
 // ===== OFFERS TABLE =====
 function populateCountryFilter() {
   const sel = document.getElementById('offerCountryFilter');
   if (!sel) return;
-  const countries = [...new Set(OFFERS.map(o => o.country))];
+  const countries = [...new Set(allOffers.map(o => o.country))];
   countries.forEach(c => {
     const country = (typeof COUNTRIES !== 'undefined' ? COUNTRIES : []).find(x => x.id === c);
     const opt = document.createElement('option');
@@ -371,34 +468,139 @@ function renderAdminOffers() {
   const country = document.getElementById('offerCountryFilter')?.value || '';
   const views = JSON.parse(localStorage.getItem('mt_offerviews') || '{}');
 
-  let list = OFFERS.filter(o => {
-    const matchSearch = !search || o.title.toLowerCase().includes(search) || o.destination.toLowerCase().includes(search);
+  let list = allOffers.filter(o => {
+    const matchSearch = !search || o.title.toLowerCase().includes(search) || (o.destination && o.destination.toLowerCase().includes(search));
     const matchCountry = !country || o.country === country;
     return matchSearch && matchCountry;
   });
 
   document.getElementById('offersAdminBody').innerHTML = list.map(o => {
     const inqCount = allInquiries.filter(i => i.offer_id === o.id).length;
+    const isCustom = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]').some(c => c.id === o.id);
     return `
       <tr>
         <td style="color:var(--gray-400);font-size:0.8rem;">${o.id}</td>
         <td style="max-width:220px;">
           <div style="font-weight:600;font-size:0.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${o.title}</div>
+          ${isCustom ? '<span style="font-size:0.7rem;color:#7c3aed;background:#f5f3ff;padding:2px 6px;border-radius:4px;">custom</span>' : ''}
         </td>
-        <td><span class="modal-tag ${o.category === 'vacation' ? 'blue' : ''}">${o.category === 'vacation' ? '🏖 Почивка' : '🗺 Екскурзия'}</span></td>
-        <td>${o.destination}</td>
-        <td style="font-weight:700;color:var(--primary);">${o.price_bgn.toFixed(0)} лв.</td>
-        <td>${o.duration}</td>
-        <td style="white-space:nowrap;">${o.next_date}</td>
+        <td><span class="modal-tag ${o.category === 'vacation' ? 'blue' : ''}">${o.category === 'vacation' ? 'Почивка' : 'Екскурзия'}</span></td>
+        <td>${o.destination || '—'}</td>
+        <td style="font-weight:700;color:var(--primary);">${o.price_bgn ? o.price_bgn.toFixed(0) + ' лв.' : '—'}</td>
+        <td>${o.duration || '—'}</td>
+        <td style="white-space:nowrap;">${o.next_date || '—'}</td>
         <td>${views[o.id] || 0}</td>
         <td>
           <span style="background:${inqCount > 0 ? 'rgba(59,130,246,0.1)' : 'var(--gray-100)'};color:${inqCount > 0 ? '#1d4ed8' : 'var(--gray-400)'};padding:3px 10px;border-radius:100px;font-size:0.75rem;font-weight:700;">
             ${inqCount}
           </span>
         </td>
+        <td style="white-space:nowrap;">
+          <button onclick="openOfferModal('${o.id}')" style="margin-right:6px;padding:5px 12px;background:var(--primary);color:white;border:none;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:inherit;font-weight:600;">Редактирай</button>
+          <button onclick="confirmDeleteOffer('${o.id}')" style="padding:5px 12px;background:#fef2f2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:inherit;font-weight:600;">Изтрий</button>
+        </td>
       </tr>
     `;
   }).join('');
+}
+
+function confirmDeleteOffer(id) {
+  const offer = allOffers.find(o => o.id == id || o.id === id);
+  if (!offer) return;
+  if (!confirm(`Сигурни ли сте, че искате да изтриете офертата "${offer.title}"?`)) return;
+  deleteOffer(id);
+  renderAdminOffers();
+  showToast('Офертата е изтрита.', 'success');
+}
+
+// ===== OFFER MODAL =====
+function openOfferModal(id) {
+  currentEditOfferId = id;
+  const modal = document.getElementById('offerEditModal');
+  const titleEl = document.getElementById('offerModalTitle');
+
+  if (id) {
+    const offer = allOffers.find(o => o.id == id || o.id === id);
+    if (!offer) return;
+    titleEl.textContent = 'Редактирай оферта';
+    document.getElementById('of_title').value = offer.title || '';
+    document.getElementById('of_category').value = offer.category || 'excursion';
+    document.getElementById('of_destination').value = offer.destination || '';
+    document.getElementById('of_country').value = offer.country || '';
+    document.getElementById('of_transport').value = offer.transport || '';
+    document.getElementById('of_days').value = offer.days || '';
+    document.getElementById('of_nights').value = offer.nights || '';
+    document.getElementById('of_price_bgn').value = offer.price_bgn || '';
+    document.getElementById('of_price_eur').value = offer.price_eur || '';
+    document.getElementById('of_duration').value = offer.duration || '';
+    document.getElementById('of_next_date').value = offer.next_date || '';
+    document.getElementById('of_tags').value = Array.isArray(offer.tags) ? offer.tags.join(', ') : (offer.tags || '');
+    document.getElementById('of_description').value = offer.description || '';
+    document.getElementById('of_featured').checked = !!offer.featured;
+  } else {
+    titleEl.textContent = 'Добави нова оферта';
+    document.getElementById('of_title').value = '';
+    document.getElementById('of_category').value = 'excursion';
+    document.getElementById('of_destination').value = '';
+    document.getElementById('of_country').value = '';
+    document.getElementById('of_transport').value = '';
+    document.getElementById('of_days').value = '';
+    document.getElementById('of_nights').value = '';
+    document.getElementById('of_price_bgn').value = '';
+    document.getElementById('of_price_eur').value = '';
+    document.getElementById('of_duration').value = '';
+    document.getElementById('of_next_date').value = '';
+    document.getElementById('of_tags').value = '';
+    document.getElementById('of_description').value = '';
+    document.getElementById('of_featured').checked = false;
+  }
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeOfferModal() {
+  document.getElementById('offerEditModal').classList.remove('active');
+  document.body.style.overflow = '';
+  currentEditOfferId = null;
+}
+
+function saveOfferFromModal() {
+  const title = document.getElementById('of_title').value.trim();
+  if (!title) { showToast('Въведете заглавие на офертата.', 'error'); return; }
+
+  const tagsRaw = document.getElementById('of_tags').value;
+  const tags = tagsRaw.split(',').map(t => t.trim()).filter(Boolean);
+
+  let id = currentEditOfferId;
+  if (!id) {
+    // Generate new id
+    id = 'custom_' + Date.now();
+  }
+
+  const data = {
+    id,
+    title,
+    category: document.getElementById('of_category').value,
+    destination: document.getElementById('of_destination').value.trim(),
+    country: document.getElementById('of_country').value.trim(),
+    transport: document.getElementById('of_transport').value.trim(),
+    days: parseInt(document.getElementById('of_days').value) || 0,
+    nights: parseInt(document.getElementById('of_nights').value) || 0,
+    price_bgn: parseFloat(document.getElementById('of_price_bgn').value) || 0,
+    price_eur: parseFloat(document.getElementById('of_price_eur').value) || 0,
+    duration: document.getElementById('of_duration').value.trim(),
+    next_date: document.getElementById('of_next_date').value.trim(),
+    tags,
+    description: document.getElementById('of_description').value.trim(),
+    featured: document.getElementById('of_featured').checked,
+    dates: []
+  };
+
+  saveOffer(data);
+  closeOfferModal();
+  renderAdminOffers();
+  showToast('Офертата е запазена.', 'success');
 }
 
 // ===== ANALYTICS =====
@@ -408,9 +610,8 @@ function renderAnalytics() {
   const total = allInquiries.length;
   const rate = totalViews > 0 ? Math.round((total / totalViews) * 100) : 0;
 
-  // Find top offer by views
   const topId = Object.entries(views).sort((a,b) => b[1]-a[1])[0]?.[0];
-  const topOffer = topId ? OFFERS.find(o => o.id == topId) : null;
+  const topOffer = topId ? allOffers.find(o => o.id == topId) : null;
 
   document.getElementById('anlViews').textContent = totalViews || '—';
   document.getElementById('anlInq').textContent = total;
@@ -420,6 +621,8 @@ function renderAnalytics() {
   renderStatusChart();
   renderDestChart();
   renderTopViewsList(views);
+  renderTopLocationsList(views);
+  renderTopByCategory(views);
 }
 
 function renderStatusChart() {
@@ -444,7 +647,7 @@ function renderDestChart() {
   if (!ctx) return;
   const destCounts = {};
   allInquiries.forEach(inq => {
-    const offer = OFFERS.find(o => o.id === inq.offer_id);
+    const offer = allOffers.find(o => o.id === inq.offer_id);
     if (offer) {
       destCounts[offer.destination] = (destCounts[offer.destination] || 0) + 1;
     }
@@ -476,7 +679,7 @@ function renderTopViewsList(views) {
   const sorted = Object.entries(views).sort((a,b) => b[1]-a[1]).slice(0,10);
   const max = sorted[0]?.[1] || 1;
   document.getElementById('topViewsList').innerHTML = sorted.map(([id, count], i) => {
-    const offer = OFFERS.find(o => o.id == id);
+    const offer = allOffers.find(o => o.id == id);
     const pct = Math.round((count / max) * 100);
     return `
       <div class="popular-item">
@@ -489,34 +692,135 @@ function renderTopViewsList(views) {
   }).join('') || '<p style="color:var(--gray-400);font-size:0.85rem;">Няма данни за прегледи</p>';
 }
 
+function renderTopLocationsList(views) {
+  // Aggregate views by destination
+  const destViews = {};
+  allOffers.forEach(o => {
+    if (views[o.id] && o.destination) {
+      const dest = o.destination.split('—')[0].trim();
+      destViews[dest] = (destViews[dest] || 0) + views[o.id];
+    }
+  });
+  const sorted = Object.entries(destViews).sort((a,b) => b[1]-a[1]).slice(0,10);
+  const max = sorted[0]?.[1] || 1;
+  const container = document.getElementById('topLocationsList');
+  if (!container) return;
+  container.innerHTML = sorted.map(([dest, count], i) => {
+    const pct = Math.round((count / max) * 100);
+    return `
+      <div class="popular-item">
+        <div class="popular-rank ${i < 3 ? 'top' : ''}">${i + 1}</div>
+        <div class="popular-name">${dest}</div>
+        <div class="popular-bar-wrap"><div class="popular-bar" style="width:${pct}%"></div></div>
+        <div class="popular-views">${count} прег.</div>
+      </div>
+    `;
+  }).join('') || '<p style="color:var(--gray-400);font-size:0.85rem;">Няма данни за прегледи</p>';
+}
+
+function renderTopByCategory(views) {
+  const excursions = allOffers.filter(o => o.category === 'excursion')
+    .map(o => ({ offer: o, count: views[o.id] || 0 }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
+  const vacations = allOffers.filter(o => o.category === 'vacation')
+    .map(o => ({ offer: o, count: views[o.id] || 0 }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
+  const excBody = document.getElementById('topExcursionsBody');
+  const vacBody = document.getElementById('topVacationsBody');
+
+  if (excBody) {
+    excBody.innerHTML = excursions.map(({ offer, count }, i) => `
+      <tr>
+        <td style="color:var(--gray-400);font-size:0.8rem;">${i + 1}</td>
+        <td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:0.85rem;">${shortTitle(offer.title, 30)}</td>
+        <td style="font-weight:700;color:var(--primary);">${count}</td>
+      </tr>
+    `).join('') || '<tr><td colspan="3" style="text-align:center;padding:1.5rem;color:var(--gray-400);">Няма данни</td></tr>';
+  }
+
+  if (vacBody) {
+    vacBody.innerHTML = vacations.map(({ offer, count }, i) => `
+      <tr>
+        <td style="color:var(--gray-400);font-size:0.8rem;">${i + 1}</td>
+        <td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:0.85rem;">${shortTitle(offer.title, 30)}</td>
+        <td style="font-weight:700;color:var(--primary);">${count}</td>
+      </tr>
+    `).join('') || '<tr><td colspan="3" style="text-align:center;padding:1.5rem;color:var(--gray-400);">Няма данни</td></tr>';
+  }
+}
+
 // ===== SETTINGS =====
 function changePassword() {
   const p1 = document.getElementById('newPass').value;
   const p2 = document.getElementById('confirmPass').value;
-  if (!p1 || p1.length < 6) { showToast('❗ Паролата трябва да е поне 6 символа.', 'error'); return; }
-  if (p1 !== p2) { showToast('❗ Паролите не съвпадат.', 'error'); return; }
+  if (!p1 || p1.length < 6) { showToast('Паролата трябва да е поне 6 символа.', 'error'); return; }
+  if (p1 !== p2) { showToast('Паролите не съвпадат.', 'error'); return; }
   localStorage.setItem('mt_admin_pass', p1);
   document.getElementById('newPass').value = '';
   document.getElementById('confirmPass').value = '';
-  showToast('✅ Паролата е сменена! (Суpabase не е настроен — промяната е само локална)', 'success');
+  showToast('Паролата е сменена! (Supabase не е настроен — промяната е само локална)', 'success');
 }
 
 function saveSupabase() {
   const url = document.getElementById('sbUrl').value.trim();
   const key = document.getElementById('sbKey').value.trim();
-  if (!url || !key) { showToast('❗ Въведете URL и Key.', 'error'); return; }
+  if (!url || !key) { showToast('Въведете URL и Key.', 'error'); return; }
   localStorage.setItem('mt_sb_url', url);
   localStorage.setItem('mt_sb_key', key);
-  showToast('✅ Настройките са запазени. Обновете страницата.', 'success');
+  showToast('Настройките са запазени. Обновете страницата.', 'success');
 }
 
 function clearData() {
   if (!confirm('Сигурни ли сте? Ще бъдат изтрити всички локални данни.')) return;
-  ['mt_inquiries','mt_offerviews','mt_pageviews','mt_favorites'].forEach(k => localStorage.removeItem(k));
+  ['mt_inquiries','mt_offerviews','mt_pageviews','mt_favorites','mt_custom_offers','mt_deleted_offer_ids'].forEach(k => localStorage.removeItem(k));
+  loadOffers();
   loadInquiries();
-  showToast('🗑️ Данните са изчистени.', 'success');
+  showToast('Данните са изчистени.', 'success');
   if (currentPage === 'dashboard') renderDashboard();
   if (currentPage === 'inquiries') renderInquiriesTable();
+  if (currentPage === 'offers') renderAdminOffers();
+}
+
+// ===== CUSTOM TAGS =====
+function renderCustomTags() {
+  const container = document.getElementById('customTagsContainer');
+  if (!container) return;
+  const tags = JSON.parse(localStorage.getItem('mt_custom_tags') || '[]');
+  if (!tags.length) {
+    container.innerHTML = '<span style="font-size:0.82rem;color:var(--gray-400);">Няма добавени тагове.</span>';
+    return;
+  }
+  container.innerHTML = tags.map((tag, idx) => `
+    <div style="display:inline-flex;align-items:center;gap:6px;background:#f0f4ff;color:#1a3a6b;border:1.5px solid #c7d7f5;border-radius:100px;padding:5px 12px;font-size:0.82rem;font-weight:600;">
+      ${escHtml(tag)}
+      <button onclick="removeCustomTag(${idx})" style="background:none;border:none;cursor:pointer;color:#6b7280;font-size:1rem;line-height:1;padding:0;margin:0;" title="Изтрий">&times;</button>
+    </div>
+  `).join('');
+}
+
+function addCustomTag() {
+  const input = document.getElementById('newTagInput');
+  const val = input.value.trim();
+  if (!val) { showToast('Въведете таг.', 'error'); return; }
+  const tags = JSON.parse(localStorage.getItem('mt_custom_tags') || '[]');
+  if (tags.includes(val)) { showToast('Този таг вече съществува.', 'error'); return; }
+  tags.push(val);
+  localStorage.setItem('mt_custom_tags', JSON.stringify(tags));
+  input.value = '';
+  renderCustomTags();
+  showToast('Тагът е добавен.', 'success');
+}
+
+function removeCustomTag(idx) {
+  const tags = JSON.parse(localStorage.getItem('mt_custom_tags') || '[]');
+  tags.splice(idx, 1);
+  localStorage.setItem('mt_custom_tags', JSON.stringify(tags));
+  renderCustomTags();
+  showToast('Тагът е премахнат.', 'success');
 }
 
 // ===== HELPERS =====
@@ -536,6 +840,10 @@ function statusLabel(status) {
   return { new: 'Ново', contacted: 'Контактувано', booked: 'Резервирано', closed: 'Затворено' }[status] || status;
 }
 
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 function showToast(msg, type = 'success') {
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
@@ -545,9 +853,9 @@ function showToast(msg, type = 'success') {
   setTimeout(() => toast.remove(), 4000);
 }
 
-// Escape key closes modals
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     closeInqModal();
+    closeOfferModal();
   }
 });
