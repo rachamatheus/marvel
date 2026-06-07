@@ -448,17 +448,49 @@ function getFilteredOffers() {
   if (currentTag) list = list.filter(o => o.tags.includes(currentTag));
   if (currentCountry) list = list.filter(o => o.country === currentCountry);
   if (currentSearch) {
-    list = list.filter(o =>
-      o.title.toLowerCase().includes(currentSearch) ||
-      o.destination.toLowerCase().includes(currentSearch) ||
-      o.description.toLowerCase().includes(currentSearch)
-    );
+    const COUNTRY_NAMES_BG = {
+      greece:'гърция', turkey:'турция', egypt:'египет', spain:'испания',
+      france:'франция', italy:'италия', uae:'дубай', morocco:'мароко',
+      jordan:'йордания', albania:'албания', austria:'австрия', poland:'полша',
+      thailand:'тайланд', vietnam:'виетнам'
+    };
+    list = list.filter(o => {
+      const countryBg = COUNTRY_NAMES_BG[o.country] || o.country;
+      return (
+        o.title.toLowerCase().includes(currentSearch) ||
+        o.destination.toLowerCase().includes(currentSearch) ||
+        (o.description || '').toLowerCase().includes(currentSearch) ||
+        countryBg.includes(currentSearch) ||
+        o.country.includes(currentSearch) ||
+        (o.tags || []).some(t => t.toLowerCase().includes(currentSearch))
+      );
+    });
   }
   if (currentSort === 'price-asc') list.sort((a, b) => a.price_eur - b.price_eur);
   if (currentSort === 'price-desc') list.sort((a, b) => b.price_eur - a.price_eur);
   if (currentSort === 'duration-asc') list.sort((a, b) => a.days - b.days);
   return list;
 }
+
+// Helper: translate transport
+function transportLabel(t) {
+  const map = { flight: '✈️ Самолет', bus: '🚌 Автобус', car: '🚗 Автомобил', ship: '🚢 Кораб', train: '🚆 Влак' };
+  return map[t] || t || '✈️ Самолет';
+}
+
+// Helper: format date to Bulgarian
+function formatDate(d) {
+  if (!d) return '';
+  const months = ['яну','фев','март','апр','май','юни','юли','авг','сеп','окт','ное','дек'];
+  const parts = d.split('-');
+  if (parts.length === 3) {
+    return `${parseInt(parts[2])} ${months[parseInt(parts[1])-1]} ${parts[0]}`;
+  }
+  return d;
+}
+
+// Helper: fallback placeholder image
+const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=600&q=70';
 
 function renderOffers() {
   const grid = document.getElementById('offersGrid');
@@ -475,12 +507,17 @@ function renderOffers() {
 
   grid.innerHTML = list.map((o, i) => {
     const isFav = favorites.includes(o.id);
-    const typeLabel = o.category === 'vacation' ? 'Почивка' : 'Екскурзия';
-    const typeCls = o.category === 'vacation' ? 'vacation' : '';
+    const cat = o.category || '';
+    const typeLabel = cat.includes('vacation') ? 'Почивка' : cat.includes('excursion') ? 'Екскурзия' : cat.includes('weekend') ? 'Уикенд' : 'Оферта';
+    const typeCls = cat.includes('vacation') ? 'vacation' : cat.includes('excursion') ? 'excursion' : '';
+    const imgSrc = o.image && o.image.startsWith('http') ? o.image : PLACEHOLDER_IMG;
+    const dateStr = formatDate(o.next_date);
+    const transport = transportLabel(o.transport);
     return `
       <div class="offer-card animate-in" style="animation-delay:${i * 0.05}s" onclick="openOffer(${o.id})">
         <div class="offer-card-img-wrap">
-          <img class="offer-card-img" src="${o.image}" alt="${o.title}" loading="lazy">
+          <img class="offer-card-img" src="${imgSrc}" alt="${o.title}" loading="lazy"
+               onerror="this.src='${PLACEHOLDER_IMG}'">
           <span class="offer-badge ${typeCls}">${typeLabel}</span>
           <button class="offer-fav ${isFav ? 'active' : ''}" onclick="toggleFav(event, ${o.id})" title="Любими">${isFav ? '❤️' : '🤍'}</button>
         </div>
@@ -492,13 +529,12 @@ function renderOffers() {
               <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
               ${o.duration}
             </div>
+            ${dateStr ? `<div class="offer-meta-item">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              от ${dateStr}
+            </div>` : ''}
             <div class="offer-meta-item">
-              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
-              от ${o.next_date}
-            </div>
-            <div class="offer-meta-item">
-              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              ${o.transport}
+              ${transport}
             </div>
           </div>
           <div class="offer-card-footer">
@@ -506,7 +542,7 @@ function renderOffers() {
               <div class="offer-price-label">Цена от</div>
               <div>
                 <span class="offer-price">${o.price_eur} €</span>
-                <span class="offer-price-eur"> / ${o.price_bgn.toFixed(0)} лв.</span>
+                <span class="offer-price-eur"> / ${o.price_bgn} лв.</span>
               </div>
             </div>
             <button class="offer-btn" onclick="openOffer(${o.id});event.stopPropagation()">Детайли →</button>
