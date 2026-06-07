@@ -97,12 +97,119 @@
       <p class="section-sub">Кликнете върху континент и открийте офертите за него</p>
     </div>
 
-    <!-- World Map Continents -->
+    <!-- World Map with SVG Continents -->
     <div class="world-map-wrap">
       <div class="world-map">
 
-        <!-- EUROPE -->
-        <div class="continent-pin" id="pin-europe" style="left:44%;top:18%;" onclick="selectContinent('europe')">
+        <!-- SVG World Map -->
+        <svg class="world-svg" viewBox="0 0 1010 510" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <!-- Grid / graticule -->
+          <defs>
+            <filter id="glow-gold">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Parallels -->
+          <line x1="5" y1="255" x2="1005" y2="255" stroke="rgba(201,168,76,0.12)" stroke-width="0.8" stroke-dasharray="4,10"/>
+          <line x1="5" y1="170" x2="1005" y2="170" stroke="rgba(201,168,76,0.07)" stroke-width="0.6" stroke-dasharray="3,12"/>
+          <line x1="5" y1="340" x2="1005" y2="340" stroke="rgba(201,168,76,0.07)" stroke-width="0.6" stroke-dasharray="3,12"/>
+          <!-- Meridians -->
+          <line x1="505" y1="5" x2="505" y2="505" stroke="rgba(201,168,76,0.12)" stroke-width="0.8" stroke-dasharray="4,10"/>
+          <line x1="255" y1="5" x2="255" y2="505" stroke="rgba(201,168,76,0.06)" stroke-width="0.6" stroke-dasharray="3,12"/>
+          <line x1="755" y1="5" x2="755" y2="505" stroke="rgba(201,168,76,0.06)" stroke-width="0.6" stroke-dasharray="3,12"/>
+          <!-- Outer oval border -->
+          <ellipse cx="505" cy="255" rx="498" ry="248" fill="none" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
+
+          <!-- ══════════ NORTH AMERICA ══════════ -->
+          <path class="cont-shape" id="shape-america" fill="rgba(99,179,237,0.13)" stroke="rgba(99,179,237,0.4)" stroke-width="1.2"
+            d="M155,60 L195,52 L240,48 L265,55 L272,70 L260,85 L250,100
+               L248,118 L255,130 L250,145 L238,152 L232,168 L240,180
+               L248,195 L244,215 L230,228 L218,242 L210,258 L200,272
+               L190,285 L178,295 L162,300 L148,310 L138,322 L130,335
+               L120,345 L115,358 L118,370 L128,375 L140,372 L148,380
+               L145,390 L135,395 L125,390 L115,382 L105,378 L95,380
+               L88,390 L82,400 L75,408 L70,418 L65,428 L62,415
+               L58,402 L60,388 L68,375 L72,362 L78,350 L82,338
+               L88,325 L92,312 L90,298 L85,285 L82,270 L85,255
+               L92,242 L98,228 L102,215 L98,200 L92,188 L90,175
+               L95,162 L102,150 L108,138 L112,125 L110,112 L105,100
+               L100,88 L102,75 L110,65 L125,58 L140,55 Z"/>
+
+          <!-- ══════════ EUROPE ══════════ -->
+          <path class="cont-shape" id="shape-europe" fill="rgba(154,205,50,0.15)" stroke="rgba(154,205,50,0.45)" stroke-width="1.2"
+            d="M440,80 L460,72 L478,70 L492,75 L500,85 L508,95
+               L515,105 L518,118 L512,128 L520,135 L528,128 L535,120
+               L542,115 L548,120 L545,132 L538,142 L530,150 L522,158
+               L515,168 L510,178 L505,188 L500,198 L492,205 L482,210
+               L472,215 L462,218 L452,222 L442,225 L432,220 L422,215
+               L415,205 L410,195 L408,182 L410,170 L415,158 L418,145
+               L420,132 L418,120 L422,108 L430,98 Z"/>
+
+          <!-- Scandinavian peninsula -->
+          <path class="cont-shape" fill="rgba(154,205,50,0.12)" stroke="rgba(154,205,50,0.3)" stroke-width="1"
+            d="M468,50 L480,45 L490,48 L495,58 L488,68 L478,72 L468,70 L460,62 Z"/>
+          <path class="cont-shape" fill="rgba(154,205,50,0.12)" stroke="rgba(154,205,50,0.3)" stroke-width="1"
+            d="M452,52 L462,48 L468,55 L464,65 L455,68 L448,62 Z"/>
+
+          <!-- Iberian peninsula -->
+          <path class="cont-shape" fill="rgba(154,205,50,0.12)" stroke="rgba(154,205,50,0.3)" stroke-width="1"
+            d="M408,195 L418,188 L428,190 L435,200 L432,212 L420,218 L410,212 Z"/>
+
+          <!-- ══════════ AFRICA ══════════ -->
+          <path class="cont-shape" id="shape-africa" fill="rgba(237,137,54,0.15)" stroke="rgba(237,137,54,0.45)" stroke-width="1.2"
+            d="M440,228 L455,222 L472,220 L488,225 L500,235 L508,248
+               L512,262 L510,278 L505,292 L502,308 L498,322 L492,335
+               L485,348 L478,360 L470,372 L462,382 L455,390 L448,395
+               L440,392 L432,385 L425,375 L418,362 L412,348 L408,334
+               L405,320 L404,305 L406,290 L410,276 L415,262 L420,248
+               L428,236 Z"/>
+          <!-- Madagascar -->
+          <path class="cont-shape" fill="rgba(237,137,54,0.12)" stroke="rgba(237,137,54,0.3)" stroke-width="1"
+            d="M515,310 L522,305 L528,312 L525,328 L518,335 L512,328 Z"/>
+
+          <!-- ══════════ ASIA ══════════ -->
+          <path class="cont-shape" id="shape-asia" fill="rgba(255,105,180,0.13)" stroke="rgba(255,105,180,0.42)" stroke-width="1.2"
+            d="M508,95 L525,88 L545,82 L568,78 L592,75 L618,72
+               L645,70 L672,72 L698,78 L722,85 L745,92 L768,98
+               L788,108 L805,120 L818,132 L825,145 L822,158 L812,168
+               L800,175 L790,185 L782,198 L778,212 L775,225 L768,238
+               L758,248 L745,255 L730,260 L715,262 L700,258 L685,252
+               L670,248 L655,245 L640,242 L625,238 L610,232 L595,225
+               L580,218 L565,212 L550,205 L535,198 L522,190 L512,180
+               L505,168 L505,155 L508,142 L512,128 L515,115 Z"/>
+          <!-- Japanese islands -->
+          <path class="cont-shape" fill="rgba(255,105,180,0.12)" stroke="rgba(255,105,180,0.3)" stroke-width="1"
+            d="M812,110 L820,105 L828,108 L832,118 L825,125 L815,122 Z"/>
+          <!-- Indian subcontinent -->
+          <path class="cont-shape" fill="rgba(255,105,180,0.12)" stroke="rgba(255,105,180,0.3)" stroke-width="1"
+            d="M630,230 L645,235 L658,248 L662,262 L655,275 L642,280 L628,272 L620,258 L622,244 Z"/>
+          <!-- Southeast Asia -->
+          <path class="cont-shape" fill="rgba(255,105,180,0.12)" stroke="rgba(255,105,180,0.3)" stroke-width="1"
+            d="M740,245 L758,250 L772,260 L778,275 L770,285 L755,282 L742,270 L738,258 Z"/>
+
+          <!-- ══════════ AUSTRALIA ══════════ -->
+          <path class="cont-shape" fill="rgba(160,82,45,0.15)" stroke="rgba(160,82,45,0.4)" stroke-width="1.2"
+            d="M760,330 L780,322 L800,320 L820,325 L835,338 L842,352
+               L838,368 L825,378 L808,382 L790,380 L775,372 L762,358
+               L756,344 Z"/>
+
+          <!-- ══════════ SOUTH AMERICA ══════════ -->
+          <path class="cont-shape" fill="rgba(99,179,237,0.12)" stroke="rgba(99,179,237,0.35)" stroke-width="1.2"
+            d="M185,295 L205,288 L225,285 L245,290 L260,302 L268,318
+               L270,335 L265,352 L258,368 L248,382 L235,392 L222,398
+               L208,400 L195,395 L182,385 L172,372 L165,358 L162,342
+               L162,325 L168,310 Z"/>
+
+          <!-- Flight route arcs -->
+          <path d="M430,195 Q505,140 640,210" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+          <path d="M440,225 Q445,290 455,360" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+          <path d="M430,195 Q310,230 200,295" fill="none" stroke="rgba(201,168,76,0.18)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+          <path d="M640,210 Q680,290 790,340" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="5,8" class="route-arc"/>
+        </svg>
+
+        <!-- EUROPE bubble — positioned over Europe shape -->
+        <div class="continent-pin" id="pin-europe" style="left:47%;top:33%;" onclick="selectContinent('europe')">
           <div class="continent-bubble" data-continent="europe">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -115,8 +222,8 @@
           </div>
         </div>
 
-        <!-- AFRICA -->
-        <div class="continent-pin" id="pin-africa" style="left:46%;top:42%;" onclick="selectContinent('africa')">
+        <!-- AFRICA bubble -->
+        <div class="continent-pin" id="pin-africa" style="left:46%;top:67%;" onclick="selectContinent('africa')">
           <div class="continent-bubble" data-continent="africa">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -129,8 +236,8 @@
           </div>
         </div>
 
-        <!-- ASIA -->
-        <div class="continent-pin" id="pin-asia" style="left:64%;top:22%;" onclick="selectContinent('asia')">
+        <!-- ASIA bubble -->
+        <div class="continent-pin" id="pin-asia" style="left:66%;top:40%;" onclick="selectContinent('asia')">
           <div class="continent-bubble" data-continent="asia">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -143,8 +250,8 @@
           </div>
         </div>
 
-        <!-- AMERICA -->
-        <div class="continent-pin" id="pin-america" style="left:20%;top:30%;" onclick="selectContinent('america')">
+        <!-- AMERICA bubble -->
+        <div class="continent-pin" id="pin-america" style="left:18%;top:50%;" onclick="selectContinent('america')">
           <div class="continent-bubble" data-continent="america">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -157,26 +264,11 @@
           </div>
         </div>
 
-        <!-- SVG world map background lines -->
-        <svg class="world-lines" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet">
-          <!-- Grid lines -->
-          <line x1="0" y1="250" x2="1000" y2="250" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="4,8"/>
-          <line x1="500" y1="0" x2="500" y2="500" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="4,8"/>
-          <ellipse cx="500" cy="250" rx="490" ry="240" fill="none" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
-          <ellipse cx="500" cy="250" rx="330" ry="240" fill="none" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
-          <ellipse cx="500" cy="250" rx="165" ry="240" fill="none" stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
-          <!-- Connection lines between continents -->
-          <line x1="440" y1="190" x2="460" y2="360" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="3,6" class="conn-line"/>
-          <line x1="440" y1="190" x2="640" y2="210" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="3,6" class="conn-line"/>
-          <line x1="440" y1="190" x2="200" y2="250" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="3,6" class="conn-line"/>
-          <line x1="640" y1="210" x2="460" y2="360" stroke="rgba(201,168,76,0.15)" stroke-width="1" stroke-dasharray="3,6" class="conn-line"/>
-        </svg>
-
         <!-- Floating travel icons -->
-        <div class="float-icon" style="left:35%;top:12%;animation-delay:0s;">✈️</div>
-        <div class="float-icon" style="left:55%;top:60%;animation-delay:1.5s;">🌴</div>
-        <div class="float-icon" style="left:75%;top:50%;animation-delay:3s;">⛱️</div>
-        <div class="float-icon" style="left:15%;top:55%;animation-delay:2s;">🗺️</div>
+        <div class="float-icon" style="left:37%;top:8%;animation-delay:0s;">✈️</div>
+        <div class="float-icon" style="left:72%;top:72%;animation-delay:1.5s;">🌴</div>
+        <div class="float-icon" style="left:82%;top:55%;animation-delay:3s;">⛱️</div>
+        <div class="float-icon" style="left:8%;top:30%;animation-delay:2s;">🗺️</div>
       </div>
     </div>
 
