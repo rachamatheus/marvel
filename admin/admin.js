@@ -328,9 +328,9 @@ function renderInquiriesTable() {
       <td><strong>${inq.name}</strong></td>
       <td><a href="tel:${inq.phone}" onclick="event.stopPropagation()" style="color:var(--primary);text-decoration:none;">${inq.phone}</a></td>
       <td style="color:var(--gray-600);">${inq.email || '—'}</td>
-      <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${shortTitle(inq.offer_title)}</td>
+      <td style="max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${inq.offer_ref ? `<strong style="color:var(--primary);">${inq.offer_ref}</strong> · ` : ''}${shortTitle(inq.offer_title)}</td>
       <td>${inq.preferred_date || '—'}</td>
-      <td>${inq.people} бр.</td>
+      <td>${inq.people || '—'}</td>
       <td style="white-space:nowrap;">${formatDate(inq.created_at)}</td>
       <td><span class="status-badge status-${inq.status}">${statusLabel(inq.status)}</span></td>
       <td onclick="event.stopPropagation()">
@@ -375,11 +375,15 @@ function openInquiry(id) {
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Пътуващи</div>
-        <div>${inq.people} бр.</div>
+        <div>${typeof inq.adults !== 'undefined' ? `${inq.adults} възрастни${inq.children ? ' + ' + inq.children + ' деца' : ''}` : (inq.people || '—')}</div>
+      </div>
+      <div>
+        <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Реф. номер</div>
+        <div style="font-weight:700;color:var(--primary);">${inq.offer_ref || '—'}</div>
       </div>
       <div style="grid-column:span 2;">
         <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Оферта</div>
-        <div style="font-weight:600;">${inq.offer_title}</div>
+        <div style="font-weight:600;">${inq.offer_ref ? inq.offer_ref + ' — ' : ''}${inq.offer_title}</div>
       </div>
       <div>
         <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Предпочитана дата</div>
@@ -435,10 +439,11 @@ function exportInquiries() {
   let list = [...allInquiries];
   if (inquiriesFilter !== 'all') list = list.filter(i => i.status === inquiriesFilter);
   list = getInquiriesByPeriod(list);
-  const headers = ['Ime', 'Телефон', 'Email', 'Оферта', 'Дата пътуване', 'Хора', 'Съобщение', 'Изпратено', 'Статус'];
+  const headers = ['Ime', 'Телефон', 'Email', 'Реф. номер', 'Оферта', 'Дата пътуване', 'Възрастни', 'Деца', 'Пътуващи', 'Съобщение', 'Изпратено', 'Статус'];
   const rows = list.map(i => [
-    i.name, i.phone, i.email || '', i.offer_title, i.preferred_date || '',
-    i.people, i.message || '', formatDate(i.created_at, true), statusLabel(i.status)
+    i.name, i.phone, i.email || '', i.offer_ref || '', i.offer_title, i.preferred_date || '',
+    (typeof i.adults !== 'undefined' ? i.adults : ''), (typeof i.children !== 'undefined' ? i.children : ''),
+    i.people || '', i.message || '', formatDate(i.created_at, true), statusLabel(i.status)
   ]);
   const csv = [headers, ...rows].map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
   const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });

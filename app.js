@@ -817,6 +817,48 @@ function galleryGoto(i, alt) {
 
 function galleryStep(dir) { galleryGoto(galleryIdx + dir); }
 
+// ── Lightbox (fullscreen photo viewer for hotels / gallery) ──
+let lightboxImages = [];
+let lightboxIdx = 0;
+let lightboxCaption = '';
+
+function openLightbox(images, startIdx, caption) {
+  lightboxImages = (images && images.length) ? images : [];
+  if (!lightboxImages.length) return;
+  lightboxIdx = startIdx || 0;
+  lightboxCaption = caption || '';
+  lightboxRender();
+  const lb = document.getElementById('lightbox');
+  if (lb) { lb.classList.add('active'); document.body.style.overflow = 'hidden'; }
+}
+function lightboxRender() {
+  const img = document.getElementById('lightboxImg');
+  const cap = document.getElementById('lightboxCaption');
+  const multi = lightboxImages.length > 1;
+  if (img) img.src = lightboxImages[lightboxIdx];
+  if (cap) cap.textContent = lightboxCaption + (multi ? `  (${lightboxIdx + 1}/${lightboxImages.length})` : '');
+  document.querySelectorAll('.lightbox-nav').forEach(b => b.style.display = multi ? '' : 'none');
+}
+function lightboxStep(dir) {
+  if (!lightboxImages.length) return;
+  lightboxIdx = (lightboxIdx + dir + lightboxImages.length) % lightboxImages.length;
+  lightboxRender();
+}
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  if (lb) lb.classList.remove('active');
+  document.body.style.overflow = 'hidden'; // modal is still open underneath
+}
+
+// Open photos for a hotel: prefer the offer gallery; fall back to the hotel image
+function openHotelPhotos(idx) {
+  if (!activeOffer) return;
+  const h = (activeOffer.hotels || [])[idx];
+  const imgs = (galleryImages && galleryImages.length) ? galleryImages
+    : (h && h.image ? [h.image] : []);
+  openLightbox(imgs, 0, h ? h.name : (activeOffer.title || ''));
+}
+
 function openOffer(id) {
   const offer = ALL_OFFERS.find(o => o.id === id);
   if (!offer) return;
@@ -863,7 +905,10 @@ function openOffer(id) {
     hotelsSec.style.display = '';
     hotelsEl.innerHTML = hotels.map((h, i) => `
       <div class="hotel-card ${i === 0 ? 'selected' : ''}" id="hotelCard_${i}" onclick="selectHotel(${i})">
-        <img class="hotel-card-img" src="${h.image || ''}" alt="${h.name}" onerror="this.style.display='none'">
+        <div class="hotel-card-imgwrap" onclick="event.stopPropagation();openHotelPhotos(${i})" title="Виж снимки">
+          <img class="hotel-card-img" src="${h.image || ''}" alt="${h.name}" onerror="this.style.display='none'">
+          <span class="hotel-card-zoom">🔍</span>
+        </div>
         <div class="hotel-card-info">
           <div class="hotel-card-name">${h.name}</div>
           <div class="hotel-card-board">${h.board}</div>
@@ -925,6 +970,11 @@ function openOffer(id) {
   document.getElementById('inquiryFormContent').style.display = 'block';
   document.getElementById('inquirySuccess').style.display = 'none';
   ['inqName','inqPhone','inqEmail','inqMsg'].forEach(fid => { document.getElementById(fid).value = ''; });
+  // Reference number + default party size (1 adult, 0 children)
+  const refEl = document.getElementById('inqRef');
+  if (refEl) refEl.value = offer.refNum || ('#' + offer.id);
+  const adEl = document.getElementById('inqAdults'); if (adEl) adEl.value = '1';
+  const chEl = document.getElementById('inqChildren'); if (chEl) chEl.value = '0';
 
   document.getElementById('offerModal').classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -990,7 +1040,9 @@ async function submitInquiry() {
   const name = document.getElementById('inqName').value.trim();
   const phone = document.getElementById('inqPhone').value.trim();
   const email = document.getElementById('inqEmail').value.trim();
-  const people = document.getElementById('inqPeople').value;
+  const adults = parseInt(document.getElementById('inqAdults').value, 10) || 1;
+  const children = parseInt(document.getElementById('inqChildren').value, 10) || 0;
+  const people = `${adults} възр.${children ? ' + ' + children + ' деца' : ''}`;
   const hotelName = document.getElementById('inqHotel').value.trim();
   const date = document.getElementById('inqDate').value;
   const msg = document.getElementById('inqMsg').value.trim();
@@ -1006,9 +1058,11 @@ async function submitInquiry() {
 
   const inquiry = {
     offer_id: activeOffer?.id,
+    offer_ref: activeOffer?.refNum || (activeOffer ? '#' + activeOffer.id : ''),
     offer_title: activeOffer?.title,
     hotel: hotelName || undefined,
-    name, phone, email, people,
+    name, phone, email,
+    adults, children, people,
     preferred_date: date,
     message: msg,
     created_at: new Date().toISOString(),
