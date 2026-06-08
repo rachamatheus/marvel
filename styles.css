@@ -1567,6 +1567,68 @@ footer {
   transition: fill 0.3s, stroke 0.3s;
 }
 
+/* Destination dots positioned by real lat/lon */
+#destPins { position: absolute; inset: 0; z-index: 9; pointer-events: none; }
+.dest-dot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 14px; height: 14px;
+  padding: 0; margin: 0; border: none; background: none;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 9;
+}
+.dest-dot-core {
+  display: block;
+  width: 10px; height: 10px;
+  margin: 2px;
+  border-radius: 50%;
+  background: var(--gold, #c9a84c);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.30), 0 0 8px rgba(201,168,76,0.8);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.dest-dot::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 10px; height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.6);
+  animation: destPulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes destPulse {
+  0%   { width: 10px; height: 10px; opacity: 0.8; }
+  100% { width: 34px; height: 34px; opacity: 0; }
+}
+.dest-dot:hover { z-index: 30; }
+.dest-dot:hover .dest-dot-core {
+  transform: scale(1.4);
+  box-shadow: 0 0 0 4px rgba(201,168,76,0.40), 0 0 12px rgba(201,168,76,1);
+}
+.dest-tip {
+  position: absolute;
+  left: 50%; bottom: 150%;
+  transform: translateX(-50%) translateY(6px);
+  white-space: nowrap;
+  background: rgba(10,25,60,0.95);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 8px;
+  border: 1px solid rgba(201,168,76,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
+  z-index: 31;
+}
+.dest-dot:hover .dest-tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 /* Animated route arcs */
 .route-arc {
   animation: dashMove 12s linear infinite;

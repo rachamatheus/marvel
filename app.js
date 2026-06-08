@@ -337,6 +337,73 @@ function initContinentMap() {
     const el = document.getElementById(`cnt-${key}`);
     if (el) el.textContent = count > 0 ? `${count} оферти` : 'Скоро';
   });
+  renderDestinationPins();
+}
+
+// Geographic coordinates [lat, lon] per destination country
+const DEST_COORDS = {
+  greece:[39,22], turkey:[39,35], egypt:[26.5,30], albania:[41,20], bulgaria:[42.7,25.5],
+  maldives:[3.2,73], uae:[24,54], thailand:[15,101], armenia:[40.2,44.9], georgia:[42,43.5],
+  vietnam:[16,107], india:[22,79], indonesia:[-5,115], china:[35,104], srilanka:[7.5,80.7],
+  japan:[36,138], kenya:[0.3,37.9], tanzania:[-6,38.5], mauritius:[-20.3,57.6],
+  madagascar:[-19,47], seychelles:[-4.6,55.5], usa:[39,-98], argentina:[-34,-64],
+  brazil:[-15,-48], colombia:[4.5,-73], peru:[-10,-76], dominicana:[18.7,-70.2], bahamas:[24.5,-76.5],
+  spain:[40.2,-3.7], france:[47,2], italy:[42.8,12.5], morocco:[32,-6], jordan:[31,36],
+  poland:[52,19], austria:[47.5,14]
+};
+
+// d3 geoEquirectangular params used for the map: scale = 1010/(2π), translate [505,255]
+function geoToPercent(lat, lon) {
+  const k = 1010 / (2 * Math.PI) * Math.PI / 180; // ≈ 2.8056 px per degree
+  const x = 505 + lon * k;
+  const y = 255 - lat * k;
+  return { left: (x / 1010) * 100, top: (y / 510) * 100 };
+}
+
+function renderDestinationPins() {
+  const map = document.querySelector('.world-map');
+  if (!map) return;
+  let layer = document.getElementById('destPins');
+  if (layer) layer.remove();
+  layer = document.createElement('div');
+  layer.id = 'destPins';
+
+  const FLAGS = {
+    greece:'🇬🇷', turkey:'🇹🇷', egypt:'🇪🇬', spain:'🇪🇸', albania:'🇦🇱', bulgaria:'🇧🇬',
+    maldives:'🇲🇻', uae:'🇦🇪', thailand:'🇹🇭', armenia:'🇦🇲', georgia:'🇬🇪', vietnam:'🇻🇳',
+    india:'🇮🇳', indonesia:'🇮🇩', china:'🇨🇳', srilanka:'🇱🇰', japan:'🇯🇵', kenya:'🇰🇪',
+    tanzania:'🇹🇿', mauritius:'🇲🇺', madagascar:'🇲🇬', seychelles:'🇸🇨', usa:'🇺🇸',
+    argentina:'🇦🇷', brazil:'🇧🇷', colombia:'🇨🇴', peru:'🇵🇪', dominicana:'🇩🇴',
+    bahamas:'🇧🇸', france:'🇫🇷', italy:'🇮🇹', morocco:'🇲🇦', jordan:'🇯🇴', poland:'🇵🇱', austria:'🇦🇹'
+  };
+
+  // One pin per country that has offers
+  const seen = {};
+  ALL_OFFERS.forEach(o => { seen[o.country] = (seen[o.country] || 0) + 1; });
+  Object.keys(seen).forEach(key => {
+    const coord = DEST_COORDS[key];
+    if (!coord) return;
+    const country = COUNTRIES.find(c => c.key === key);
+    const name = country ? country.label : key;
+    const pos = geoToPercent(coord[0], coord[1]);
+    const count = seen[key];
+    const pin = document.createElement('button');
+    pin.className = 'dest-dot';
+    pin.style.left = pos.left + '%';
+    pin.style.top = pos.top + '%';
+    pin.setAttribute('aria-label', name);
+    pin.onclick = () => {
+      filterByCountry(key);
+      closeContinent();
+      document.getElementById('offers').scrollIntoView({ behavior: 'smooth' });
+    };
+    pin.innerHTML =
+      `<span class="dest-dot-core"></span>` +
+      `<span class="dest-tip">${FLAGS[key] || '🌍'} ${name} · ${count}</span>`;
+    layer.appendChild(pin);
+  });
+
+  map.appendChild(layer);
 }
 
 function selectContinent(key) {
