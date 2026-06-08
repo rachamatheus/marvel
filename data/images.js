@@ -54,4 +54,6 @@ const OFFER_IMAGES = {
   51: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-yuzhna-koreya-i-yaponiya-ot-seul-do-tokio--1_1742210591430.jpg',
   52: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-gruziya-tbilisi-i-ocharovanieto-na-yuzhen--1_1772444629673.jpg',
   53: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_gruziya-i-armeniya%E2%80%93pateshestvie-iz-kavkazkite-sakro-1_17724462331102.jpg',
+  54: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_peru-velikden-2026-1_1761827812551.jpg',
+  55: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_klasicheska-ispaniya-%E2%80%93-obzorna-obikolka-1_1771250291656.jpg',
 };
