@@ -701,12 +701,15 @@ function openOffer(id) {
     programEl.innerHTML = '';
   }
 
-  // Highlights (legacy support)
-  document.getElementById('modalHighlights').innerHTML = offer.highlights ? `
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem;">
-      ${offer.highlights.map(h => `<span style="background:rgba(26,58,107,0.07);color:var(--primary);padding:6px 12px;border-radius:100px;font-size:0.8rem;font-weight:600;">✦ ${h}</span>`).join('')}
-    </div>
-  ` : '';
+  // Highlights (legacy support — element may not exist)
+  const hlEl = document.getElementById('modalHighlights');
+  if (hlEl) {
+    hlEl.innerHTML = offer.highlights ? `
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem;">
+        ${offer.highlights.map(h => `<span style="background:rgba(26,58,107,0.07);color:var(--primary);padding:6px 12px;border-radius:100px;font-size:0.8rem;font-weight:600;">✦ ${h}</span>`).join('')}
+      </div>
+    ` : '';
+  }
 
   // Includes / Excludes
   document.getElementById('modalIncludes').innerHTML = offer.includes.map(i => `<li>${i}</li>`).join('');
