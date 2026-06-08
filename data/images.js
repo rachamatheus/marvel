@@ -61,4 +61,13 @@ const OFFER_IMAGES = {
   58: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_vakantsiya-v-egipet-kayro-hurgada-i-kruiz-po-reka-nil-s-1_1770823312433.jpg',
   59: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-tayland-puket-i-bankok-perlite-na-indokita-1_1770986262653.jpg',
   60: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-bankok-singapur-kambodzha-i-o-v-puket-1_1673524562174.jpg',
+  61: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-sharm-el-sheyh-egipet-sas-samolet-ot-sofiya--1_1776677968974.jpg',
+  62: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-sharm-el-sheyh-egipet-sas-samolet-ot-sofiya--1_17749494091009.jpg',
+  63: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-hurgada-egipet-sas-samolet-ot-sofiya-%E2%80%93-7-n-1_1753704519951.jpg',
+  64: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-sharm-el-sheyh-egipet-sas-samolet-ot-varna-7-1_17778903861139.jpg',
+  65: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_all-inclusive-pochivka-v-hurgada-s-polet-ot-plovdiv-ese-1_17803821591160.jpg',
+  66: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_all-inclusive-pochivka-v-sharm-el-sheyh-lyato-esen-2026-1_17659020581049.jpg',
+  67: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_all-inclusive-pochivka-v-hurgada-s-polet-ot-sofiya-lyat-1_17781403641140.jpg',
+  68: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_egipetski-maldivi-almaza-bey-sinyo-spokoyno-i-bezkrayno-1_17794373041149.jpg',
+  69: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_vakantsiya-v-egipet-hurgada-kayro-i-kruiz-po-reka-nil-s-1_1742197840425.jpg',
 };
