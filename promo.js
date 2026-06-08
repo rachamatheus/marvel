@@ -15,6 +15,16 @@ const CAMPAIGNS = {
     title: '🇬🇷 Лято 2026 Гърция',
     sub: 'Острови, плажове и древна история — нашите гръцки оферти за лято 2026.',
     cover: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1920&q=80'
+  },
+  'uikend': {
+    title: '🧳 Уикенд',
+    sub: 'Кратки бягства за уикенда — градове, шопинг и култура.',
+    cover: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1920&q=80'
+  },
+  'avtorski': {
+    title: '✍️ Авторски програми',
+    sub: 'Специално подбрани пътешествия от нашия екип — за незабравими спомени.',
+    cover: 'https://images.unsplash.com/photo-1505881502353-a1986add3762?w=1920&q=80'
   }
 };
 
@@ -82,6 +92,8 @@ function renderPromo() {
       <div style="display:flex;gap:10px;justify-content:center;margin-bottom:1rem;flex-wrap:wrap;">
         <a class="filter-btn ${promoTag === 'ranni-zapisvaniya' ? 'active' : ''}" href="promo.html?c=ranni-zapisvaniya">🌅 Ранни записвания</a>
         <a class="filter-btn ${promoTag === 'lyato-gartsia' ? 'active' : ''}" href="promo.html?c=lyato-gartsia">🇬🇷 Лято 2026 Гърция</a>
+        <a class="filter-btn ${promoTag === 'uikend' ? 'active' : ''}" href="promo.html?c=uikend">🧳 Уикенд</a>
+        <a class="filter-btn ${promoTag === 'avtorski' ? 'active' : ''}" href="promo.html?c=avtorski">✍️ Авторски програми</a>
       </div>
       <div style="text-align:center;color:var(--gray-600);font-size:0.85rem;margin-bottom:6px;">Филтър по дестинация:</div>
       <div class="filter-group blog-filters">${countryChips}</div>

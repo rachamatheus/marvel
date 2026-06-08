@@ -133,6 +133,13 @@ const OFFER_IMAGES = {
   130: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_romantikata-na-frenskata-riviera-i-liguriya--bonus-6-ek-1_17659018731047.jpg',
   131: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekskluzivno-maroko-2026-imperskite-stolitsi-katsane-vav-1_17659012711035.jpg',
   132: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_parizh-lyubov-i-romantika-sas-samolet-obsluzhvane-na-ba-1_1767869753411.jpg',
+  133: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-i-shoping-v-odrin-1_1765966787615.jpg',
+  134: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_uikend-ekskurziya-i-shoping-tur-v-solun-1_1765966645614.jpg',
+  135: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_uikend-v-atina-%E2%80%93-3-noshtuvki-samoletna-programa-s-obs-1_1773751339345.jpg',
+  136: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-polsha-uikend-v-krakov-i-vrotslav-1_1779343121346.jpg',
+  137: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_uikend-v-dubay-i-abu-dabi-s-polet-na-wizz-air-1_1765964158608.jpg',
+  138: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_parizh-uikend-1_1704280990341.jpg',
+  139: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1757595034980.png',
 };
 
 // Number of gallery images per offer (cover counts as #1). Used to derive

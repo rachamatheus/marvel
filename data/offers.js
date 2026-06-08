@@ -19,6 +19,8 @@ const TAGS = [
   { key: 'allInclusive', label: 'All Inclusive' },
   { key: 'lyato-gartsia', label: '🇬🇷 Лято 2026 Гърция' },
   { key: 'ranni-zapisvaniya', label: '🌅 Ранни записвания' },
+  { key: 'uikend', label: '🧳 Уикенд' },
+  { key: 'avtorski', label: '✍️ Авторски програми' },
 ];
 
 const COUNTRIES = [
@@ -279,7 +281,7 @@ const OFFERS = [
 // ══════════════════════════════════════════════════════════════
 { id:6, refNum:'П962',
   title:'В ритъма на доминиканското слънце – Пунта Кана',
-  category:'exotic', tags:['beach','allInclusive','luxury'], destination:'Доминикана – Пунта Кана', country:'dominicana',
+  category:'exotic', tags:['beach','allInclusive','luxury','avtorski'], destination:'Доминикана – Пунта Кана', country:'dominicana',
   duration:'8 дни / 7 нощувки', days:8, nights:7,
   price_bgn:2268, price_eur:1160,
   dates:['2026-06-09','2026-07-21','2026-08-04'],
@@ -3387,5 +3389,60 @@ const OFFERS = [
   includes:['Полет с летищни такси','4 нощувки','Трансфери','Водач'], excludes:['Входни такси','Факултативни екскурзии','Единична стая (317 €)'],
   departures:['София (Летище)'],
   hotels:[{name:'Ibis Paris La Defense 3★',board:'Закуска',price_bgn:1563,price_eur:799,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_parizh-lyubov-i-romantika-sas-samolet-obsluzhvane-na-ba-1_1767869753411.jpg'}], featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// УИКЕНД (ids 133–138) и АВТОРСКИ ПРОГРАМИ (139)
+// ══════════════════════════════════════════════════════════════
+{ id:133, refNum:'Е615', title:'Екскурзия и шопинг в Одрин', category:'excursion', tags:['uikend','city','culture'], destination:'Одрин, Турция', country:'turkey', duration:'1 ден', days:1, nights:0, price_bgn:96, price_eur:49, dates:['2026-06-13','2026-06-27'], next_date:'2026-06-13', transport:'bus',
+  description:'Еднодневен тур до Одрин – джамията Селимие, местните пазари и аутлет центрове.',
+  includes:['Автобусен транспорт','Водач','Медицинска застраховка'], excludes:['Входни такси','Лични разходи','Обяд'],
+  departures:['София (00:30)','Пловдив'],
+  hotels:[], featured:false },
+
+{ id:134, refNum:'Е614', title:'Уикенд екскурзия и шопинг тур в Солун', category:'excursion', tags:['uikend','city','culture'], destination:'Солун, Гърция', country:'greece', duration:'2 дни / 1 нощувка', days:2, nights:1, price_bgn:205, price_eur:105, dates:['2026-10-03'], next_date:'2026-10-03', transport:'bus',
+  description:'Кратък уикенд в Солун – Бялата кула, Ротондата и шопинг в Mediterranean Cosmos.',
+  includes:['Автобусен транспорт','1 нощувка със закуска','Водач','Медицинска застраховка'], excludes:['Входни такси','Лични разходи'],
+  departures:['София (07:00)','Пловдив'],
+  hotels:[{name:'Хотел в Солун',board:'Закуска',price_bgn:205,price_eur:105,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_uikend-ekskurziya-i-shoping-tur-v-solun-1_1765966645614.jpg'}], featured:false },
+
+{ id:135, refNum:'Е345', title:'Уикенд в Атина – 3 нощувки (самолетна програма)', category:'excursion', tags:['uikend','city','culture'], destination:'Атина, Гърция', country:'greece', duration:'4 дни / 3 нощувки', days:4, nights:3, price_bgn:753, price_eur:385, dates:['2026-09-19','2026-10-08','2026-10-22','2026-11-05','2026-11-19'], next_date:'2026-09-19', transport:'plane',
+  description:'Уикенд в Атина с полет и водач на български – Акропол, Плака и факултативни екскурзии.',
+  includes:['Полет с летищни такси','3 нощувки със закуска','Трансфери','Водач'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Candia 4★ (или подобен)',board:'Закуска',price_bgn:753,price_eur:385,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_uikend-v-atina-%E2%80%93-3-noshtuvki-samoletna-programa-s-obs-1_1773751339345.jpg'}], featured:false },
+
+{ id:136, refNum:'Е346', title:'Екскурзия в Полша – Уикенд в Краков и Вроцлав', category:'excursion', tags:['uikend','city','culture'], destination:'Краков / Вроцлав, Полша', country:'poland', duration:'4 дни / 3 нощувки', days:4, nights:3, price_bgn:976, price_eur:499, dates:['2026-08-21','2026-09-04','2026-11-06'], next_date:'2026-08-21', transport:'plane',
+  description:'Историческите Краков (замъкът Вавел) и Вроцлав – „градът на 100-те моста".',
+  includes:['Полет с летищни такси','3 нощувки със закуска','Трансфери','Водач'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'3★ хотел',board:'Закуска',price_bgn:976,price_eur:499,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-polsha-uikend-v-krakov-i-vrotslav-1_1779343121346.jpg'}], featured:false },
+
+{ id:137, refNum:'Е608', title:'Уикенд в Дубай и Абу Даби (полет на Wizz Air)', category:'excursion', tags:['uikend','city','luxury','adventure'], destination:'Дубай / Абу Даби, ОАЕ', country:'uae', duration:'4 дни / 3 нощувки', days:4, nights:3, price_bgn:1398, price_eur:715, dates:['2026-10-31','2026-11-07','2026-11-14','2026-11-21','2026-11-28'], next_date:'2026-10-31', transport:'plane',
+  description:'Модерният Дубай и културният Абу Даби в един уикенд, с полет на Wizz Air.',
+  includes:['Полет с летищни такси','3 нощувки','Трансфери','Водач'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Flora Al Barsha 4★ (или подобен)',board:'Закуска',price_bgn:1398,price_eur:715,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_uikend-v-dubay-i-abu-dabi-s-polet-na-wizz-air-1_1765964158608.jpg'}], featured:false },
+
+{ id:138, refNum:'Е341', title:'Париж – уикенд', category:'excursion', tags:['uikend','city','culture'], destination:'Париж, Франция', country:'france', duration:'4 дни / 3 нощувки', days:4, nights:3, price_bgn:1514, price_eur:774, dates:['2026-06-27','2026-07-09','2026-07-24','2026-08-07','2026-08-28','2026-09-05'], next_date:'2026-06-27', transport:'plane',
+  description:'Уикенд в Париж – Нотр Дам, Айфеловата кула, исторически квартали и круиз по Сена.',
+  includes:['Полет с летищни такси','3 нощувки','Трансфери','Водач'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Havane 3★ (Категория B)',board:'Закуска',price_bgn:1514,price_eur:774,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_parizh-uikend-1_1704280990341.jpg'}], featured:false },
+
+{ id:139, refNum:'П980', title:'Малдиви – райско приключение', category:'exotic', tags:['avtorski','beach','luxury','allInclusive'], destination:'Малдиви', country:'maldives', duration:'9 дни / 7 нощувки', days:9, nights:7, price_bgn:4450, price_eur:2275, dates:['2026-10-31','2026-11-09','2027-01-13','2027-02-20'], next_date:'2026-10-31', transport:'plane',
+  description:'Авторска програма до Малдивите – 7 нощи на бели плажове, водни спортове, спа и гмуркане.',
+  includes:['Полет София–Истанбул–Мале с летищни такси','7 нощувки','Трансфери (спийдбоут/хидроплан)','Медицинска застраховка'], excludes:['Факултативни екскурзии','Лични разходи','Доплащане за единична стая'],
+  departures:['София (Летище)'],
+  hotels:[
+    {name:'Ellaidhoo Maldives by Cinnamon 4★',board:'All Inclusive',price_bgn:4448,price_eur:2274,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1757595034980.png'},
+    {name:'Malahini Kuda Bandos 5★',board:'Закуска',price_bgn:4460,price_eur:2280,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1757595034980.png'},
+    {name:'Kurumba Maldives 5★',board:'Закуска',price_bgn:5535,price_eur:2830,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1757595034980.png'},
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1757595034980.png',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_2_1757595034980.png',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_3_1757595034980.png',
+  ],
+  featured:false },
 
 ];
