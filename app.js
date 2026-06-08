@@ -431,7 +431,10 @@ function renderFilters() {
 // ===== OFFERS GRID =====
 function getFilteredOffers() {
   let list = [...ALL_OFFERS];
-  if (currentCategory !== 'all') list = list.filter(o => o.category === currentCategory);
+  if (currentCategory !== 'all') {
+    if (currentCategory === 'cruise') list = list.filter(o => (o.tags || []).includes('cruise'));
+    else list = list.filter(o => o.category === currentCategory);
+  }
   if (currentTag) list = list.filter(o => o.tags.includes(currentTag));
   if (currentCountry) list = list.filter(o => o.country === currentCountry);
   if (currentSearch) {

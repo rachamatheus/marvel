@@ -1,10 +1,10 @@
 // Marvel Tour — Offers Database
 
 const CATEGORIES = [
+  { key: 'exotic',    label: 'Екзотика' },
   { key: 'vacation',  label: 'Почивки' },
   { key: 'excursion', label: 'Екскурзии' },
-  { key: 'weekend',   label: 'Уикенди' },
-  { key: 'exotic',    label: 'Екзотика' },
+  { key: 'cruise',    label: 'Круизи' },
 ];
 
 const TAGS = [

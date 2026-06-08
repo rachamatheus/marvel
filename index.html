@@ -102,7 +102,7 @@
 
     <!-- World Map with SVG Continents -->
     <div class="world-map-wrap">
-      <div class="world-map" style="background-image: url('https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1400&q=80'); background-size: cover; background-position: center;">
+      <div class="world-map" style="background: radial-gradient(circle at 50% 42%, #0d2f63 0%, #08204a 60%, #04102a 100%);">
 
         <!-- Dark overlay -->
         <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(5,20,60,0.50) 0%,rgba(10,30,80,0.35) 50%,rgba(5,20,60,0.45) 100%);z-index:1;border-radius:20px;"></div>
@@ -116,6 +116,8 @@
           <line x1="5" y1="255" x2="1005" y2="255" stroke="rgba(255,255,255,0.10)" stroke-width="0.7" stroke-dasharray="4,12"/>
           <line x1="505" y1="5" x2="505" y2="505" stroke="rgba(255,255,255,0.08)" stroke-width="0.7" stroke-dasharray="4,12"/>
           <ellipse cx="505" cy="255" rx="500" ry="250" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="0.8"/>
+          <!-- Real continent shapes (drawn at runtime from Natural Earth via d3) -->
+          <g id="landLayer"></g>
 
           <!-- ══ NORTH AMERICA ══ -->
           <path class="cont-shape cont-north-america" fill="rgba(99,179,237,0.28)" stroke="rgba(99,179,237,0.85)" stroke-width="1.5" filter="url(#cont-glow)"
@@ -206,7 +208,7 @@
         </svg>
 
         <!-- ★ EUROPE bubble (centered on Europe shape) -->
-        <div class="continent-pin" id="pin-europe" style="left:51%;top:14%;z-index:10;" onclick="selectContinent('europe')">
+        <div class="continent-pin" id="pin-europe" style="left:53%;top:22%;z-index:10;" onclick="selectContinent('europe')">
           <div class="continent-bubble" data-continent="europe">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -220,7 +222,7 @@
         </div>
 
         <!-- ★ AFRICA bubble -->
-        <div class="continent-pin" id="pin-africa" style="left:51%;top:58%;z-index:10;" onclick="selectContinent('africa')">
+        <div class="continent-pin" id="pin-africa" style="left:55%;top:49%;z-index:10;" onclick="selectContinent('africa')">
           <div class="continent-bubble" data-continent="africa">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -234,7 +236,7 @@
         </div>
 
         <!-- ★ ASIA bubble -->
-        <div class="continent-pin" id="pin-asia" style="left:72%;top:22%;z-index:10;" onclick="selectContinent('asia')">
+        <div class="continent-pin" id="pin-asia" style="left:76%;top:27%;z-index:10;" onclick="selectContinent('asia')">
           <div class="continent-bubble" data-continent="asia">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -248,7 +250,7 @@
         </div>
 
         <!-- ★ AMERICA bubble -->
-        <div class="continent-pin" id="pin-america" style="left:14%;top:28%;z-index:10;" onclick="selectContinent('america')">
+        <div class="continent-pin" id="pin-america" style="left:22%;top:30%;z-index:10;" onclick="selectContinent('america')">
           <div class="continent-bubble" data-continent="america">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -292,8 +294,10 @@
     <div class="filters-bar">
       <div class="filter-group" id="catFilters">
         <button class="filter-btn active" data-filter="all" onclick="filterByCategory('all')">Всички</button>
+        <button class="filter-btn" data-filter="exotic" onclick="filterByCategory('exotic')">🌴 Екзотика</button>
         <button class="filter-btn" data-filter="vacation" onclick="filterByCategory('vacation')">🏖️ Почивки</button>
         <button class="filter-btn" data-filter="excursion" onclick="filterByCategory('excursion')">🗺️ Екскурзии</button>
+        <button class="filter-btn" data-filter="cruise" onclick="filterByCategory('cruise')">🚢 Круизи</button>
       </div>
       <div class="filter-divider"></div>
       <div class="filter-group" id="tagFilters">
@@ -597,8 +601,74 @@
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
-<script src="data/offers.js?v=20"></script>
-<script src="data/images.js?v=20"></script>
-<script src="app.js?v=20"></script>
+<script src="data/offers.js?v=21"></script>
+<script src="data/images.js?v=21"></script>
+<script src="app.js?v=21"></script>
+
+<!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script>
+(function () {
+  // Tint each landmass by continent so the map keeps the colourful design.
+  // Country numeric ISO codes → continent colour.
+  var CONTINENT_FILL = {
+    africa:   'rgba(237,137,54,0.30)',
+    europe:   'rgba(154,205,50,0.32)',
+    asia:     'rgba(255,150,80,0.30)',
+    namerica: 'rgba(99,179,237,0.30)',
+    samerica: 'rgba(72,187,120,0.32)',
+    oceania:  'rgba(180,120,60,0.32)',
+    other:    'rgba(120,170,220,0.22)'
+  };
+  // Minimal numeric-ISO → continent map (covers the visible landmasses).
+  function continentOf(id) {
+    var n = +id;
+    var AF = [12,24,204,72,108,854,120,132,140,148,174,178,180,384,262,818,226,232,748,231,266,270,288,324,624,404,426,430,434,450,454,466,478,480,504,508,516,562,566,646,686,690,694,706,710,728,729,748,768,800,834,854,894,716,180,178,140];
+    var EU = [8,20,40,56,70,100,191,203,208,233,234,246,250,276,292,300,304,348,352,372,380,428,440,442,470,492,498,499,528,578,616,620,642,643,674,688,703,705,724,752,756,804,807,826,840 /*placeholder*/];
+    var AS = [4,31,48,50,51,64,96,104,116,144,156,196,268,275,344,356,360,364,368,376,392,398,400,408,410,414,417,418,422,446,458,462,496,512,524,586,608,626,634,682,702,704,760,762,764,784,792,795,860,887,344,446];
+    var NA = [28,44,52,84,90,124,136,170,188,192,212,214,308,312,320,332,340,388,484,558,591,600,630,659,662,670,740,780,796,840,124,484];
+    var SA = [32,68,76,152,170,218,238,254,328,600,604,740,858,862,328];
+    var OC = [36,90,242,258,296,316,520,540,548,554,570,580,583,585,598,612,772,776,798,876,882,36];
+    if (NA.indexOf(n) >= 0) return 'namerica';
+    if (SA.indexOf(n) >= 0) return 'samerica';
+    if (EU.indexOf(n) >= 0) return 'europe';
+    if (AF.indexOf(n) >= 0) return 'africa';
+    if (OC.indexOf(n) >= 0) return 'oceania';
+    if (AS.indexOf(n) >= 0) return 'asia';
+    return 'other';
+  }
+
+  function draw() {
+    var layer = document.getElementById('landLayer');
+    if (!layer || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+    var SVGNS = 'http://www.w3.org/2000/svg';
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(function (r) { return r.json(); })
+      .then(function (topo) {
+        var fc = topojson.feature(topo, topo.objects.countries);
+        var projection = d3.geoEquirectangular()
+          .scale(1010 / (2 * Math.PI))
+          .translate([505, 255]);
+        var geoPath = d3.geoPath(projection);
+        fc.features.forEach(function (f) {
+          if (+f.id === 10) return; // skip Antarctica
+          var d = geoPath(f);
+          if (!d) return;
+          var p = document.createElementNS(SVGNS, 'path');
+          p.setAttribute('d', d);
+          p.setAttribute('fill', CONTINENT_FILL[continentOf(f.id)] || CONTINENT_FILL.other);
+          p.setAttribute('stroke', 'rgba(201,168,76,0.55)');
+          p.setAttribute('stroke-width', '0.4');
+          p.setAttribute('stroke-linejoin', 'round');
+          layer.appendChild(p);
+        });
+      })
+      .catch(function () {});
+  }
+  if (document.readyState !== 'loading') draw();
+  else document.addEventListener('DOMContentLoaded', draw);
+})();
+</script>
 </body>
 </html>
