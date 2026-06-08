@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Marvel Tour — Вашият туроператор</title>
   <meta name="description" content="Marvel Tour — туристически оферти, екскурзии и почивки от Пловдив. Гърция, Турция, Египет, Италия и още.">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=21">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
 </head>
 <body>
@@ -641,7 +641,10 @@
 
   function draw() {
     var layer = document.getElementById('landLayer');
-    if (!layer || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+    if (!layer) return;
+    // Remove any leftover hand-drawn continent blobs (in case old CSS is cached)
+    document.querySelectorAll('.world-svg .cont-shape').forEach(function (el) { el.remove(); });
+    if (typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
     var SVGNS = 'http://www.w3.org/2000/svg';
     fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
       .then(function (r) { return r.json(); })
