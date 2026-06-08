@@ -140,6 +140,13 @@ const OFFER_IMAGES = {
   137: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_uikend-v-dubay-i-abu-dabi-s-polet-na-wizz-air-1_1765964158608.jpg',
   138: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_parizh-uikend-1_1704280990341.jpg',
   139: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1757595034980.png',
+  140: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-malta-ostrovat-na-ritsarite-4-noshtuvki-1_1773826510850.jpg',
+  141: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-malta-ostrovat-na-ritsarite-7-noshtuvki-1_17683009271075.jpg',
+  142: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_portugaliya-ot-a-do-ya-2026-polet-ot-sofiya-hoteli-3-4-1_17724347161099.jpg',
+  143: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_nova-godina-2026-v-rovaniemi-laplandiya-28122025-020120-1._1753869780953.jpeg',
+  144: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_zlatna-praga-ot-sofiya-4-noshtuvki-wizz-air-1_17659013271036.jpg',
+  145: 'https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=900&q=80',
+  146: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80',
 };
 
 // Number of gallery images per offer (cover counts as #1). Used to derive

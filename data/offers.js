@@ -58,6 +58,10 @@ const COUNTRIES = [
   { key: 'france',      label: 'Франция' },
   { key: 'morocco',     label: 'Мароко' },
   { key: 'jordan',      label: 'Йордания' },
+  { key: 'malta',       label: 'Малта' },
+  { key: 'portugal',    label: 'Португалия' },
+  { key: 'finland',     label: 'Финландия' },
+  { key: 'czech',       label: 'Чехия' },
 ];
 
 const SAT_FULL = ['2026-06-13','2026-06-20','2026-06-27','2026-07-04','2026-07-11','2026-07-18','2026-07-25','2026-08-01','2026-08-08','2026-08-15','2026-08-22','2026-08-29','2026-09-05','2026-09-12','2026-09-19'];
@@ -3444,5 +3448,50 @@ const OFFERS = [
     'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_3_1757595034980.png',
   ],
   featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// ДОПЪЛНИТЕЛНИ ДЕСТИНАЦИИ (Малта, Португалия, Финландия, Чехия, България)
+// ══════════════════════════════════════════════════════════════
+{ id:140, refNum:'П850', title:'Почивка в Малта – островът на рицарите (4 нощувки)', category:'vacation', tags:['beach','culture','city'], destination:'Малта – Ла Валета', country:'malta', duration:'5 дни / 4 нощувки', days:5, nights:4, price_bgn:1148, price_eur:587, dates:['2026-06-10','2026-06-17','2026-06-24','2026-07-01','2026-07-08'], next_date:'2026-06-10', transport:'plane',
+  description:'Малта – островът на рицарите. Три древни южни града и факултативни екскурзии до Гозо и барокова Ла Валета.',
+  includes:['Полет с летищни такси','4 нощувки със закуска','Трансфери','Медицинска застраховка'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Cavalieri Art Saint Julian\'s',board:'Закуска',price_bgn:1148,price_eur:587,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-malta-ostrovat-na-ritsarite-4-noshtuvki-1_1773826510850.jpg'}], featured:false },
+
+{ id:141, refNum:'П1075', title:'Почивка в Малта – островът на рицарите (7 нощувки)', category:'vacation', tags:['beach','culture','city'], destination:'Малта – Ла Валета', country:'malta', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:1545, price_eur:790, dates:['2026-06-13','2026-06-20','2026-06-27','2026-07-04'], next_date:'2026-06-13', transport:'plane',
+  description:'Седмица в Малта – Ла Валета, яхтен круиз до Синята лагуна на Комино и екскурзия до Гозо.',
+  includes:['Полет с летищни такси','7 нощувки със закуска','Трансфери','Медицинска застраховка'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Cavalieri Art Saint Julian\'s',board:'Закуска',price_bgn:1545,price_eur:790,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-malta-ostrovat-na-ritsarite-7-noshtuvki-1_17683009271075.jpg'}], featured:false },
+
+{ id:142, refNum:'П1099', title:'Португалия от А до Я 2026 (полет от София)', category:'excursion', tags:['culture','city','adventure'], destination:'Португалия – Лисабон / Порто', country:'portugal', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:2350, price_eur:1202, dates:['2026-06-15','2026-06-22','2026-06-29','2026-08-24','2026-09-07'], next_date:'2026-06-15', transport:'plane',
+  description:'Цяла Португалия – Лисабон, Синтра, Кабо да Рока, Порто, Фатима и Сантяго де Компостела.',
+  includes:['Полет с летищни такси','7 нощувки 3-4★ със закуска','Трансфери и автобус','Водач'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'3-4★ хотели по маршрута',board:'Закуска',price_bgn:2350,price_eur:1202,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_portugaliya-ot-a-do-ya-2026-polet-ot-sofiya-hoteli-3-4-1_17724347161099.jpg'}], featured:false },
+
+{ id:143, refNum:'П953', title:'Нова година 2026 в Рованиеми, Лапландия', category:'excursion', tags:['nature','adventure','family','luxury'], destination:'Рованиеми, Финландия', country:'finland', duration:'6 дни / 5 нощувки', days:6, nights:5, price_bgn:4495, price_eur:2298, dates:['2025-12-28'], next_date:'2025-12-28', transport:'plane',
+  description:'Нова година в Лапландия – директен чартър, Селото на Дядо Коледа, Северно сияние и факулт. сафари със северни елени.',
+  includes:['Директен чартър от София','5 нощувки','Трансфери','Медицинска застраховка'], excludes:['Факултативни активности','Входни такси','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Hotelli Aakenus 3★',board:'Закуска',price_bgn:4495,price_eur:2298,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_nova-godina-2026-v-rovaniemi-laplandiya-28122025-020120-1._1753869780953.jpeg'}], featured:false },
+
+{ id:144, refNum:'П1036', title:'Златна Прага – от София (4 нощувки, Wizz Air)', category:'excursion', tags:['city','culture'], destination:'Прага, Чехия', country:'czech', duration:'5 дни / 4 нощувки', days:5, nights:4, price_bgn:857, price_eur:438, dates:['2026-09-02','2026-09-05','2026-09-19'], next_date:'2026-09-02', transport:'plane',
+  description:'Прага – Пражкият замък, Карловият мост, Стария градски площад и архитектурните съкровища на града.',
+  includes:['Полет Wizz Air с летищни такси','4 нощувки със закуска','Трансфери','Водач'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Olympik Hotel, Прага',board:'Закуска',price_bgn:857,price_eur:438,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_zlatna-praga-ot-sofiya-4-noshtuvki-wizz-air-1_17659013271036.jpg'}], featured:false },
+
+{ id:145, refNum:'П1153', title:'Хотели в Златни пясъци', category:'vacation', tags:['beach','family'], destination:'Златни пясъци, България', country:'bulgaria', duration:'нощувки по избор', days:2, nights:1, price_bgn:29, price_eur:15, dates:['2026-06-09'], next_date:'2026-06-09', transport:'car',
+  description:'Богат избор от хотели в курорта Златни пясъци – нощувки по избор на достъпни цени.',
+  includes:['Нощувка в избран хотел'], excludes:['Транспорт','Хранене (по хотел)','Туристически такси'],
+  departures:['На място'],
+  hotels:[{name:'Хотели в Златни пясъци (различни категории)',board:'По избор',price_bgn:29,price_eur:15,image:'https://www.marveltourbg.com/img/Marvel-Logo-big.png'}], featured:false },
+
+{ id:146, refNum:'П1151', title:'Хотели в Слънчев ден', category:'vacation', tags:['beach','luxury','family'], destination:'Слънчев ден, България', country:'bulgaria', duration:'нощувки по избор', days:2, nights:1, price_bgn:115, price_eur:59, dates:['2026-06-09'], next_date:'2026-06-09', transport:'car',
+  description:'Хотели в затворения комплекс Слънчев ден – спокойствие, плаж и СПА на Черноморието.',
+  includes:['Нощувка в избран хотел'], excludes:['Транспорт','Хранене (по хотел)','Туристически такси'],
+  departures:['На място'],
+  hotels:[{name:'Хотели в Слънчев ден',board:'По избор',price_bgn:115,price_eur:59,image:'https://www.marveltourbg.com/img/Marvel-Logo-big.png'}], featured:false },
 
 ];
