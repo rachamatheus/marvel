@@ -626,18 +626,26 @@ function toggleFav(event, id) {
 
 // ===== OFFER MODAL =====
 let selectedDate = null;
+let selectedHotelIdx = 0;
 
 function openOffer(id) {
   const offer = ALL_OFFERS.find(o => o.id === id);
   if (!offer) return;
   activeOffer = offer;
   selectedDate = offer.dates[0] || null;
+  selectedHotelIdx = 0;
 
   document.getElementById('modalImg').src = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[offer.id]) || offer.image || PLACEHOLDER_IMG;
   document.getElementById('modalImg').alt = offer.title;
   document.getElementById('modalTitle').textContent = offer.title;
-  document.getElementById('modalPrice').textContent = `от ${offer.price_eur} €`;
-  document.getElementById('modalPriceSub').textContent = `/ ${offer.price_bgn.toFixed(2)} лв.  · ${offer.duration}`;
+
+  // Price from first hotel (cheapest) or package defaults
+  const hotels = offer.hotels || [];
+  const priceEur = hotels.length ? hotels[0].price_eur : offer.price_eur;
+  const priceBgn = hotels.length ? hotels[0].price_bgn : offer.price_bgn;
+  document.getElementById('modalPrice').textContent = `от ${priceEur} €`;
+  document.getElementById('modalPriceSub').textContent = `/ ${priceBgn.toFixed(2)} лв. · ${offer.duration}`;
+
   document.getElementById('modalDesc').textContent = offer.description;
 
   // Badges
@@ -650,7 +658,50 @@ function openOffer(id) {
     ${offer.featured ? '<span class="modal-tag gold">⭐ Препоръчано</span>' : ''}
   `;
 
-  // Highlights
+  // Hotels section
+  const hotelsSec = document.getElementById('modalHotelsSection');
+  const hotelsEl  = document.getElementById('modalHotels');
+  if (hotels.length) {
+    hotelsSec.style.display = '';
+    hotelsEl.innerHTML = hotels.map((h, i) => `
+      <div class="hotel-card ${i === 0 ? 'selected' : ''}" id="hotelCard_${i}" onclick="selectHotel(${i})">
+        <img class="hotel-card-img" src="${h.image || ''}" alt="${h.name}" onerror="this.style.display='none'">
+        <div class="hotel-card-info">
+          <div class="hotel-card-name">${h.name}</div>
+          <div class="hotel-card-board">${h.board}</div>
+        </div>
+        <div class="hotel-card-price">
+          <div class="hotel-card-price-eur">${h.price_eur} €</div>
+          <div class="hotel-card-price-bgn">${h.price_bgn.toFixed(2)} лв.</div>
+        </div>
+      </div>
+    `).join('');
+    // pre-fill inquiry hotel field
+    document.getElementById('inqHotel').value = hotels[0].name;
+    document.getElementById('inqHotelGroup').style.display = '';
+  } else {
+    hotelsSec.style.display = 'none';
+    hotelsEl.innerHTML = '';
+    document.getElementById('inqHotelGroup').style.display = 'none';
+  }
+
+  // Program section
+  const programSec = document.getElementById('modalProgramSection');
+  const programEl  = document.getElementById('modalProgram');
+  if (offer.program && offer.program.length) {
+    programSec.style.display = '';
+    programEl.innerHTML = offer.program.map(p => `
+      <div class="program-day">
+        <div class="program-day-title">${p.day}</div>
+        <div class="program-day-text">${p.text}</div>
+      </div>
+    `).join('');
+  } else {
+    programSec.style.display = 'none';
+    programEl.innerHTML = '';
+  }
+
+  // Highlights (legacy support)
   document.getElementById('modalHighlights').innerHTML = offer.highlights ? `
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem;">
       ${offer.highlights.map(h => `<span style="background:rgba(26,58,107,0.07);color:var(--primary);padding:6px 12px;border-radius:100px;font-size:0.8rem;font-weight:600;">✦ ${h}</span>`).join('')}
@@ -679,6 +730,29 @@ function openOffer(id) {
 
   // Track view
   trackOfferView(offer.id, offer.title, offer.destination, offer.category);
+}
+
+function selectHotel(idx) {
+  if (!activeOffer || !activeOffer.hotels) return;
+  selectedHotelIdx = idx;
+  const h = activeOffer.hotels[idx];
+
+  // Highlight selected card
+  document.querySelectorAll('.hotel-card').forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+
+  // Update price display
+  document.getElementById('modalPrice').textContent = `от ${h.price_eur} €`;
+  document.getElementById('modalPriceSub').textContent = `/ ${h.price_bgn.toFixed(2)} лв. · ${activeOffer.duration}`;
+
+  // Update modal image to this hotel's image
+  if (h.image) {
+    document.getElementById('modalImg').src = h.image;
+  }
+
+  // Update inquiry hotel field
+  document.getElementById('inqHotel').value = h.name;
 }
 
 function selectDate(date) {
@@ -716,6 +790,7 @@ async function submitInquiry() {
   const phone = document.getElementById('inqPhone').value.trim();
   const email = document.getElementById('inqEmail').value.trim();
   const people = document.getElementById('inqPeople').value;
+  const hotelName = document.getElementById('inqHotel').value.trim();
   const date = document.getElementById('inqDate').value;
   const msg = document.getElementById('inqMsg').value.trim();
 
@@ -731,6 +806,7 @@ async function submitInquiry() {
   const inquiry = {
     offer_id: activeOffer?.id,
     offer_title: activeOffer?.title,
+    hotel: hotelName || undefined,
     name, phone, email, people,
     preferred_date: date,
     message: msg,

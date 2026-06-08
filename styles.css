@@ -674,6 +674,79 @@ body {
   color: white;
 }
 
+/* ===== HOTEL SELECTION CARDS ===== */
+.hotel-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--gray-200);
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all var(--transition);
+  background: #fff;
+}
+.hotel-card:hover {
+  border-color: var(--primary);
+  background: rgba(26,58,107,0.04);
+}
+.hotel-card.selected {
+  border-color: var(--primary);
+  background: rgba(26,58,107,0.07);
+}
+.hotel-card-img {
+  width: 70px;
+  height: 52px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.hotel-card-info { flex: 1; min-width: 0; }
+.hotel-card-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--dark);
+  margin-bottom: 3px;
+}
+.hotel-card-board {
+  font-size: 0.78rem;
+  color: var(--gray-600);
+}
+.hotel-card-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+.hotel-card-price-eur {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+.hotel-card-price-bgn {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+}
+
+/* ===== PROGRAM SECTION ===== */
+.program-day {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-left: 3px solid var(--primary);
+  background: rgba(26,58,107,0.04);
+  border-radius: 0 8px 8px 0;
+}
+.program-day-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+.program-day-text {
+  font-size: 0.84rem;
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+
 /* ===== INQUIRY FORM ===== */
 .inquiry-form { margin-top: 1.5rem; }
 .inquiry-form h3 {

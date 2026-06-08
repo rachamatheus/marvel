@@ -507,7 +507,17 @@
       </div>
       <p class="modal-desc" id="modalDesc"></p>
 
-      <div id="modalHighlights"></div>
+      <!-- HOTEL SELECTION -->
+      <div id="modalHotelsSection" style="display:none;margin-bottom:1.5rem;">
+        <div class="modal-section-title">🏨 Изберете хотел</div>
+        <div id="modalHotels"></div>
+      </div>
+
+      <!-- DAY-BY-DAY PROGRAM -->
+      <div id="modalProgramSection" style="display:none;margin-bottom:1.5rem;">
+        <div class="modal-section-title">🗓️ Програма</div>
+        <div id="modalProgram"></div>
+      </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
         <div>
@@ -554,6 +564,10 @@
               </select>
             </div>
           </div>
+          <div class="form-group" style="margin-bottom:12px;" id="inqHotelGroup" style="display:none;">
+            <label class="form-label">Избран хотел</label>
+            <input type="text" class="form-input" id="inqHotel" readonly placeholder="Изберете хотел от списъка">
+          </div>
           <div class="form-group" style="margin-bottom:12px;">
             <label class="form-label">Предпочитана дата</label>
             <select class="form-select" id="inqDate"></select>
@@ -577,8 +591,8 @@
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
-<script src="data/offers.js?v=8"></script>
-<script src="data/images.js?v=8"></script>
-<script src="app.js?v=8"></script>
+<script src="data/offers.js?v=9"></script>
+<script src="data/images.js?v=9"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>
