@@ -1713,7 +1713,12 @@ footer {
 
 /* ===== CONTINENT MAP ===== */
 .continent-section {
-  background: linear-gradient(180deg, #0a1628 0%, #0f2040 60%, #0a1628 100%);
+  background:
+    linear-gradient(180deg, rgba(8,18,40,0.92) 0%, rgba(12,30,70,0.85) 50%, rgba(8,18,40,0.94) 100%),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   padding: 5rem 2rem;
   position: relative;
   overflow: hidden;
