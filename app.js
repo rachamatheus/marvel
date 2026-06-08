@@ -510,7 +510,7 @@ function renderOffers() {
     const cat = o.category || '';
     const typeLabel = cat.includes('vacation') ? 'Почивка' : cat.includes('excursion') ? 'Екскурзия' : cat.includes('weekend') ? 'Уикенд' : 'Оферта';
     const typeCls = cat.includes('vacation') ? 'vacation' : cat.includes('excursion') ? 'excursion' : '';
-    const imgSrc = o.image && o.image.startsWith('http') ? o.image : PLACEHOLDER_IMG;
+    const imgSrc = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) || (o.image && o.image.startsWith('http') ? o.image : PLACEHOLDER_IMG);
     const dateStr = formatDate(o.next_date);
     const transport = transportLabel(o.transport);
     return `
@@ -646,7 +646,7 @@ function openOffer(id) {
   activeOffer = offer;
   selectedDate = offer.dates[0] || null;
 
-  document.getElementById('modalImg').src = offer.image;
+  document.getElementById('modalImg').src = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[offer.id]) || offer.image || PLACEHOLDER_IMG;
   document.getElementById('modalImg').alt = offer.title;
   document.getElementById('modalTitle').textContent = offer.title;
   document.getElementById('modalPrice').textContent = `от ${offer.price_eur} €`;
@@ -701,18 +701,22 @@ function selectDate(date) {
 }
 
 function closeModal(e) {
-  if (e.target === document.getElementById('offerModal') || !e) {
-    document.getElementById('offerModal').classList.remove('active');
-    document.body.style.overflow = '';
-    activeOffer = null;
+  // Close only when clicking the overlay backdrop itself
+  if (!e || e.target === document.getElementById('offerModal')) {
+    forceCloseModal();
   }
+}
+
+function forceCloseModal() {
+  document.getElementById('offerModal').classList.remove('active');
+  document.body.style.overflow = '';
+  activeOffer = null;
 }
 
 // Close on Escape
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    document.getElementById('offerModal').classList.remove('active');
-    document.body.style.overflow = '';
+    forceCloseModal();
     closeAuthModal();
   }
 });
