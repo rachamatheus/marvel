@@ -260,7 +260,7 @@ function renderFeatured() {
 
   const [main, ...rest] = featured;
   let html = `
-    <a class="featured-card-large" onclick="openOffer(${main.id})" href="javascript:void(0)">
+    <a class="featured-card-large" href="oferta.html?id=${main.id}">
       <img src="${coverOf(main)}" alt="${main.title}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'">
       <div class="featured-card-overlay">
         <div class="offer-destination">📍 ${main.destination}</div>
@@ -274,7 +274,7 @@ function renderFeatured() {
   `;
   rest.slice(0, 4).forEach(o => {
     html += `
-      <a class="featured-card-sm" onclick="openOffer(${o.id})" href="javascript:void(0)">
+      <a class="featured-card-sm" href="oferta.html?id=${o.id}">
         <img src="${coverOf(o)}" alt="${o.title}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'">
         <div class="featured-card-overlay">
           <div class="offer-destination">📍 ${o.destination}</div>
@@ -582,7 +582,7 @@ function renderOffers() {
     const dateStr = formatDate(o.next_date);
     const transport = transportLabel(o.transport);
     return `
-      <div class="offer-card animate-in" style="animation-delay:${i * 0.05}s" onclick="openOffer(${o.id})">
+      <div class="offer-card animate-in" style="animation-delay:${i * 0.05}s" onclick="location.href='oferta.html?id=${o.id}'">
         <div class="offer-card-img-wrap">
           <img class="offer-card-img" src="${imgSrc}" alt="${o.title}" loading="lazy"
                onerror="this.src='${PLACEHOLDER_IMG}'">
@@ -613,7 +613,7 @@ function renderOffers() {
                 <span class="offer-price-eur"> / ${o.price_bgn} лв.</span>
               </div>
             </div>
-            <button class="offer-btn" onclick="openOffer(${o.id});event.stopPropagation()">Детайли →</button>
+            <button class="offer-btn" onclick="event.stopPropagation();location.href='oferta.html?id=${o.id}'">Детайли →</button>
           </div>
         </div>
       </div>

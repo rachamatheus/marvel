@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оферта — Marvel Tour</title>
+  <meta name="description" content="Marvel Tour — детайли за оферта, програма, хотели и цени.">
+  <link rel="stylesheet" href="styles.css?v=31">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+  <style>
+    .offer-page { max-width: 1000px; margin: 0 auto; padding: 96px 1.2rem 4rem; }
+    .offer-back { display:inline-flex; align-items:center; gap:6px; color:var(--primary); text-decoration:none; font-weight:600; font-size:0.9rem; margin-bottom:1rem; }
+    .offer-back:hover { color: var(--gold); }
+    .offer-hero-img { width:100%; height:420px; object-fit:cover; border-radius:20px; display:block; }
+    @media(max-width:700px){ .offer-hero-img{ height:260px; } .offer-page{ padding-top:84px; } }
+    .offer-cols { display:grid; grid-template-columns: 1fr; gap:1.5rem; margin-top:1.5rem; }
+    .offer-section-title { font-size:1.05rem; font-weight:700; color:var(--primary); margin:1.6rem 0 0.8rem; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" id="navbar" style="position:fixed;">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Marvel Tour" class="nav-logo-img" style="height:48px;width:auto;object-fit:contain;" onerror="this.style.display='none';document.getElementById('nlf').style.display='flex'">
+    <div id="nlf" style="display:none;align-items:center;gap:10px;">
+      <div class="nav-logo-icon">✈️</div>
+      <div><div class="nav-logo-text" style="color:var(--primary);">Marvel Tour</div></div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#offers">Оферти</a></li>
+    <li><a href="index.html#destinations">Дестинации</a></li>
+    <li><a href="mailto:info@marveltourbg.com">Контакти</a></li>
+  </ul>
+</nav>
+
+<div id="offerRoot">
+<div class="offer-page" id="offerPage">
+  <a href="index.html#offers" class="offer-back">← Всички оферти</a>
+
+  <!-- Gallery -->
+  <div class="modal-gallery-wrap">
+    <img class="offer-hero-img" id="offerImg" src="" alt="">
+    <button class="gallery-nav prev" id="galleryPrev" onclick="galleryStep(-1)" aria-label="Предишна">‹</button>
+    <button class="gallery-nav next" id="galleryNext" onclick="galleryStep(1)" aria-label="Следваща">›</button>
+    <div class="gallery-counter" id="galleryCounter"></div>
+  </div>
+  <div class="modal-thumbs" id="offerThumbs"></div>
+
+  <div class="modal-badge-row" id="offerBadges" style="margin-top:1.2rem;"></div>
+  <h1 class="modal-title" id="offerTitle" style="font-size:1.8rem;"></h1>
+  <div class="modal-price-row">
+    <div class="modal-price" id="offerPrice"></div>
+    <div class="modal-price-sub" id="offerPriceSub"></div>
+  </div>
+  <p class="modal-desc" id="offerDesc"></p>
+
+  <!-- Hotels -->
+  <div id="offerHotelsSection" style="display:none;">
+    <div class="offer-section-title">🏨 Изберете хотел <span style="font-weight:400;color:var(--gray-400);font-size:0.82rem;">(кликнете 🔍 за снимки)</span></div>
+    <div id="offerHotels"></div>
+  </div>
+
+  <!-- Program -->
+  <div id="offerProgramSection" style="display:none;">
+    <div class="offer-section-title">🗺️ Програма по дни</div>
+    <div id="offerProgram"></div>
+  </div>
+
+  <!-- Includes / Excludes -->
+  <div class="offer-section-title">✅ Какво е включено</div>
+  <ul class="modal-list includes" id="offerIncludes"></ul>
+  <div class="offer-section-title">❌ Не е включено</div>
+  <ul class="modal-list excludes" id="offerExcludes"></ul>
+
+  <!-- Dates -->
+  <div class="offer-section-title">📅 Налични дати</div>
+  <div class="modal-dates-grid" id="offerDates"></div>
+
+  <!-- Inquiry -->
+  <div class="inquiry-form" id="inquirySection" style="margin-top:2rem;">
+    <h3>📬 Изпратете запитване</h3>
+    <div id="inquiryFormContent">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Вашето име *</label>
+          <input type="text" class="form-input" id="inqName" placeholder="Иван Иванов">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Телефон *</label>
+          <input type="tel" class="form-input" id="inqPhone" placeholder="+359 88 888 8888">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="inqEmail" placeholder="ivan@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Реф. номер на оферта</label>
+          <input type="text" class="form-input" id="inqRef" readonly style="background:var(--gray-100);font-weight:600;">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Възрастни *</label>
+          <select class="form-select" id="inqAdults">
+            <option value="1" selected>1 възрастен</option>
+            <option value="2">2 възрастни</option>
+            <option value="3">3 възрастни</option>
+            <option value="4">4 възрастни</option>
+            <option value="5">5 възрастни</option>
+            <option value="6">6+ възрастни</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Деца</label>
+          <select class="form-select" id="inqChildren">
+            <option value="0" selected>Без деца</option>
+            <option value="1">1 дете</option>
+            <option value="2">2 деца</option>
+            <option value="3">3 деца</option>
+            <option value="4">4 деца</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" id="inqHotelGroup" style="margin-bottom:12px;display:none;">
+        <label class="form-label">Избран хотел</label>
+        <input type="text" class="form-input" id="inqHotel" readonly placeholder="Изберете хотел от списъка">
+      </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label class="form-label">Предпочитана дата</label>
+        <select class="form-select" id="inqDate"></select>
+      </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label class="form-label">Съобщение (по желание)</label>
+        <textarea class="form-textarea" id="inqMsg" placeholder="Специални изисквания, въпроси..."></textarea>
+      </div>
+      <button class="form-submit" onclick="submitInquiry()">✉️ Изпрати запитване</button>
+    </div>
+    <div class="form-success" id="inquirySuccess" style="display:none;">
+      <div class="form-success-icon">🎉</div>
+      <h4>Запитването е изпратено!</h4>
+      <p style="color:var(--gray-600);margin-top:6px;">Ще се свържем с вас възможно най-скоро.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Затвори">✕</button>
+  <button class="lightbox-nav prev" onclick="lightboxStep(-1)" aria-label="Предишна">‹</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav next" onclick="lightboxStep(1)" aria-label="Следваща">›</button>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="data/offers.js?v=31"></script>
+<script src="data/images.js?v=31"></script>
+<script src="oferta.js?v=31"></script>
+</body>
+</html>
