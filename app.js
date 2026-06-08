@@ -85,77 +85,33 @@ function updateNavbarAuth() {
   }
 }
 
-function openAuthModal() {
-  const modal = document.getElementById('authModal');
-  if (!modal) {
-    // Create modal if it doesn't exist
-    const el = document.createElement('div');
-    el.id = 'authModal';
-    el.className = 'modal-overlay';
-    el.innerHTML = `
-      <div class="modal-box" style="max-width:420px;" onclick="event.stopPropagation()">
-        <button class="modal-close" onclick="closeAuthModal()">✕</button>
-        <div class="auth-tabs" style="display:flex;gap:0;margin-bottom:1.5rem;border-bottom:2px solid #eee;">
-          <button id="authTabLogin" class="auth-tab active" onclick="switchAuthTab('login')" style="flex:1;padding:10px;background:none;border:none;font-weight:700;font-size:1rem;cursor:pointer;color:var(--primary);border-bottom:3px solid var(--primary);margin-bottom:-2px;">Вход</button>
-          <button id="authTabRegister" class="auth-tab" onclick="switchAuthTab('register')" style="flex:1;padding:10px;background:none;border:none;font-weight:700;font-size:1rem;cursor:pointer;color:#999;border-bottom:3px solid transparent;margin-bottom:-2px;">Регистрация</button>
-        </div>
-        <div id="authFormLogin">
-          <div class="form-group" style="margin-bottom:1rem;">
-            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Имейл</label>
-            <input id="loginEmail" type="email" class="form-input" placeholder="вашия@имейл.com" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
-          </div>
-          <div class="form-group" style="margin-bottom:1.5rem;">
-            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Парола</label>
-            <input id="loginPassword" type="password" class="form-input" placeholder="••••••••" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
-          </div>
-          <div id="loginError" style="color:#e53;font-size:0.85rem;margin-bottom:0.75rem;display:none;"></div>
-          <button class="offer-btn" style="width:100%;padding:12px;" onclick="handleLogin()">Вход</button>
-        </div>
-        <div id="authFormRegister" style="display:none;">
-          <div class="form-group" style="margin-bottom:1rem;">
-            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Имe</label>
-            <input id="regName" type="text" class="form-input" placeholder="Вашето име" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
-          </div>
-          <div class="form-group" style="margin-bottom:1rem;">
-            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Имейл</label>
-            <input id="regEmail" type="email" class="form-input" placeholder="вашия@имейл.com" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
-          </div>
-          <div class="form-group" style="margin-bottom:1rem;">
-            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Парола</label>
-            <input id="regPassword" type="password" class="form-input" placeholder="••••••••" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
-          </div>
-          <div class="form-group" style="margin-bottom:1.5rem;">
-            <label style="font-weight:600;font-size:0.85rem;color:#555;display:block;margin-bottom:4px;">Потвърди парола</label>
-            <input id="regPasswordConfirm" type="password" class="form-input" placeholder="••••••••" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.95rem;">
-          </div>
-          <div id="regError" style="color:#e53;font-size:0.85rem;margin-bottom:0.75rem;display:none;"></div>
-          <button class="offer-btn" style="width:100%;padding:12px;" onclick="handleRegister()">Регистрация</button>
-        </div>
-      </div>
-    `;
-    el.addEventListener('click', e => { if (e.target === el) closeAuthModal(); });
-    document.body.appendChild(el);
-  }
+function openAuthModal(tab) {
+  // Reset error messages
+  const le = document.getElementById('loginError');
+  const re = document.getElementById('regError');
+  if (le) { le.textContent = ''; le.style.display = 'none'; }
+  if (re) { re.textContent = ''; re.style.display = 'none'; }
+  switchAuthTab(tab || 'login');
   document.getElementById('authModal').classList.add('active');
   document.body.style.overflow = 'hidden';
+  // Focus first input
+  setTimeout(() => {
+    const f = document.querySelector('#authFormLogin input:first-of-type, #authFormRegister input:first-of-type');
+    if (f && f.offsetParent) f.focus();
+  }, 200);
 }
 
 function closeAuthModal() {
-  const modal = document.getElementById('authModal');
-  if (modal) {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
+  document.getElementById('authModal').classList.remove('active');
+  document.body.style.overflow = '';
 }
 
 function switchAuthTab(tab) {
   const isLogin = tab === 'login';
   document.getElementById('authFormLogin').style.display = isLogin ? 'block' : 'none';
   document.getElementById('authFormRegister').style.display = isLogin ? 'none' : 'block';
-  document.getElementById('authTabLogin').style.color = isLogin ? 'var(--primary)' : '#999';
-  document.getElementById('authTabLogin').style.borderBottomColor = isLogin ? 'var(--primary)' : 'transparent';
-  document.getElementById('authTabRegister').style.color = isLogin ? '#999' : 'var(--primary)';
-  document.getElementById('authTabRegister').style.borderBottomColor = isLogin ? 'transparent' : 'var(--primary)';
+  document.getElementById('authTabLogin').classList.toggle('active', isLogin);
+  document.getElementById('authTabRegister').classList.toggle('active', !isLogin);
 }
 
 function handleLogin() {
@@ -389,23 +345,30 @@ function selectContinent(key) {
 
   title.innerHTML = `<span>${data.icon}</span> ${data.label}`;
 
+  const FLAGS = {
+    greece:'🇬🇷', turkey:'🇹🇷', egypt:'🇪🇬', spain:'🇪🇸', france:'🇫🇷',
+    italy:'🇮🇹', uae:'🇦🇪', morocco:'🇲🇦', jordan:'🇯🇴', albania:'🇦🇱',
+    austria:'🇦🇹', poland:'🇵🇱', thailand:'🇹🇭', vietnam:'🇻🇳'
+  };
   if (!data.countries.length) {
     grid.innerHTML = `<div style="color:rgba(255,255,255,0.5);font-size:0.9rem;padding:1rem 0;grid-column:1/-1;">Оферти за тази дестинация скоро...</div>`;
   } else {
     grid.innerHTML = data.countries.map(countryId => {
-      const country = COUNTRIES.find(c => c.id === countryId);
+      const country = COUNTRIES.find(c => c.key === countryId);
       if (!country) return '';
       const offers = ALL_OFFERS.filter(o => o.country === countryId);
       const minPrice = offers.length ? Math.min(...offers.map(o => o.price_eur)) : 0;
       const img = data.images[countryId] || '';
+      const flag = FLAGS[countryId] || '🌍';
       return `
-        <a class="country-card" href="javascript:void(0)" onclick="filterByCountry('${countryId}');closeContinent()">
+        <a class="country-card" href="javascript:void(0)" onclick="filterByCountry('${countryId}');closeContinent();document.getElementById('offers').scrollIntoView({behavior:'smooth'})">
           <div class="country-card-img-wrap">
-            <img class="country-card-img" src="${img}" alt="${country.label}" loading="lazy">
+            <img class="country-card-img" src="${img}" alt="${country.label}" loading="lazy"
+                 onerror="this.src='${PLACEHOLDER_IMG}'">
           </div>
           <div class="country-card-body">
             <div class="country-flag-name">
-              <span class="country-flag">${country.flag}</span>
+              <span class="country-flag">${flag}</span>
               <span class="country-name-text">${country.label}</span>
             </div>
             <div class="country-offer-count">${offers.length} оферт${offers.length === 1 ? 'а' : 'и'}</div>
@@ -433,12 +396,19 @@ function renderFilters() {
   if (!container) return;
 
   const builtInTags = typeof TAGS !== 'undefined' ? TAGS : [];
+  // Custom tags stored as {key, label} or as strings
   const customTags = JSON.parse(localStorage.getItem('mt_custom_tags') || '[]');
-  const allTags = [...builtInTags, ...customTags.filter(t => !builtInTags.includes(t))];
+  const customNorm = customTags.map(t => typeof t === 'object' ? t : { key: t, label: t });
+  const allTags = [
+    ...builtInTags,
+    ...customNorm.filter(ct => !builtInTags.some(bt => bt.key === ct.key))
+  ];
 
-  container.innerHTML = allTags.map(tag => `
-    <button data-tag="${tag}" class="tag-btn${currentTag === tag ? ' active' : ''}" onclick="filterByTag('${tag}')">${tag}</button>
-  `).join('');
+  container.innerHTML = allTags.map(tag => {
+    const key   = typeof tag === 'object' ? tag.key   : tag;
+    const label = typeof tag === 'object' ? tag.label : tag;
+    return `<button data-tag="${key}" class="filter-btn${currentTag === key ? ' active' : ''}" onclick="filterByTag('${key}')">${label}</button>`;
+  }).join('');
 }
 
 // ===== OFFERS GRID =====

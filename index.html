@@ -431,6 +431,65 @@
   </div>
 </footer>
 
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authModal" onclick="if(event.target===this)closeAuthModal()">
+  <div class="auth-card" onclick="event.stopPropagation()">
+    <button class="auth-close" onclick="closeAuthModal()" aria-label="Затвори">✕</button>
+
+    <!-- Logo / Header -->
+    <div class="auth-header">
+      <img src="logo.png" alt="Marvel Tour" class="auth-logo" onerror="this.style.display='none'">
+      <p class="auth-sub">Добре дошли в Marvel Tour</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs">
+      <button id="authTabLogin" class="auth-tab active" onclick="switchAuthTab('login')">Вход</button>
+      <button id="authTabRegister" class="auth-tab" onclick="switchAuthTab('register')">Регистрация</button>
+    </div>
+
+    <!-- Login Form -->
+    <div id="authFormLogin" class="auth-form">
+      <div class="auth-field">
+        <label>📧 Имейл</label>
+        <input id="loginEmail" type="email" placeholder="вашия@имейл.bg" autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label>🔒 Парола</label>
+        <input id="loginPassword" type="password" placeholder="••••••••" autocomplete="current-password"
+               onkeydown="if(event.key==='Enter')handleLogin()">
+      </div>
+      <div class="auth-error" id="loginError"></div>
+      <button class="auth-btn" onclick="handleLogin()">Влез в профила</button>
+      <p class="auth-switch">Нямате профил? <a href="javascript:void(0)" onclick="switchAuthTab('register')">Регистрирайте се</a></p>
+    </div>
+
+    <!-- Register Form -->
+    <div id="authFormRegister" class="auth-form" style="display:none">
+      <div class="auth-field">
+        <label>👤 Вашето иmе</label>
+        <input id="regName" type="text" placeholder="Иван Иванов" autocomplete="name">
+      </div>
+      <div class="auth-field">
+        <label>📧 Имейл</label>
+        <input id="regEmail" type="email" placeholder="вашия@имейл.bg" autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label>🔒 Парола</label>
+        <input id="regPassword" type="password" placeholder="Минимум 6 символа" autocomplete="new-password">
+      </div>
+      <div class="auth-field">
+        <label>🔒 Потвърди парола</label>
+        <input id="regPasswordConfirm" type="password" placeholder="••••••••" autocomplete="new-password"
+               onkeydown="if(event.key==='Enter')handleRegister()">
+      </div>
+      <div class="auth-error" id="regError"></div>
+      <button class="auth-btn" onclick="handleRegister()">Създай профил</button>
+      <p class="auth-switch">Вече имате профил? <a href="javascript:void(0)" onclick="switchAuthTab('login')">Влезте</a></p>
+    </div>
+  </div>
+</div>
+
 <!-- OFFER MODAL -->
 <div class="modal-overlay" id="offerModal" onclick="closeModal(event)">
   <div class="modal" id="modalContent" onclick="event.stopPropagation()">
@@ -516,8 +575,8 @@
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
-<script src="data/offers.js?v=3"></script>
-<script src="data/images.js?v=3"></script>
-<script src="app.js?v=3"></script>
+<script src="data/offers.js?v=4"></script>
+<script src="data/images.js?v=4"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
