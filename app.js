@@ -853,10 +853,14 @@ function closeLightbox() {
 // Open photos for a hotel: prefer the offer gallery; fall back to the hotel image
 function openHotelPhotos(idx) {
   if (!activeOffer) return;
-  const h = (activeOffer.hotels || [])[idx];
-  const imgs = (galleryImages && galleryImages.length) ? galleryImages
-    : (h && h.image ? [h.image] : []);
-  openLightbox(imgs, 0, h ? h.name : (activeOffer.title || ''));
+  const hotels = activeOffer.hotels || [];
+  const h = hotels[idx];
+  const set = [];
+  const add = u => { if (u && set.indexOf(u) === -1) set.push(u); };
+  if (h && h.image) add(h.image);          // selected hotel first
+  hotels.forEach(x => add(x.image));        // then the other hotels
+  (galleryImages || []).forEach(add);       // then the offer gallery
+  openLightbox(set.length ? set : [PLACEHOLDER_IMG], 0, h ? h.name : (activeOffer.title || ''));
 }
 
 function openOffer(id) {

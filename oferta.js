@@ -84,9 +84,14 @@ function lightboxStep(d) { if (lbImages.length) { lbIdx = (lbIdx + d + lbImages.
 function closeLightbox() { const lb = document.getElementById('lightbox'); if (lb) lb.classList.remove('active'); document.body.style.overflow = ''; }
 function openHotelPhotos(idx) {
   if (!activeOffer) return;
-  const h = (activeOffer.hotels || [])[idx];
-  const imgs = (galleryImages && galleryImages.length) ? galleryImages : (h && h.image ? [h.image] : []);
-  openLightbox(imgs, 0, h ? h.name : (activeOffer.title || ''));
+  const hotels = activeOffer.hotels || [];
+  const h = hotels[idx];
+  const set = [];
+  const add = u => { if (u && set.indexOf(u) === -1) set.push(u); };
+  if (h && h.image) add(h.image);
+  hotels.forEach(x => add(x.image));
+  (galleryImages || []).forEach(add);
+  openLightbox(set.length ? set : [PLACEHOLDER_IMG], 0, h ? h.name : (activeOffer.title || ''));
 }
 
 // ── Hotel / date selection ──
