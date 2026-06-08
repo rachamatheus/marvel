@@ -646,6 +646,7 @@ function openOffer(id) {
   document.getElementById('modalBadges').innerHTML = `
     <span class="modal-tag blue">${typeLabel}</span>
     <span class="modal-tag">${transportLabel(offer.transport)}</span>
+    ${offer.refNum ? `<span class="modal-tag" style="background:rgba(26,58,107,0.1);color:var(--primary);">🔖 ${offer.refNum}</span>` : ''}
     ${offer.featured ? '<span class="modal-tag gold">⭐ Препоръчано</span>' : ''}
   `;
 

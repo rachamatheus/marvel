@@ -116,4 +116,77 @@ const OFFER_IMAGES = {
 
   // ── ВИЕТНАМ / ИНДОКИТАЙ ─────────────────────────────────────────────
   143: 'https://images.unsplash.com/photo-1557640726-c4b1a0ea6f02?w=800&q=80',     // Indochina Vietnam Halong
+
+  // ── НОВИ ОФЕРТИ — РЕАЛНИ ХОТЕЛИ 2026 ─────────────────────────────────
+  // Касандра П549 (IDs 200-207)
+  200: 'https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=800&q=80',
+  201: 'https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=800&q=80',
+  202: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80',
+  203: 'https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=800&q=80',
+  204: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80',
+  205: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&q=80',
+  206: 'https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=800&q=80',
+  207: 'https://images.unsplash.com/photo-1602002418082-a4443978a769?w=800&q=80',
+  // Касандра П944 (IDs 208-212)
+  208: 'https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=800&q=80',
+  209: 'https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=800&q=80',
+  210: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80',
+  211: 'https://images.unsplash.com/photo-1609152242697-ef55bb7ea4c9?w=800&q=80',
+  212: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
+  // Касандра П1078 (IDs 213-217)
+  213: 'https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=800&q=80',
+  214: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&q=80',
+  215: 'https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=800&q=80',
+  216: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
+  217: 'https://images.unsplash.com/photo-1609152242697-ef55bb7ea4c9?w=800&q=80',
+  // Ситония П945 (IDs 218-222)
+  218: 'https://images.unsplash.com/photo-1490604668309-21f739b64f16?w=800&q=80',
+  219: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&q=80',
+  220: 'https://images.unsplash.com/photo-1490604668309-21f739b64f16?w=800&q=80',
+  221: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
+  222: 'https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=800&q=80',
+  // Ситония П946 (IDs 223-225)
+  223: 'https://images.unsplash.com/photo-1490604668309-21f739b64f16?w=800&q=80',
+  224: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&q=80',
+  225: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
+  // Олимпийска Ривиера П771 (IDs 226-229)
+  226: 'https://images.unsplash.com/photo-1551882547-ff40c4a49f5e?w=800&q=80',
+  227: 'https://images.unsplash.com/photo-1551882547-ff40c4a49f5e?w=800&q=80',
+  228: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
+  229: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
+  // Олимпийска Ривиера П1127 (IDs 230-231)
+  230: 'https://images.unsplash.com/photo-1551882547-ff40c4a49f5e?w=800&q=80',
+  231: 'https://images.unsplash.com/photo-1551882547-ff40c4a49f5e?w=800&q=80',
+  // Корфу П940 (IDs 232-234)
+  232: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&q=80',
+  233: 'https://images.unsplash.com/photo-1602002418082-a4443978a769?w=800&q=80',
+  234: 'https://images.unsplash.com/photo-1609152242697-ef55bb7ea4c9?w=800&q=80',
+  // Корфу П556 (IDs 235-236)
+  235: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&q=80',
+  236: 'https://images.unsplash.com/photo-1609152242697-ef55bb7ea4c9?w=800&q=80',
+  // Родос П756 (IDs 237-239)
+  237: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=800&q=80',
+  238: 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=800&q=80',
+  239: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
+  // Закинтос П917, П456 (IDs 240-242)
+  240: 'https://images.unsplash.com/photo-1533103747547-b4a26a20f9fd?w=800&q=80',
+  241: 'https://images.unsplash.com/photo-1533103747547-b4a26a20f9fd?w=800&q=80',
+  242: 'https://images.unsplash.com/photo-1533103747547-b4a26a20f9fd?w=800&q=80',
+  // Лефкада П576 (IDs 243-244)
+  243: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
+  244: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
+  // Тасос П938 (ID 245)
+  245: 'https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=800&q=80',
+  // Бодрум П696 (IDs 246-248)
+  246: 'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=800&q=80',
+  247: 'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=800&q=80',
+  248: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80',
+  // Алания П726, П999 (IDs 249-253)
+  249: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+  250: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80',
+  251: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+  252: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80',
+  253: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+  // Албания П1051 (ID 254)
+  254: 'https://images.unsplash.com/photo-1584388911553-c0f83a16e26c?w=800&q=80',
 };
