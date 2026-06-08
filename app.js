@@ -560,6 +560,8 @@ function renderOffers() {
   const noRes = document.getElementById('noResults');
   if (!grid) return;
 
+  renderActiveFilters();
+
   const list = getFilteredOffers();
   if (!list.length) {
     grid.innerHTML = '';
@@ -620,6 +622,7 @@ function renderOffers() {
 function filterByCategory(cat) {
   currentCategory = cat;
   currentTag = null;
+  currentCountry = null;          // categories are top-level — clear any country filter
   currentSearch = '';
   document.getElementById('heroSearch').value = '';
   document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === cat));
@@ -671,6 +674,62 @@ function resetFilters() {
   document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
   document.querySelectorAll('[data-tag]').forEach(b => b.classList.remove('active'));
   renderOffers();
+}
+
+// ===== ACTIVE FILTER CHIPS =====
+const CATEGORY_LABELS = { exotic:'🌴 Екзотика', vacation:'🏖️ Почивки', excursion:'🗺️ Екскурзии', cruise:'🚢 Круизи' };
+
+function clearCountryFilter() {
+  currentCountry = null;
+  renderOffers();
+}
+function clearCategoryFilter() {
+  currentCategory = 'all';
+  document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+  renderOffers();
+}
+function clearTagFilter() {
+  currentTag = null;
+  document.querySelectorAll('[data-tag]').forEach(b => b.classList.remove('active'));
+  renderOffers();
+}
+function clearSearchFilter() {
+  currentSearch = '';
+  const s = document.getElementById('heroSearch');
+  if (s) s.value = '';
+  renderOffers();
+}
+
+function renderActiveFilters() {
+  const box = document.getElementById('activeFilters');
+  if (!box) return;
+  const chips = [];
+
+  if (currentCategory !== 'all') {
+    chips.push(`<button class="filter-chip" onclick="clearCategoryFilter()">${CATEGORY_LABELS[currentCategory] || currentCategory} <span class="filter-chip-x">✕</span></button>`);
+  }
+  if (currentCountry) {
+    const c = (typeof COUNTRIES !== 'undefined') ? COUNTRIES.find(x => x.key === currentCountry) : null;
+    chips.push(`<button class="filter-chip" onclick="clearCountryFilter()">📍 ${c ? c.label : currentCountry} <span class="filter-chip-x">✕</span></button>`);
+  }
+  if (currentTag) {
+    const t = (typeof TAGS !== 'undefined') ? TAGS.find(x => x.key === currentTag) : null;
+    chips.push(`<button class="filter-chip" onclick="clearTagFilter()">🏷️ ${t ? t.label : currentTag} <span class="filter-chip-x">✕</span></button>`);
+  }
+  if (currentSearch) {
+    chips.push(`<button class="filter-chip" onclick="clearSearchFilter()">🔍 „${currentSearch}" <span class="filter-chip-x">✕</span></button>`);
+  }
+
+  if (!chips.length) {
+    box.innerHTML = '';
+    box.style.display = 'none';
+    return;
+  }
+  box.style.display = 'flex';
+  box.innerHTML =
+    `<span class="active-filters-label">Активни филтри:</span>` +
+    chips.join('') +
+    `<button class="filter-chip clear-all" onclick="resetFilters()">Изчисти всички</button>`;
 }
 
 // ===== FAVORITES =====

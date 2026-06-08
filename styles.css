@@ -369,6 +369,44 @@ body {
   background: var(--gray-200);
 }
 
+/* Active filter chips */
+.active-filters {
+  display: none;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 1.2rem;
+}
+.active-filters-label {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  font-weight: 600;
+  margin-right: 2px;
+}
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(26,58,107,0.08);
+  color: var(--primary);
+  border: 1px solid rgba(26,58,107,0.18);
+  border-radius: 100px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-chip:hover { background: rgba(26,58,107,0.16); }
+.filter-chip-x { font-size: 0.78rem; opacity: 0.7; }
+.filter-chip.clear-all {
+  background: rgba(201,168,76,0.15);
+  color: #9a7b1f;
+  border-color: rgba(201,168,76,0.4);
+}
+.filter-chip.clear-all:hover { background: rgba(201,168,76,0.28); }
+
 /* ===== OFFER CARDS ===== */
 .offers-grid {
   display: grid;
