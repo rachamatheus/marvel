@@ -654,10 +654,11 @@ function openOffer(id) {
   document.getElementById('modalDesc').textContent = offer.description;
 
   // Badges
-  const typeLabel = offer.category === 'vacation' ? 'Почивка' : 'Екскурзия';
+  const cat2 = offer.category || '';
+  const typeLabel = cat2.includes('vacation') ? 'Почивка' : cat2.includes('weekend') ? 'Уикенд' : 'Екскурзия';
   document.getElementById('modalBadges').innerHTML = `
     <span class="modal-tag blue">${typeLabel}</span>
-    <span class="modal-tag">🚌 ${offer.transport}</span>
+    <span class="modal-tag">${transportLabel(offer.transport)}</span>
     ${offer.featured ? '<span class="modal-tag gold">⭐ Препоръчано</span>' : ''}
   `;
 
