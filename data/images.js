@@ -83,6 +83,23 @@ const OFFER_IMAGES = {
   80: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-v-ispaniya-gran-kanariya-zagadachniyat-ostrov-1_1737983917395.jpg',
   81: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_sakrovishtata-na-ispaniya-sas-samolet-na-balgarski-ezik-1_1755763730517.jpg',
   82: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_stranata-na-baskite-sas-samolet-na-balgarski-ezik-gara-1_1737985341396.jpg',
+  83: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_priroden-fenomen-meteora-katerini-paraliya-solun-1_1776245586706.jpg',
+  84: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-1_1776246366713.jpg',
+  85: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-halkidiki-kasandra-gartsiya-s-avtobus-ot-pl-1_17696949351078.jpg',
+  86: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-1_1776245891710.jpg',
+  87: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-1_1776246182712.jpg',
+  88: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-olimpiyska-riviera-gartsiya-s-avtobus-ot-st-1_17762454621127.jpg',
+  89: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--1_1776245036702.jpg',
+  90: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_mini-pochivka-na-olimpiyska-riviera-gartsiya-2309-1_17772770611125.jpg',
+  91: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-1_1776245831709.jpg',
+  92: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-halkidiki-sitoniya-lyato-2025-1_1751544595946.jpg',
+  93: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-1_17762463391129.jpg',
+  94: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-1_1685701206576.jpg',
+  95: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-1_1776246034711.jpg',
+  96: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-gartsiya-ostrov-rodos-7-noshtuvki-polet-ot-s-2_1710775746756.jpg',
+  97: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-o-v-zakintos-lyato-2026-1_1776245698456.jpg',
+  98: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-1_17762462461128.jpg',
+  99: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-1_1776245525705.jpg',
 };
 
 // Number of gallery images per offer (cover counts as #1). Used to derive

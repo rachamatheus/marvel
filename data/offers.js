@@ -17,6 +17,7 @@ const TAGS = [
   { key: 'adventure', label: 'Приключение' },
   { key: 'cruise', label: 'Круиз' },
   { key: 'allInclusive', label: 'All Inclusive' },
+  { key: 'lyato-gartsia', label: '🇬🇷 Лято 2026 Гърция' },
 ];
 
 const COUNTRIES = [
@@ -2665,6 +2666,518 @@ const OFFERS = [
     'https://www.marveltourbg.com/img/PROGRAMI/BIG_stranata-na-baskite-sas-samolet-na-balgarski-ezik-gara-8_1737985341396.jpg',
     'https://www.marveltourbg.com/img/PROGRAMI/BIG_stranata-na-baskite-sas-samolet-na-balgarski-ezik-gara-9_1737985341396.jpg',
     'https://www.marveltourbg.com/img/PROGRAMI/BIG_stranata-na-baskite-sas-samolet-na-balgarski-ezik-gara-10_1737985341396.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 83. Е706 — МЕТЕОРА, КАТЕРИНИ ПАРАЛИЯ, СОЛУН
+// ══════════════════════════════════════════════════════════════
+{ id:83, refNum:'Е706',
+  title:'Природен феномен Метеора – Катерини Паралия – Солун',
+  category:'excursion', tags:['lyato-gartsia','culture','nature'], destination:'Метеора / Солун, Гърция', country:'greece',
+  duration:'3 дни / 2 нощувки', days:3, nights:2,
+  price_bgn:289, price_eur:148,
+  dates:['2026-09-19','2026-10-09','2026-10-31'],
+  next_date:'2026-09-19', transport:'bus',
+  description:'Уникалните скали на Метеора с манастирите (ЮНЕСКО), морето на Катерини Паралия и византийският Солун. 3 дни с автобус и водач.',
+  program:[
+    { day:'Ден 1', text:'София → Солун → Катерини Паралия (~370 км). Настаняване и свободно време.' },
+    { day:'Ден 2', text:'Посещение на иконописна работилница, манастирите на Метеора, свободно; вечер по желание вечеря в таверна с музика.' },
+    { day:'Ден 3', text:'Панорамен Солун – Бялата кула, паметникът на Александър, църквата „Св. Димитър"; връщане в София.' },
+  ],
+  includes:['Автобусен транспорт 3★','2 нощувки със закуска (2-3★)','Програма в Солун','Екскурзия до Метеора','Представител','Медицинска застраховка (5000 €)','Багаж 25 кг'],
+  excludes:['Входни такси манастири (~5 €)','Вечеря в таверна (35 €)','Градска такса (~3 €/нощ)','Лични разходи'],
+  departures:['София (07:00)'],
+  hotels:[
+    { name:'2-3★ хотел Катерини Паралия', board:'Закуска', price_bgn:289, price_eur:148, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_priroden-fenomen-meteora-katerini-paraliya-solun-1_1776245586706.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_priroden-fenomen-meteora-katerini-paraliya-solun-1_1776245586706.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_priroden-fenomen-meteora-katerini-paraliya-solun-2_1776245586706.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_priroden-fenomen-meteora-katerini-paraliya-solun-3_1776245586706.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 84. Е713 — КАВАЛА, ОСТРОВ ТАСОС И ПЛАЖЪТ АМОЛОФИ
+// ══════════════════════════════════════════════════════════════
+{ id:84, refNum:'Е713',
+  title:'Екскурзия до Кавала, остров Тасос и плажът Амолофи',
+  category:'excursion', tags:['lyato-gartsia','beach','culture'], destination:'Кавала / Тасос, Гърция', country:'greece',
+  duration:'3 дни / 2 нощувки', days:3, nights:2,
+  price_bgn:289, price_eur:148,
+  dates:['2026-06-26','2026-07-03','2026-07-10','2026-07-17','2026-07-24','2026-07-31','2026-08-07','2026-08-21','2026-08-28','2026-09-05'],
+  next_date:'2026-06-26', transport:'bus',
+  description:'Крайбрежен уикенд – историческата Кавала, плажът Амолофи и факултативна екскурзия до остров Тасос. 2 нощувки в хотел Esperia 3★ в центъра на Кавала.',
+  program:[
+    { day:'Ден 1', text:'Пловдив/София → плаж Амолофи (свободно) → Кавала с пешеходна обиколка.' },
+    { day:'Ден 2', text:'Свободно или факулт. целодневна екскурзия до о-в Тасос (ферибот, маслинова фабрика, манастири).' },
+    { day:'Ден 3', text:'Връщане на плаж Амолофи до 16:00, отпътуване за Пловдив/София.' },
+  ],
+  includes:['Автобусен транспорт','2 нощувки със закуска (бюфет) в Esperia 3★','Пешеходна обиколка на Кавала','Трансфери до плажа','Медицинска застраховка (2000 €)','Представител'],
+  excludes:['Факулт. Тасос (25 €/15 € деца)','Доплащане Пловдив (15 €)','Градска такса (5 €/стая/нощ)','Преден ред (10 €)'],
+  departures:['Пловдив (05:00)','София (07:00)'],
+  hotels:[
+    { name:'Esperia 3★ (Кавала)', board:'Закуска', price_bgn:289, price_eur:148, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-1_1776246366713.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-1_1776246366713.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-2_1776246366713.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-3_1776246366713.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-4_1776246366713.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-5_1776246366713.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-6_1776246366713.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-7_1776246366713.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-8_1776246366713.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-9_1776246366713.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-kavala-ostrov-tasos-i-plazhat-amolofi-s-d-10_1776246366713.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 85. П1078 — ХАЛКИДИКИ – КАСАНДРА
+// ══════════════════════════════════════════════════════════════
+{ id:85, refNum:'П1078',
+  title:'Почивка на Халкидики – Касандра (автобус от Пловдив и София)',
+  category:'vacation', tags:['lyato-gartsia','beach','family'], destination:'Халкидики – Касандра, Гърция', country:'greece',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:513, price_eur:262,
+  dates:['2026-06-13','2026-06-20','2026-06-27','2026-07-04','2026-07-11','2026-07-18','2026-07-25','2026-08-01','2026-08-08','2026-08-15'],
+  next_date:'2026-06-13', transport:'bus',
+  description:'Лято 2026 на полуостров Касандра, Халкидики – 7 нощувки с автобусен транспорт от София и Пловдив и богат избор от хотели на брега на Егейско море.',
+  includes:['Автобусен транспорт с пътни такси','7 нощувки в избран хотел','Багаж до 25 кг','Медицинска застраховка (5000 €)','Представител'],
+  excludes:['Такса гориво','Туристически такси (3-15 €/нощ)','Факулт. екскурзии','Трансфер от Пловдив/Пазарджик (25 €)'],
+  departures:['София','Пловдив','Пазарджик'],
+  hotels:[
+    { name:'Olympic Kosma', board:'Според хотела', price_bgn:513, price_eur:262, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-halkidiki-kasandra-gartsiya-s-avtobus-ot-pl-1_17696949351078.jpg' },
+    { name:'Kassandra Bay Hotel', board:'Според хотела', price_bgn:549, price_eur:281, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-halkidiki-kasandra-gartsiya-s-avtobus-ot-pl-1_17696949351078.jpg' },
+    { name:'Sousouras Hotel', board:'Според хотела', price_bgn:579, price_eur:296, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-halkidiki-kasandra-gartsiya-s-avtobus-ot-pl-1_17696949351078.jpg' },
+    { name:'Chrousso Village', board:'Според хотела', price_bgn:739, price_eur:378, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-halkidiki-kasandra-gartsiya-s-avtobus-ot-pl-1_17696949351078.jpg' },
+    { name:'Hanioti Grand Hotel', board:'Според хотела', price_bgn:820, price_eur:419, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-halkidiki-kasandra-gartsiya-s-avtobus-ot-pl-1_17696949351078.jpg' },
+    { name:'Aegean Melathron Thalasso Spa 5★', board:'Според хотела', price_bgn:988, price_eur:505, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-halkidiki-kasandra-gartsiya-s-avtobus-ot-pl-1_17696949351078.jpg' },
+    { name:'Kassandra Palace Seaside Resort', board:'Според хотела', price_bgn:1210, price_eur:619, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-halkidiki-kasandra-gartsiya-s-avtobus-ot-pl-1_17696949351078.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 86. Е710 — КОРФУ – ОСТРОВЪТ НА НИМФИТЕ
+// ══════════════════════════════════════════════════════════════
+{ id:86, refNum:'Е710',
+  title:'Корфу – островът на нимфите (хотел Hellinis 3★)',
+  category:'excursion', tags:['lyato-gartsia','beach','culture','allInclusive'], destination:'о-в Корфу, Гърция', country:'greece',
+  duration:'5 дни / 4 нощувки', days:5, nights:4,
+  price_bgn:577, price_eur:295,
+  dates:['2026-06-17','2026-07-01','2026-07-15','2026-07-22','2026-08-05','2026-08-12','2026-08-19','2026-08-26','2026-09-03','2026-09-22'],
+  next_date:'2026-06-17', transport:'bus',
+  description:'Корфу в Йонийско море – пясъчни плажове, византийски храмове и екзотична природа. Керкира, дворецът Ахилеон, манастирът Палеокастрица, Сидари и Каналът на любовта. 4 нощувки All Inclusive.',
+  program:[
+    { day:'Ден 1', text:'Отпътуване рано сутрин; ферибот Игуменица–Корфу; настаняване.' },
+    { day:'Ден 2', text:'Факулт. Керкира и дворецът Мон Репо.' },
+    { day:'Ден 3', text:'Факулт. Палеокастрица и Сидари с Канала на любовта.' },
+    { day:'Ден 4', text:'Свободен плажен ден или факулт. лодка до Антипаксос и Паксос.' },
+    { day:'Ден 5', text:'Връщане за България.' },
+  ],
+  includes:['Автобусен транспорт','4 нощувки All Inclusive','Ферибот','Водач на български','Медицинска застраховка (10 000 €)'],
+  excludes:['Такса гориво','Градска такса (5 €/нощ)','Факулт. екскурзии и входни такси'],
+  departures:['София (05:30)','Дупница','Благоевград','Сандански'],
+  hotels:[
+    { name:'Hellinis 3★ (Корфу)', board:'All Inclusive', price_bgn:577, price_eur:295, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-1_1776245891710.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-1_1776245891710.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-2_1776245891710.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-3_1776245891710.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-4_1776245891710.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-5_1776245891710.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-6_1776245891710.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-7_1776245891710.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-8_1776245891710.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-9_1776245891710.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_korfu-ostrovat-na-nimfite-hotel-quot-hellinisquot-3-10_1776245891710.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 87. Е712 — ЙОНИЙСКА МЕЧТА (Лефкада, Кефалония, Закинтос)
+// ══════════════════════════════════════════════════════════════
+{ id:87, refNum:'Е712',
+  title:'Йонийска мечта – Лефкада, Кефалония и Закинтос',
+  category:'excursion', tags:['lyato-gartsia','beach','nature','adventure'], destination:'Йонийски острови, Гърция', country:'greece',
+  duration:'5 дни / 4 нощувки', days:5, nights:4,
+  price_bgn:597, price_eur:305,
+  dates:['2026-06-10','2026-09-09','2026-09-23'],
+  next_date:'2026-06-10', transport:'bus',
+  description:'Три приказни йонийски острова – Лефкада, Кефалония и Закинтос с крайбрежни круизи, пещерата Мелисани, плажа Миртос и Синьото пещери. 4 нощувки с водач.',
+  program:[
+    { day:'Ден 1', text:'Отпътуване; вечер на Лефкада с пешеходна обиколка на столицата.' },
+    { day:'Ден 2', text:'Факулт. 9-часов круиз: плажове Порто Кацики/Егремни, Фискардо, Итака, Меганиси.' },
+    { day:'Ден 3', text:'Ферибот до Кефалония; Сами; факулт. пещерата Мелисани; плажа Миртос; ферибот до Закинтос.' },
+    { day:'Ден 4', text:'Факулт. 7-часов круиз до Сините пещери и Залива на корабокрушението; обиколка на Закинтос.' },
+    { day:'Ден 5', text:'Връщане за България.' },
+  ],
+  includes:['Автобусен транспорт','2 нощувки Лефкада + 2 Закинтос (3★) със закуска','Феrиботи','Обиколки','Водач','Медицинска застраховка (10 000 €)'],
+  excludes:['Такса гориво','Градска такса (5 €/нощ)','Факулт. круизи и входни такси'],
+  departures:['София (06:00)','Дупница','Благоевград','Сандански'],
+  hotels:[
+    { name:'3★ хотели Лефкада + Закинтос', board:'Закуска', price_bgn:597, price_eur:305, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-1_1776246182712.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-1_1776246182712.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-2_1776246182712.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-3_1776246182712.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-4_1776246182712.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-5_1776246182712.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-6_1776246182712.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-7_1776246182712.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-8_1776246182712.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-9_1776246182712.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_yoniyska-mechta-10_1776246182712.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 88. П1127 — ОЛИМПИЙСКА РИВИЕРА (5 нощувки)
+// ══════════════════════════════════════════════════════════════
+{ id:88, refNum:'П1127',
+  title:'Почивка на Олимпийска Ривиера (автобус, 5 нощувки)',
+  category:'vacation', tags:['lyato-gartsia','beach','family'], destination:'Олимпийска Ривиера, Гърция', country:'greece',
+  duration:'6 дни / 5 нощувки', days:6, nights:5,
+  price_bgn:624, price_eur:319,
+  dates:['2026-07-07','2026-08-11','2026-09-22'],
+  next_date:'2026-07-07', transport:'bus',
+  description:'Крайбрежна почивка на Олимпийската Ривиера в Паралия Катерини – 5 нощувки със закуски и вечери, с факултативни екскурзии до Солун, Метеора и Вергина.',
+  includes:['Автобусен транспорт с пътни такси','Багаж до 25 кг','5 нощувки със закуска и вечеря (2★)','Медицинска застраховка (5000 €)','Водач'],
+  excludes:['Такса гориво','Туристическа такса','Факулт. екскурзии','Трансфер Стара Загора (+10 €)'],
+  departures:['София','Пловдив','Пазарджик','Стара Загора (+10 €)'],
+  hotels:[
+    { name:'Philippos', board:'Закуска + вечеря', price_bgn:624, price_eur:319, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-olimpiyska-riviera-gartsiya-s-avtobus-ot-st-1_17762454621127.jpg' },
+    { name:'Imperia President Hotel', board:'Закуска + вечеря', price_bgn:756, price_eur:386, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-olimpiyska-riviera-gartsiya-s-avtobus-ot-st-1_17762454621127.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 89. Е702 — ОСТРОВ ЕВИЯ – ЕДИПСОС (СПА)
+// ══════════════════════════════════════════════════════════════
+{ id:89, refNum:'Е702',
+  title:'Почивка на остров Евия в Едипсос – море и СПА оазис',
+  category:'vacation', tags:['lyato-gartsia','beach','nature','luxury'], destination:'о-в Евия – Едипсос, Гърция', country:'greece',
+  duration:'6 дни / 5 нощувки', days:6, nights:5,
+  price_bgn:626, price_eur:320,
+  dates:['2026-10-02'],
+  next_date:'2026-10-02', transport:'bus',
+  description:'Релакс на остров Евия в Едипсос – термални минерални извори и море. 5 нощувки със закуска и вечеря в хотел Mitho 3★.',
+  includes:['Автобусен транспорт','Ферибот','5 нощувки със закуска','5 вечери (3 ястия)','Медицинска застраховка (4000 €)','Водач'],
+  excludes:['Туристическа такса (5 €/нощ)','Факулт. екскурзии (15-40 €)','Такса гориво','Единична стая (+90 €)'],
+  departures:['София','Перник','Дупница','Благоевград','Сандански'],
+  hotels:[
+    { name:'Mitho 3★ (Лутра Едипсос)', board:'Закуска + вечеря', price_bgn:626, price_eur:320, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--1_1776245036702.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--1_1776245036702.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--2_1776245036702.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--3_1776245036702.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--4_1776245036702.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--5_1776245036702.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--6_1776245036702.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--7_1776245036702.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--8_1776245036702.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--9_1776245036702.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-gartsiya-na-ostrov-eviya-v-edipsos-more-i-spa--10_1776245036702.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 90. П1125 — МИНИ ПОЧИВКА ОЛИМПИЙСКА РИВИЕРА (5★)
+// ══════════════════════════════════════════════════════════════
+{ id:90, refNum:'П1125',
+  title:'Мини почивка на Олимпийска Ривиера (Cronwell Platamon 5★)',
+  category:'vacation', tags:['lyato-gartsia','beach','luxury','allInclusive'], destination:'Олимпийска Ривиера, Гърция', country:'greece',
+  duration:'4 дни / 3 нощувки', days:4, nights:3,
+  price_bgn:663, price_eur:339,
+  dates:['2026-09-21'],
+  next_date:'2026-09-21', transport:'bus',
+  description:'Кратка луксозна почивка на Олимпийската Ривиера – 3 нощувки All Inclusive в Cronwell Platamon Resort 5★, с факултативни Метеора и Палеос Панталеймонас.',
+  includes:['Автобусен транспорт','3 нощувки All Inclusive в Cronwell Platamon 5★','Кафе пауза в Солун','Пътни такси','Застраховка (5000 €)'],
+  excludes:['Факулт. Метеора (25 €)','Входни такси манастири (5 €)','Туристическа такса (15 €)','Доплащане 65+'],
+  departures:['София (пл. Александър Невски)'],
+  hotels:[
+    { name:'Cronwell Platamon Resort 5★', board:'All Inclusive', price_bgn:663, price_eur:339, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_mini-pochivka-na-olimpiyska-riviera-gartsiya-2309-1_17772770611125.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_mini-pochivka-na-olimpiyska-riviera-gartsiya-2309-1_17772770611125.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_mini-pochivka-na-olimpiyska-riviera-gartsiya-2309-2_17772770611125.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_mini-pochivka-na-olimpiyska-riviera-gartsiya-2309-3_17772770611125.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 91. Е709 — ОСТРОВ ЛЕФКАДА (5 нощувки)
+// ══════════════════════════════════════════════════════════════
+{ id:91, refNum:'Е709',
+  title:'Почивка на остров Лефкада',
+  category:'excursion', tags:['lyato-gartsia','beach','nature'], destination:'о-в Лефкада, Гърция', country:'greece',
+  duration:'7 дни / 5 нощувки', days:7, nights:5,
+  price_bgn:665, price_eur:340,
+  dates:['2026-06-28','2026-08-03','2026-09-21'],
+  next_date:'2026-06-28', transport:'bus',
+  description:'Очарователният остров Лефкада с тюркоазени води и бели скали – посещение на Янина, островни круизи и местни села. 5 нощувки със закуска.',
+  includes:['Автобусен транспорт','Пътни такси','5 нощувки със закуска (Villagio Maistro 3★)','Обиколка на Лефкада','Водач','Застраховка (5000 €)'],
+  excludes:['Градска такса (2-15 €)','Такса гориво','Факулт. екскурзии (13-50 €)','Доплащане 70+'],
+  departures:['София','Пловдив','Стара Загора','Казанлък'],
+  hotels:[
+    { name:'Villagio Maistro 3★', board:'Закуска', price_bgn:665, price_eur:340, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-1_1776245831709.jpg' },
+    { name:'Thomais Boutique Hotel 4★', board:'Закуска', price_bgn:812, price_eur:415, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-1_1776245831709.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-1_1776245831709.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-2_1776245831709.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-3_1776245831709.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-4_1776245831709.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-5_1776245831709.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-6_1776245831709.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-7_1776245831709.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-8_1776245831709.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-9_1776245831709.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-lefkada-10_1776245831709.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 92. П946 — ХАЛКИДИКИ – СИТОНИЯ
+// ══════════════════════════════════════════════════════════════
+{ id:92, refNum:'П946',
+  title:'Почивки на Халкидики – Ситония',
+  category:'vacation', tags:['lyato-gartsia','beach','family'], destination:'Халкидики – Ситония, Гърция', country:'greece',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:823, price_eur:421,
+  dates:['2026-06-13','2026-06-20','2026-06-27','2026-07-04','2026-07-11','2026-07-18','2026-07-25','2026-08-01','2026-08-08','2026-08-15'],
+  next_date:'2026-06-13', transport:'bus',
+  description:'Лято на полуостров Ситония, Халкидики – 7 нощувки с автобусен транспорт от София и широк избор от хотели 2-5★.',
+  includes:['Автобус с шофьор','Медицинска застраховка (5000 €)','Транспорт София–Халкидики','Регионални качвания (Пловдив, Пазарджик)'],
+  excludes:['Туристическа такса (1.50-15 €/нощ)','Хранения и напитки','Багаж над 20 кг','Застраховка „Отмяна" (80 лв.)'],
+  departures:['София (06:00)','Пловдив','Пазарджик'],
+  hotels:[
+    { name:'Porfi Beach 3★', board:'Според хотела', price_bgn:823, price_eur:421, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-halkidiki-sitoniya-lyato-2025-1_1751544595946.jpg' },
+    { name:'Olympic Bibis 3★', board:'Според хотела', price_bgn:892, price_eur:456, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-halkidiki-sitoniya-lyato-2025-1_1751544595946.jpg' },
+    { name:'Lily Ann Village 4★', board:'Според хотела', price_bgn:1029, price_eur:526, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-halkidiki-sitoniya-lyato-2025-1_1751544595946.jpg' },
+    { name:'Philoxenia Hotel 4★', board:'Според хотела', price_bgn:1103, price_eur:564, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-halkidiki-sitoniya-lyato-2025-1_1751544595946.jpg' },
+    { name:'Elinotel Sermilia 5★', board:'Според хотела', price_bgn:1134, price_eur:580, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-halkidiki-sitoniya-lyato-2025-1_1751544595946.jpg' },
+    { name:'Blue Dolphin Hotel 4★', board:'Според хотела', price_bgn:1248, price_eur:638, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-halkidiki-sitoniya-lyato-2025-1_1751544595946.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 93. П1129 — ОСТРОВ КРИТ (от София)
+// ══════════════════════════════════════════════════════════════
+{ id:93, refNum:'П1129',
+  title:'Почивка на о-в Крит от София',
+  category:'vacation', tags:['lyato-gartsia','beach','family'], destination:'о-в Крит, Гърция', country:'greece',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:855, price_eur:437,
+  dates:['2026-06-14','2026-06-21','2026-06-28','2026-07-05','2026-07-12','2026-07-19','2026-07-26','2026-08-02','2026-08-09','2026-08-16'],
+  next_date:'2026-06-14', transport:'plane',
+  description:'Директен полет София–Ираклион и 7 нощувки на Крит – огромен избор от хотели и свободно време за плаж и почивка.',
+  includes:['Самолетен билет София–Ираклион с такси','Багаж 20 кг + 7 кг','Трансфери летище–хотел','Настаняване с хранене по хотел','Медицинска застраховка (10 000 €)'],
+  excludes:['Факулт. екскурзии','Туристически такси','Такса гориво','Доплащане 65+'],
+  departures:['София (Летище)'],
+  hotels:[
+    { name:'Happiness Apartments', board:'Според хотела', price_bgn:855, price_eur:437, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-1_17762463391129.jpg' },
+    { name:'Ilios Hotel', board:'Според хотела', price_bgn:917, price_eur:469, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-1_17762463391129.jpg' },
+    { name:'Brascos Hotel', board:'Според хотела', price_bgn:966, price_eur:494, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-1_17762463391129.jpg' },
+    { name:'Semiramis Village', board:'Според хотела', price_bgn:1127, price_eur:576, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-1_17762463391129.jpg' },
+    { name:'Annabelle Beach Resort', board:'Според хотела', price_bgn:1381, price_eur:706, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-1_17762463391129.jpg' },
+    { name:'Creta Maris Beach Resort', board:'Според хотела', price_bgn:2519, price_eur:1288, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-1_17762463391129.jpg' },
+    { name:'Grecotel Amirandes', board:'Според хотела', price_bgn:3217, price_eur:1645, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-1_17762463391129.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-1_17762463391129.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-2_17762463391129.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-3_17762463391129.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-ot-sofiya-4_17762463391129.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 94. П576 — ОСТРОВ ЛЕФКАДА (7 нощувки)
+// ══════════════════════════════════════════════════════════════
+{ id:94, refNum:'П576',
+  title:'Почивка на остров Лефкада – 7 нощувки (с включен транспорт)',
+  category:'vacation', tags:['lyato-gartsia','beach','nature'], destination:'о-в Лефкада, Гърция', country:'greece',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:937, price_eur:479,
+  dates:['2026-07-19','2026-08-22','2026-09-05'],
+  next_date:'2026-07-19', transport:'bus',
+  description:'7 нощувки на остров Лефкада с включен автобусен транспорт и факултативни лодъчни екскурзии до Кефалония, Итака и Меганиси.',
+  includes:['Автобусен транспорт','7 нощувки в избран хотел','Застраховка „Помощ при пътуване" (10 000 €)','Водач'],
+  excludes:['Такса гориво','Закуски (Lefkas 3★)','Градска такса (1.50 €/нощ)','Факулт. екскурзии','Доплащане 64+'],
+  departures:['София (07:00)','Дупница','Благоевград','Сандански'],
+  hotels:[
+    { name:'Lefkas 3★', board:'Според хотела', price_bgn:937, price_eur:479, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-1_1685701206576.jpg' },
+    { name:'Villagio Maistro 3★', board:'Според хотела', price_bgn:937, price_eur:479, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-1_1685701206576.jpg' },
+    { name:'Ianos 3★', board:'Според хотела', price_bgn:1068, price_eur:546, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-1_1685701206576.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-1_1685701206576.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-2_1685701206576.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-3_1685701206576.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-4_1685701206576.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-5_1685701206576.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 95. Е711 — САНТОРИНИ
+// ══════════════════════════════════════════════════════════════
+{ id:95, refNum:'Е711',
+  title:'Санторини – островът с най-красивите залези',
+  category:'excursion', tags:['lyato-gartsia','culture','luxury','beach'], destination:'Санторини / Атина, Гърция', country:'greece',
+  duration:'6 дни / 5 нощувки', days:6, nights:5,
+  price_bgn:958, price_eur:490,
+  dates:['2026-09-29'],
+  next_date:'2026-09-29', transport:'bus',
+  description:'Емблематичният Санторини – белосани села, сини куполи и най-красивият залез в света в Ия. Плюс Атина. 5 нощувки със закуска.',
+  program:[
+    { day:'Ден 1', text:'Автобус до района на Атина; настаняване.' },
+    { day:'Ден 2', text:'Ферибот до Санторини; факулт. залез в Ия.' },
+    { day:'Ден 3', text:'Камари, Пиргос, Фира с катедралата, Имеровигли над калдерата.' },
+    { day:'Ден 4', text:'Свободно или факулт. лодка до вулканичните острови; факулт. вечеря с бузуки.' },
+    { day:'Ден 5', text:'Свободно; ферибот обратно до Атина.' },
+    { day:'Ден 6', text:'Факулт. Атина и Акропола; отпътуване за София.' },
+  ],
+  includes:['Автобусен транспорт','2 нощувки Атина (Odeon 3★) + 3 Санторини (Gardenia 3★) със закуска','Обиколка на Санторини','Феrиботи','Водач','Застраховка (10 000 €)'],
+  excludes:['Такса гориво','Градска такса (5-10 €/нощ)','Факулт. екскурзии и входни такси','Доплащане 64+'],
+  departures:['София (06:30)','Дупница','Благоевград','Сандански'],
+  hotels:[
+    { name:'Odeon 3★ (Атина) + Gardenia 3★ (Санторини)', board:'Закуска', price_bgn:958, price_eur:490, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-1_1776246034711.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-1_1776246034711.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-2_1776246034711.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-3_1776246034711.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-4_1776246034711.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-5_1776246034711.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-6_1776246034711.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-7_1776246034711.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-8_1776246034711.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-9_1776246034711.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_santorini-ostrovat-s-nay-krasivite-zalezi-10_1776246034711.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 96. П756 — ОСТРОВ РОДОС (полет от София)
+// ══════════════════════════════════════════════════════════════
+{ id:96, refNum:'П756',
+  title:'Почивка в Гърция – остров Родос (полет от София)',
+  category:'vacation', tags:['lyato-gartsia','beach','family','allInclusive'], destination:'о-в Родос, Гърция', country:'greece',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:1007, price_eur:515,
+  dates:['2026-06-12','2026-06-19','2026-06-26','2026-07-03','2026-07-10','2026-07-17','2026-07-24','2026-08-14','2026-08-21','2026-08-28'],
+  next_date:'2026-06-12', transport:'plane',
+  description:'Директен полет до Родос и 7 нощувки – свободни плажни дни със закуска. Богат избор от хотели 2-5★.',
+  includes:['Директен полет Ryanair София–Родос с такси','Ръчен багаж 10 кг','Трансфери летище–хотел','7 нощувки с хранене по хотел','Застраховка (10 000 €)'],
+  excludes:['Чекиран багаж','Туристическа такса (3-10 €/нощ)','Факулт. екскурзии','Застраховка „Отмяна"'],
+  departures:['София (Летище)'],
+  hotels:[
+    { name:'International 3★', board:'Закуска', price_bgn:1007, price_eur:515, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-gartsiya-ostrov-rodos-7-noshtuvki-polet-ot-s-2_1710775746756.jpg' },
+    { name:'Atlantis Boutique City Hotel 4★', board:'Закуска', price_bgn:1326, price_eur:678, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-gartsiya-ostrov-rodos-7-noshtuvki-polet-ot-s-2_1710775746756.jpg' },
+    { name:'Mediterranean Hotel 5★', board:'Закуска + вечеря', price_bgn:1385, price_eur:708, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-gartsiya-ostrov-rodos-7-noshtuvki-polet-ot-s-2_1710775746756.jpg' },
+    { name:'Mitsis Petit Palais 4★ (All Inclusive)', board:'All Inclusive', price_bgn:1788, price_eur:914, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-gartsiya-ostrov-rodos-7-noshtuvki-polet-ot-s-2_1710775746756.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-gartsiya-ostrov-rodos-7-noshtuvki-polet-ot-s-2_1710775746756.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-gartsiya-ostrov-rodos-7-noshtuvki-polet-ot-s-3_1710775746756.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_greece-1535754_1280_1710858943756.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_beach-6354498_1280_1710858943756.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_beach-6354502_1280_1710858943756.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 97. П456 — ОСТРОВ ЗАКИНТОС
+// ══════════════════════════════════════════════════════════════
+{ id:97, refNum:'П456',
+  title:'Почивки на о-в Закинтос – Лято 2026',
+  category:'vacation', tags:['lyato-gartsia','beach','allInclusive','family'], destination:'о-в Закинтос, Гърция', country:'greece',
+  duration:'7 дни / 6 нощувки', days:7, nights:6,
+  price_bgn:1033, price_eur:528,
+  dates:['2026-06-15','2026-07-13','2026-08-10','2026-09-01','2026-09-14','2026-09-21'],
+  next_date:'2026-06-15', transport:'bus',
+  description:'All Inclusive почивка на живописния Закинтос – 6 нощувки в Majestic SPA 4★ в Лаганас, с обиколка на града и факултативни морски екскурзии.',
+  includes:['Автобусен транспорт и феrиботи','6 нощувки All Inclusive в Majestic SPA 4★','Wi-Fi','Обиколка на Закинтос','Мост Рио-Антирио','Медицинска застраховка (10 000 €)','Водач'],
+  excludes:['Факулт. круизи (30-75 €)','Кефалония (75 €)','Курортна такса (10 €/нощ)','Доплащане Пловдив (25 €)'],
+  departures:['Пловдив (02:00)','София (04:00)'],
+  hotels:[
+    { name:'Majestic SPA 4★ (Лаганас)', board:'All Inclusive', price_bgn:1033, price_eur:528, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-o-v-zakintos-lyato-2026-1_1776245698456.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-o-v-zakintos-lyato-2026-1_1776245698456.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-o-v-zakintos-lyato-2026-2_1776245698456.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-o-v-zakintos-lyato-2026-3_1776245698456.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-o-v-zakintos-lyato-2026-4_1776245698456.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 98. П1128 — ОСТРОВ КРИТ (с екскурзии + директен полет)
+// ══════════════════════════════════════════════════════════════
+{ id:98, refNum:'П1128',
+  title:'Почивка на о-в Крит 2026 – с включени екскурзии и директен полет',
+  category:'vacation', tags:['lyato-gartsia','beach','culture','family'], destination:'о-в Крит, Гърция', country:'greece',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:1645, price_eur:841,
+  dates:['2026-06-14','2026-06-21','2026-06-28','2026-07-05','2026-08-23','2026-08-30','2026-09-06','2026-09-13','2026-09-20'],
+  next_date:'2026-06-14', transport:'plane',
+  description:'Крит с включени 7 екскурзии – Санторини, Ханя, Ретимно, дворецът Кносос, Спиналонга, платото Ласити и критско село. Директен полет от София.',
+  includes:['Самолетен билет (20 кг + 5 кг)','7 нощувки на Крит','Трансфери','7 екскурзии (Санторини, Ханя, Ретимно, Кносос, Спиналонга, Ласити, критско село)','Медицинска застраховка (10 000 €)','Водач'],
+  excludes:['Такса гориво','Туристически такси','Слушалки (15 €)','Такса обработка (5 €)','Входни такси'],
+  departures:['София (Bulgaria Air)'],
+  hotels:[
+    { name:'Ilios Hotel', board:'Според хотела', price_bgn:1645, price_eur:841, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-1_17762462461128.jpg' },
+    { name:'Azure Mare Hotel', board:'Според хотела', price_bgn:1847, price_eur:944, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-1_17762462461128.jpg' },
+    { name:'Semiramis Village Hotel 4★', board:'Според хотела', price_bgn:2202, price_eur:1126, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-1_17762462461128.jpg' },
+    { name:'Royal Imperial Belvedere 4★', board:'Според хотела', price_bgn:2680, price_eur:1370, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-1_17762462461128.jpg' },
+    { name:'Blue Sea Beach Affiliated by Meliá', board:'Според хотела', price_bgn:3210, price_eur:1641, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-1_17762462461128.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-1_17762462461128.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-2_17762462461128.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-3_17762462461128.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-4_17762462461128.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-5_17762462461128.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-vklyucheni-ekskurzii-i-dire-6_17762462461128.jpg',
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 99. Е705 — ОСТРОВ КРИТ (All Inclusive)
+// ══════════════════════════════════════════════════════════════
+{ id:99, refNum:'Е705',
+  title:'Почивка на остров Крит на база All Inclusive',
+  category:'vacation', tags:['lyato-gartsia','beach','allInclusive','family'], destination:'о-в Крит, Гърция', country:'greece',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:1653, price_eur:845,
+  dates:['2026-09-03','2026-09-06'],
+  next_date:'2026-09-03', transport:'plane',
+  description:'All Inclusive седмица на Крит – плажни хотели 3-4★ край Каврос, полет с Bulgaria Air, трансфери и хранене на база All Inclusive.',
+  includes:['Самолетен билет с такси (Bulgaria Air)','Ръчен 10 кг + чекиран 23 кг','Трансфери','7 нощувки All Inclusive','Помощ на български','Медицинска застраховка (10 000 €)'],
+  excludes:['Факулт. екскурзии','Градска такса (5-10 €/нощ)','Лични разходи','Застраховка „Отмяна"'],
+  departures:['София (Летище)'],
+  hotels:[
+    { name:'Kavros Resort 3★', board:'All Inclusive', price_bgn:1653, price_eur:845, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-1_1776245525705.jpg' },
+    { name:'Summer Beach 4★ / Mare Village 4★', board:'All Inclusive', price_bgn:1653, price_eur:845, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-1_1776245525705.jpg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-1_1776245525705.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-2_1776245525705.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-3_1776245525705.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-4_1776245525705.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-5_1776245525705.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-6_1776245525705.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-7_1776245525705.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-8_1776245525705.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-9_1776245525705.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-10_1776245525705.jpg',
   ],
   featured:false },
 
