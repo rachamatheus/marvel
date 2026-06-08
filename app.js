@@ -291,7 +291,7 @@ function renderFeatured() {
 const CONTINENT_DATA = {
   europe: {
     label: 'Европа', icon: '🏰',
-    countries: ['greece','france','spain','italy','albania','poland','austria'],
+    countries: ['greece','france','spain','italy','albania','poland','austria','bulgaria'],
     images: {
       greece:  'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&q=80',
       france:  'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80',
@@ -304,7 +304,7 @@ const CONTINENT_DATA = {
   },
   africa: {
     label: 'Африка', icon: '🦁',
-    countries: ['egypt','morocco'],
+    countries: ['egypt','morocco','kenya','tanzania','mauritius','madagascar','seychelles'],
     images: {
       egypt:   'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80',
       morocco: 'https://images.unsplash.com/photo-1548697741-cc45ab89ef66?w=400&q=80',
@@ -312,7 +312,7 @@ const CONTINENT_DATA = {
   },
   asia: {
     label: 'Азия', icon: '🏯',
-    countries: ['turkey','uae','jordan','thailand','vietnam'],
+    countries: ['turkey','uae','jordan','thailand','vietnam','india','indonesia','china','japan','srilanka','armenia','georgia','maldives'],
     images: {
       turkey:   'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400&q=80',
       uae:      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80',
@@ -323,7 +323,7 @@ const CONTINENT_DATA = {
   },
   america: {
     label: 'Америка', icon: '🗽',
-    countries: [],
+    countries: ['usa','argentina','brazil','colombia','peru','dominicana','bahamas'],
     images: {}
   }
 };
@@ -365,7 +365,12 @@ function selectContinent(key) {
   const FLAGS = {
     greece:'🇬🇷', turkey:'🇹🇷', egypt:'🇪🇬', spain:'🇪🇸', france:'🇫🇷',
     italy:'🇮🇹', uae:'🇦🇪', morocco:'🇲🇦', jordan:'🇯🇴', albania:'🇦🇱',
-    austria:'🇦🇹', poland:'🇵🇱', thailand:'🇹🇭', vietnam:'🇻🇳'
+    austria:'🇦🇹', poland:'🇵🇱', thailand:'🇹🇭', vietnam:'🇻🇳', bulgaria:'🇧🇬',
+    armenia:'🇦🇲', georgia:'🇬🇪', maldives:'🇲🇻', india:'🇮🇳', indonesia:'🇮🇩',
+    china:'🇨🇳', japan:'🇯🇵', srilanka:'🇱🇰', kenya:'🇰🇪', tanzania:'🇹🇿',
+    mauritius:'🇲🇺', madagascar:'🇲🇬', seychelles:'🇸🇨', usa:'🇺🇸',
+    argentina:'🇦🇷', brazil:'🇧🇷', colombia:'🇨🇴', peru:'🇵🇪',
+    dominicana:'🇩🇴', bahamas:'🇧🇸'
   };
   if (!data.countries.length) {
     grid.innerHTML = `<div style="color:rgba(255,255,255,0.5);font-size:0.9rem;padding:1rem 0;grid-column:1/-1;">Оферти за тази дестинация скоро...</div>`;
@@ -375,7 +380,8 @@ function selectContinent(key) {
       if (!country) return '';
       const offers = ALL_OFFERS.filter(o => o.country === countryId);
       const minPrice = offers.length ? Math.min(...offers.map(o => o.price_eur)) : 0;
-      const img = data.images[countryId] || '';
+      const offerImg = offers.length ? ((typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[offers[0].id]) || offers[0].image || '') : '';
+      const img = data.images[countryId] || offerImg || '';
       const flag = FLAGS[countryId] || '🌍';
       return `
         <a class="country-card" href="javascript:void(0)" onclick="filterByCountry('${countryId}');closeContinent();document.getElementById('offers').scrollIntoView({behavior:'smooth'})">
