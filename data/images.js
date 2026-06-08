@@ -147,6 +147,16 @@ const OFFER_IMAGES = {
   144: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_zlatna-praga-ot-sofiya-4-noshtuvki-wizz-air-1_17659013271036.jpg',
   145: 'https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=900&q=80',
   146: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80',
+  147: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_halkidiki-kasandra-pochivki-na-more-dati-vsyaka-sabota--1_1770382550549.jpg',
+  148: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-olimpiyska-riviera-gartsiya-s-avtobus-ot-pl-1_1711692276771.png',
+  149: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivki-na-kasandra%E2%80%93lyato-2026-1_1770382563944.jpg',
+  150: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_halkidiki-sitoniya-pochivki-na-more-dati-vsyaka-sabota--1_1751544544945.jpg',
+  151: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-tasos-5-noshtuvki-sas-zakuski-i-vech-1_1750755497938.jpg',
+  152: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-gartsiya-ostrov-korfu-4-noshtuvki-polet-ot-s-1_1682330842556.jpg',
+  153: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-krit-2026-s-direkten-polet-ot-sofiya-1_17775394801137.jpg',
+  154: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ostrov-krit-lyato-2025-7-noshtuvki-dati-vsyaka-nedelya--1_1744709063455.jpg',
+  155: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-zakintos-7-noshtuvki-s-vklyuchen-tra-1_1747213280917.jpg',
+  156: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-gartsiya-ostrov-korfu-7-noshtuvki-polet-ot-s-1_1750852554940.jpg',
 };
 
 // Number of gallery images per offer (cover counts as #1). Used to derive
