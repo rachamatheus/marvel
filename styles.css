@@ -1,5 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
 
+/* ===== CAMPAIGN BANNERS ===== */
+.promo-banner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 170px;
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  background-size: cover !important;
+  background-position: center !important;
+  text-decoration: none;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.promo-banner:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.promo-banner-tag { font-size: 0.75rem; font-weight: 700; color: var(--gold-light); letter-spacing: 1px; text-transform: uppercase; }
+.promo-banner-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; margin: 4px 0; }
+.promo-banner-sub { font-size: 0.9rem; opacity: 0.9; }
+@media (max-width: 640px) {
+  .promo-banner { min-height: 130px; }
+}
+
 /* ===== BLOG ===== */
 .blog-hero {
   margin-top: 72px;

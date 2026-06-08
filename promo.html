@@ -3,21 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Блог — Marvel Tour</title>
-  <meta name="description" content="Marvel Tour Блог — съвети, насоки, препоръки и истории за пътуване по любимите дестинации.">
+  <title>Кампании — Marvel Tour</title>
+  <meta name="description" content="Marvel Tour — Ранни записвания и Лято 2026 Гърция с филтър по дестинации.">
   <link rel="stylesheet" href="styles.css?v=40">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar scrolled" id="navbar" style="position:fixed;">
   <a href="index.html" class="nav-logo">
     <img src="logo.png" alt="Marvel Tour" class="nav-logo-img" style="height:48px;width:auto;object-fit:contain;" onerror="this.style.display='none';document.getElementById('nlf').style.display='flex'">
-    <div id="nlf" style="display:none;align-items:center;gap:10px;">
-      <div class="nav-logo-icon">✈️</div>
-      <div><div class="nav-logo-text" style="color:var(--primary);">Marvel Tour</div></div>
-    </div>
+    <div id="nlf" style="display:none;align-items:center;gap:10px;"><div class="nav-logo-icon">✈️</div><div><div class="nav-logo-text" style="color:var(--primary);">Marvel Tour</div></div></div>
   </a>
   <ul class="nav-links">
     <li><a href="index.html#offers">Оферти</a></li>
@@ -27,14 +23,14 @@
   </ul>
 </nav>
 
-<div id="blogRoot"></div>
+<div id="promoRoot" style="min-height:60vh;"></div>
 
 <footer style="background:var(--dark);color:rgba(255,255,255,0.7);text-align:center;padding:2rem 1rem;margin-top:3rem;font-size:0.85rem;">
-  © Marvel Tour · <a href="index.html" style="color:var(--gold);text-decoration:none;">Начало</a> ·
-  <a href="blog.html" style="color:var(--gold);text-decoration:none;">Блог</a>
+  © Marvel Tour · <a href="index.html" style="color:var(--gold);text-decoration:none;">Начало</a>
 </footer>
 
-<script src="data/blog.js?v=40"></script>
-<script src="blog.js?v=40"></script>
+<script src="data/offers.js?v=40"></script>
+<script src="data/images.js?v=40"></script>
+<script src="promo.js?v=40"></script>
 </body>
 </html>

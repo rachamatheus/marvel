@@ -18,6 +18,7 @@ const TAGS = [
   { key: 'cruise', label: 'Круиз' },
   { key: 'allInclusive', label: 'All Inclusive' },
   { key: 'lyato-gartsia', label: '🇬🇷 Лято 2026 Гърция' },
+  { key: 'ranni-zapisvaniya', label: '🌅 Ранни записвания' },
 ];
 
 const COUNTRIES = [
@@ -50,6 +51,11 @@ const COUNTRIES = [
   { key: 'japan',       label: 'Япония' },
   { key: 'peru',        label: 'Перу' },
   { key: 'spain',       label: 'Испания' },
+  { key: 'tunisia',     label: 'Тунис' },
+  { key: 'italy',       label: 'Италия' },
+  { key: 'france',      label: 'Франция' },
+  { key: 'morocco',     label: 'Мароко' },
+  { key: 'jordan',      label: 'Йордания' },
 ];
 
 const SAT_FULL = ['2026-06-13','2026-06-20','2026-06-27','2026-07-04','2026-07-11','2026-07-18','2026-07-25','2026-08-01','2026-08-08','2026-08-15','2026-08-22','2026-08-29','2026-09-05','2026-09-12','2026-09-19'];
@@ -1972,7 +1978,7 @@ const OFFERS = [
 // ══════════════════════════════════════════════════════════════
 { id:62, refNum:'П1009',
   title:'Почивка в Шарм ел Шейх, Египет – от София в неделя',
-  category:'exotic', tags:['beach','family'], destination:'Шарм ел Шейх, Египет', country:'egypt',
+  category:'exotic', tags:['beach','family','ranni-zapisvaniya'], destination:'Шарм ел Шейх, Египет', country:'egypt',
   duration:'8 дни / 7 нощувки', days:8, nights:7,
   price_bgn:888, price_eur:454,
   dates:['2026-08-23','2026-08-30','2026-09-06','2026-09-13','2026-09-20','2026-09-27','2026-10-04','2026-10-11','2026-10-18','2026-10-25'],
@@ -2075,7 +2081,7 @@ const OFFERS = [
 // ══════════════════════════════════════════════════════════════
 { id:66, refNum:'П1049',
   title:'All Inclusive почивка в Шарм ел Шейх – Лято-Есен 2026',
-  category:'exotic', tags:['beach','allInclusive','family'], destination:'Шарм ел Шейх, Египет', country:'egypt',
+  category:'exotic', tags:['beach','allInclusive','family','ranni-zapisvaniya'], destination:'Шарм ел Шейх, Египет', country:'egypt',
   duration:'8 дни / 7 нощувки', days:8, nights:7,
   price_bgn:1268, price_eur:648,
   dates:['2026-06-14','2026-06-21','2026-06-28','2026-07-05','2026-07-12','2026-07-19','2026-07-26','2026-08-02','2026-08-09','2026-08-16'],
@@ -2331,7 +2337,7 @@ const OFFERS = [
 // ══════════════════════════════════════════════════════════════
 { id:73, refNum:'Е636',
   title:'Екскурзия в Испания – Великолепният Мадрид',
-  category:'exotic', tags:['culture','city'], destination:'Испания – Мадрид', country:'spain',
+  category:'exotic', tags:['culture','city','ranni-zapisvaniya'], destination:'Испания – Мадрид', country:'spain',
   duration:'4 дни / 3 нощувки', days:4, nights:3,
   price_bgn:1211, price_eur:619,
   dates:['2026-06-12','2026-07-10','2026-09-04','2026-09-18','2026-10-02','2026-10-16','2026-10-30','2026-11-20'],
@@ -2592,7 +2598,7 @@ const OFFERS = [
 // ══════════════════════════════════════════════════════════════
 { id:81, refNum:'Е517',
   title:'Съкровищата на Испания – със самолет, на български език',
-  category:'exotic', tags:['culture','city','adventure'], destination:'Испания – Андалусия и център', country:'spain',
+  category:'exotic', tags:['culture','city','adventure','ranni-zapisvaniya'], destination:'Испания – Андалусия и център', country:'spain',
   duration:'8 дни / 7 нощувки', days:8, nights:7,
   price_bgn:2228, price_eur:1139,
   dates:['2026-09-17','2026-10-15'],
@@ -2739,7 +2745,7 @@ const OFFERS = [
 // ══════════════════════════════════════════════════════════════
 { id:85, refNum:'П1078',
   title:'Почивка на Халкидики – Касандра (автобус от Пловдив и София)',
-  category:'vacation', tags:['lyato-gartsia','beach','family'], destination:'Халкидики – Касандра, Гърция', country:'greece',
+  category:'vacation', tags:['lyato-gartsia','beach','family','ranni-zapisvaniya'], destination:'Халкидики – Касандра, Гърция', country:'greece',
   duration:'8 дни / 7 нощувки', days:8, nights:7,
   price_bgn:513, price_eur:262,
   dates:['2026-06-13','2026-06-20','2026-06-27','2026-07-04','2026-07-11','2026-07-18','2026-07-25','2026-08-01','2026-08-08','2026-08-15'],
@@ -3180,5 +3186,206 @@ const OFFERS = [
     'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-ostrov-krit-na-baza-all-inclusive-7-noshtuv-10_1776245525705.jpg',
   ],
   featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// РАННИ ЗАПИСВАНИЯ (ids 100–132)
+// ══════════════════════════════════════════════════════════════
+{ id:100, refNum:'П999', title:'Алания – Лято 2026 (автобусна програма, 7 нощувки)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive'], destination:'Алания, Турция', country:'turkey', duration:'10 дни / 7 нощувки', days:10, nights:7, price_bgn:529, price_eur:270, dates:['2026-06-12','2026-06-19','2026-06-26','2026-07-03','2026-07-10'], next_date:'2026-06-12', transport:'bus',
+  description:'Автобусна почивка до Алания с ранни записвания – 7 нощувки в избран хотел и широк избор от оферти на турската ривиера.',
+  includes:['Автобусен транспорт','7 нощувки в избран хотел','Трансфери','Медицинска застраховка','Представител'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София','Пловдив','Пазарджик'],
+  hotels:[{name:'Galaxy Beach Hotel',board:'All Inclusive',price_bgn:529,price_eur:270,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ranni-zapisvaniya-alaniya-lyato-2026-avtobusna-programa-1_1759318891999.png'},{name:'Club Bayar Beach',board:'All Inclusive',price_bgn:470,price_eur:240,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ranni-zapisvaniya-alaniya-lyato-2026-avtobusna-programa-1_1759318891999.png'},{name:'Asrin Beach Hotel',board:'All Inclusive',price_bgn:477,price_eur:244,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ranni-zapisvaniya-alaniya-lyato-2026-avtobusna-programa-1_1759318891999.png'}], featured:false },
+
+{ id:101, refNum:'П984', title:'Алания – Лято 2026 (самолет, вторник, 7 нощувки)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive'], destination:'Алания, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:663, price_eur:339, dates:['2026-06-09','2026-06-16','2026-06-23','2026-06-30','2026-07-07'], next_date:'2026-06-09', transport:'plane',
+  description:'Чартърен полет до Анталия и 7 нощувки в Алания с ранни записвания.',
+  includes:['Чартърен полет с летищни такси','7 нощувки в избран хотел','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Club Bayar Beach Hotel',board:'All Inclusive',price_bgn:565,price_eur:289,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_alaniya-lyato-2026-samoletna-programa-den-vtornik-7-nos-1_1758632615984.jpg'},{name:'Mysea Hotels Alara',board:'All Inclusive',price_bgn:569,price_eur:291,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_alaniya-lyato-2026-samoletna-programa-den-vtornik-7-nos-1_1758632615984.jpg'},{name:'Eftalia Downtown',board:'All Inclusive',price_bgn:589,price_eur:301,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_alaniya-lyato-2026-samoletna-programa-den-vtornik-7-nos-1_1758632615984.jpg'}], featured:false },
+
+{ id:102, refNum:'П986', title:'Кемер – Лято 2026 (самолет, вторник, 7 нощувки)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive'], destination:'Кемер, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:602, price_eur:308, dates:['2026-06-09','2026-06-16','2026-06-23','2026-06-30'], next_date:'2026-06-09', transport:'plane',
+  description:'Директен чартър до Анталия и 7 нощувки в Кемер с ранни записвания.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Santana Hotel',board:'All Inclusive',price_bgn:602,price_eur:308,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_kemer-lyato-2026-samoletna-programa-den-vtornik-7-nosht-1_1758632725986.jpg'},{name:'Himeros Beach Hotel',board:'All Inclusive',price_bgn:626,price_eur:320,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_kemer-lyato-2026-samoletna-programa-den-vtornik-7-nosht-1_1758632725986.jpg'}], featured:false },
+
+{ id:103, refNum:'П985', title:'Белек – Лято 2026 (самолет, събота, 7 нощувки)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive','luxury'], destination:'Белек, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:775, price_eur:396, dates:['2026-06-13','2026-06-20','2026-06-27','2026-07-04'], next_date:'2026-06-13', transport:'plane',
+  description:'All Inclusive почивка в луксозния Белек с директен чартър до Анталия.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Belkon Hotel',board:'All Inclusive',price_bgn:775,price_eur:396,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_belek-lyato-2026-samoletna-programa-den-sabota-7-noshtu-1_1758632679985.jpg'},{name:'Amon Hotel',board:'All Inclusive',price_bgn:1023,price_eur:523,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_belek-lyato-2026-samoletna-programa-den-sabota-7-noshtu-1_1758632679985.jpg'}], featured:false },
+
+{ id:104, refNum:'П987', title:'Сиде – Лято 2026 (самолет, събота, 7 нощувки)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive'], destination:'Сиде, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:835, price_eur:427, dates:['2026-06-13','2026-06-20','2026-06-27','2026-07-04'], next_date:'2026-06-13', transport:'plane',
+  description:'Почивка в Сиде на турската ривиера с директен чартър и ранни записвания.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Leda Beach Hotel',board:'All Inclusive',price_bgn:835,price_eur:427,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_side-lyato-2026-samoletna-programa-den-sabota-7-noshtuv-1._1758632780987.jpeg'},{name:'Club Side Coast',board:'All Inclusive',price_bgn:857,price_eur:438,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_side-lyato-2026-samoletna-programa-den-sabota-7-noshtuv-1._1758632780987.jpeg'}], featured:false },
+
+{ id:105, refNum:'П1054', title:'Лара – Лято 2026 (самолет, събота, 7 нощувки)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive','luxury'], destination:'Лара, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:866, price_eur:443, dates:['2026-06-13','2026-06-20','2026-06-27','2026-07-04'], next_date:'2026-06-13', transport:'plane',
+  description:'Почивка в Лара (Анталия) с директен чартър и ранни записвания.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Palmora Lara Hotel',board:'All Inclusive',price_bgn:866,price_eur:443,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_lara-lyato-2026-samoletna-programa-den-sabota-7-noshtuv-1_17659632401054.jpg'},{name:'Wind of Lara Hotel & Spa',board:'All Inclusive',price_bgn:1314,price_eur:672,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_lara-lyato-2026-samoletna-programa-den-sabota-7-noshtuv-1_17659632401054.jpg'}], featured:false },
+
+{ id:106, refNum:'П1048', title:'8 дни в Анталия – турската ривиера (полет от София)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive'], destination:'Анталия, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:888, price_eur:454, dates:['2026-06-11','2026-06-14','2026-06-18','2026-06-21'], next_date:'2026-06-11', transport:'plane',
+  description:'Плажен курорт на турската ривиера с All Inclusive и полет от София.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Bora Bora Butik Exclusive',board:'All Inclusive',price_bgn:888,price_eur:454,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_8-dni-v-antaliya-turskata-riviera-vi-ochakva-s-polet-ot-1_17659020041048.jpg'},{name:'Green Life Hotel',board:'All Inclusive',price_bgn:916,price_eur:468,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_8-dni-v-antaliya-turskata-riviera-vi-ochakva-s-polet-ot-1_17659020041048.jpg'}], featured:false },
+
+{ id:107, refNum:'Е585', title:'Екскурзия до Истанбул – самолетна, 4 дни', category:'excursion', tags:['ranni-zapisvaniya','city','culture'], destination:'Истанбул, Турция', country:'turkey', duration:'4 дни / 3 нощувки', days:4, nights:3, price_bgn:1461, price_eur:747, dates:['2026-09-04','2026-10-09','2027-04-09','2027-04-30'], next_date:'2026-09-04', transport:'plane',
+  description:'Истанбул с „Св. София", двореца Топкапъ, Синята джамия и цистерните. Полет с Turkish Airlines.',
+  includes:['Полет с летищни такси','3 нощувки със закуска','Трансфери','Водач','Медицинска застраховка'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'3★ хотел Истанбул',board:'Закуска',price_bgn:1461,price_eur:747,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-istanbul-samoletna-4-dni-1_1765900946585.jpg'}], featured:false },
+
+{ id:108, refNum:'П1081', title:'Алания – Лято 2026 (самолет, събота, 7 нощувки)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive'], destination:'Алания, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:698, price_eur:357, dates:['2026-06-13','2026-06-20','2026-06-27','2026-07-04'], next_date:'2026-06-13', transport:'plane',
+  description:'Директен чартър до Анталия и 7 нощувки в Алания (съботна програма).',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Eftalia Downtown',board:'All Inclusive',price_bgn:698,price_eur:357,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_alaniya-lyato-2026-samoletna-programa-den-sabota-7-nosh-1_17701187671081.jpg'},{name:'Club Bayar Beach Hotel',board:'All Inclusive',price_bgn:724,price_eur:370,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_alaniya-lyato-2026-samoletna-programa-den-sabota-7-nosh-1_17701187671081.jpg'}], featured:false },
+
+{ id:109, refNum:'П1082', title:'Кемер – Лято 2026 (самолет, събота, 7 нощувки)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive'], destination:'Кемер, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:698, price_eur:357, dates:['2026-06-13','2026-06-20','2026-06-27','2026-07-04'], next_date:'2026-06-13', transport:'plane',
+  description:'All Inclusive почивка в Кемер със съботен чартър до Анталия.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Santana Hotel',board:'All Inclusive',price_bgn:698,price_eur:357,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_kemer-lyato-2026-samoletna-programa-den-sabota-7-noshtu-1_17701188711082.jpg'},{name:'Himeros Beach Hotel',board:'All Inclusive',price_bgn:702,price_eur:359,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_kemer-lyato-2026-samoletna-programa-den-sabota-7-noshtu-1_17701188711082.jpg'}], featured:false },
+
+{ id:110, refNum:'П1067', title:'Почивка в Кемер, Турция (самолет от София, 7 нощувки)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive'], destination:'Кемер, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:783, price_eur:401, dates:['2026-06-10','2026-06-12','2026-06-14','2026-06-17'], next_date:'2026-06-10', transport:'plane',
+  description:'Чартър София–Анталия и 7 нощувки в района на Кемер.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Kaftans City Hotel',board:'All Inclusive',price_bgn:783,price_eur:401,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-kemer-turtsiya-sas-samolet-ot-sofiya-7-nosht-1_17768559621067.jpg'},{name:'Olimpus Beach Hotel',board:'All Inclusive',price_bgn:829,price_eur:424,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-kemer-turtsiya-sas-samolet-ot-sofiya-7-nosht-1_17768559621067.jpg'}], featured:false },
+
+{ id:111, refNum:'П1062', title:'Почивка в Лара, Турция (полет от Пловдив)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive','luxury'], destination:'Лара, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:1351, price_eur:691, dates:['2026-06-11','2026-06-18','2026-06-25','2026-09-03'], next_date:'2026-06-11', transport:'plane',
+  description:'Директен чартър от Пловдив до Анталия и 7 нощувки в луксозния Лара.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['Пловдив (Летище)'],
+  hotels:[{name:'Greenwood Suites Resort',board:'All Inclusive',price_bgn:1351,price_eur:691,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-lara-turtsiya-s-polet-ot-plovdiv-do-antaliya-1_17659772491062.jpg'},{name:'Grand Park Lara Hotel',board:'All Inclusive',price_bgn:1365,price_eur:698,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-lara-turtsiya-s-polet-ot-plovdiv-do-antaliya-1_17659772491062.jpg'}], featured:false },
+
+{ id:112, refNum:'П1052', title:'Ранни записвания в Белек, Анталия (полет от Пловдив)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive','luxury'], destination:'Белек, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:1129, price_eur:577, dates:['2026-06-11','2026-06-18','2026-06-25','2026-09-03'], next_date:'2026-06-11', transport:'plane',
+  description:'All Inclusive ранни записвания в Белек с директен полет от Пловдив.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['Пловдив (Летище)'],
+  hotels:[{name:'Sensitive Premium Resort & Spa',board:'All Inclusive',price_bgn:1084,price_eur:554,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ranni-zapisvaniya-v-belek-antaliya-samoletna-programa-2-1_17659631671052.png'},{name:'Maya World Park Belek',board:'All Inclusive',price_bgn:1150,price_eur:588,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ranni-zapisvaniya-v-belek-antaliya-samoletna-programa-2-1_17659631671052.png'}], featured:false },
+
+{ id:113, refNum:'П1143', title:'Почивка в Лара, Турция (самолет от Пловдив, петък)', category:'vacation', tags:['ranni-zapisvaniya','beach','family','allInclusive','luxury'], destination:'Лара, Турция', country:'turkey', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:1456, price_eur:745, dates:['2026-06-12','2026-06-19','2026-08-28','2026-09-04'], next_date:'2026-06-12', transport:'plane',
+  description:'Петъчен чартър от Пловдив до Анталия и 7 нощувки в Лара.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['Пловдив (Летище)'],
+  hotels:[{name:'Wyndham Garden Lara',board:'All Inclusive',price_bgn:1456,price_eur:745,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-istanbul-samoletna-4-dni-1_1765900946585.jpg'},{name:'Grand Park Lara',board:'All Inclusive',price_bgn:1482,price_eur:758,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-istanbul-samoletna-4-dni-1_1765900946585.jpg'}], featured:false },
+
+{ id:114, refNum:'П1091', title:'Ексклузивни отстъпки – Почивка в Тунис (полет от Пловдив)', category:'vacation', tags:['ranni-zapisvaniya','beach','allInclusive','family'], destination:'Тунис', country:'tunisia', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:646, price_eur:330, dates:['2026-06-15','2026-06-22','2026-06-26','2026-08-24'], next_date:'2026-06-15', transport:'plane',
+  description:'Чартър от Пловдив до Тунис с плажен релакс и факултативни UNESCO екскурзии.',
+  includes:['Чартърен полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['Пловдив (Летище)'],
+  hotels:[{name:'Residence Mahmoud',board:'All Inclusive',price_bgn:646,price_eur:330,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekskluzivni-otstapki-pochivka-v-tunis-sas-samolet-ot-pl-1_17720313231091.jpg'},{name:'Houda Golf Beach & Aquapark',board:'All Inclusive',price_bgn:785,price_eur:401,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekskluzivni-otstapki-pochivka-v-tunis-sas-samolet-ot-pl-1_17720313231091.jpg'}], featured:false },
+
+{ id:115, refNum:'П1050', title:'Тунис 2026 – 8 дни All Inclusive (полет от София)', category:'vacation', tags:['ranni-zapisvaniya','beach','allInclusive','family'], destination:'Тунис', country:'tunisia', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:759, price_eur:388, dates:['2026-06-12','2026-06-15','2026-06-19','2026-06-22'], next_date:'2026-06-12', transport:'plane',
+  description:'All Inclusive почивка с дъх на екзотика в Тунис, полет от София.',
+  includes:['Чартърен полет с летищни такси','7 нощувки All Inclusive','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Samira Club',board:'All Inclusive',price_bgn:924,price_eur:472,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_tunis-2026-8-dni-all-inclusive-pochivka-s-dah-na-ekzoti-1_17659020981050.jpg'},{name:'Iberostar Averroes',board:'All Inclusive',price_bgn:1001,price_eur:512,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_tunis-2026-8-dni-all-inclusive-pochivka-s-dah-na-ekzoti-1_17659020981050.jpg'}], featured:false },
+
+{ id:116, refNum:'П1051', title:'Почивка в Албания 2026 – Шенгин на Адриатическо море', category:'vacation', tags:['ranni-zapisvaniya','beach','family'], destination:'Шенгин, Албания', country:'albania', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:724, price_eur:370, dates:['2026-06-13','2026-06-20','2026-06-27','2026-07-04'], next_date:'2026-06-13', transport:'bus',
+  description:'Плажна почивка на албанското Адриатическо крайбрежие в курорта Шенгин, до Черна гора.',
+  includes:['Автобусен транспорт','7 нощувки','Хранене по програма','Медицинска застраховка','Водач'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София'],
+  hotels:[{name:'Hotel President 4★',board:'Закуска и вечеря',price_bgn:724,price_eur:370,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-albaniya-2026-na-adriatichesko-more-v-shengi-1_17659022201051.jpg'}], featured:false },
+
+{ id:117, refNum:'П1046', title:'Почивка в Кампания с вкус на лимончело (полет от София)', category:'vacation', tags:['ranni-zapisvaniya','beach','culture'], destination:'Кампания, Италия', country:'italy', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:870, price_eur:445, dates:['2026-06-13','2026-06-20','2026-08-29','2026-09-05'], next_date:'2026-06-13', transport:'plane',
+  description:'Плажна почивка в Кампания с екскурзии до Неапол, Помпей, Капри, Соренто и Амалфи.',
+  includes:['Полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'La Serra Italy Village Beach Resort',board:'Закуска',price_bgn:998,price_eur:510,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-kampaniya-s-vkus-na-limonchelo-polet-ot-sofi-1_17770201691046.jpg'}], featured:false },
+
+{ id:118, refNum:'П1043', title:'Почивка в тюркоазена Сардиния (полет от София)', category:'vacation', tags:['ranni-zapisvaniya','beach','nature'], destination:'Сардиния, Италия', country:'italy', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:950, price_eur:486, dates:['2026-06-09','2026-06-16','2026-06-23','2026-06-30'], next_date:'2026-06-09', transport:'plane',
+  description:'Средиземноморски рай на Сардиния – директен полет до Олбия и 7 нощувки.',
+  includes:['Полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Club Esse Gallura Beach',board:'Закуска и вечеря',price_bgn:950,price_eur:486,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-tyurkoazena-sardiniya-polet-ot-sofiya-1_17659016571043.jpg'}], featured:false },
+
+{ id:119, refNum:'П1044', title:'Рим – Вечният град (4 нощувки, полет от София)', category:'excursion', tags:['ranni-zapisvaniya','city','culture'], destination:'Рим, Италия', country:'italy', duration:'5 дни / 4 нощувки', days:5, nights:4, price_bgn:1072, price_eur:548, dates:['2026-06-20','2026-07-11','2026-07-18','2026-08-15'], next_date:'2026-06-20', transport:'plane',
+  description:'Вечният град Рим с факултативни екскурзии до Ватикана, форумите и Тиволи.',
+  includes:['Полет с летищни такси','4 нощувки','Трансфери','Водач'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Raeli Hotel',board:'Закуска',price_bgn:1072,price_eur:548,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_rim-vechniyat-grad-4-noshtuvki-polet-ot-sofiya-1_17659016911044.jpg'}], featured:false },
+
+{ id:120, refNum:'П1131', title:'Почивка в Италия – Римини (хотел Vittoria 4★)', category:'vacation', tags:['ranni-zapisvaniya','beach','allInclusive','family'], destination:'Римини, Италия', country:'italy', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:1348, price_eur:689, dates:['2026-06-11','2026-08-20','2026-08-27','2026-09-03'], next_date:'2026-06-11', transport:'plane',
+  description:'All Inclusive плажна почивка в Римини с директен полет и обслужване на български.',
+  includes:['Директен полет (Wizz Air)','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Hotel Vittoria 4★',board:'All Inclusive',price_bgn:1348,price_eur:689,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-italiya-rimini-hotel-vittoria-4-s-direkten--1_17766746411131.jpg'}], featured:false },
+
+{ id:121, refNum:'Е518', title:'Най-доброто от Италия – Милано, Пиза, Флоренция, Рим', category:'excursion', tags:['ranni-zapisvaniya','culture','city','adventure'], destination:'Италия – обиколен тур', country:'italy', duration:'7 дни / 6 нощувки', days:7, nights:6, price_bgn:2198, price_eur:1124, dates:['2026-07-16','2026-08-06','2026-08-27','2026-09-03'], next_date:'2026-07-16', transport:'plane',
+  description:'Обиколка на Милано, Генуа, Пиза, Флоренция, Сиена, Орвието и Рим с водач на български.',
+  includes:['Полет с летищни такси','6 нощувки със закуска','Трансфери и автобус','Водач'], excludes:['Входни такси','Факултативни екскурзии','Единична стая (495 лв.)'],
+  departures:['София (Летище)'],
+  hotels:[{name:'3★ хотели по маршрута',board:'Закуска',price_bgn:2198,price_eur:1124,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_nay-dobroto-ot-italiya-gt-milano-%E2%80%93-genua-%E2%80%93-piza-%E2%80%93-1_1755763834518.jpg'}], featured:false },
+
+{ id:122, refNum:'П1076', title:'Романтиката на Париж (4 нощувки, полет от София)', category:'excursion', tags:['ranni-zapisvaniya','city','culture'], destination:'Париж, Франция', country:'france', duration:'5 дни / 4 нощувки', days:5, nights:4, price_bgn:1393, price_eur:712, dates:['2026-08-31','2026-09-02'], next_date:'2026-08-31', transport:'plane',
+  description:'Романтичен Париж – панорамни обиколки, Версай, Монмартър и круиз по Сена.',
+  includes:['Полет с летищни такси','4 нощувки','Трансфери','Водач'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Ibis Paris Pantin Eglise',board:'Закуска',price_bgn:1393,price_eur:712,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_romantikata-na-parizh-4-noshtuvki-polet-ot-sofiya-1_17683928921076.jpg'}], featured:false },
+
+{ id:123, refNum:'П1041', title:'Йордания от А до Я – Петра и пустинята Уади Рум', category:'excursion', tags:['ranni-zapisvaniya','culture','adventure','nature'], destination:'Йордания', country:'jordan', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:1499, price_eur:766, dates:['2026-11-10','2026-11-17','2026-11-24','2026-12-01'], next_date:'2026-11-10', transport:'plane',
+  description:'Йордания – UNESCO Петра, Мъртво море, Аман и пустинята Уади Рум. 4★ хотели, полет от София.',
+  includes:['Полет с летищни такси','7 нощувки','Трансфери','Водач','Медицинска застраховка'], excludes:['Виза Йордания','Входни такси','Бакшиши','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Baity Boutique 4★ (Акаба) + Hassan Zawaydeh Camp 4★ (Уади Рум)',board:'Закуска (+ вечеря в лагера)',price_bgn:1499,price_eur:766,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_yordaniya-ot-a-do-ya-petra-i-pustinyata-uadi-rum-bestse-1_17659015681041.jpg'}], featured:false },
+
+{ id:124, refNum:'Е519', title:'Екскурзия в Мароко – имперските градове', category:'excursion', tags:['ranni-zapisvaniya','culture','city','adventure'], destination:'Мароко – Фес, Маракеш', country:'morocco', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:2247, price_eur:1149, dates:['2026-09-22','2026-10-06'], next_date:'2026-09-22', transport:'plane',
+  description:'Имперските градове на Мароко – Фес, Мекнес, Маракеш и Рабат, с водач на български.',
+  includes:['Полет с летищни такси','7 нощувки','Трансфери','Водач','Медицинска застраховка'], excludes:['Входни такси','Факултативни екскурзии','Единична стая (204 €)','Бакшиши'],
+  departures:['София (Летище)'],
+  hotels:[{name:'4★ хотели (Коста дел Сол, Фес, Маракеш, Рабат)',board:'Закуска и вечеря',price_bgn:2247,price_eur:1149,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-maroko-imperskite-gradove-sas-samolet-voda-1_1773134577519.jpg'}], featured:false },
+
+{ id:125, refNum:'Е685', title:'Най-доброто от Дубай – 8 дни (полет на Fly Dubai)', category:'excursion', tags:['ranni-zapisvaniya','city','luxury','adventure'], destination:'Дубай, ОАЕ', country:'uae', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:2719, price_eur:1390, dates:['2026-10-04','2026-11-01','2026-12-06','2027-01-10'], next_date:'2026-10-04', transport:'plane',
+  description:'Модерният Дубай – сафари в пустинята с барбекю, „Арабска приказка", яхтен круиз и The View At The Palm.',
+  includes:['Полет Fly Dubai с летищни такси','7 нощувки','Трансфери','Водач','Медицинска застраховка'], excludes:['Входни такси','Факултативни екскурзии','Единична стая (408 €)','Лични разходи'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Metropolitan Hotel Dubai 4★',board:'Закуска',price_bgn:2719,price_eur:1390,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_nay-dobroto-ot-dubay-8-dni-s-polet-na-fly-dubai-1_1773910437685.jpg'}], featured:false },
+
+{ id:126, refNum:'Е267', title:'Почивка в Испания – Тенерифе, островът на вечното лято', category:'vacation', tags:['ranni-zapisvaniya','beach','nature','family'], destination:'Тенерифе, Испания', country:'spain', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:1563, price_eur:799, dates:['2026-06-24','2026-07-22','2026-08-19','2026-09-16'], next_date:'2026-06-24', transport:'plane',
+  description:'Тенерифе – островът на вечното лято. 7 нощувки в 4★ хотел и факултативни екскурзии.',
+  includes:['Полет с летищни такси','7 нощувки','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Туристически такси','Факултативни екскурзии','Единична стая (163 €)'],
+  departures:['София (Летище)'],
+  hotels:[{name:'4★ хотел Тенерифе',board:'Закуска',price_bgn:1563,price_eur:799,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-v-ispaniya-tenerife-ostrovat-na-vechnoto-lyato-1_1767948313267.jpg'}], featured:false },
+
+{ id:127, refNum:'Е652', title:'Бузуки парти за 8-ми март в Солун', category:'excursion', tags:['ranni-zapisvaniya','city','culture'], destination:'Солун, Гърция', country:'greece', duration:'3 дни / 2 нощувки', days:3, nights:2, price_bgn:349, price_eur:179, dates:['2027-03-06'], next_date:'2027-03-06', transport:'bus',
+  description:'Празнувайте 8-ми март със живо бузуки парти в Солун, разглеждане и нощен живот.',
+  includes:['Автобусен транспорт','2 нощувки','Медицинска застраховка','Водач'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи'],
+  departures:['София','Пловдив','Стара Загора'],
+  hotels:[{name:'Хотел в Солун',board:'Закуска',price_bgn:349,price_eur:179,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_buzuki-parti-za-8-mi-mart-v-solun-1_1770114473652.jpg'}], featured:false },
+
+{ id:128, refNum:'П1039', title:'Мечтана Сицилия + бонус 6 екскурзии (Athena Resort 4★)', category:'vacation', tags:['ranni-zapisvaniya','beach','culture'], destination:'Сицилия, Италия', country:'italy', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:1512, price_eur:773, dates:['2026-09-21','2026-09-28','2026-10-05'], next_date:'2026-09-21', transport:'plane',
+  description:'All Inclusive Сицилия с 6 включени екскурзии – Етна, Таормина, Сиракуза, Рагуза и Калтаджироне.',
+  includes:['Чартър до Катания','7 нощувки All Inclusive','6 екскурзии','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Входни такси','Лични разходи','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Athena Resort Village 4★ Superior',board:'All Inclusive',price_bgn:1512,price_eur:773,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_mechtana-sitsiliya--bonus-6-ekskurzii-athena-resort-vil-1_17659014781039.jpg'}], featured:false },
+
+{ id:129, refNum:'П1038', title:'Автентична Сицилия (Torre Normanna 4★) + 6 екскурзии', category:'vacation', tags:['ranni-zapisvaniya','beach','culture'], destination:'Сицилия, Италия', country:'italy', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:1998, price_eur:1022, dates:['2026-06-22','2026-06-29','2026-08-31','2026-09-07'], next_date:'2026-06-22', transport:'plane',
+  description:'Сицилия с хотел Torre Normanna 4★ и 6 включени екскурзии до UNESCO обекти и средновековни градове.',
+  includes:['Чартър до Катания','7 нощувки','6 екскурзии','Трансфери','Медицинска застраховка'], excludes:['Такса гориво','Входни такси','Лични разходи','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Torre Normanna 4★ Superior',board:'Закуска и вечеря',price_bgn:1998,price_eur:1022,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_avtentichna-sitsiliya-torre-normanna-4--bonus-6-vklyuc-1_17659014081038.jpg'}], featured:false },
+
+{ id:130, refNum:'П1047', title:'Романтиката на Френската ривиера и Лигурия + 6 екскурзии', category:'excursion', tags:['ranni-zapisvaniya','culture','city','nature'], destination:'Френска ривиера / Лигурия', country:'france', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:1391, price_eur:711, dates:['2026-06-14','2026-06-21','2026-08-30','2026-09-06'], next_date:'2026-06-14', transport:'plane',
+  description:'Френската ривиера и Лигурия с 6 включени екскурзии – Кан, Ница, Монако и италианската ривиера.',
+  includes:['Полет до Торино','7 нощувки','6 екскурзии','Трансфери','Медицинска застраховка'], excludes:['Входни такси','Факултативни екскурзии','Лични разходи','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Lucky Liguria',board:'Закуска',price_bgn:1968,price_eur:1006,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_romantikata-na-frenskata-riviera-i-liguriya--bonus-6-ek-1_17659018731047.jpg'}], featured:false },
+
+{ id:131, refNum:'П1035', title:'Ексклузивно Мароко 2026 – имперските столици (кацане във Фес)', category:'excursion', tags:['ranni-zapisvaniya','culture','city','adventure'], destination:'Мароко – имперски столици', country:'morocco', duration:'8 дни / 7 нощувки', days:8, nights:7, price_bgn:2200, price_eur:1125, dates:['2026-04-17','2026-10-09','2026-10-23'], next_date:'2026-10-09', transport:'plane',
+  description:'Четирите имперски столици на Мароко с кацане във Фес – медини, UNESCO обекти, Мекнес, Рабат, Казабланка и Маракеш.',
+  includes:['Полет до Фес с летищни такси','7 нощувки','Трансфери','Водач','Медицинска застраховка'], excludes:['Входни такси','Факултативни екскурзии','Бакшиши','Единична стая'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Royal Mirage 4★ (Фес) + Zalagh Kasbah 4★ (Маракеш)',board:'Закуска и вечеря',price_bgn:2200,price_eur:1125,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekskluzivno-maroko-2026-imperskite-stolitsi-katsane-vav-1_17659012711035.jpg'}], featured:false },
+
+{ id:132, refNum:'Е411', title:'Париж – любов и романтика (самолет, на български)', category:'excursion', tags:['ranni-zapisvaniya','city','culture'], destination:'Париж, Франция', country:'france', duration:'5 дни / 4 нощувки', days:5, nights:4, price_bgn:1563, price_eur:799, dates:['2026-07-06','2026-08-17','2026-09-07','2026-09-21','2026-10-12'], next_date:'2026-07-06', transport:'plane',
+  description:'Париж с панорамна обиколка, Версай, Барбизон и Живерни, с водач на български.',
+  includes:['Полет с летищни такси','4 нощувки','Трансфери','Водач'], excludes:['Входни такси','Факултативни екскурзии','Единична стая (317 €)'],
+  departures:['София (Летище)'],
+  hotels:[{name:'Ibis Paris La Defense 3★',board:'Закуска',price_bgn:1563,price_eur:799,image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_parizh-lyubov-i-romantika-sas-samolet-obsluzhvane-na-ba-1_1767869753411.jpg'}], featured:false },
 
 ];
