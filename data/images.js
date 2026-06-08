@@ -173,6 +173,19 @@ const OFFER_IMAGES = {
   170: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_imperskite-stolitsi-byudzheten-variant-ot-marakesh-do-f-1_17799616831155.jpg',
   171: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_maroko-ot-a-do-ya-ot-fes-do-marakesh-hoteli-3-4-0910--1_17799617231156.jpg',
   172: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_imperskite-stolitsi-byudzheten-variant-ot-fes-do-marake-1_17799618221157.jpg',
+  173: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_slancheva-andalusiya-2026-pochivka-v-kosta-del-sol-1_17762421601097.jpg',
+  174: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_zlatna-ispaniya-pochivka-v-kosta-dorada-2026-1_17806526841162.jpg',
+  175: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-kosta-brava-s-redoven-polet-1_17659756291059.jpg',
+  176: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_zlatna-ispaniya-pochivka-v-kosta-dorada-2026-1_17806526841162.jpg',
+  177: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-ispaniya-mursiya-la-manga-del-mar-menor-sas--1_17766749531132.jpg',
+  178: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-ispaniya-kosta-del-sol-hotel-quot-fuengirola-1_1740053939862.jpg',
+  179: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-ispaniya-ostrov-mayorka-sas-samolet-ot-sofiy-1_1711454974762.png',
+  180: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-ispaniya-ostrov-tenerife-direktni-chartari-o-1_1747980507898.jpg',
+  181: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_skritite-sakrovishta-na-tenerife-chartaren-polet-ot-sof-1_17679481231073.jpg',
+  182: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_andalusiya-dushata-na-ispaniya-kosta-del-sol-s-bonus-3--1_17781406331141.jpg',
+  183: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_perlite-na-kosta-dorada-s-bonus-5-ekskurzii-1_17800458671159.jpg',
+  184: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-ispaniya-ostrov-tenerife-direktni-chartari-o-1_17679480651072.jpg',
+  185: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-ispaniya-ostrov-tenerife-direktni-chartari-o-1_17679479311070.jpg',
 };
 
 // Number of gallery images per offer (cover counts as #1). Used to derive
