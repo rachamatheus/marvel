@@ -628,6 +628,45 @@ function toggleFav(event, id) {
 let selectedDate = null;
 let selectedHotelIdx = 0;
 
+// ── Gallery ──
+let galleryImages = [];
+let galleryIdx = 0;
+
+function setupGallery(imgs, alt) {
+  galleryImages = imgs || [];
+  galleryIdx = 0;
+  const multi = galleryImages.length > 1;
+  const prev = document.getElementById('galleryPrev');
+  const next = document.getElementById('galleryNext');
+  const counter = document.getElementById('galleryCounter');
+  const thumbs = document.getElementById('modalThumbs');
+  if (prev) prev.style.display = multi ? '' : 'none';
+  if (next) next.style.display = multi ? '' : 'none';
+  if (counter) counter.style.display = multi ? '' : 'none';
+  if (thumbs) {
+    thumbs.style.display = multi ? '' : 'none';
+    thumbs.innerHTML = multi ? galleryImages.map((src, i) =>
+      `<img class="modal-thumb ${i === 0 ? 'active' : ''}" src="${src}" alt="${alt || ''} ${i + 1}" onclick="galleryGoto(${i})" onerror="this.style.display='none'">`
+    ).join('') : '';
+  }
+  galleryGoto(0, alt);
+}
+
+function galleryGoto(i, alt) {
+  if (!galleryImages.length) return;
+  galleryIdx = (i + galleryImages.length) % galleryImages.length;
+  const img = document.getElementById('modalImg');
+  if (img) { img.src = galleryImages[galleryIdx]; if (alt) img.alt = alt; }
+  const counter = document.getElementById('galleryCounter');
+  if (counter) counter.textContent = `${galleryIdx + 1} / ${galleryImages.length}`;
+  document.querySelectorAll('#modalThumbs .modal-thumb').forEach((t, idx) =>
+    t.classList.toggle('active', idx === galleryIdx));
+  const active = document.querySelectorAll('#modalThumbs .modal-thumb')[galleryIdx];
+  if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+}
+
+function galleryStep(dir) { galleryGoto(galleryIdx + dir); }
+
 function openOffer(id) {
   const offer = ALL_OFFERS.find(o => o.id === id);
   if (!offer) return;
@@ -635,8 +674,12 @@ function openOffer(id) {
   selectedDate = offer.dates[0] || null;
   selectedHotelIdx = 0;
 
-  document.getElementById('modalImg').src = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[offer.id]) || offer.image || PLACEHOLDER_IMG;
-  document.getElementById('modalImg').alt = offer.title;
+  // Gallery setup
+  const coverImg = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[offer.id]) || offer.image || PLACEHOLDER_IMG;
+  let imgs = (offer.gallery && offer.gallery.length) ? offer.gallery.slice() : [coverImg];
+  if (imgs.indexOf(coverImg) === -1) imgs.unshift(coverImg);
+  setupGallery(imgs, offer.title);
+
   document.getElementById('modalTitle').textContent = offer.title;
 
   // Price from first hotel (cheapest) or package defaults

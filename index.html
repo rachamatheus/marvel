@@ -497,7 +497,13 @@
   <div class="modal" id="modalContent" onclick="event.stopPropagation()">
     <div class="modal-handle" onclick="forceCloseModal()" title="Затвори"></div>
     <button class="modal-close-btn" onclick="forceCloseModal()" aria-label="Затвори">✕</button>
-    <img src="" alt="" class="modal-img" id="modalImg">
+    <div class="modal-gallery-wrap">
+      <img src="" alt="" class="modal-img" id="modalImg">
+      <button class="gallery-nav prev" id="galleryPrev" onclick="galleryStep(-1)" aria-label="Предишна снимка">‹</button>
+      <button class="gallery-nav next" id="galleryNext" onclick="galleryStep(1)" aria-label="Следваща снимка">›</button>
+      <div class="gallery-counter" id="galleryCounter"></div>
+    </div>
+    <div class="modal-thumbs" id="modalThumbs"></div>
     <div class="modal-body">
       <div class="modal-badge-row" id="modalBadges"></div>
       <h2 class="modal-title" id="modalTitle"></h2>
@@ -591,8 +597,8 @@
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
-<script src="data/offers.js?v=16"></script>
-<script src="data/images.js?v=16"></script>
-<script src="app.js?v=16"></script>
+<script src="data/offers.js?v=17"></script>
+<script src="data/images.js?v=17"></script>
+<script src="app.js?v=17"></script>
 </body>
 </html>

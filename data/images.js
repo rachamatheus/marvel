@@ -56,4 +56,9 @@ const OFFER_IMAGES = {
   53: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_gruziya-i-armeniya%E2%80%93pateshestvie-iz-kavkazkite-sakro-1_17724462331102.jpg',
   54: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_peru-velikden-2026-1_1761827812551.jpg',
   55: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_klasicheska-ispaniya-%E2%80%93-obzorna-obikolka-1_1771250291656.jpg',
+  56: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-egipet-kayro-grad-na-kontrastite-1_1762158436556.jpg',
+  57: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_sakrovishtata-na-dreven-egipet-kayro-luksor-hurgada-i-o-1_1770823273546.jpg',
+  58: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_vakantsiya-v-egipet-kayro-hurgada-i-kruiz-po-reka-nil-s-1_1770823312433.jpg',
+  59: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-tayland-puket-i-bankok-perlite-na-indokita-1_1770986262653.jpg',
+  60: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-bankok-singapur-kambodzha-i-o-v-puket-1_1673524562174.jpg',
 };
