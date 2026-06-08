@@ -1118,7 +1118,7 @@ const OFFERS = [
   hotels:[
     { name:'Rama Phala Resort & Spa ★★★★ (Убуд) + Hotel Puri Raja ★★★ (Семиняк)', board:'Закуска', price_bgn:4477, price_eur:2290, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-ostrov-bali%E2%80%937-ekskurzii-vklyucheni-v-tse-1_1747728721250.jpg' },
   ],
-  featured:false },
+  featured:true },
 
 // ══════════════════════════════════════════════════════════════
 // 35. Е679 — ПОЧИВКА В ИНДОНЕЗИЯ – МЕЧТАНИЯТ ОСТРОВ БАЛИ
@@ -1496,7 +1496,7 @@ const OFFERS = [
   hotels:[
     { name:'4★ хотели Токио (3н) + Киото (3н) + Осака (2н)', board:'Закуска', price_bgn:7821, price_eur:3999, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-yaponiya-tokio-fudzhi-kioto-osaka-sakrovis-1_1755585497431.jpg' },
   ],
-  featured:false },
+  featured:true },
 
 // ══════════════════════════════════════════════════════════════
 // 48. Е525 — ЯПОНИЯ ПО ВРЕМЕТО НА ЦЪФТЕЖА НА ВИШНИТЕ
