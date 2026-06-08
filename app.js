@@ -397,10 +397,9 @@ function renderDestinationPins() {
       closeContinent();
       document.getElementById('offers').scrollIntoView({ behavior: 'smooth' });
     };
-    pin.title = `${name} · ${count} оферт${count === 1 ? 'а' : 'и'}`;
     pin.innerHTML =
       `<span class="dest-dot-core"></span>` +
-      `<span class="dest-tip">${FLAGS[key] || '🌍'} ${name}</span>`;
+      `<span class="dest-tip">${FLAGS[key] || '🌍'} ${name} · ${count}</span>`;
     layer.appendChild(pin);
   });
 

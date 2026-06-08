@@ -1607,33 +1607,26 @@ footer {
   transform: scale(1.4);
   box-shadow: 0 0 0 4px rgba(201,168,76,0.40), 0 0 12px rgba(201,168,76,1);
 }
-/* Big continent bubbles removed — only per-country dots remain */
-.continent-pin { display: none !important; }
-
-/* Country name label — always visible above the dot */
 .dest-tip {
   position: absolute;
-  left: 50%; bottom: 140%;
-  transform: translateX(-50%);
+  left: 50%; bottom: 150%;
+  transform: translateX(-50%) translateY(6px);
   white-space: nowrap;
-  background: rgba(8,22,55,0.78);
+  background: rgba(10,25,60,0.95);
   color: #fff;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  padding: 2px 7px;
-  border-radius: 7px;
-  border: 1px solid rgba(201,168,76,0.40);
-  opacity: 1;
+  padding: 4px 9px;
+  border-radius: 8px;
+  border: 1px solid rgba(201,168,76,0.5);
+  opacity: 0;
   pointer-events: none;
-  transition: background 0.18s, border-color 0.18s, transform 0.18s;
-  z-index: 9;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  transition: opacity 0.18s, transform 0.18s;
+  z-index: 31;
 }
 .dest-dot:hover .dest-tip {
-  background: rgba(8,22,55,0.98);
-  border-color: rgba(201,168,76,0.85);
-  transform: translateX(-50%) scale(1.08);
-  z-index: 31;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* Animated route arcs */
