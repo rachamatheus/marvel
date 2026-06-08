@@ -157,6 +157,15 @@ const OFFER_IMAGES = {
   154: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ostrov-krit-lyato-2025-7-noshtuvki-dati-vsyaka-nedelya--1_1744709063455.jpg',
   155: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-zakintos-7-noshtuvki-s-vklyuchen-tra-1_1747213280917.jpg',
   156: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-gartsiya-ostrov-korfu-7-noshtuvki-polet-ot-s-1_1750852554940.jpg',
+  157: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-v-dubay-i-abu-dabi-6-dni-s-polet-na-wizz-air-1_1763119657568.jpg',
+  158: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_dubay-ray-v-orienta-6-dni--1_1751021654942.jpg',
+  159: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_dubay-ray-v-orienta-7-dni--1_1754981147941.jpg',
+  160: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-tunis-sas-samolet-ot-plovdiv-7-noshtuvki-1_17721022381093.jpg',
+  161: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-tunis-sas-samolet-ot-sofiya-v-sryada-7-nosht-1_1744379326723.png',
+  162: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekskluzivni-otstapki-pochivka-v-tunis-sas-samolet-ot-so-1_17769259831092.jpg',
+  163: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-tunis-sas-samolet-ot-sofiya-v-chetvartak-7-n-1_1744379338532.jpg',
+  164: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-dzherba-tunis-sas-samolet-ot-sofiya-v-s-1_1744379317724.jpg',
+  165: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekskluzivni-otstapki-pochivka-na-odzherba-tunis-sas-sam-1_17781411751142.jpg',
 };
 
 // Number of gallery images per offer (cover counts as #1). Used to derive
