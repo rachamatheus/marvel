@@ -255,10 +255,13 @@ function renderFeatured() {
   const featured = ALL_OFFERS.filter(o => o.featured).slice(0, 5);
   if (!featured.length) return;
 
+  const coverOf = o => (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) ||
+    (o.image && o.image.startsWith('http') ? o.image : '') || PLACEHOLDER_IMG;
+
   const [main, ...rest] = featured;
   let html = `
     <a class="featured-card-large" onclick="openOffer(${main.id})" href="javascript:void(0)">
-      <img src="${main.image}" alt="${main.title}" loading="lazy">
+      <img src="${coverOf(main)}" alt="${main.title}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'">
       <div class="featured-card-overlay">
         <div class="offer-destination">📍 ${main.destination}</div>
         <div class="offer-title">${main.title}</div>
@@ -272,7 +275,7 @@ function renderFeatured() {
   rest.slice(0, 4).forEach(o => {
     html += `
       <a class="featured-card-sm" onclick="openOffer(${o.id})" href="javascript:void(0)">
-        <img src="${o.image}" alt="${o.title}" loading="lazy">
+        <img src="${coverOf(o)}" alt="${o.title}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'">
         <div class="featured-card-overlay">
           <div class="offer-destination">📍 ${o.destination}</div>
           <div class="offer-title">${o.title}</div>

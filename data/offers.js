@@ -108,7 +108,7 @@ const OFFERS = [
   ],
   departures:['София (Летище Т2, 10:55)'],
   hotels:[
-    { name:'3-4★ хотели + Амазонски лодж (пакет)', board:'15 закуски / 3 обяда / 3 вечери', price_bgn:9640, price_eur:4929, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_buenos-ayres-vodopadite-iguasu-rio-de-zhaneyro-i-amazon-1_1741961073422.ebp' },
+    { name:'3-4★ хотели + Амазонски лодж (пакет)', board:'15 закуски / 3 обяда / 3 вечери', price_bgn:9640, price_eur:4929, image:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1200&q=80' },
   ],
   featured:true },
 
