@@ -20,16 +20,33 @@ const TAGS = [
 ];
 
 const COUNTRIES = [
-  { key: 'greece',   label: 'Гърция' },
-  { key: 'turkey',   label: 'Турция' },
-  { key: 'egypt',    label: 'Египет' },
-  { key: 'albania',  label: 'Албания' },
-  { key: 'bulgaria', label: 'България' },
-  { key: 'maldives', label: 'Малдиви' },
-  { key: 'uae',      label: 'Дубай / ОАЕ' },
+  { key: 'greece',      label: 'Гърция' },
+  { key: 'turkey',      label: 'Турция' },
+  { key: 'egypt',       label: 'Египет' },
+  { key: 'albania',     label: 'Албания' },
+  { key: 'bulgaria',    label: 'България' },
+  { key: 'maldives',    label: 'Малдиви' },
+  { key: 'uae',         label: 'Дубай / ОАЕ' },
   { key: 'thailand',    label: 'Тайланд' },
   { key: 'argentina',   label: 'Аржентина' },
   { key: 'armenia',     label: 'Армения' },
+  { key: 'georgia',     label: 'Грузия' },
+  { key: 'bahamas',     label: 'Бахамски острови' },
+  { key: 'brazil',      label: 'Бразилия' },
+  { key: 'dominicana',  label: 'Доминикана' },
+  { key: 'usa',         label: 'САЩ' },
+  { key: 'tanzania',    label: 'Занзибар / Танзания' },
+  { key: 'kenya',       label: 'Кения' },
+  { key: 'mauritius',   label: 'Мавриций' },
+  { key: 'madagascar',  label: 'Мадагаскар' },
+  { key: 'seychelles',  label: 'Сейшели' },
+  { key: 'vietnam',     label: 'Виетнам' },
+  { key: 'india',       label: 'Индия' },
+  { key: 'indonesia',   label: 'Индонезия' },
+  { key: 'china',       label: 'Китай' },
+  { key: 'colombia',    label: 'Колумбия' },
+  { key: 'srilanka',    label: 'Шри Ланка' },
+  { key: 'japan',       label: 'Япония' },
 ];
 
 const SAT_FULL = ['2026-06-13','2026-06-20','2026-06-27','2026-07-04','2026-07-11','2026-07-18','2026-07-25','2026-08-01','2026-08-08','2026-08-15','2026-08-22','2026-08-29','2026-09-05','2026-09-12','2026-09-19'];
@@ -189,6 +206,1458 @@ const OFFERS = [
   departures:['София (Летище)'],
   hotels:[
     { name:'Хотел 3★/4★ Ереван (3 нощувки) + Хотел 3★/4★ Тбилиси (4 нощувки)', board:'Закуска', price_bgn:2291, price_eur:1171, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_armeniya-i-gruziya-%E2%80%93-pateshestvie-iz-kavkazkite-sakro-1_17724461261101.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 4. Е579 — САЩ ЗАПАДЕН БРЯГ С КРУИЗ ПО БАХАМИТЕ
+// ══════════════════════════════════════════════════════════════
+{ id:4, refNum:'Е579',
+  title:'САЩ Западно крайбрежие с круиз по Бахамите',
+  category:'exotic', tags:['city','culture','cruise','nature'], destination:'САЩ / Бахамски острови', country:'bahamas',
+  duration:'19 дни / 17 нощувки', days:19, nights:17,
+  price_bgn:12735, price_eur:6511,
+  dates:['2026-06-23','2026-09-22'],
+  next_date:'2026-06-23', transport:'plane',
+  description:'Комбиниран тур свързващ иконичните дестинации на западното крайбрежие на Америка с карибски круиз. Сан Франциско, Лас Вегас, Гранд Каньон, Холивуд, Лос Анджелис, после 4 нощи на круизния кораб Wonder of the Seas с посещения на Coco Cay, Насау и Бахамите.',
+  program:[
+    { day:'Ден 1', text:'Отпътуване от София → Истанбул → Сан Франциско. Настаняване в хотел.' },
+    { day:'Ден 2–3', text:'Панорамна обиколка на Сан Франциско, разходка с лодка в залива. Полет до Лас Вегас.' },
+    { day:'Ден 4–6', text:'Лас Вегас – казина и атракции. Западен ръб на Гранд Каньон с факултативен хеликоптер.' },
+    { day:'Ден 7–10', text:'Лос Анджелис / Холивуд – Хол на Славата, Universal Studios (факулт.), Санта Моника, Венис Бийч.' },
+    { day:'Ден 11–12', text:'Маями – обиколка на Кий Уест по Seven Mile Bridge. Качване на кораба в Маями.' },
+    { day:'Ден 13–16', text:'Круиз Wonder of the Seas: Coco Cay, Насау (факулт. обиколка), ден в морето.' },
+    { day:'Ден 17–19', text:'Пристигане Маями, обиколка на квартали. Вечерен полет Маями → Истанбул → София.' },
+  ],
+  includes:['Международни и вътрешни полети с багаж','17 нощувки (4★ хотели + 4★ круизен кораб)','16 закуски, 5 обяда, 4 вечери','Всички трансфери','Туристически автобус и водач'],
+  excludes:['Американска виза (323.75 лв.)','Медицинска застраховка (от 43 лв.)','Сервизна такса кораб ~15–20 USD/ден','Факултативни екскурзии'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'4★ хотели (Сан Франциско, Лас Вегас, Холивуд, ЛА, Маями) + Wonder of the Seas', board:'16 закуски / 5 обяда / 4 вечери', price_bgn:12735, price_eur:6511, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_sasht-zapadno-kraybrezhie-s-kruiz-po-bahamite-1_1764592146579.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 5. Е589 — РИО ДЕ ЖАНЕЙРО И АМАЗОНИЯ
+// ══════════════════════════════════════════════════════════════
+{ id:5, refNum:'Е589',
+  title:'Рио де Жанейро и Амазония',
+  category:'exotic', tags:['culture','nature','adventure'], destination:'Бразилия', country:'brazil',
+  duration:'10 дни / 7 нощувки', days:10, nights:7,
+  price_bgn:7310, price_eur:3738,
+  dates:['2026-10-25','2026-11-29'],
+  next_date:'2026-10-25', transport:'plane',
+  description:'Бразилия с две лица – иконичното Рио де Жанейро с Христос Спасителят и Захарната глава, и три незабравими дни сред дивата Амазония с риболов на пирани, наблюдение на каймани и посещение на местни индиански общности.',
+  program:[
+    { day:'Ден 1', text:'Отпътуване от София за Париж, после Рио де Жанейро.' },
+    { day:'Ден 2', text:'Пристигане в Рио; трансфер до хотел до Копакабана.' },
+    { day:'Ден 3', text:'„Един ден в Рио": център, Христос Спасителят с влекче, Маракана, Захарната глава, Санта Тереза.' },
+    { day:'Ден 4–5', text:'Свободни дни в Рио (факулт. Нитерой или Петрополис).' },
+    { day:'Ден 6', text:'Вечерен полет до Манаус; трансфер до джунглен лодж.' },
+    { day:'Ден 7–8', text:'Амазония: разходки в джунглата, риболов на пирани, каноена обиколка, общности.' },
+    { day:'Ден 9–10', text:'Завръщане Манаус → Сао Пауло → Рим → София.' },
+  ],
+  includes:['Международни и вътрешни полети с багаж','7 нощувки (4★ хотели Рио + лодж Амазония)','7 закуски, 4 обяда, 3 вечери','Трансфери и екскурзии по програмата','Водач'],
+  excludes:['Медицинска застраховка','Факултативни екскурзии','Лични разходи'],
+  departures:['София (Летище Т2, 17:00)'],
+  hotels:[
+    { name:'4★ хотели Рио де Жанейро + Амазонски лодж', board:'7 закуски / 4 обяда / 3 вечери', price_bgn:7310, price_eur:3738, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_rio-de-zhaneyro-i-amazoniya-1_1765901119589.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 6. П962 — ДОМИНИКАНА – ПУНТА КАНА
+// ══════════════════════════════════════════════════════════════
+{ id:6, refNum:'П962',
+  title:'В ритъма на доминиканското слънце – Пунта Кана',
+  category:'exotic', tags:['beach','allInclusive','luxury'], destination:'Доминикана – Пунта Кана', country:'dominicana',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:2268, price_eur:1160,
+  dates:['2026-06-09','2026-07-21','2026-08-04'],
+  next_date:'2026-06-09', transport:'plane',
+  description:'Карибски рай All Inclusive в най-красивите 4★ и 5★ хотели на Playa Bavaro! Директен чартърен полет от Мадрид, 7 нощи All Inclusive и незабравими белопясъчни плажове на Доминиканската република.',
+  program:[
+    { day:'Ден 1', text:'Полет Мадрид – Пунта Кана; трансфер и настаняване в хотел.' },
+    { day:'Ден 2–7', text:'Свободни дни на плажа и в хотела. Факултативни екскурзии: ATV приключение (€115), Санто Доминго (€120), остров Каталина (€120+), Саона (€120), Лос Хайтисес (€110).' },
+    { day:'Ден 8', text:'Освобождаване, трансфер на летището, обратен полет за Мадрид.' },
+  ],
+  includes:['Чартърен полет Мадрид–Пунта Кана–Мадрид с летищни такси и 20 кг багаж','7 нощи All Inclusive (4★ или 5★ хотел)','Трансфери летище–хотел–летище','Медицинска застраховка','Събитие „White Sunset Party"'],
+  excludes:['Полети София–Мадрид–София (~€250)','Факултативни екскурзии','Лични разходи'],
+  departures:['Мадрид'],
+  hotels:[
+    { name:'SUNSCAPE COCO PUNTA CANA ★★★★', board:'All Inclusive', price_bgn:2268, price_eur:1160, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1755178607962.png' },
+    { name:'Vista Sol Punta Cana Beach Resort & Spa ★★★★', board:'All Inclusive', price_bgn:2268, price_eur:1160, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1755178607962.png' },
+    { name:'Tropical Deluxe Princess ★★★★★', board:'All Inclusive', price_bgn:2707, price_eur:1384, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1755178607962.png' },
+    { name:'Grand Bavaro Princess ★★★★★', board:'All Inclusive', price_bgn:2852, price_eur:1458, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1755178607962.png' },
+    { name:'Iberostar Waves Punta Cana ★★★★★', board:'All Inclusive', price_bgn:2899, price_eur:1482, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1755178607962.png' },
+    { name:'Dreams Flora Resort & Spa ★★★★★', board:'All Inclusive', price_bgn:3478, price_eur:1778, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1755178607962.png' },
+    { name:'Secrets Royal Beach Punta Cana ★★★★★', board:'All Inclusive', price_bgn:4111, price_eur:2102, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1755178607962.png' },
+    { name:'Secrets Cap Cana Resort & Spa ★★★★★ (само възрастни)', board:'All Inclusive', price_bgn:4134, price_eur:2114, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1755178607962.png' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 7. Е732 — КАРИБСКИ КРУИЗ С ПУЕРТО РИКО
+// ══════════════════════════════════════════════════════════════
+{ id:7, refNum:'Е732',
+  title:'Карибски круиз с Пуерто Рико',
+  category:'exotic', tags:['cruise','culture','city'], destination:'Бахами / Пуерто Рико / Синт Мартен / Сен Томас', country:'bahamas',
+  duration:'12 дни / 9 нощувки', days:12, nights:9,
+  price_bgn:4489, price_eur:2295,
+  dates:['2027-01-28'],
+  next_date:'2027-01-28', transport:'plane',
+  description:'Карибски круиз на борда на MSC Meraviglia – 8 нощи на кораба с пълен пансион, 1 нощ в Маями и посещения на Насау (Бахами), Сан Хуан (Пуерто Рико), Синт Мартен и Сен Томас.',
+  program:[
+    { day:'Ден 1–2', text:'Полет София–Истанбул–Маями. Обиколка на Art Deco района и Little Havana. Нощувка.' },
+    { day:'Ден 3', text:'Свободно в Маями. Качване на MSC Meraviglia в 16:00.' },
+    { day:'Ден 4', text:'Насау, Бахами (08:00–17:00) – факулт. екскурзия.' },
+    { day:'Ден 5', text:'Ден в морето.' },
+    { day:'Ден 6', text:'Сан Хуан, Пуерто Рико (10:00–19:00).' },
+    { day:'Ден 7', text:'Синт Мартен (08:00–18:00).' },
+    { day:'Ден 8', text:'Сен Томас (08:00–18:00).' },
+    { day:'Ден 9–10', text:'Дни в морето.' },
+    { day:'Ден 11–12', text:'Пристигане Маями; посещение мол. Вечерен полет Маями → Истанбул → София.' },
+  ],
+  includes:['Полети Turkish Airlines (2×23 кг + 7 кг)', '1 нощ хотел Маями (3★) + закуска','8 нощи MSC Meraviglia пълен пансион','Пристанищни такси','Медицинска застраховка','Водач от агенцията'],
+  excludes:['Алкохолни напитки','Задължителна сервизна такса кораб 120 € (234.70 лв.)','Американска виза и визова помощ (50 €)','Факултативни брегови екскурзии'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'MSC Meraviglia – вътрешна каюта', board:'Пълен пансион', price_bgn:4489, price_eur:2295, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_karibski-kruiz-s-puerto-riko-28012027-1_1779365703732.jpg' },
+    { name:'MSC Meraviglia – балкон Bella', board:'Пълен пансион', price_bgn:5242, price_eur:2680, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_karibski-kruiz-s-puerto-riko-28012027-1_1779365703732.jpg' },
+    { name:'MSC Meraviglia – балкон Aurea', board:'Пълен пансион', price_bgn:5859, price_eur:2995, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_karibski-kruiz-s-puerto-riko-28012027-1_1779365703732.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 8. Е404 — САЩ ЗАПАДЕН БРЯГ
+// ══════════════════════════════════════════════════════════════
+{ id:8, refNum:'Е404',
+  title:'САЩ – Западен бряг',
+  category:'exotic', tags:['nature','city','culture'], destination:'САЩ – Западен бряг', country:'usa',
+  duration:'14 дни / 12 нощувки', days:14, nights:12,
+  price_bgn:5799, price_eur:2965,
+  dates:['2026-09-26','2026-10-17'],
+  next_date:'2026-09-26', transport:'plane',
+  description:'Великолепният западен бряг на Америка – Лос Анджелис, Гранд Каньон, Паркнат монумент Валей, езерото Пауъл, Брайс Каньон, Лас Вегас, Долината на смъртта, Йосемити и Сан Франциско. 14 дни с водач на български.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Лос Анджелис. Обиколка на ЛА, после Лофлин.' },
+    { day:'Ден 3–4', text:'Гранд Каньон, Боядисана пустиня, Паркнат монумент Валей, езерото Пауъл.' },
+    { day:'Ден 5–6', text:'Брайс Каньон, пристигане Лас Вегас. Факулт. Долина на огъня.' },
+    { day:'Ден 7', text:'Долината на смъртта, Бейкърсфийлд.' },
+    { day:'Ден 8–9', text:'Йосемити, Сан Франциско (Голдън Гейт, Алкатрас факулт.).' },
+    { day:'Ден 10–12', text:'Монтерей, Карсбад, Санта Барбара, Малибу, Санта Моника. Лос Анджелис.' },
+    { day:'Ден 13–14', text:'Факулт. Сан Диего. Полет обратно за България.' },
+  ],
+  includes:['Самолетен билет и летищни такси (23 кг + 7 кг)','12 нощувки с закуски','Всички трансфери','Автобус с климатик','Водач на български','Задължителна медицинска застраховка'],
+  excludes:['Американска виза (185 USD)','Пакет факулт. екскурзии (599 лв.)','Единична стая (1549 лв.)','Лични разходи'],
+  departures:['Лос Анджелис (чартър или редовен)'],
+  hotels:[
+    { name:'3★ хотели по маршрута (Супър 8, Дейс Ин, Тропикана)', board:'Закуска', price_bgn:5799, price_eur:2965, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_sasht%E2%80%93zapaden-bryag-1_1740054319404.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 9. Е380 — САЩ И КАНАДА – НОВИЯТ СВЯТ
+// ══════════════════════════════════════════════════════════════
+{ id:9, refNum:'Е380',
+  title:'САЩ и Канада – Новият свят',
+  category:'exotic', tags:['culture','city','nature'], destination:'САЩ / Канада', country:'usa',
+  duration:'15 дни / 13 нощувки', days:15, nights:13,
+  price_bgn:6999, price_eur:3579,
+  dates:['2026-09-12'],
+  next_date:'2026-09-12', transport:'plane',
+  description:'Грандиозно пътешествие из Новия свят – Ню Йорк, Бостън, Монреал, Квебек, Ниагарски водопад, Торонто, Вашингтон, Филаделфия, с водач на български. Амишки дом с вечеря и захарна ферма в Квебек.',
+  program:[
+    { day:'Ден 1–3', text:'Полет до Ню Йорк. Обиколка от Даунтаун до Ъптаун. Пътуване до Бостън и Харвард.' },
+    { day:'Ден 4–6', text:'Монреал; Квебек (захарна ферма). Оттава и пристигане Торонто.' },
+    { day:'Ден 7–8', text:'Ниагара-он-де-Лейк и Ниагарски водопад (факулт. лодка). Преминаване в САЩ.' },
+    { day:'Ден 9–11', text:'Ланкастър с амишки музей и вечеря; Гетисбърг; Вашингтон обиколка вечер и сутринта.' },
+    { day:'Ден 12–14', text:'Филаделфия; свободно в Ню Йорк.' },
+    { day:'Ден 15', text:'Трансфер на летище; полет за България.' },
+  ],
+  includes:['Самолетен билет с летищни такси (23 кг + 7 кг)','Закуски навсякъде','Обиколки Ню Йорк, Бостън, Монреал, Оттава, Гетисбърг, Вашингтон, Филаделфия','Амишки дом с вечеря','Захарна ферма Квебек с вечеря','Медицинска застраховка','Водач на български'],
+  excludes:['Американска виза (185 USD)','Пакет факулт. (599 лв.)','Единична стая (1690 лв.)','Лични разходи'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'3-4★ хотели по маршрута (Best Western, Holiday Inn, Howard Johnson)', board:'Закуска', price_bgn:6999, price_eur:3579, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_sasht-i-kanada%E2%80%93noviyat-svyat-1_1725350463380.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 10. Е453 — ЕКСКУРЗИЯ ДО НЮ ЙОРК
+// ══════════════════════════════════════════════════════════════
+{ id:10, refNum:'Е453',
+  title:'Екскурзия до Ню Йорк',
+  category:'exotic', tags:['city','culture'], destination:'Ню Йорк, САЩ', country:'usa',
+  duration:'7 дни / 5 нощувки', days:7, nights:5,
+  price_bgn:7175, price_eur:3669,
+  dates:['2026-06-12','2026-09-11'],
+  next_date:'2026-06-12', transport:'plane',
+  description:'7 дни в Ню Йорк – Таймс Скуеър, Рокфелер Център, Емпайър Стейт, Статуята на свободата (факулт.) и Централ Парк. 5 нощи в хотел 3★ в Манхатън с водач на български.',
+  program:[
+    { day:'Ден 1', text:'Полет и пристигане; трансфер, настаняване в Манхатън.' },
+    { day:'Ден 2', text:'Обиколка Манхатън – Таймс Скуеър, Чайнатаун, Рокфелер, Емпайър Стейт.' },
+    { day:'Ден 3–5', text:'Свободни дни. Факулт. Статуята на свободата, Метрополитен, вечерен Hop-On/Hop-Off.' },
+    { day:'Ден 6', text:'Свободно; трансфер на летище. Полет Ню Йорк → Амстердам.' },
+    { day:'Ден 7', text:'Амстердам → София. Пристигане.' },
+  ],
+  includes:['Полет (Sofia–Vienna–NYC–Amsterdam–Sofia) с летищни такси','5 нощи хотел 3★ Манхатън с закуска','Трансфери','Обиколка Манхатън с водач'],
+  excludes:['Американска виза (333 лв.) + такса обработка (150 лв.)','Факулт. (Емпайър Стейт 44–79 USD, Статуята на свободата 24.30 USD)','Градски транспорт','Застраховка'],
+  departures:['София (Летище Т2, 03:40)'],
+  hotels:[
+    { name:'Хотел 3★ Манхатън (до ул. Уол Стрийт)', board:'Закуска', price_bgn:7175, price_eur:3669, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-nyu-york-1_1746167920453.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 11. Е591 — ХАВАИ
+// ══════════════════════════════════════════════════════════════
+{ id:11, refNum:'Е591',
+  title:'Хаваи',
+  category:'exotic', tags:['beach','nature','culture'], destination:'о-в Оаху, Хаваи, САЩ', country:'usa',
+  duration:'8 дни / 6 нощувки', days:8, nights:6,
+  price_bgn:8070, price_eur:4126,
+  dates:['2026-09-04','2026-10-02'],
+  next_date:'2026-09-04', transport:'plane',
+  description:'6 нощи на о-в Оаху – Хонолулу, плажовете на Хаваи и факултативни екскурзии до Кауаи, Мауи и Голямото острово с вулкани. Полет през Рим и Лос Анджелис.',
+  program:[
+    { day:'Ден 1', text:'Отпътуване от София 05:30 → Рим → Лос Анджелис → Хонолулу (пристигане 21:12).' },
+    { day:'Ден 2', text:'Закуска. Свободен плажен ден или факулт. Кауаи/Мауи (€840 с водач).' },
+    { day:'Ден 3', text:'Закуска. Факулт. Голямото острово – вулканична екскурзия (самолет/автобус, €810).' },
+    { day:'Ден 4–6', text:'Закуска. Свободни плажни дни или факулт. обиколка на Оаху (€228–380).' },
+    { day:'Ден 7', text:'Закуска. Трансфер на летище. Отпътуване 11:48.' },
+    { day:'Ден 8', text:'Пристигане Рим 12:20 → София 18:15.' },
+  ],
+  includes:['Полети (Sofia–Rome–LA–Honolulu–LA–Rome–Sofia) с багаж','6 нощи 3-4★ хотел с закуска','Всички трансфери','Водач'],
+  excludes:['Американска виза (€323.75 + €180 такса)','Медицинска застраховка','Факулт. екскурзии (€228–840)','Единична стая (+€1870)'],
+  departures:['София (Летище Т2, 05:30)'],
+  hotels:[
+    { name:'3-4★ хотел Хонолулу, о-в Оаху', board:'Закуска', price_bgn:8070, price_eur:4126, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_havai-1_1765901233591.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 12. Е410 — САЩ ИЗТОЧНО КРАЙБРЕЖИЕ (НЮ ЙОРК, НИАГАРА, ЧИКАГО)
+// ══════════════════════════════════════════════════════════════
+{ id:12, refNum:'Е410',
+  title:'САЩ – Източно крайбрежие – Ню Йорк, Ниагарски водопад и Чикаго',
+  category:'exotic', tags:['city','culture','nature'], destination:'Ню Йорк / Вашингтон / Ниагара / Чикаго', country:'usa',
+  duration:'10 дни / 8 нощувки', days:10, nights:8,
+  price_bgn:8263, price_eur:4225,
+  dates:['2026-09-21','2026-10-15'],
+  next_date:'2026-09-21', transport:'plane',
+  description:'Класическото американско изток – Ню Йорк, Филаделфия, Вашингтон, Ниагарски водопад с „Maid of the Mist", Кливланд и Чикаго с водач на български.',
+  program:[
+    { day:'Ден 1–2', text:'Полет Sofia→Istanbul→NYC. Ранен чек-ин, Манхатън – Чайнатаун, Уол Стрийт, Емпайър Стейт, Таймс Скуеър.' },
+    { day:'Ден 3', text:'Круиз Статуята на свободата + Емпайър (86-ти етаж).' },
+    { day:'Ден 4', text:'Филаделфия (Дворец на независимостта, Камбаната на свободата), Вашингтон.' },
+    { day:'Ден 5', text:'Вашингтон – Джеферсън, WWII мемориал, Линкълн, Белия дом, Капитола.' },
+    { day:'Ден 6–7', text:'Музей Корнинг Глас; Ниагарски водопад – „Maid of the Mist" и „Cave of the Winds"; Кливланд.' },
+    { day:'Ден 8–9', text:'Чикаго – The Loop, Mag Mile, Миленийъм Парк, Уилис Тауър, Грант Парк.' },
+    { day:'Ден 10', text:'Полет Chicago→Istanbul→Sofia.' },
+  ],
+  includes:['Turkish Airlines Sofia→NYC, Chicago→Sofia (23 кг)','8 нощи хотели с закуски','Трансфери и автобус','Статуята на свободата круиз','Емпайър Стейт 86-ти ет.','Корнинг музей','Maid of the Mist и Cave of the Winds','Водач'],
+  excludes:['Американска виза','Бакшиш водач/шофьор 6 USD/ден','Застраховка','Лични разходи'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Hilton Garden Inn / Yotel Times Square ★★★★ (Ню Йорк) + 4★ хотели по маршрута', board:'Закуска', price_bgn:8263, price_eur:4225, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-sasht-iztochno-kraybrezhie-nyu-york-niagar-1_1740554170410.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 13. Е613 — САЩ ИЗТОК + ТОРОНТО + МАЯМИ
+// ══════════════════════════════════════════════════════════════
+{ id:13, refNum:'Е613',
+  title:'САЩ – Бостън, Ню Йорк, Вашингтон, Маями + Торонто и Ниагара',
+  category:'exotic', tags:['city','culture','nature'], destination:'САЩ / Канада – Изток + Маями', country:'usa',
+  duration:'14 дни / 12 нощувки', days:14, nights:12,
+  price_bgn:10151, price_eur:5190,
+  dates:['2026-09-02','2026-09-17','2026-10-16'],
+  next_date:'2026-09-02', transport:'plane',
+  description:'Мегатур по американското и канадско изток – Бостън с Харвард, Ню Йорк (2 обиколки + SUMMIT панорамна), Вашингтон, Маями с Литъл Хавана, Ниагарски водопад с хеликоптер (факулт.) и Торонто. 14 дни с Lufthansa.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Бостън. Харвард, Bunker Hill, Freedom Trail. Нюпорт, пристигане Ню Йорк.' },
+    { day:'Ден 3–4', text:'Ню Йорк: Централ Парк, 5-та авеню, Рокфелер. SUMMIT обсерватория, Гранд Централ, Бруклин Бридж.' },
+    { day:'Ден 5', text:'Статуята на свободата и Елис Айлънд. Филаделфия.' },
+    { day:'Ден 6–7', text:'Вашингтон – Капитола, мемориали, Арлингтон. Полет до Маями.' },
+    { day:'Ден 8–9', text:'Маями – Литъл Хавана, Ocean Drive Art Deco. Свободен плажен ден.' },
+    { day:'Ден 10–11', text:'Полет до Торонто. Ниагара-он-де-Лейк, Ниагарски водопад, Флорален часовник.' },
+    { day:'Ден 12–13', text:'Торонто – CN Tower, Rogers Centre, St. Lawrence Market.' },
+    { day:'Ден 14', text:'Полет Toronto → Sofia.' },
+  ],
+  includes:['Lufthansa полети (Sofia→Boston; Wash→Miami; Miami→Toronto; Toronto→Sofia)','12 нощи 3★ хотели с закуска','Трансфери и автобус','SUMMIT обсерватория','Статуята на свободата + Елис Айлънд','Метро карти Ню Йорк','Водач и местни гидове','Медицинска застраховка (€30 000)'],
+  excludes:['Американска виза (~$185)','Факулт. хеликоптер Ниагара (€150)','Бакшиши','Лични разходи'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'3★ хотели по маршрута (Hyatt Place Boston, Hotel Belleclaire NYC, Hampton Inn DC, Marriott Niagara, Eurostars Miami, Element Toronto)', board:'Закуска', price_bgn:10151, price_eur:5190, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_sasht-%E2%80%93-iztochno-kraybrezhie-%E2%80%93-nyu-york-bostan-vash-1_1765966575613.png' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 14. Е127 — САЩ ИЗТОК И ЗАПАД С КРУИЗ ПО БАХАМИТЕ
+// ══════════════════════════════════════════════════════════════
+{ id:14, refNum:'Е127',
+  title:'САЩ – Източно и Западно крайбрежие с круиз по Бахамите',
+  category:'exotic', tags:['city','culture','cruise','nature'], destination:'САЩ – цялата страна + Бахами', country:'usa',
+  duration:'30 дни / 28 нощувки', days:30, nights:28,
+  price_bgn:19440, price_eur:9940,
+  dates:['2026-07-10','2026-08-14'],
+  next_date:'2026-07-10', transport:'plane',
+  description:'Грандиозно 30-дневно пътешествие из цяла Америка – Ню Йорк, Филаделфия, Вашингтон, Ниагарски водопад, Чикаго, Сан Франциско, Лас Вегас, Лос Анджелис, Маями и круиз по Бахамите с Royal Caribbean.',
+  program:[
+    { day:'Ден 1–3', text:'Полет Sofia→Rome→NYC. Манхатън обиколки.' },
+    { day:'Ден 4–7', text:'Филаделфия, Вашингтон, Ниагарски водопад.' },
+    { day:'Ден 8–11', text:'Чикаго, Сан Франциско, Залив.' },
+    { day:'Ден 12–17', text:'Лас Вегас, Гранд Каньон, Лос Анджелис/Холивуд.' },
+    { day:'Ден 18–23', text:'Маями, качване на кораб, круиз Coco Cay и Насау (Бахами).' },
+    { day:'Ден 24–30', text:'Завръщане Маями → Рим → София.' },
+  ],
+  includes:['Международни полети + 6 вътрешни','28 нощи (3-4★ хотели + 4 нощи на кораб)','27 закуски, 5 обяда, 4 вечери','Всички трансфери и екскурзии по програмата','Водач на български'],
+  excludes:['Американска виза (304 лв.)','Застраховка','Факулт. (Бродуей, студийни обиколки, хеликоптер)','Бакшиши'],
+  departures:['София (Летище)'],
+  hotels:[
+    { name:'3-4★ хотели по маршрута + Mariner of the Seas (Royal Caribbean)', board:'27 закуски / 5 обяда / 4 вечери', price_bgn:19440, price_eur:9940, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-sasht-iztochno-i-zapadno-kraybrezhie-s-kr-1_1671100359127.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 15. Е641 — ЗАНЗИБАР
+// ══════════════════════════════════════════════════════════════
+{ id:15, refNum:'Е641',
+  title:'Почивка в Танзания – о-в Занзибар',
+  category:'exotic', tags:['beach','nature','culture'], destination:'о-в Занзибар, Танзания', country:'tanzania',
+  duration:'9 дни / 6 нощувки', days:9, nights:6,
+  price_bgn:4068, price_eur:2080,
+  dates:['2026-06-16','2026-09-15','2026-10-07','2026-10-20','2026-11-04','2026-11-17','2026-12-02'],
+  next_date:'2026-06-16', transport:'plane',
+  description:'Очарователният и колоритен о-в Занзибар – 6 нощи All Inclusive в плажен хотел, кристално чисто Индийско море и факултативни екскурзии: гора Джозани, ферма за подправки, делфини и полупотопяема лодка около о-в Бауе.',
+  program:[
+    { day:'Ден 1–2', text:'Отпътуване Sofia→Istanbul→Zanzibar. Пристигане, настаняване в Stone Town, после плажен хотел.' },
+    { day:'Ден 3', text:'Свободен плажен ден или факулт. лодъчна обиколка с гмуркане и посещение на острова.' },
+    { day:'Ден 4', text:'Свободно или факулт. гора Джозани (редки колобуси) и плантация за подправки.' },
+    { day:'Ден 5', text:'Свободно или факулт. наблюдение на делфини в Кизимкази.' },
+    { day:'Ден 6', text:'Свободно или факулт. полупотопяема лодка около о-в Бауе.' },
+    { day:'Ден 7–8', text:'Свободни плажни дни. Закуска и вечеря включени.' },
+    { day:'Ден 9', text:'Трансфер на летище, полет Zanzibar→Istanbul→Sofia.' },
+  ],
+  includes:['Самолетен билет Sofia–Zanzibar–Sofia с Turkish Airlines','6 нощи All Inclusive в плажен хотел','Нощувка в Stone Town','Трансфери','Медицинска застраховка (30 000 €)'],
+  excludes:['Виза Танзания (50 USD)','Задължителна застраховка ZIC (44 USD)','Местен туристически данък (5 USD/нощ)','Факулт. екскурзии','Бакшиши (3–5 USD/ден)'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Paradise Beach Resort ★★★★', board:'All Inclusive', price_bgn:4068, price_eur:2080, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-v-tanzaniya-o-v-zanzibar-zavladyavasht-i-kolor-1_1768213766641.jpg' },
+    { name:'Zanzibar Bay Resort ★★★★ (надоплащане €255)', board:'All Inclusive', price_bgn:4567, price_eur:2335, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-v-tanzaniya-o-v-zanzibar-zavladyavasht-i-kolor-1_1768213766641.jpg' },
+    { name:'Dream of Zanzibar ★★★★★ (надоплащане €869)', board:'All Inclusive', price_bgn:5769, price_eur:2949, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-v-tanzaniya-o-v-zanzibar-zavladyavasht-i-kolor-1_1768213766641.jpg' },
+    { name:'RIU Palace Zanzibar ★★★★★ (надоплащане €1278)', board:'All Inclusive', price_bgn:6566, price_eur:3358, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-v-tanzaniya-o-v-zanzibar-zavladyavasht-i-kolor-1_1768213766641.jpg' },
+    { name:'Neptune Pwani ★★★★★ (надоплащане €1175)', board:'All Inclusive', price_bgn:6367, price_eur:3255, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-v-tanzaniya-o-v-zanzibar-zavladyavasht-i-kolor-1_1768213766641.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 16. Е733 — КЕНИЯ: ДИВОТО СЪРЦЕ НА АФРИКА
+// ══════════════════════════════════════════════════════════════
+{ id:16, refNum:'Е733',
+  title:'Кения: Дивото сърце на Африка',
+  category:'exotic', tags:['nature','adventure','culture'], destination:'Кения – Сафари', country:'kenya',
+  duration:'9 дни / 7 нощувки', days:9, nights:7,
+  price_bgn:7765, price_eur:3970,
+  dates:['2026-09-06','2027-02-07','2027-03-13'],
+  next_date:'2026-09-06', transport:'plane',
+  description:'Африканско сафари приключение из Кения – Масай Мара с Голямата петорка, езерото Найваша и Накуру, Национален парк Амбосели с Килиманджаро на фона. Завършва с вечеря в ресторант Carnivore и посещение на Центъра за жирафи.',
+  program:[
+    { day:'Ден 1–2', text:'Полет Sofia→Istanbul→Nairobi. Трансфер до Масай Мара. Следобедно сафари.' },
+    { day:'Ден 3', text:'Целодневно сафари Масай Мара. Посещение на масайско село.' },
+    { day:'Ден 4', text:'Отпътуване от Мара; лодъчна обиколка на езерото Найваша.' },
+    { day:'Ден 5', text:'Лодъчна обиколка Найваша и езерото Накуру. Завръщане Найроби.' },
+    { day:'Ден 6–7', text:'Трансфер до Амбосели. Следобедно и целодневно сафари с гледка към Килиманджаро.' },
+    { day:'Ден 8', text:'Завръщане Найроби. Центърът за жирафи. Вечеря в Carnivore.' },
+    { day:'Ден 9', text:'Полет Nairobi→Istanbul→Sofia.' },
+  ],
+  includes:['Самолетен билет Sofia–Nairobi (Turkish Airlines)','7 нощи (Sarova Panafric Nairobi, Olkinyei Mara Camp, Lake Naivasha Simba Lodge, Praro Amboseli Lodge)','Пълен пансион в лагерите','Всички сафарита с гидове','Центъра за жирафи','Вечеря Carnivore','Медицинска застраховка (€20 000)','Водач на български'],
+  excludes:['Kenya регистрация онлайн (35 USD)','Допълнителни дейности','Лични разходи'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Olkinyei Mara Camp + Lake Naivasha Simba Lodge + Praro Amboseli Lodge (пакет)', board:'Пълен пансион', price_bgn:7765, price_eur:3970, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_keniya-divoto-sartse-na-afrika-1_1779781866733.png' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 17. Е557 — КЕНИЯ – КЛАСИЧЕСКО САФАРИ И ДИАНИ БИЧ
+// ══════════════════════════════════════════════════════════════
+{ id:17, refNum:'Е557',
+  title:'Кения – класическо сафари и почивка на Диани Бийч',
+  category:'exotic', tags:['nature','adventure','beach'], destination:'Кения – Сафари + Диани Бийч', country:'kenya',
+  duration:'10 дни / 7 нощувки', days:10, nights:7,
+  price_bgn:7821, price_eur:3999,
+  dates:['2026-09-04'],
+  next_date:'2026-09-04', transport:'plane',
+  description:'Комбинация от класическо сафари в Найроби, Накуру и Масай Мара, последвано от релакс на белите пясъчни плажове на Диани Бийч на брега на Индийския океан.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Найроби. Лодъчна обиколка на езерото Найваша.' },
+    { day:'Ден 3', text:'Сафари Езерото Накуру.' },
+    { day:'Ден 4', text:'Трансфер до Масай Мара.' },
+    { day:'Ден 5', text:'Целодневно сафари Масай Мара.' },
+    { day:'Ден 6', text:'Полет до Диани Бийч. Настаняване в All Inclusive хотел.' },
+    { day:'Ден 7–8', text:'Свободни плажни дни. Факулт. екскурзии.' },
+    { day:'Ден 9', text:'Завръщане Найроби. Обяд Carnivore.' },
+    { day:'Ден 10', text:'Полет обратно за България.' },
+  ],
+  includes:['Полети (Sofia→Istanbul/Doha→Nairobi)','Вътрешен полет до Диани Бийч','7 нощи с пълен пансион (lodge + AI хотел)','Сафарита и трансфери','Водач'],
+  excludes:['Виза Кения','Лични разходи','Факулт. дейности','Бакшиши (€5–10/ден)'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Naivasha/Nakuru Sopa Lodge + PrideInn Mara Luxury Camp + Baobab Beach Resort ★★★★ AI', board:'Пълен пансион / All Inclusive', price_bgn:7821, price_eur:3999, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-keniya-klasichesko-safari-i-pochivka-na-di-1_1762160148557.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 18. Е642 — НАЙ-ДОБРОТО ОТ КЕНИЯ И ТАНЗАНИЯ
+// ══════════════════════════════════════════════════════════════
+{ id:18, refNum:'Е642',
+  title:'Най-доброто от Кения и Танзания с водач от България',
+  category:'exotic', tags:['nature','adventure','culture'], destination:'Кения / Танзания – Серенгети', country:'kenya',
+  duration:'10 дни / 7 нощувки', days:10, nights:7,
+  price_bgn:8799, price_eur:4499,
+  dates:['2026-09-11'],
+  next_date:'2026-09-11', transport:'plane',
+  description:'Сафари приключение в двете страни – Масай Мара в Кения, после Серенгети и кратера Нгоронгоро в Танзания. Наблюдение на Голямата петорка с опция за балонно сафари и посещение на масайско село.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Найроби. Езерото Найваша – лодъчна обиколка и о-в Крезент.' },
+    { day:'Ден 3–4', text:'Масай Мара – следобедно и целодневно сафари по река Мара.' },
+    { day:'Ден 5', text:'Кратко сафари; преминаване в Танзания. Пристигане Серенгети.' },
+    { day:'Ден 6', text:'Двойно сафари Серенгети (сутрин и следобед).' },
+    { day:'Ден 7–8', text:'Трансфер до кратера Нгоронгоро. Целодневно сафари в кратера.' },
+    { day:'Ден 9', text:'Трансфер до Килиманджаро. Свободно следобед.' },
+    { day:'Ден 10', text:'Полет обратно за България.' },
+  ],
+  includes:['Самолетен билет (Turkish Airlines или Qatar Airways)','7 нощи в lodges по маршрута','Лодъчна обиколка','4×4 сафари с гид','Вода по сафаритата','Медицинска застраховка (30 000 €)','Водач от България'],
+  excludes:['Kenya eTA виза (30 USD)','Tanzania виза (50 USD)','Лични разходи','Ваксини','Балонно сафари (€506)','Масайско село (€46)','Бакшиши ($10/ден)'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Lake Naivasha Sopa Lodge + Sentrim Mara Camp + Serengeti Heritage Camp + Ngorongoro Farm House', board:'Закуска + избрани ястия', price_bgn:8799, price_eur:4499, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_nay-dobroto-ot-keniya-i-tanzaniya-s-vodach-ot-balgariya-1_1768218430642.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 19. П992 — НОВА ГОДИНА НА МАВРИЦИЙ
+// ══════════════════════════════════════════════════════════════
+{ id:19, refNum:'П992',
+  title:'Нова година на о-в Мавриций с чартърен полет от София – 7 нощувки',
+  category:'exotic', tags:['beach','luxury','nature'], destination:'о-в Мавриций', country:'mauritius',
+  duration:'10 дни / 7 нощувки', days:10, nights:7,
+  price_bgn:4310, price_eur:2204,
+  dates:['2026-12-26'],
+  next_date:'2026-12-26', transport:'plane',
+  description:'Нова година на екзотичния Мавриций – бели пясъчни плажове, корални рифове, вулканични езера и колоритна Креолска архитектура. Директен чартърен полет от София, 7 нощи с трансфери и медицинска застраховка.',
+  program:[
+    { day:'Ден 1', text:'Чартърен полет от София (18:00) за Мавриций.' },
+    { day:'Ден 2', text:'Пристигане (07:10), трансфер и настаняване в хотел.' },
+    { day:'Ден 3–8', text:'Свободни дни на плажа. Факулт. екскурзии: делфини (€145), Порт Луис (€115), катамаран (€215), 7 водопада (€255).' },
+    { day:'Ден 9', text:'Освобождаване 12:00. Вечерен полет обратно (12:30).' },
+    { day:'Ден 10', text:'Пристигане в София.' },
+  ],
+  includes:['Чартърен полет Sofia–Mauritius–Sofia (15 кг + 7 кг)','7 нощи в хотел','Трансфери летище–хотел–летище','Медицинска застраховка (€15 000)','Местен представител'],
+  excludes:['Новогодишна вечеря (задължителна, по хотел)','Факулт. екскурзии','Такси и лични разходи','Бакшиши (~5 USD/ден)'],
+  departures:['София (Летище Т2, 18:00)'],
+  hotels:[
+    { name:'BE COSY APART HOTEL', board:'Само нощувка', price_bgn:4310, price_eur:2204, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_nova-godina-na-o-v-mavritsiy-s-chartaren-polet-ot-sofiy-1_1758782478992.jpg' },
+    { name:'TARISA RESORT & SPA', board:'Само нощувка', price_bgn:4447, price_eur:2273, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_nova-godina-na-o-v-mavritsiy-s-chartaren-polet-ot-sofiy-1_1758782478992.jpg' },
+    { name:'VERANDA Hotels', board:'Само нощувка', price_bgn:5925, price_eur:3030, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_nova-godina-na-o-v-mavritsiy-s-chartaren-polet-ot-sofiy-1_1758782478992.jpg' },
+    { name:'INTERCONTINENTAL', board:'Само нощувка', price_bgn:7093, price_eur:3626, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_nova-godina-na-o-v-mavritsiy-s-chartaren-polet-ot-sofiy-1_1758782478992.jpg' },
+    { name:'CONSTANCE BELLE MARE', board:'Само нощувка', price_bgn:8339, price_eur:4264, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_nova-godina-na-o-v-mavritsiy-s-chartaren-polet-ot-sofiy-1_1758782478992.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 20. П1115 — ПОЧИВКА НА О-В МАВРИЦИЙ
+// ══════════════════════════════════════════════════════════════
+{ id:20, refNum:'П1115',
+  title:'Почивка на остров Мавриций',
+  category:'exotic', tags:['beach','luxury','nature'], destination:'о-в Мавриций', country:'mauritius',
+  duration:'10 дни / 7 нощувки', days:10, nights:7,
+  price_bgn:4714, price_eur:2410,
+  dates:['2026-11-01'],
+  next_date:'2026-11-01', transport:'plane',
+  description:'Тропически рай Мавриций – 7 нощи в избран от Вас 4-5★ хотел с полет Turkish Airlines, 40 кг багаж, трансфери и 24-часова поддръжка. Водни спортове, делфини, катамаран и 7 водопада – всичко на ваш избор.',
+  program:[
+    { day:'Ден 1', text:'Полет Sofia (21:40)→Istanbul (22:40)→Mauritius (пристигане следващия ден 12:35).' },
+    { day:'Ден 2', text:'Пристигане, трансфер и настаняване в хотел.' },
+    { day:'Ден 3–8', text:'Свободни дни. Факулт.: делфини (€145), Порт Луис (€115), катамаран (€215), 7 водопада (€255).' },
+    { day:'Ден 9–10', text:'Освобождаване (12:00). Вечерен полет обратно → Istanbul → Sofia.' },
+  ],
+  includes:['Turkish Airlines Sofia–Istanbul–Mauritius v.v. (40 кг)','7 нощи в избран хотел','Трансфери + Welcome пакет','Медицинска застраховка (€10 000)','24-часова поддръжка на място'],
+  excludes:['Местен туристически данък (€3/нощ)','Факулт. екскурзии','Лични разходи'],
+  departures:['София (Летище Т2, 21:40)'],
+  hotels:[
+    { name:'Seasense Boutique Hotel', board:'Закуска', price_bgn:4714, price_eur:2410, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-mavritsiy-1_17746020271115.jpg' },
+    { name:'Canonnier Beachcomber Golf Resort & Spa', board:'Закуска', price_bgn:4890, price_eur:2500, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-mavritsiy-1_17746020271115.jpg' },
+    { name:'La Pirogue', board:'Закуска', price_bgn:5574, price_eur:2850, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-mavritsiy-1_17746020271115.jpg' },
+    { name:'Sugar Beach', board:'Закуска', price_bgn:6024, price_eur:3080, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-mavritsiy-1_17746020271115.jpg' },
+    { name:'Heritage Le Telfair Resort', board:'Закуска', price_bgn:7158, price_eur:3660, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-mavritsiy-1_17746020271115.jpg' },
+    { name:'LUX* Belle Mare', board:'Закуска', price_bgn:7393, price_eur:3780, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-mavritsiy-1_17746020271115.jpg' },
+    { name:'The St. Regis Le Morne Resort', board:'Закуска', price_bgn:8449, price_eur:4320, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-mavritsiy-1_17746020271115.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 21. П1147 — МАДАГАСКАР – О-В НУСИ БЕ
+// ══════════════════════════════════════════════════════════════
+{ id:21, refNum:'П1147',
+  title:'Екзотична почивка в Мадагаскар – остров Нуси Бе',
+  category:'exotic', tags:['beach','nature','adventure'], destination:'о-в Нуси Бе, Мадагаскар', country:'madagascar',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:4301, price_eur:2199,
+  dates:['2026-11-29'],
+  next_date:'2026-11-29', transport:'plane',
+  description:'Директен чартър до екзотичния Мадагаскар – 7 нощи на о-в Нуси Бе с All Inclusive. Факултативни приключения: о-в с костенурки Нуси Иранджа, лемури на Нуси Комба, морски резерват Нуси Тинакли и гора Локобе.',
+  program:[
+    { day:'Ден 1', text:'Директен чартърен полет от София до Нуси Бе (зареждане в Джибути).' },
+    { day:'Ден 2', text:'Пристигане, трансфер, настаняване, вечеря.' },
+    { day:'Ден 3', text:'Свободен ден или о-в Нуси Иранджа (костенурки, гмуркане, обяд, €89).' },
+    { day:'Ден 4', text:'Свободен ден или Нуси Комба (лемури, рибарски села, €85).' },
+    { day:'Ден 5', text:'Свободен ден или Нуси Тинакли (маяк, гмуркане, €85).' },
+    { day:'Ден 6', text:'Свободен ден или гора Локобе с традиционно кану (€74).' },
+    { day:'Ден 7', text:'Свободен ден или акули китове и делфини (€89).' },
+    { day:'Ден 8', text:'Закуска. Трансфер на летище. Обратен полет за София.' },
+  ],
+  includes:['Чартърен полет Sofia–Nosy Be–Sofia (15 кг + 8 кг)','7 нощи в хотел','Трансфери летище–хотел–летище','Медицинска застраховка (€10 000 вкл. COVID)'],
+  excludes:['Виза Мадагаскар (€30)','Факулт. екскурзии (€74–89)','Лични разходи','Такса гориво'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Orangea Beach Resort', board:'All Inclusive', price_bgn:4301, price_eur:2199, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekzotichna-pochivka-v-madagaskar-ostrov-nusi-be-2911202-1_17793653131147.jpg' },
+    { name:'Palm Beach Resort', board:'All Inclusive', price_bgn:4888, price_eur:2499, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekzotichna-pochivka-v-madagaskar-ostrov-nusi-be-2911202-1_17793653131147.jpg' },
+    { name:'Nosy Be Hotel and Spa', board:'All Inclusive', price_bgn:4997, price_eur:2555, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekzotichna-pochivka-v-madagaskar-ostrov-nusi-be-2911202-1_17793653131147.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 22. П1158 — СЕЙШЕЛИ – ЕКЗОТИЧНА ПОЧИВКА
+// ══════════════════════════════════════════════════════════════
+{ id:22, refNum:'П1158',
+  title:'Сейшелите – екзотична почивка сред райски плажове',
+  category:'exotic', tags:['beach','luxury','nature'], destination:'о-в Махе, Сейшели', country:'seychelles',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:3345, price_eur:1710,
+  dates:['2026-08-11','2026-08-13','2026-08-25','2026-09-03'],
+  next_date:'2026-08-11', transport:'plane',
+  description:'7 нощи на о-в Махе, Сейшели – кристалночисто Индийско море, гранитни скали и тропическа природа. Избор от 4-5★ хотели с включени закуски и трансфери.',
+  program:[
+    { day:'Ден 1', text:'Отпътуване от София с Turkish Airlines.' },
+    { day:'Ден 2', text:'Пристигане Махе, трансфер, настаняване.' },
+    { day:'Ден 3–7', text:'Свободни плажни дни. Факулт.: обиколка на Махе, рифно сафари, Praslin и La Digue.' },
+    { day:'Ден 8', text:'Закуска, освобождаване, трансфер, полет за България.' },
+  ],
+  includes:['Самолетен билет с летищни такси (23 кг)','7 нощи с закуска','Трансфери','Медицинска застраховка'],
+  excludes:['Лични разходи','Обяд и вечеря','Факулт. екскурзии'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Berjaya Beau Vallon Bay Resort & Casino ★★★', board:'Закуска', price_bgn:3345, price_eur:1710, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
+    { name:'Coral Strand Smart Choice ★★★★', board:'Закуска', price_bgn:3468, price_eur:1773, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
+    { name:'Bliss Boutique Hotel Seychelles ★★★★', board:'Закуска', price_bgn:3855, price_eur:1971, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
+    { name:'Savoy Seychelles Resort & Spa ★★★★★', board:'Закуска', price_bgn:4526, price_eur:2314, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
+    { name:'Kempinski Seychelles Resort ★★★★★', board:'Закуска', price_bgn:4899, price_eur:2505, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
+    { name:'Constance Ephelia ★★★★★', board:'Закуска', price_bgn:5170, price_eur:2643, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 23. Е718 — ПОЧИВКА НА СЕЙШЕЛИТЕ – О-В МАХЕ
+// ══════════════════════════════════════════════════════════════
+{ id:23, refNum:'Е718',
+  title:'Почивка на Сейшелите – Екзотична морска почивка на о-в Махе',
+  category:'exotic', tags:['beach','luxury','nature'], destination:'о-в Махе, Сейшели', country:'seychelles',
+  duration:'9 дни / 6 нощувки', days:9, nights:6,
+  price_bgn:4009, price_eur:2050,
+  dates:['2026-08-10','2026-08-24','2026-09-07','2026-09-21','2026-10-05','2026-10-19','2026-11-02','2026-11-16','2026-12-07','2026-12-14'],
+  next_date:'2026-08-10', transport:'plane',
+  description:'6 нощи на о-в Махе, Сейшели с Qatar Airways или Turkish Airlines, закуски включени и свободни дни за плаж, гмуркане и факултативни острови Praslin и La Digue.',
+  program:[
+    { day:'Ден 1', text:'Отпътуване от София.' },
+    { day:'Ден 2', text:'Пристигане Махе, трансфер, настаняване.' },
+    { day:'Ден 3–7', text:'Свободни плажни дни. Факулт.: обиколка Махе, рифно сафари, Praslin & La Digue.' },
+    { day:'Ден 8', text:'Освобождаване, трансфер на летище.' },
+    { day:'Ден 9', text:'Пристигане в България.' },
+  ],
+  includes:['Полети (Qatar Airways/Turkish Airlines) с 23 кг','6 нощи с закуска','Трансфери','Медицинска застраховка (€30 000)'],
+  excludes:['Обяд и вечеря','Факулт. екскурзии','Лични разходи','Хотелски депозит (€100)','Бакшиши (3–5 USD/ден)'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Berjaya Beau Vallon Bay Resort & Casino ★★★', board:'Закуска', price_bgn:4009, price_eur:2050, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-seyshelite-ekzotichna-morska-pochivka-na-o--1_1777540010718.jpg' },
+    { name:'Bliss Mahé Seychelles ★★★★', board:'Закуска', price_bgn:4109, price_eur:2101, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-seyshelite-ekzotichna-morska-pochivka-na-o--1_1777540010718.jpg' },
+    { name:'Hilton Seychelles Northolme Resort & Spa ★★★★★', board:'Закуска', price_bgn:5909, price_eur:3021, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-seyshelite-ekzotichna-morska-pochivka-na-o--1_1777540010718.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 24. Е419 — СЕЙШЕЛИ – О-В МАХЕ С ВОДАЧ ОТ БЪЛГАРИЯ
+// ══════════════════════════════════════════════════════════════
+{ id:24, refNum:'Е419',
+  title:'Почивка на Сейшелите сред вълшебната природа на о-в Махе с водач от България',
+  category:'exotic', tags:['beach','luxury','nature'], destination:'о-в Махе, Сейшели', country:'seychelles',
+  duration:'9 дни / 6 нощувки', days:9, nights:6,
+  price_bgn:4629, price_eur:2367,
+  dates:['2026-08-03','2026-11-02'],
+  next_date:'2026-08-03', transport:'plane',
+  description:'Сейшелите с водач на български (мин. 12 туристи) – Qatar Airways, 6 нощи в Berjaya Beau Vallon Bay Resort, факултативни екскурзии: обиколка Махе, рифно сафари и о-вите Praslin & La Digue.',
+  program:[
+    { day:'Ден 1', text:'Полет Sofia→Doha→Mahe.' },
+    { day:'Ден 2', text:'Пристигане, трансфер, настаняване.' },
+    { day:'Ден 3', text:'Свободно или факулт. обиколка на Махе (290 лв.).' },
+    { day:'Ден 4–5', text:'Свободни плажни дни или факулт. рифно сафари (340 лв.).' },
+    { day:'Ден 6', text:'Свободно или факулт. Praslin & La Digue (580 лв.).' },
+    { day:'Ден 7–8', text:'Закуска. Освобождаване; полет Mahe→Doha.' },
+    { day:'Ден 9', text:'Пристигане в България.' },
+  ],
+  includes:['Qatar Airways Sofia–Doha–Mahe v.v. (23 кг + 7 кг)','6 нощи Berjaya Beau Vallon Bay 4★ с закуска','Трансфери','Медицинска застраховка (30 000 €)','Водач на български (мин. 12 туристи)'],
+  excludes:['Обяд, вечеря, напитки','Факулт. екскурзии (290–580 лв.)','Лични разходи','Хотелски депозит (€100)','Бакшиши (3–5 USD/ден)'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Berjaya Beau Vallon Bay Resort & Casino ★★★★', board:'Закуска', price_bgn:4629, price_eur:2367, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-seyshelite-sred-valshebnata-priroda-na-o-v--1_1741941666419.jpg' },
+    { name:'DoubleTree by Hilton Allamanda Resort & Spa ★★★★', board:'Закуска', price_bgn:6194, price_eur:3167, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-seyshelite-sred-valshebnata-priroda-na-o-v--1_1741941666419.jpg' },
+    { name:'Hilton Seychelles Northolme Resort & Spa ★★★★★', board:'Закуска', price_bgn:8543, price_eur:4367, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-na-seyshelite-sred-valshebnata-priroda-na-o-v--1_1741941666419.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 25. Е414 — НАЙ-ДОБРОТО ОТ ВИЕТНАМ И КАМБОДЖА
+// ══════════════════════════════════════════════════════════════
+{ id:25, refNum:'Е414',
+  title:'Най-доброто от Виетнам и Камбоджа',
+  category:'exotic', tags:['culture','nature','adventure'], destination:'Виетнам / Камбоджа', country:'vietnam',
+  duration:'10 дни / 7 нощувки', days:10, nights:7,
+  price_bgn:4999, price_eur:2556,
+  dates:['2026-09-20','2026-10-11','2026-11-21','2026-12-05','2026-12-11','2026-12-21'],
+  next_date:'2026-09-20', transport:'plane',
+  description:'Виетнам и Камбоджа – Ханой с театър на кукли, круиз в залива Халонг с пещери, Хошимин и тунелите Ку Чи, делтата на Меконг и величествените храмове Ангкор Ват в Камбоджа.',
+  program:[
+    { day:'Ден 1–2', text:'Полет Sofia→Istanbul→Hanoi. Кукленото шоу и вечеря добре дошли.' },
+    { day:'Ден 3', text:'Круиз в залива Халонг с изследване на пещери.' },
+    { day:'Ден 4', text:'Обиколка Ханой – езерото Хо Тай, Храм на литературата.' },
+    { day:'Ден 5', text:'Тунелите Ку Чи под Хошимин.' },
+    { day:'Ден 6', text:'Лодъчна обиколка делтата на Меконг с традиционен обяд.' },
+    { day:'Ден 7', text:'Полет до Сием Реап, Камбоджа. Храм Пре Руп, вечеря Апсара.' },
+    { day:'Ден 8–9', text:'Ангкор Том, Та Пром, Ангкор Ват. Езерото Тонле Сап.' },
+    { day:'Ден 10', text:'Полет Istanbul→Sofia. Пристигане.' },
+  ],
+  includes:['Turkish Airlines + Vietnam Airlines вътрешни полети','7 нощи 4★ хотели с закуски','5 обяда + 3 вечери','Трансфери','Круиз Халонг','Тунели Ку Чи','Ангкор храмове','Медицинска застраховка (€30 000)','Водач'],
+  excludes:['Cambodia виза (30 USD)','Vietnam виза (216 лв.)','Факулт. екскурзии','Бакшиши (5 USD/ден)'],
+  departures:['София (Летище Т2, 21:15)'],
+  hotels:[
+    { name:'4★ хотели: Ханой (2н), Хошимин (3н), Сием Реап (2н)', board:'Закуска', price_bgn:4999, price_eur:2556, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-nay-dobroto-ot-vietnam-i-kambodzha-1_1743409123414.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 26. П1150 — ВКУСЪТ НА АЗИЯ – ВИЕТНАМ И КАМБОДЖА (12 НОЩУВКИ)
+// ══════════════════════════════════════════════════════════════
+{ id:26, refNum:'П1150',
+  title:'Вкусът на Азия – Виетнам и Камбоджа (12 нощувки)',
+  category:'exotic', tags:['culture','nature','adventure'], destination:'Виетнам / Камбоджа', country:'vietnam',
+  duration:'14 дни / 12 нощувки', days:14, nights:12,
+  price_bgn:5259, price_eur:2689,
+  dates:['2026-11-12','2026-11-25','2026-12-01','2027-01-09','2027-01-19','2027-02-03','2027-02-17'],
+  next_date:'2026-11-12', transport:'plane',
+  description:'Мащабна обиколка на Виетнам и Камбоджа за 14 дни – Хошимин, Фном Пен, Ангкор Ват, Дананг, Хой Ан, Ниин Бин, круиз в Халонг и Ханой. 12 нощи в 4★ хотели и луксозен круизен кораб.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Хошимин. Настаняване.' },
+    { day:'Ден 3', text:'Хошимин – Военен музей, Дворец на обединението, катедрала.' },
+    { day:'Ден 4', text:'Делта на Меконг с кулинарен клас.' },
+    { day:'Ден 5–6', text:'Пграничен преход Камбоджа – Фном Пен (Кралски дворец, Национален музей).' },
+    { day:'Ден 7–8', text:'Ангкор Ват и Ангкор Том. Езерото Тонле Сап.' },
+    { day:'Ден 9–10', text:'Дананг и Хой Ан (стар град, Ба На Хилс факулт.).' },
+    { day:'Ден 11', text:'Ниин Бин – Хоа Лу и Тан Коа.' },
+    { day:'Ден 12–13', text:'Луксозен круиз Халонг с таи-чи и пещери.' },
+    { day:'Ден 14', text:'Ханой. Полет за България.' },
+  ],
+  includes:['Turkish Airlines + вътрешни полети','12 нощи + 1 нощ круиз с закуски','Ръководни обиколки с English гидове','Входни такси','Медицинска застраховка (€10 000)'],
+  excludes:['Cambodia виза (45 USD)','Такса обработка ($91)','Наушници ($3/ден)','Факулт. Ку Чи, Ба На Хилс','Бакшиши'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Saigon Prince 4★ + Duong Chan 4★ + Lotus Blanc 4★ + Anmira Resort 4★ + La Casta Cruise + Ninh Binh Hidden Charm 4★ + Army Hotel 4★', board:'Закуска', price_bgn:5259, price_eur:2689, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_vkusat-na-aziya-vietnam-i-kambodzha-12-noshtuvki-polet--1_17797819281150.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 27. Е207 — ВИЕТНАМ (ХАНОЙ, ХЮЕ, ХОЙ АН, САЙГОН)
+// ══════════════════════════════════════════════════════════════
+{ id:27, refNum:'Е207',
+  title:'Виетнам – Ханой, Хюе, Хой Ан, Дананг, Златния мост и Сайгон',
+  category:'exotic', tags:['culture','nature','adventure'], destination:'Виетнам', country:'vietnam',
+  duration:'11 дни / 8 нощувки', days:11, nights:8,
+  price_bgn:5660, price_eur:2894,
+  dates:['2026-09-07','2026-10-16'],
+  next_date:'2026-09-07', transport:'plane',
+  description:'Изчерпателна 11-дневна обиколка на Виетнам – Ханой, круиз в Халонг, UNESCO Хюе, Хой Ан, Ба На Хилс с Золотния мост, и Хошимин. Полет с Qatar Airways до Ханой и обратно от Хошимин.',
+  program:[
+    { day:'Ден 1–2', text:'Полет Sofia→Doha→Hanoi. Пристигане и настаняване.' },
+    { day:'Ден 3', text:'Ханой – храмове и исторически забележителности.' },
+    { day:'Ден 4', text:'Круиз в залива Халонг (UNESCO).' },
+    { day:'Ден 5', text:'Вътрешен полет до Хюе; речен круиз и Императорски гробници.' },
+    { day:'Ден 6', text:'Хой Ан пеша; Дананг с Музея на Чам.' },
+    { day:'Ден 7', text:'Ба На Хилс комплекс с Золотния мост.' },
+    { day:'Ден 8–9', text:'Хошимин обиколка; факулт. Ку Чи или речен круиз.' },
+    { day:'Ден 10–11', text:'Полет Ho Chi Minh→Hanoi→Doha→Sofia.' },
+  ],
+  includes:['Полети + трансфери','8 нощи 3-4★ хотели с закуска','1 обяд, 3 вечери','Круиз Халонг','Всички обиколки по програмата','Местни гидове'],
+  excludes:['Медицинска застраховка','Ку Чи тунели и Меконг (факулт.)','Единична стая (900 лв./460 €)'],
+  departures:['София (Летище Т2, 19:15)'],
+  hotels:[
+    { name:'3-4★ хотели по маршрута', board:'Закуска', price_bgn:5660, price_eur:2894, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_vietnam-1_1770637809207.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 28. Е680 — ВИЕТНАМ – СЪРЦЕТО НА ЮГО-ИЗТОЧНА АЗИЯ
+// ══════════════════════════════════════════════════════════════
+{ id:28, refNum:'Е680',
+  title:'Виетнам – Сърцето на Югоизточна Азия',
+  category:'exotic', tags:['culture','nature','beach'], destination:'Виетнам – Ханой, Хой Ан, Хюе, Муй Не', country:'vietnam',
+  duration:'13 дни / 10 нощувки', days:13, nights:10,
+  price_bgn:5799, price_eur:2965,
+  dates:['2026-10-16'],
+  next_date:'2026-10-16', transport:'plane',
+  description:'13 дни из цял Виетнам – от Ханой и круиза в Халонг, през крайбрежните Хой Ан и Хюе, до Хошимин и 4 дни релакс на плажния курорт Муй Не. Водач на български, 4-5★ хотели.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Ханой. Храм на литературата, Хоан Кием, Ханой олд куотър с рикша.' },
+    { day:'Ден 3', text:'Нощен круиз Халонг – варовикови скали, каяк, гмуркане.' },
+    { day:'Ден 4', text:'Халонг – полет до Дананг; Хой Ан.' },
+    { day:'Ден 5', text:'Хой Ан свободно или Ба На Хилс (факулт.); традиционна лодка.' },
+    { day:'Ден 6', text:'Хюе – Имперска цитадела; полет до Хошимин.' },
+    { day:'Ден 7', text:'Трансфер до Муй Не плажен курорт.' },
+    { day:'Ден 8–11', text:'Муй Не – свободни плажни дни.' },
+    { day:'Ден 12–13', text:'Полет обратно за България.' },
+  ],
+  includes:['Самолетен билет + 2 вътрешни полета','10 нощи 4★ хотели + 5★ круиз с закуски','Водач на български','Всички трансфери'],
+  excludes:['Медицинска застраховка (от €37.84)','Единична стая (+€510.78)','Ба На Хилс (€101.75)','Пакет вечери (€255.13)','Туристически данък'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Sunway Hotel Hanoi 4★ + Bhaya Classic Cruise 5★ + Sen Village Hoi An 4★ + Eldora Hue 4★ + Liberty Central Saigon 4★ + Phu Hai Beach Resort 4★', board:'Закуска', price_bgn:5799, price_eur:2965, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_vietnam%E2%80%93sartseto-na-yugoiztochna-aziya-1_1772615844680.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 29. Е681 — ВИЕТНАМ: ЗЛОТНИЯ МОСТ, ХАЛОНГ, ФУ КУОк
+// ══════════════════════════════════════════════════════════════
+{ id:29, refNum:'Е681',
+  title:'Виетнам – Златния мост, Халонг, Ханой, Хой Ан и почивка на о-в Фу Куок',
+  category:'exotic', tags:['culture','nature','beach'], destination:'Виетнам – Ханой / Хой Ан / Фу Куок', country:'vietnam',
+  duration:'15 дни / 12 нощувки', days:15, nights:12,
+  price_bgn:7021, price_eur:3590,
+  dates:['2026-11-16','2027-03-12'],
+  next_date:'2026-11-16', transport:'plane',
+  description:'15 дни – пълна програма с всичко най-добро от Виетнам: Ханой, Ниин Бин, нощен круиз Халонг с яхта, Ба На Хилс с Золотния мост, Хой Ан, Хошимин и 3 дни релакс на тропическия о-в Фу Куок.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Ханой. Обиколка с кукленото водно театро.' },
+    { day:'Ден 3', text:'Ниин Бин – Хоа Лу и Танг Ан екологичен комплекс.' },
+    { day:'Ден 4–5', text:'Нощен круиз Paradise Elegance 5★ в Халонг с перлена ферма и каяк.' },
+    { day:'Ден 6', text:'Ба На Хилс с Золотния мост. Хой Ан вечерна церемония с фенери.' },
+    { day:'Ден 7', text:'Мраморни планини. Полет до Хошимин.' },
+    { day:'Ден 8', text:'Меконг с традиционни занаяти. Река Сайгон круиз.' },
+    { day:'Ден 9', text:'Хошимин – Дворец на независимостта.' },
+    { day:'Ден 10–12', text:'Фу Куок 5★ – свободни плажни дни.' },
+    { day:'Ден 13–15', text:'Полет обратно за България.' },
+  ],
+  includes:['Turkish Airlines + вътрешни полети','12 нощи 4-5★ хотели с закуски','6 обяда, 4 вечери','Медицинска застраховка (€30 000)','Водач на български'],
+  excludes:['Vietnam виза (€40)','Бакшиши','Лични разходи','Факулт. екскурзии'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Silk Path Hanoi 4★ + Paradise Elegance Cruise 5★ + Belle Maison Hadana 4★ + Palace Hotel Saigon 4★ + Novotel Phu Quoc 5★', board:'Закуска', price_bgn:7021, price_eur:3590, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_vietnam-%E2%80%93-zlatniyat-most-kruiz-v-ha-long-bey-hanoy-ho-1_1772615892681.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 30. Е283 — ВИЕТНАМ, КАМБОДЖА И ТАЙЛАНД
+// ══════════════════════════════════════════════════════════════
+{ id:30, refNum:'Е283',
+  title:'Виетнам, Камбоджа и Тайланд',
+  category:'exotic', tags:['culture','nature','adventure'], destination:'Виетнам / Камбоджа / Тайланд', country:'vietnam',
+  duration:'19 дни / 15 нощувки', days:19, nights:15,
+  price_bgn:8030, price_eur:4106,
+  dates:['2026-09-07','2026-10-16','2026-11-13'],
+  next_date:'2026-09-07', transport:'plane',
+  description:'Грандиозна 19-дневна обиколка из три азиатски страни – Виетнам (Ханой, Халонг, Хюе, Хой Ан, Хошимин), Камбоджа (Пном Пен, Ангкор Ват) и Тайланд (Банкок, Аютая).',
+  program:[
+    { day:'Ден 1–3', text:'Полет до Ханой. Обиколка. Круиз Халонг.' },
+    { day:'Ден 4–5', text:'Хюе с речна лодка и гробници. Хой Ан + Дананг.' },
+    { day:'Ден 6–7', text:'Ба На Хилс. Хошимин и факулт. Ку Чи.' },
+    { day:'Ден 8–9', text:'Факулт. Меконг. Полет Пном Пен; Кралски дворец.' },
+    { day:'Ден 10–13', text:'Сием Реап – Ангкор Ват, Ангкор Том. Тонле Сап.' },
+    { day:'Ден 14–15', text:'Банкок – дворци и речен круиз.' },
+    { day:'Ден 16', text:'Аютая.' },
+    { day:'Ден 17–19', text:'Полет обратно за България.' },
+  ],
+  includes:['Самолетни билети + вътрешни полети (23 кг)','15 нощи 3-4★ хотели','2 закуски, 2 обяда, 6 вечери','Всички обиколки и входни такси','Водач'],
+  excludes:['Cambodia виза (35 USD)','Медицинска застраховка','Ку Чи, Меконг, Банкок круиз (факулт.)','Единична стая (1680 лв.)'],
+  departures:['София (Летище Т2, 19:15)'],
+  hotels:[
+    { name:'3-4★ хотели по маршрута (Ханой 2н, Хой Ан 1н, Дананг 1н, Хошимин 3н, Пном Пен 1н, Сием Реап 4н, Банкок 3н)', board:'Закуска', price_bgn:8030, price_eur:4106, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-vietnam-kambodzha-i-tayland-1_1770637529283.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 31. Е610 — ИНДИЯ – ЗЛАТНИЯ ТРИЪГЪЛНИК С ВОДАЧ ОТ БЪЛГАРИЯ
+// ══════════════════════════════════════════════════════════════
+{ id:31, refNum:'Е610',
+  title:'Екскурзия в Индия – Златният триъгълник с водач от България',
+  category:'exotic', tags:['culture','adventure'], destination:'Индия – Делхи / Агра / Джайпур', country:'india',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:3362, price_eur:1719,
+  dates:['2026-12-12','2027-02-06'],
+  next_date:'2026-12-12', transport:'plane',
+  description:'Индия – Делхи, Тадж Махал в Агра, розовият Джайпур с крепостта Амбър. 8 дни с полет Turkish Airlines, 4★ хотели, закуски и вечери включени и водач на български.',
+  program:[
+    { day:'Ден 1', text:'Полет Sofia→Istanbul→Delhi.' },
+    { day:'Ден 2', text:'Пристигане Делхи, чек-ин, почивка.' },
+    { day:'Ден 3', text:'Делхи – Джама Масджид, Кутб Минар, Индия Гейт, мемориал Ганди.' },
+    { day:'Ден 4', text:'Агра – Тадж Махал и крепостта Агра.' },
+    { day:'Ден 5', text:'Джайпур през Фатехпур Сикри.' },
+    { day:'Ден 6', text:'Джайпур – Джантар Мантар, Джал Махал, крепост Амбър с жийп.' },
+    { day:'Ден 7', text:'Завръщане Делхи. Свободно.' },
+    { day:'Ден 8', text:'Ранна закуска. Полет Delhi→Istanbul→Sofia.' },
+  ],
+  includes:['Полет Sofia–Istanbul–Delhi v.v. (30 кг)','7 нощи 4★ хотели с закуска и вечеря','Местен English гид','Входни такси','Медицинска застраховка (€30 000)','Водач на български'],
+  excludes:['PCR тестове','Бакшиши ($5/ден задължителни)','Визова помощ','Доплащане 64+'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'4★ хотели Делхи, Агра и Джайпур', board:'Закуска + вечеря', price_bgn:3362, price_eur:1719, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-indiya-zlatniyat-triagalnik-s-vodach-ot-ba-1_1765964324610.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 32. Е730 — ЗЛАТНИЯ ТРИЪГЪЛНИК НА ИНДИЯ (5★ ХОТЕЛИ)
+// ══════════════════════════════════════════════════════════════
+{ id:32, refNum:'Е730',
+  title:'Златният триъгълник на Индия – Делхи, Джайпур и Агра (5★ хотели)',
+  category:'exotic', tags:['culture','luxury'], destination:'Индия – Делхи / Джайпур / Агра', country:'india',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:3814, price_eur:1950,
+  dates:['2026-10-02','2027-02-11'],
+  next_date:'2026-10-02', transport:'plane',
+  description:'Луксозно пътешествие из Индия – 5★ хотели Leela Ambience Делхи, Hilton Джайпур и DoubleTree Агра. Тадж Махал, крепостта Амбър с яхдене на слон, Хава Махал и Кутб Минар с водач на български.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Делхи. Ранен чек-ин. Хумаюн, Индия Гейт, Кутб Минар.' },
+    { day:'Ден 3', text:'Стар Делхи – Червения форт, Джама Масджид. Пристигане Джайпур.' },
+    { day:'Ден 4', text:'Крепост Амбър с яхдене на слон, Хава Махал, Сити Пале, Джантар Мантар.' },
+    { day:'Ден 5', text:'Храм Бирла; пристигане Агра.' },
+    { day:'Ден 6', text:'Тадж Махал, Агра форт, Гробницата Итимад-уд-Давла.' },
+    { day:'Ден 7', text:'Храм Лотус; завръщане Делхи.' },
+    { day:'Ден 8', text:'Закуска; полет обратно.' },
+  ],
+  includes:['Полет с 23 кг','7 нощи 5★ хотели с закуска и вечеря','Яхдене на слон в Амбър','Входни такси','Медицинска застраховка (€30 000)','Водач'],
+  excludes:['India виза (€40.90)','Задължителни бакшиши (~$40)','Допълнителни разходи'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'The Leela Ambience / Radisson Blu Dwarka ★★★★★ (Делхи) + Hilton Jaipur ★★★★★ + DoubleTree by Hilton ★★★★★ (Агра)', board:'Закуска + вечеря', price_bgn:3814, price_eur:1950, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_zlatniyat-triagalnik-na-indiya-%E2%80%93-delhi-dzhaypur-i-agr-1_1779365599730.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 33. Е684 — ОПОЗНАЙ ИНДИЯ (ГОЛЯМ ТУР)
+// ══════════════════════════════════════════════════════════════
+{ id:33, refNum:'Е684',
+  title:'Опознай Индия – Делхи, Агра, Джайпур, Джодхпур, Удайпур',
+  category:'exotic', tags:['culture','adventure','nature'], destination:'Индия – Голям тур', country:'india',
+  duration:'14 дни / 11 нощувки', days:14, nights:11,
+  price_bgn:4209, price_eur:2152,
+  dates:['2026-09-29','2026-10-17'],
+  next_date:'2026-09-29', transport:'plane',
+  description:'Мащабна 14-дневна обиколка на Индия – Делхи, Тадж Махал, Джайпур с крепост Амбър, Пушкар, Джодхпур, Ранакпур, лодъчна разходка на езерото Удайпур и Сити Пале. 4★ хотели, закуска и вечеря.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Делхи. Настаняване.' },
+    { day:'Ден 3', text:'Стар Делхи – Червен форт, Джама Масджид.' },
+    { day:'Ден 4–5', text:'Агра – залез в Мехтаб Баг, Тадж Махал и Агра форт.' },
+    { day:'Ден 6', text:'Фатехпур Сикри и Абханери по пътя към Джайпур.' },
+    { day:'Ден 7', text:'Джайпур – Амбър форт с жийп, Хава Махал, Сити Пале.' },
+    { day:'Ден 8', text:'Пушкар – Свещеното езеро и Храмът на Брахма.' },
+    { day:'Ден 9', text:'Джодхпур – форт Мехрангарх и дворец.' },
+    { day:'Ден 10', text:'Ранакпур (джайнски храм); пристигане Удайпур.' },
+    { day:'Ден 11', text:'Удайпур – Сити Пале, лодъчна разходка.' },
+    { day:'Ден 12–14', text:'Полет Удайпур→Делхи. Отпътуване за България.' },
+  ],
+  includes:['Полети + вътрешен полет Удайпур–Делхи','11 нощи 4★ хотели с закуска и вечеря','Частен транспорт и входни такси','Жийп Амбър форт','Лодъчна разходка Удайпур','Медицинска застраховка'],
+  excludes:['India виза (€56.24)','Камера такси','Бакшиши (~€8/ден)','Факулт. яздене на слон'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'4★ хотели по маршрута (Zone Connect Delhi, Hotel Saura Agra, Ramada Jaipur, Park Plaza Jodhpur, Regenta Udaipur)', board:'Закуска + вечеря', price_bgn:4209, price_eur:2152, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-indiya-zlatniyat-triagalnik-s-vodach-ot-ba-1_1765964324610.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 34. Е250 — БАЛИЙСКИ ОСТРОВ – 7 ЕКСКУРЗИИ ВКЛЮЧЕНИ
+// ══════════════════════════════════════════════════════════════
+{ id:34, refNum:'Е250',
+  title:'Екскурзия – Остров Бали (7 екскурзии включени в цената)',
+  category:'exotic', tags:['culture','nature','adventure'], destination:'о-в Бали, Индонезия', country:'indonesia',
+  duration:'11 дни / 8 нощувки', days:11, nights:8,
+  price_bgn:4477, price_eur:2290,
+  dates:['2026-09-01','2026-09-22','2026-10-05'],
+  next_date:'2026-09-01', transport:'plane',
+  description:'Бали с 7 включени екскурзии – горски лемури, тераси ориз Тегалаланг, балийски люлки, водопади, свещени храмове, кралски водни градини и залез на Семиняк. Водач на български, 4★ хотели.',
+  program:[
+    { day:'Ден 1', text:'Полет до Бали.' },
+    { day:'Ден 2', text:'Пристигане, настаняване в Убуд.' },
+    { day:'Ден 3', text:'Горски лемури, Тегалаланг тераси, Балийски люлки, танц Кечак.' },
+    { day:'Ден 4', text:'Музей Пури Лукисан, водопад Таман Сари, храм Гоа Гаджах.' },
+    { day:'Ден 5', text:'Храм Гунунг Кауи, свещен извор Тирта Емпул.' },
+    { day:'Ден 6', text:'Езерата Буян и Тамблинган, гора Мундук, храм Улун Дану Братан.' },
+    { day:'Ден 7', text:'Амед гмуркане, кралски градини Тирта Ганга.' },
+    { day:'Ден 8', text:'Пазаруване, преместване Семиняк, залез на плажа.' },
+    { day:'Ден 9–11', text:'Нуса Дуа плаж. Полет обратно за България.' },
+  ],
+  includes:['Полети Sofia–Bali (23 кг)','8 нощи 4★ с закуска','7 целодневни екскурзии с входни такси','Транспорт по програмата','Медицинска застраховка (€15 000)'],
+  excludes:['Виза Бали (на място)','Факулт. сърф (€50/ден)','Застраховка „Отмяна"','Лични разходи'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Rama Phala Resort & Spa ★★★★ (Убуд) + Hotel Puri Raja ★★★ (Семиняк)', board:'Закуска', price_bgn:4477, price_eur:2290, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-ostrov-bali%E2%80%937-ekskurzii-vklyucheni-v-tse-1_1747728721250.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 35. Е679 — ПОЧИВКА В ИНДОНЕЗИЯ – МЕЧТАНИЯТ ОСТРОВ БАЛИ
+// ══════════════════════════════════════════════════════════════
+{ id:35, refNum:'Е679',
+  title:'Почивка в Индонезия – Мечтаният остров Бали с водач от България',
+  category:'exotic', tags:['beach','nature','culture'], destination:'о-в Бали, Индонезия', country:'indonesia',
+  duration:'10 дни / 7 нощувки', days:10, nights:7,
+  price_bgn:4888, price_eur:2499,
+  dates:['2026-12-09','2027-02-10'],
+  next_date:'2026-12-09', transport:'plane',
+  description:'7 нощи на приказния Бали в Ayodya Nusa Dua Resort 4★, полет Turkish Airlines с 30 кг багаж и водач на български. Факултативни храмови и вулканични екскурзии.',
+  program:[
+    { day:'Ден 1', text:'Отпътуване Sofia (21:10)→Istanbul.' },
+    { day:'Ден 2', text:'Istanbul→Denpasar (пристигане 19:15). Трансфер, настаняване.' },
+    { day:'Ден 3–4', text:'Свободни дни. Факулт. храмове Улун Дану и Таная Лот (€99).' },
+    { day:'Ден 5–7', text:'Свободни дни. Факулт. Кинтамани, Батур и Тампаксиринг (€99).' },
+    { day:'Ден 8', text:'Свободен ден.' },
+    { day:'Ден 9–10', text:'Освобождаване. Полет обратно за Bulgaria.' },
+  ],
+  includes:['Turkish Airlines Sofia–Bali (30 кг + 8 кг)','7 нощи Ayodya Nusa Dua 4★ с закуска','Трансфери','Медицинска застраховка (€50 000)','Водач'],
+  excludes:['Факулт. екскурзии (€99 всяка, мин. 10 туристи)','Обяд и вечеря','Виза (~35 USD)','Бакшиши (5 USD/ден)'],
+  departures:['София (Летище Т2, 21:10)'],
+  hotels:[
+    { name:'Ayodya Nusa Dua ★★★★ (или подобен)', board:'Закуска', price_bgn:4888, price_eur:2499, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-v-indoneziya-mechtaniyat-ostrov-bali-s-vodach--1_1772615762679.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 36. Е590 — СИНГАПУР И БАЛИ
+// ══════════════════════════════════════════════════════════════
+{ id:36, refNum:'Е590',
+  title:'Сингапур и Бали',
+  category:'exotic', tags:['city','culture','nature'], destination:'Сингапур / о-в Бали', country:'indonesia',
+  duration:'12 дни / 9 нощувки', days:12, nights:9,
+  price_bgn:5585, price_eur:2856,
+  dates:['2026-09-12','2026-10-18','2026-11-15','2026-12-06'],
+  next_date:'2026-09-12', transport:'plane',
+  description:'Двойно приключение – 3 нощи в модерен Сингапур (Мерлион, Чайнатаун, Литъл Индия) и 6 нощи на балийски дух в Индонезия с храма Бесаки и факулт. екскурзия до остров Ява с Борободур.',
+  program:[
+    { day:'Ден 1–3', text:'Полет до Сингапур. Полдневна обиколка – Мерлион, Чайнатаун, Литъл Индия. Пазаруване.' },
+    { day:'Ден 4–5', text:'Свободно Сингапур. Вечерен полет до Денпасар, Бали.' },
+    { day:'Ден 6', text:'Пристигане Бали. Факулт. вечеря с балийски танц.' },
+    { day:'Ден 7', text:'Целодневна екскурзия до храма Бесаки.' },
+    { day:'Ден 8–9', text:'Факулт. о-в Ява – Борободур и Прамбанан. Плаж.' },
+    { day:'Ден 10–11', text:'Бедугул, езерото Братан, храм Таная Лот.' },
+    { day:'Ден 12', text:'Полет обратно за България.' },
+  ],
+  includes:['Полети Sofia–Singapore–Denpasar–Sofia','9 нощи 4★ с закуска','Полдневна обиколка Сингапур','Бесаки екскурзия','Местни гидове'],
+  excludes:['Виза Бали (35 USD)','Туристически данък Бали (~10 USD)','Медицинска застраховка','Факулт. (Ява, Орхидна градина, Марина Бей Сандс)','Лични разходи'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'4★ хотел Сингапур (3н) + 4★ хотел Бали (6н)', board:'Закуска', price_bgn:5585, price_eur:2856, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_singapur-i-bali-1_1765901186590.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 37. Е301 — КИТАЙ – НЕОБЯТНО РАЗНООБРАЗИЕ
+// ══════════════════════════════════════════════════════════════
+{ id:37, refNum:'Е301',
+  title:'Китай – Необятно разнообразие',
+  category:'exotic', tags:['culture','nature','cruise'], destination:'Китай – Шанхай / Янцзъ / Сиан / Пекин', country:'china',
+  duration:'14 дни / 11 нощувки', days:14, nights:11,
+  price_bgn:3608, price_eur:1845,
+  dates:['2026-07-07','2026-08-11','2026-08-23','2026-09-06','2026-09-14','2026-10-26','2026-11-01','2026-11-09','2026-11-15'],
+  next_date:'2026-07-07', transport:'plane',
+  description:'Китай в цялото му величие – Шанхай с воден град Джуцзяцяо, 4-нощен круиз по река Янцзъ, древният Сиан с Теракотената армия и Пекин с Великата Китайска стена и Забранения град.',
+  program:[
+    { day:'Ден 1–3', text:'Полет до Шанхай. Водният Джуцзяцяо, Бундът, Нанкин Блевар. Качване на круиз.' },
+    { day:'Ден 4–7', text:'Круиз по Янцзъ: язовир Три клисури, ждрелото Синлин, р. Шънnonг.' },
+    { day:'Ден 8–9', text:'Сиан – Теракотената армия, Пагода Дива Гъска, Мюсюлмански квартал.' },
+    { day:'Ден 10–12', text:'Пекин – Летен дворец, Великата стена (факулт.), Тянанмън, Забранен град.' },
+    { day:'Ден 13–14', text:'Полет обратно за България.' },
+  ],
+  includes:['Самолетен билет (23 кг + 7 кг)','4★ хотели + 4★ круизен кораб','Закуски в хотели, пълен пансион на кораба','Водач на български','Медицинска застраховка'],
+  excludes:['Пакет факулт. екскурзии (479 лв.)','Пакет вечери (379 лв.)','Круизна такса (€25)','Сервизна такса (€5/ден)','Единична стая (899 лв.)'],
+  departures:['България (Летище)'],
+  hotels:[
+    { name:'Zhong Xiang Grand Hotel Shanghai + 4★ President/Victoria Cruises + Titan Jincheng Art Hotel Xian + Riverside Hotel Beijing', board:'Закуска (пълен пансион на кораб)', price_bgn:3608, price_eur:1845, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay%E2%80%93neobyatno-raznoobrazie-1_1752043221301.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 38. Е669 — КУНГ ФУ И ПАНДИ – ШАНХАЙ, ПЕКИН
+// ══════════════════════════════════════════════════════════════
+{ id:38, refNum:'Е669',
+  title:'Кунг Фу и Панди – Шанхай, Чънду, Сиан, Лоян, Пекин',
+  category:'exotic', tags:['culture','nature','adventure'], destination:'Китай – Шанхай / Чънду / Сиан / Пекин', country:'china',
+  duration:'15 дни / 12 нощувки', days:15, nights:12,
+  price_bgn:4899, price_eur:2505,
+  dates:['2026-06-28'],
+  next_date:'2026-06-28', transport:'plane',
+  description:'Китай за ценителите – гигантски панди в Чънду, монасите Шаолин с кунг фу, Теракотената армия, Пещерите Лунмън и Великата стена. Шанхай, Чунцин, Чънду, Сиан, Лоян и Пекин за 15 дни.',
+  program:[
+    { day:'Ден 1–3', text:'Полет до Шанхай. Обиколка: Нефритов Буда, Ю Градина, Нанкин Рд, Бундът. Чунцин.' },
+    { day:'Ден 4–6', text:'База за панди Чънду; чайна церемония Народен парк. Скоростен влак Сиан.' },
+    { day:'Ден 7', text:'Теракотената армия, Пагода Дива Гъска, Мюсюлмански квартал.' },
+    { day:'Ден 8', text:'Скоростен влак Лоян – Пещерите Лунмън.' },
+    { day:'Ден 9', text:'Шаолин Monastery с кунг фу шоу. Скоростен влак Пекин.' },
+    { day:'Ден 10–11', text:'Великата стена; Нефритова фабрика; Олимпийски комплекс; Пекинска патица.' },
+    { day:'Ден 12–13', text:'Тянанмън, Забранен град, Традиционна медицина, Хутун.' },
+    { day:'Ден 14–15', text:'Храм на Небето, Летен дворец. Полет обратно.' },
+  ],
+  includes:['Самолетен билет Sofia–Shanghai–Beijing v.v.','11 нощи 4★ Jin Jiang Metropolo с закуска и 12 вечери','Всички входни такси','Скоростни влакове','Трансфери','Местни гидове и водач'],
+  excludes:['Факулт. (речен круиз, опера, 80 USD бакшиш)','Напитки при ядене','Лични разходи'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Jin Jiang Metropolo Hua Ting ★★★★', board:'Закуска + 12 вечери', price_bgn:4899, price_eur:2505, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-pekin-i-shankhay-1_1779365599669.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 39. Е715 — КИТАЙ, ХОН КОНГ И МАКАО
+// ══════════════════════════════════════════════════════════════
+{ id:39, refNum:'Е715',
+  title:'Китай, Хон Конг и Макао',
+  category:'exotic', tags:['culture','city','adventure'], destination:'Китай – Пекин / Сиан / Шанхай / Макао / Хон Конг', country:'china',
+  duration:'13 дни / 10 нощувки', days:13, nights:10,
+  price_bgn:4999, price_eur:2556,
+  dates:['2026-08-26','2026-09-02','2026-09-04','2026-09-11','2026-09-17','2026-10-10','2026-10-17','2026-10-27'],
+  next_date:'2026-08-26', transport:'plane',
+  description:'13 дни в Китай – Пекин (Великата стена, Забранен град), Сиан (Теракотена армия), Шаолин Monastery, Шанхай, пресичане до Макао и Хон Конг. 4★ хотели с водач.',
+  program:[
+    { day:'Ден 1–4', text:'Пекин: Великата стена, Тянанмън, Забранен град, Летен дворец, Хутун рикша.' },
+    { day:'Ден 5–6', text:'Сиан: Теракотена армия, Джамия, Дива Гъска Пагода; Лоян: Пещерите Лунмън.' },
+    { day:'Ден 7', text:'Шаолин Monastery с кунг фу; полет Шанхай.' },
+    { day:'Ден 8–10', text:'Шанхай: Джуцзяцяо воден град, Ю Градина, Бундът, Нанкин Рд.' },
+    { day:'Ден 11', text:'Полет Макао; тур; фери Хон Конг.' },
+    { day:'Ден 12', text:'Хон Конг: Виктория Пийк, Victoria Harbour. Полет за България.' },
+    { day:'Ден 13', text:'Пристигане в България.' },
+  ],
+  includes:['Turkish Airlines Sofia→Beijing; Hong Kong→Sofia (30 кг)','Вътрешни полети + влакове + фери Макао–ХК','10 нощи 4★ с закуски и 11 вечери','Всички входни такси','Водач с превод на български','Медицинска застраховка'],
+  excludes:['Хуангпу речен круиз (€48.58 факулт.)','Ориентал Пърл Тауър (€38.35)','Акробатично шоу (€56.24)','Шаолин Зен шоу (€58.80)','Бакшиши (€6/ден задължителни)','China виза'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Metropark Lido Beijing 4★ + Tian Central Park Xian 4★ + Shaolin International Dengfeng 4★ + Shaanxi Business Shanghai 4★ + Harbour Plaza 8 Degrees HK 4★', board:'Закуска + 11 вечери', price_bgn:4999, price_eur:2556, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-1._1777270516715.jpeg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 40. Е671 — КИТАЙ И ПЛАНИНИТЕ ОТ АВАТАР
+// ══════════════════════════════════════════════════════════════
+{ id:40, refNum:'Е671',
+  title:'Китай и Планините от Аватар – Джангдзяцзи',
+  category:'exotic', tags:['culture','nature','adventure'], destination:'Китай – Пекин / Джангдзяцзи / Шанхай', country:'china',
+  duration:'12 дни / 10 нощувки', days:12, nights:10,
+  price_bgn:5199, price_eur:2658,
+  dates:['2026-09-07','2026-09-20','2026-10-05'],
+  next_date:'2026-09-07', transport:'plane',
+  description:'Китай включително планините от „Аватар" в Джангдзяцзи – стъкленият мост над Гранд Каньона, асансьорът Байлонг, езерото Дъга и стъклената разходка на Тянмън Шан. Плюс Пекин и Шанхай.',
+  program:[
+    { day:'Ден 1–4', text:'Пекин: Тянанмън, Забранен град, Летен дворец, Великата стена, Олимпийски парк.' },
+    { day:'Ден 5–6', text:'Лоян: Пещерите Лунмън; Шаолин с кунг фу; влак Сиан.' },
+    { day:'Ден 7', text:'Сиан: Теракотена армия, Стенен корон, Дива Гъска, Полет Джангдзяцзи.' },
+    { day:'Ден 8', text:'Джангдзяцзи – Горски парк, Поток Злато, Асансьор Байлонг.' },
+    { day:'Ден 9', text:'Стъклен мост Гранд Каньон, Дъгово езеро.' },
+    { day:'Ден 10', text:'Тянмън Шан и стъклена разходка. Полет Шанхай.' },
+    { day:'Ден 11–12', text:'Шанхай: Ю Градина, Бундът, Нефритова Буда. Полет за България.' },
+  ],
+  includes:['Полети Sofia–Beijing/Shanghai v.v. (20 кг)','10 нощи хотели с закуска + 10 вечери + 9 обяда','Всички трансфери и влакове','Медицинска застраховка'],
+  excludes:['Факулт. (Золотна Маска Шоу 100 лв., Хуангпу круиз 99 лв.)','Бакшиши (80 USD)','Лични разходи'],
+  departures:['България (Летище)'],
+  hotels:[
+    { name:'Metro Lido Hotel Beijing ★★★★ + хотели по маршрута', board:'Закуска + 10 вечери', price_bgn:5199, price_eur:2658, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-pekin-i-shankhay-1_1779365599669.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 41. Е603 — КИТАЙ, ХОН КОНГ И МАКАО С ШАОЛИН – С ВОДАЧ
+// ══════════════════════════════════════════════════════════════
+{ id:41, refNum:'Е603',
+  title:'Екскурзия в Китай, Хон Конг и Макао с посещение на Шаолин – с водач от България',
+  category:'exotic', tags:['culture','city','adventure'], destination:'Китай – Пекин / Сиан / Шанхай / Хон Конг', country:'china',
+  duration:'11 дни / 8 нощувки', days:11, nights:8,
+  price_bgn:5611, price_eur:2869,
+  dates:['2026-10-02','2026-11-13','2027-03-11','2027-03-17','2027-03-20','2027-04-14'],
+  next_date:'2026-10-02', transport:'plane',
+  description:'11 дни в Китай с водач на български – Пекин (Тянанмън, Забранен град, Великата стена), Сиан (Теракотена армия), Шаолин Monastery, Шанхай, Макао и Хон Конг.',
+  program:[
+    { day:'Ден 1–3', text:'Полет до Пекин. Тянанмън, Забранен град, Летен дворец, Великата стена Джиншанлинг.' },
+    { day:'Ден 4', text:'Сиан: Теракотена армия, Мюсюлмански квартал.' },
+    { day:'Ден 5', text:'Шаолин Monastery, Пещерите Лунмън; влак Шанхай.' },
+    { day:'Ден 6–7', text:'Шанхай: Нефритова Буда, Ю Градина, Бундът.' },
+    { day:'Ден 8', text:'Свободно Шанхай.' },
+    { day:'Ден 9', text:'Фери Макао – Тук-Тук обиколка, А-Ма храм; фери Хон Конг.' },
+    { day:'Ден 10–11', text:'Хон Конг: Виктория Пийк, Aberdeen. Полет за Bulgaria.' },
+  ],
+  includes:['Turkish Airlines/Qatar Sofia→Beijing; HK→Sofia (30 кг)','Скоростни влакове','8 нощи 4★ с закуска + 5 вечери + 2 обяда','Всички входни такси','Водач от България','Медицинска застраховка (€30 000)'],
+  excludes:['Шанхай Тауър (139 лв. факулт.)','Жълта Рика круиз (139 лв.)','China виза','Бакшиши (5 USD/ден)'],
+  departures:['София (Летище Т2, 21:15)'],
+  hotels:[
+    { name:'Zhongle Six Star Beijing 4★ + Huiyuan Jinjiang Xian 4★ + Vienna Classic Luoyang 4★ + Shanghai Baolong 4★ + Harbour Plaza HK 4★', board:'Закуска + 5 вечери', price_bgn:5611, price_eur:2869, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-kitay-kitay-honkong-i-makao-s-poseshtenie--1_1765963569603.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 42. Е457 — КИТАЙ И ЮЖНА КОРЕЯ
+// ══════════════════════════════════════════════════════════════
+{ id:42, refNum:'Е457',
+  title:'Китай и Южна Корея – Величие и традиции',
+  category:'exotic', tags:['culture','city'], destination:'Китай / Южна Корея', country:'china',
+  duration:'13 дни / 10 нощувки', days:13, nights:10,
+  price_bgn:6499, price_eur:3323,
+  dates:['2026-11-04'],
+  next_date:'2026-11-04', transport:'plane',
+  description:'Китай и Южна Корея в едно пътешествие – Пекин с Великата стена, Сеул, исторически Андон и Кьонджу, пристанищен Бусан.',
+  program:[
+    { day:'Ден 1–5', text:'Полет до Пекин. Летен дворец, Уангфуджинг улица; Забранен град и Храм на Небето; Великата стена, Цяньмен.' },
+    { day:'Ден 6', text:'Полет до Сеул.' },
+    { day:'Ден 7–8', text:'Сеул (факулт. дворци); Гинсенгови пазари, ханок село Андон.' },
+    { day:'Ден 9', text:'Гробниците Тумули и Чхомсонгде в Кьонджу; Бусан.' },
+    { day:'Ден 10', text:'Бусан – рибни пазари и крайбрежна алея.' },
+    { day:'Ден 11–13', text:'Влак обратно Сеул. Факулт. Гангнам; обратен полет.' },
+  ],
+  includes:['Самолетен билет + летищни такси (23 кг + 7 кг)','10 нощи 4★ хотели с закуска','Водач на български','Медицинска застраховка'],
+  excludes:['Единична стая (1499 лв.)','Пакет факулт. (1049–1699 лв.)','Визови такси'],
+  departures:['България (Летище)'],
+  hotels:[
+    { name:'Jinglun Hotel Beijing 4★ + IBIS Style Seoul 4★ + Commodore Gyeongju 4★ + Avani Central Busan 4★', board:'Закуска', price_bgn:6499, price_eur:3323, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-i-yuzhna-koreya-%E2%80%93-velichie-i-traditsii-1_1747223251457.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 43. Е540 — КИТАЙ – ТАЙНИТЕ НА ИЗТОКА + ШАОЛИН
+// ══════════════════════════════════════════════════════════════
+{ id:43, refNum:'Е540',
+  title:'Екскурзия в Китай – тайните на Изтока с посещение на Шаолин',
+  category:'exotic', tags:['culture','nature','adventure'], destination:'Китай – Чънду / Сиан / Пекин / Шанхай / Хон Конг', country:'china',
+  duration:'15 дни / 12 нощувки', days:15, nights:12,
+  price_bgn:6628, price_eur:3389,
+  dates:['2026-10-18'],
+  next_date:'2026-10-18', transport:'plane',
+  description:'15 дни в Китай – Великата стена, Шаолин Monastery, Теракотената армия, Чайна плантация Ханджоу, Шанхай, Макао и Хон Конг. Qatar Airways, 4★ хотели, пълна програма с водач.',
+  program:[
+    { day:'Ден 1–4', text:'Полет до Пекин. Великата стена Джиншанлинг, Летен дворец, Тянанмън, Забранен град.' },
+    { day:'Ден 5–6', text:'Сиан: Теракотена армия, Дива Гъска Пагода, Стени; Лоян: Пещерите Лунмън.' },
+    { day:'Ден 7–8', text:'Шаолин Monastery с кабинков лифт; Ханджоу: чайна плантация, езерото Уест, Линин Храм.' },
+    { day:'Ден 9–10', text:'Сучжоу: каналите и Градина Мрежа Мастер; Шанхай: Ю Градина, Нефритова Буда, Бундът.' },
+    { day:'Ден 11–12', text:'Шанхай: Исторически музей, Синтянди, Тянцзифанг арт квартал.' },
+    { day:'Ден 13', text:'Полет Макао – тур, А-Ма Храм, Венецианско Казино; фери Хон Конг.' },
+    { day:'Ден 14–15', text:'Хон Конг: Виктория Пийк, Aberdeen. Полет за България.' },
+  ],
+  includes:['Turkish/Qatar Airlines Sofia→Beijing; HK→Sofia (30 кг)','Скоростни влакове','12 нощи 4★ с закуски + вечери','Всички входни такси','Медицинска застраховка (€30 000)','Водач'],
+  excludes:['China виза (задължителна)','Бакшиши (3–5 USD/ден)','Факулт. Шанхай Тауър и вечерни круизи','Лични разходи'],
+  departures:['България (Летище)'],
+  hotels:[
+    { name:'Zhongle Six Star Beijing 4★ + Yohol Xian 4★ + Dengfeng Guan Song Shan 4★ + Merchant Marco Hangzhou 4★ + UrCove by Hyatt Shanghai 4★ + Harbour Plaza HK 4★', board:'Закуска + вечери', price_bgn:6628, price_eur:3389, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-kitay-%E2%80%93-taynite-na-iztoka-s-poseshtenie--1_1777270657540.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 44. Е637 — НАЙ-ДОБРОТО ОТ КОЛУМБИЯ
+// ══════════════════════════════════════════════════════════════
+{ id:44, refNum:'Е637',
+  title:'Най-доброто от Колумбия с водач от България',
+  category:'exotic', tags:['culture','nature','adventure'], destination:'Колумбия – Богота / Меделин / Картахена', country:'colombia',
+  duration:'12 дни / 9 нощувки', days:12, nights:9,
+  price_bgn:5083, price_eur:2599,
+  dates:['2026-12-09','2027-01-06'],
+  next_date:'2026-12-09', transport:'plane',
+  description:'Колумбия – Солената катедрала в Сипакира, Богота, Меделин с музея Ботеро, Санта Марта, приказният Национален парк Тайрона и укрепеният Картахена с круиз до архипелага Росарио.',
+  program:[
+    { day:'Ден 1–2', text:'Полет Sofia→Istanbul→Bogota. Трансфер и настаняване.' },
+    { day:'Ден 3', text:'Солена катедрала Сипакира и историческия център на Богота.' },
+    { day:'Ден 4', text:'Полет до Меделин. Обиколка на града и Музей Ботеро.' },
+    { day:'Ден 5', text:'Факулт. Ел Пенол скала в Гуатапе.' },
+    { day:'Ден 6', text:'Целодневна екскурзия из Плодородната долина на Антиокия.' },
+    { day:'Ден 7', text:'Полет до Санта Марта. Колониален квартал.' },
+    { day:'Ден 8', text:'Факулт. Национален парк Тайрона с плажове.' },
+    { day:'Ден 9', text:'Преместване с кола до Картахена. Укреплението и Стария град.' },
+    { day:'Ден 10', text:'Лодъчна екскурзия до Архипелага Росарио с плаж.' },
+    { day:'Ден 11', text:'Трансфер до Богота; вечерен полет.' },
+    { day:'Ден 12', text:'Пристигане в България.' },
+  ],
+  includes:['Полети + вътрешни полети','9 нощи 4★ хотели с закуска','Транспорт и обиколки','Медицинска застраховка (€30 000)','Водач на български'],
+  excludes:['Ел Пенол такса','Таирона парк','Лични разходи','Бакшиши (3–5 USD/ден)'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'4★ хотели Богота (2н), Меделин (3н), Санта Марта (2н), Картахена (2н)', board:'Закуска', price_bgn:5083, price_eur:2599, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_nay-dobroto-ot-kolumbiya-grupov-tur-s-vodach-ot-balgar-1_1765982679637.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 45. Е678 — ШРИ ЛАНКА – ОСТРОВЪТ НА ПОДПРАВКИТЕ
+// ══════════════════════════════════════════════════════════════
+{ id:45, refNum:'Е678',
+  title:'Шри Ланка – Островът на подправките',
+  category:'exotic', tags:['culture','nature','beach'], destination:'Шри Ланка', country:'srilanka',
+  duration:'12 дни / 10 нощувки', days:12, nights:10,
+  price_bgn:4264, price_eur:2180,
+  dates:['2026-10-18','2026-10-30','2026-11-08','2026-11-14','2026-11-20','2026-11-26'],
+  next_date:'2026-10-18', transport:'plane',
+  description:'Шри Ланка – 8 UNESCO обекта, 1330 км девствени плажове и 15 национални парка! Слонски приют, сафари Минерия, скалата Сигирия, Свещеният зъб в Канди, чайени плантации и 5 нощи релакс на Бентота.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Коломбо. Слонски приют Пинауела, Национален парк Минерия сафари, Дамбула.' },
+    { day:'Ден 3', text:'Сигирия скала (UNESCO), Златен Храм Дамбула, плантация за подправки, танцово шоу Канди.' },
+    { day:'Ден 4', text:'Храм на Свещения Зъб Канди, Ботаническа градина.' },
+    { day:'Ден 5', text:'Батик фабрика, Амбулувауа Тауър, водопад Рамбода, чайена плантация → Нувара Елия.' },
+    { day:'Ден 6', text:'Нувара Елия; влак Ела → Бентота.' },
+    { day:'Ден 7–9', text:'Бентота – свободни плажни дни. Факулт. Гале форт, китолов, делфини.' },
+    { day:'Ден 10', text:'Речен круиз Маду, канелени ферми, костенурчна ферма.' },
+    { day:'Ден 11', text:'Коломбо панорамна обиколка. Вечеря.' },
+    { day:'Ден 12', text:'Ранно отпътуване. Пристигане в България.' },
+  ],
+  includes:['Полети Sofia–Colombo (23 кг + 8 кг)','10 нощи 4★ хотели с закуска и вечеря','3-часов влак Нувара–Ела','Слонски приют, сафари Минерия, Сигирия, Храм Свещен Зъб','Речен круиз, костенурчна ферма','Медицинска застраховка (€15 000)','Водач'],
+  excludes:['Виза Шри Ланка (~€66.47)','Факулт. Гале форт (€25), Китолов (€85)','Бакшиши (~€4.35/ден)'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Sigiriyana Resort Dambulla 4★ + Thilanka Hotel Kandy 4★ + Araliya Hills Nuwara 4★ + Ekho Surf Beach Resort Bentota 4★ + Granbell Hotel Colombo 4★', board:'Закуска + вечеря', price_bgn:4264, price_eur:2180, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-shri-lanka-%E2%80%93-ostrovat-na-podpravkite-1_1772615727678.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 46. Е721 — ШРИ ЛАНКА И МАЛДИВИ
+// ══════════════════════════════════════════════════════════════
+{ id:46, refNum:'Е721',
+  title:'Шри Ланка и Малдиви – Перлите на Индийския океан',
+  category:'exotic', tags:['culture','beach','nature'], destination:'Шри Ланка / Малдиви', country:'srilanka',
+  duration:'10 дни / 8 нощувки', days:10, nights:8,
+  price_bgn:5914, price_eur:3024,
+  dates:['2026-10-17','2026-11-17'],
+  next_date:'2026-10-17', transport:'plane',
+  description:'Двойна екзотика – 4 дни обиколка на Шри Ланка (Слонски приют, Сигирия, Ангкор Ват, Канди) и 4 дни релакс на Малдивите на All Inclusive курорт Adaaran Club Rannalhi.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Коломбо. Слонски приют Пинауела; Дамбула.' },
+    { day:'Ден 3', text:'Пещерен храм Дамбула, Сигирия скала, Полонарува.' },
+    { day:'Ден 4', text:'Плантация Матале, езерото и Храмът на Зъба Канди.' },
+    { day:'Ден 5', text:'Коломбо панорамна обиколка. Полет до Малдиви; трансфер.' },
+    { day:'Ден 6–9', text:'Малдиви – 4 свободни дни в Adaaran Club Rannalhi, Half Board.' },
+    { day:'Ден 10', text:'Отплуване; полет за България.' },
+  ],
+  includes:['Полети + трансфери','4 нощи Шри Ланка хотели с закуска и вечеря','4 нощи Малдиви Half Board','Входни такси и обиколки','Медицинска застраховка'],
+  excludes:['Шри Ланка виза (~50 USD)','Лични разходи','Такса камера','Бакшиши (€45/ден)'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Sigiriyana Resort + Thilanka Kandy + Fairway Colombo (Шри Ланка) + Adaaran Club Rannalhi / Holiday Inn Kandooma (Малдиви)', board:'Закуска + вечеря / Half Board', price_bgn:5914, price_eur:3024, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_1_1778134424721.png' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 47. Е431 — ЯПОНИЯ – ТОКИО, ФУДЖИ, КИОТО, ОСАКА
+// ══════════════════════════════════════════════════════════════
+{ id:47, refNum:'Е431',
+  title:'Екскурзия в Япония – Токио, Фуджи, Киото, Осака',
+  category:'exotic', tags:['culture','city','nature'], destination:'Япония – Токио / Киото / Осака', country:'japan',
+  duration:'10 дни / 8 нощувки', days:10, nights:8,
+  price_bgn:7821, price_eur:3999,
+  dates:['2026-09-04','2026-10-11'],
+  next_date:'2026-09-04', transport:'plane',
+  description:'Съкровищата на Япония – Токио (Мейджи Шрайн, Сенсо-джи, Скайтри), Хаконе с вулканичния Овакудани и лодка на езерото Аши, Киото (Кинкаку-джи, чаена церемония), Нара и Осака.',
+  program:[
+    { day:'Ден 1–2', text:'Полет Sofia→Istanbul→Tokyo. Настаняване.' },
+    { day:'Ден 3', text:'Токио: Мейджи Шрайн, Харадджуку, Сенсо-джи, Гинза.' },
+    { day:'Ден 4', text:'Хаконе: лодка Аши, Овакудани рожена линия, музей скулптури.' },
+    { day:'Ден 5', text:'Свободно в Токио или факулт. Никко (Чузенджи, Тошогу).' },
+    { day:'Ден 6', text:'Шинкансен до Киото. Кинкаку-джи, чаена церемония.' },
+    { day:'Ден 7', text:'Нара: Фушими Инари, Тодай-джи, елени.' },
+    { day:'Ден 8', text:'Осака: Умеда Скай, Осака Замък, Пазар Куромон.' },
+    { day:'Ден 9–10', text:'Вечерен полет Osaka→Istanbul→Sofia. Пристигане.' },
+  ],
+  includes:['Turkish Airlines Sofia→Tokyo, Osaka→Sofia','8 нощи 4★ хотели с закуска','Шинкансен Токио–Киото','Обиколка Хаконе','Всички входни такси и трансфери','Чаена церемония','Медицинска застраховка (€30 000)','Водач на български'],
+  excludes:['Напитки при ядене','Бакшиши (5 USD/ден)','Наушници (задължителни)','Факулт. (Никко, Токио Скайтри)'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'4★ хотели Токио (3н) + Киото (3н) + Осака (2н)', board:'Закуска', price_bgn:7821, price_eur:3999, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-yaponiya-tokio-fudzhi-kioto-osaka-sakrovis-1_1755585497431.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 48. Е525 — ЯПОНИЯ ПО ВРЕМЕТО НА ЦЪФТЕЖА НА ВИШНИТЕ
+// ══════════════════════════════════════════════════════════════
+{ id:48, refNum:'Е525',
+  title:'Величието на Япония по време на цъфтежа на вишните',
+  category:'exotic', tags:['culture','nature','city'], destination:'Япония – Токио / Фудзи / Киото / Осака', country:'japan',
+  duration:'12 дни / 9 нощувки', days:12, nights:9,
+  price_bgn:7430, price_eur:3799,
+  dates:['2027-03-17','2027-03-25','2027-03-31'],
+  next_date:'2027-03-17', transport:'plane',
+  description:'Япония в сезона на цъфтежа на вишните – Токио, Йокохама, Камакура, планината Фуджи, Матсумото, Такаяма, UNESCO Широкауа-го, Канадзауа, Киото с Золотния павилион, Нара и Осака.',
+  program:[
+    { day:'Ден 1–3', text:'Полет до Токио. Имперски дворец, Токио Тауър, Шибуя Кросинг, Йокохама.' },
+    { day:'Ден 4–5', text:'Камакура храмове; Кауагучико СПА курорт; Фудзи 5-та станция, Матсумото замък.' },
+    { day:'Ден 6', text:'Такаяма сутрешен пазар, UNESCO Широкауа-го, Канадзауа.' },
+    { day:'Ден 7', text:'Самурайски квартал, Традиционни градини, Киото.' },
+    { day:'Ден 8', text:'Золотен Павилион, Каменна Градина, Замък, Чаена церемония, Гион.' },
+    { day:'Ден 9', text:'Нара (Буда статуя, Тодай-джи); Киото храмови комплекси.' },
+    { day:'Ден 10', text:'Осака замък, Небостъргач, Традиционни пазари.' },
+    { day:'Ден 11–12', text:'Шинкансен Токио. Одайба остров. Полет за България.' },
+  ],
+  includes:['Самолетни билети Sofia→Tokyo v.v. с летищни такси + ръчен багаж','9 нощи 3★ хотели с закуска','Шинкансен Киото–Токио','Трансфери','Водач и входни такси'],
+  excludes:['Метро билети','Медицинска застраховка','Лични разходи','Напитки'],
+  departures:['България (Летище)'],
+  hotels:[
+    { name:'Sunshine City Prince Tokyo + Just One Fuji + Alpico Plaza Matsumoto + T Mark City Kanazawa + Urban Hotel Kyoto + Plaza Osaka (3★)', board:'Закуска', price_bgn:7430, price_eur:3799, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_velichieto-na-yaponiya-po-vreme-na-tsaftezha-na-vishnit-1_1756892680525.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 49. Е587 — ЯПОНИЯ И СЕУЛ
+// ══════════════════════════════════════════════════════════════
+{ id:49, refNum:'Е587',
+  title:'Япония и Сеул',
+  category:'exotic', tags:['culture','city','nature'], destination:'Япония / Южна Корея', country:'japan',
+  duration:'15 дни / 12 нощувки', days:15, nights:12,
+  price_bgn:8686, price_eur:4441,
+  dates:['2026-08-25','2026-08-28','2026-09-20','2026-10-19'],
+  next_date:'2026-08-25', transport:'plane',
+  description:'Япония и Южна Корея в едно пътешествие – Токио (5 дни), Шинкансен до Киото, Нара, Осака и Сеул с 3 дни за дворци, DMZ и современни квартали.',
+  program:[
+    { day:'Ден 1–4', text:'Полет до Токио. Парламент, Имперски дворец, Асакуса, Рибен пазар, Одайба, Шибуя.' },
+    { day:'Ден 5', text:'Никко; трансфер Йокохама.' },
+    { day:'Ден 6', text:'Камакура Буда; Йокохама.' },
+    { day:'Ден 7', text:'Аши езеро круиз, Фуджи; Шинкансен Киото.' },
+    { day:'Ден 8', text:'Риоандзи, Кинкакуджи, Нидзо Замък.' },
+    { day:'Ден 9', text:'Свободно или Арашияма бамбукова гора.' },
+    { day:'Ден 10', text:'Нара Буда; Осака Замък, Умеда Скай.' },
+    { day:'Ден 11', text:'Полет Осака→Сеул.' },
+    { day:'Ден 12', text:'Сеул: Дворец Кьонбокгунг и Инсадонг.' },
+    { day:'Ден 13', text:'Факулт. Демилитаризирана зона (DMZ).' },
+    { day:'Ден 14', text:'Н Сеул Кула; пазаруване.' },
+    { day:'Ден 15', text:'Полет Seoul→Istanbul→Sofia.' },
+  ],
+  includes:['Turkish Airlines (23 кг)','12 нощи 3-4★ хотели с 12 закуски','Шинкансен','Трансфери и входни такси'],
+  excludes:['Метро билети','Медицинска застраховка','Факулт. Скайтри, чаена церемония, DMZ'],
+  departures:['София (Летище Т2, 19:40)'],
+  hotels:[
+    { name:'3-4★ хотели: Токио (3н), Йокохама (2н), Киото (3н), Осака (1н), Сеул (3н)', board:'Закуска', price_bgn:8686, price_eur:4441, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_yaponiya-i-seul-1_1765901041587.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 50. Е639 — ЯПОНИЯ И ЮЖНА КОРЕЯ
+// ══════════════════════════════════════════════════════════════
+{ id:50, refNum:'Е639',
+  title:'Япония и Южна Корея – Истинско очарование',
+  category:'exotic', tags:['culture','city','nature'], destination:'Япония / Южна Корея – Сеул / Осака / Токио', country:'japan',
+  duration:'15 дни / 13 нощувки', days:15, nights:13,
+  price_bgn:8586, price_eur:4390,
+  dates:['2026-08-27','2026-09-03','2026-09-16','2026-09-29','2026-10-18','2026-10-29'],
+  next_date:'2026-08-27', transport:'plane',
+  description:'Сеул и Япония – 2 дни Сеул, Бусан с Гамчон, Хаедонг Йонгунгса Храм, после Осака, Киото (Кийомизу-дера, Инари, Гион), Химѐджи Замък и Токио за 15 дни.',
+  program:[
+    { day:'Ден 1–2', text:'Полет до Сеул. Майонгдонг улица.' },
+    { day:'Ден 3', text:'Гуанхуамун, Дворец Кьонбокгунг, Инсадонг, Сеул Н Тауър.' },
+    { day:'Ден 4', text:'Чангдеокгунг; Гангнам; Бонгеунса; влак до Бусан.' },
+    { day:'Ден 5', text:'Таедзонгдае, Скайуок, Рибен пазар Джагалчи, Гамчон.' },
+    { day:'Ден 6', text:'Хаедонг Йонгунгса Храм; полет до Осака.' },
+    { day:'Ден 7', text:'Замъкът Химеджи; Кобе пристанищен град.' },
+    { day:'Ден 8', text:'Осака Замък, Умеда Скай; Нара Тодай-джи; Киото вечер.' },
+    { day:'Ден 9', text:'Кийомизу-дера, Сребърен Павилион, Философска алея, Гион, Фушими Инари.' },
+    { day:'Ден 10', text:'Свободно или факулт. Гейша шоу + традиционен обяд.' },
+    { day:'Ден 11', text:'Нидзо Замък, Кинкаку-джи (Золотен Павилион), Бамбукова гора; Шинкансен Токио.' },
+    { day:'Ден 12', text:'Имперски дворец, Цукиджи, Сенсо-джи, Акихабара.' },
+    { day:'Ден 13', text:'Мейджи Шрайн, Харадджуку, Шибуя, Шинджуку.' },
+    { day:'Ден 14', text:'Одайба; Йокохама.' },
+    { day:'Ден 15', text:'Полет Tokyo→Sofia.' },
+  ],
+  includes:['Полети Seoul→Osaka, Tokyo→Sofia','Шинкансен Киото–Токио','13 нощи с закуска','Всички входни такси','Медицинска застраховка (€30 000)','Водач на български'],
+  excludes:['Метро билети','KETA виза Южна Корея (20 лв.)','Напитки','Лични разходи'],
+  departures:['България (Летище)'],
+  hotels:[
+    { name:'4★ хотели: Сеул (2н) + Бусан (2н) + Осака (2н) + Киото (3н) + Токио (4н)', board:'Закуска', price_bgn:8586, price_eur:4390, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-yaponiya-i-yuzhna-koreya-istinsko-ocharovani-1_1767542054639.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 51. Е430 — ЮЖНА КОРЕЯ И ЯПОНИЯ – ОТ СЕУЛ ДО ТОКИО
+// ══════════════════════════════════════════════════════════════
+{ id:51, refNum:'Е430',
+  title:'Южна Корея и Япония – от Сеул до Токио',
+  category:'exotic', tags:['culture','city','nature'], destination:'Южна Корея / Япония', country:'japan',
+  duration:'15 дни / 12 нощувки', days:15, nights:12,
+  price_bgn:8956, price_eur:4579,
+  dates:['2026-10-19'],
+  next_date:'2026-10-19', transport:'plane',
+  description:'Сеул, Бусан, Осака, Киото, Фуджи и Токио за 15 дни – DMZ тур, Ангкор Ват, Булгукса Храм, Гион квартал, Шинкансен и Скайтри. Turkish Airlines, 4★ хотели, 12 нощи.',
+  program:[
+    { day:'Ден 1–4', text:'Полет до Сеул. Дворец Кьонбокгунг, Инсадонг, DMZ, Джагалчи Бусан, Гамчон.' },
+    { day:'Ден 5–6', text:'Хандонг Йонгунгса, Булгукса Храм, Тумули; полет Осака.' },
+    { day:'Ден 7', text:'Шинсайбаши, Дотонбори.' },
+    { day:'Ден 8–9', text:'Тодайджи и Нара; Осака Замък. Фушими Инари, Кийомизу Храм, чаена церемония, Гион.' },
+    { day:'Ден 10', text:'Арашияма бамбукова гора, Миями тракционно село.' },
+    { day:'Ден 11', text:'Хаконе, Шинкансен Токио, Фудзи 5-та Станция, Ошино.' },
+    { day:'Ден 12', text:'Овакудани; Токио Скайтри.' },
+    { day:'Ден 13', text:'Имперски дворец, Асакуса Сенсо-джи, Накамисе.' },
+    { day:'Ден 14', text:'Свободно Токио. Вечерен полет.' },
+    { day:'Ден 15', text:'Пристигане в България.' },
+  ],
+  includes:['Turkish Airlines Sofia→Seoul; Busan→Osaka; Tokyo→Sofia (30 кг)','12 нощи 4★ с закуска','2 обяда Корея, 5 обяда + 2 вечери Япония','Шинкансен','Медицинска застраховка (€30 000)'],
+  excludes:['Бакшиши (5 USD/ден задължителни)','Напитки','Лични разходи','Факулт. дейности'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'4★ хотели Сеул, Бусан, Осака, Киото, Токио', board:'Закуска', price_bgn:8956, price_eur:4579, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-yuzhna-koreya-i-yaponiya-ot-seul-do-tokio--1_1742210591430.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 52. Е673 — ГРУЗИЯ – ТБИЛИСИ И ЮЖЕН КАВКАЗ
+// ══════════════════════════════════════════════════════════════
+{ id:52, refNum:'Е673',
+  title:'Екскурзия в Грузия – Тбилиси и очарованието на Южен Кавказ',
+  category:'exotic', tags:['culture','nature'], destination:'Грузия – Тбилиси', country:'georgia',
+  duration:'5 дни / 4 нощувки', days:5, nights:4,
+  price_bgn:2052, price_eur:1049,
+  dates:['2026-07-08','2026-08-05','2026-09-02','2026-10-07'],
+  next_date:'2026-07-08', transport:'plane',
+  description:'5 дни в Тбилиси – обиколка на Стария град с крепостта Нарикала, Сиони и Метехи. Факултативни екскурзии до Казбеги с Гергети Троица Църква и Мцхета (UNESCO) с пещерния град Уплисцихе.',
+  program:[
+    { day:'Ден 1', text:'Полет Sofia→Istanbul→Tbilisi. Настаняване в Coste Hotel 4★.' },
+    { day:'Ден 2', text:'Обиколка Тбилиси: Метехи, Сиони, Нарикала, Стар град.' },
+    { day:'Ден 3', text:'Свободно или факулт. Казбеги – крепост Ананури, Гергети Троица (€120).' },
+    { day:'Ден 4', text:'Свободно или факулт. Джвари Monastery, Мцхета (UNESCO), Уплисцихе (€115).' },
+    { day:'Ден 5', text:'Обратен полет Tbilisi→Istanbul→Sofia.' },
+  ],
+  includes:['Turkish Airlines Sofia–Tbilisi v.v. (23 кг + 8 кг)','4 нощи Coste Hotel 4★ с закуска','Трансфери летище–хотел–летище','Местен гид Тбилиси','Медицинска застраховка (€15 000)','Водач (мин. 15 туристи)'],
+  excludes:['Факулт. Казбеги (€120)','Факулт. Мцхета/Уплисцихе (€115)','Вечеря с шоу (€55)','Входни такси','Лични разходи'],
+  departures:['София (Летище Т2)'],
+  hotels:[
+    { name:'Coste Hotel ★★★★ (или подобен)', board:'Закуска', price_bgn:2052, price_eur:1049, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-gruziya-tbilisi-i-ocharovanieto-na-yuzhen--1_1772444629673.jpg' },
+  ],
+  featured:false },
+
+// ══════════════════════════════════════════════════════════════
+// 53. П1102 — ГРУЗИЯ И АРМЕНИЯ – КАВКАЗКИТЕ СЪКРОВИЩА (4★)
+// ══════════════════════════════════════════════════════════════
+{ id:53, refNum:'П1102',
+  title:'Грузия и Армения – Пътешествие из Кавказките съкровища (хотели 4★)',
+  category:'exotic', tags:['culture','nature'], destination:'Грузия / Армения', country:'georgia',
+  duration:'8 дни / 7 нощувки', days:8, nights:7,
+  price_bgn:2299, price_eur:1175,
+  dates:['2026-06-17','2026-07-01','2026-09-02','2026-09-16'],
+  next_date:'2026-06-17', transport:'plane',
+  description:'Грузия и Армения с 4★ хотели – Тбилиси, Мцхета (UNESCO), Уплисцихе, лозарска Кахетия, Ереван, Гарни, Гегард и езерото Севан. Майсторски класове за лаваш и долма с директен полет.',
+  program:[
+    { day:'Ден 1', text:'Директен полет Sofia→Tbilisi. Настаняване.' },
+    { day:'Ден 2', text:'Пешеходна обиколка Тбилиси – Нарикала, Стар Град.' },
+    { day:'Ден 3', text:'Мцхета (UNESCO) с Джвари и Светицховели; пещерен град Уплисцихе.' },
+    { day:'Ден 4', text:'Лозарска Кахетия – занаятчийско село, Чурчхела, дегустация вино.' },
+    { day:'Ден 5', text:'Граничен преход; Ереван – пл. „Република", пазари.' },
+    { day:'Ден 6', text:'Гарни (I в.), работилница за лаваш, Гегард (XIII в., UNESCO).' },
+    { day:'Ден 7', text:'Езерото Севан, майсторски клас за долма, Дилижан.' },
+    { day:'Ден 8', text:'Закуска; полет обратно за София.' },
+  ],
+  includes:['Директен полет с летищни такси Sofia–Tbilisi v.v.','7 нощи 4★ хотели в Тбилиси и Ереван с закуска','Хранения по програмата','Майсторски класове (лаваш, долма)','Транспорт и входни такси','Медицинска застраховка','Водач на български'],
+  excludes:['Факулт. дестилерия коняк','Вечери с фолклорна музика (€25–30)','Доплащане за места в самолета','Такса гориво'],
+  departures:['София (Летище)'],
+  hotels:[
+    { name:'4★ хотел Тбилиси + 4★ хотел Ереван', board:'Закуска', price_bgn:2299, price_eur:1175, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_gruziya-i-armeniya%E2%80%93pateshestvie-iz-kavkazkite-sakro-1_17724462331102.jpg' },
   ],
   featured:false },
 
