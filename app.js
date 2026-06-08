@@ -73,15 +73,32 @@ function getCurrentCustomer() {
 
 function updateNavbarAuth() {
   const customer = getCurrentCustomer();
+
+  // Desktop navbar button
   const btn = document.getElementById('customerAuthBtn');
-  if (!btn) return;
-  if (customer) {
-    btn.textContent = `👤 ${customer.name}`;
-    btn.onclick = logoutCustomer;
-    btn.title = 'Кликнете за изход';
-  } else {
-    btn.textContent = '👤 Вход / Регистрация';
-    btn.onclick = openAuthModal;
+  if (btn) {
+    if (customer) {
+      btn.textContent = `👤 ${customer.name}`;
+      btn.onclick = logoutCustomer;
+      btn.title = 'Кликнете за изход';
+    } else {
+      btn.textContent = '👤 Вход / Регистрация';
+      btn.onclick = openAuthModal;
+    }
+  }
+
+  // Mobile menu button
+  const mobileBtn = document.getElementById('mobileAuthBtn');
+  if (mobileBtn) {
+    if (customer) {
+      mobileBtn.textContent = `👤 ${customer.name} — Изход`;
+      mobileBtn.classList.add('logged-in');
+      mobileBtn.onclick = () => { toggleMobileMenu(); logoutCustomer(); };
+    } else {
+      mobileBtn.textContent = '👤 Вход / Регистрация';
+      mobileBtn.classList.remove('logged-in');
+      mobileBtn.onclick = () => { toggleMobileMenu(); openAuthModal(); };
+    }
   }
 }
 

@@ -1360,6 +1360,32 @@ footer {
   transition: color var(--transition);
 }
 .mobile-menu a:hover { color: var(--gold); }
+.mobile-menu-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.12);
+  margin: 8px 0;
+}
+.mobile-auth-btn {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px;
+  background: var(--gold);
+  color: var(--dark) !important;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.2s;
+}
+.mobile-auth-btn:hover { opacity: 0.88; }
+.mobile-auth-btn.logged-in {
+  background: rgba(255,255,255,0.12);
+  color: #fff !important;
+  border: 1.5px solid rgba(255,255,255,0.25);
+}
 
 /* ===== CONTINENT MAP ===== */
 .continent-section {
