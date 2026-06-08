@@ -166,6 +166,13 @@ const OFFER_IMAGES = {
   163: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-tunis-sas-samolet-ot-sofiya-v-chetvartak-7-n-1_1744379338532.jpg',
   164: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-o-v-dzherba-tunis-sas-samolet-ot-sofiya-v-s-1_1744379317724.jpg',
   165: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekskluzivni-otstapki-pochivka-na-odzherba-tunis-sas-sam-1_17781411751142.jpg',
+  166: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_luksozna-pochivka-v-albaniya-2023-1_1682328444554.jpg',
+  167: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-maldivite-esen-1_1774601975906.jpg',
+  168: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-v-puket-tayland-s-redoven-polet-7-noshtuvki-1_17707182591085.jpg',
+  169: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_maroko%E2%80%93tsvetove-aromati-i-priklyucheniya-7-noshtuvk-1_17790848221144.jpg',
+  170: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_imperskite-stolitsi-byudzheten-variant-ot-marakesh-do-f-1_17799616831155.jpg',
+  171: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_maroko-ot-a-do-ya-ot-fes-do-marakesh-hoteli-3-4-0910--1_17799617231156.jpg',
+  172: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_imperskite-stolitsi-byudzheten-variant-ot-fes-do-marake-1_17799618221157.jpg',
 };
 
 // Number of gallery images per offer (cover counts as #1). Used to derive
