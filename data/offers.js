@@ -354,7 +354,7 @@ const OFFERS = [
   excludes:['Американска виза (185 USD)','Пакет факулт. екскурзии (599 лв.)','Единична стая (1549 лв.)','Лични разходи'],
   departures:['Лос Анджелис (чартър или редовен)'],
   hotels:[
-    { name:'3★ хотели по маршрута (Супър 8, Дейс Ин, Тропикана)', board:'Закуска', price_bgn:5799, price_eur:2965, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_sasht%E2%80%93zapaden-bryag-1_1740054319404.jpg' },
+    { name:'3★ хотели по маршрута (Супър 8, Дейс Ин, Тропикана)', board:'Закуска', price_bgn:5799, price_eur:2965, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_sasht-%E2%80%93-zapaden-bryag-1_1740054319404.jpg' },
   ],
   featured:false },
 
@@ -579,6 +579,13 @@ const OFFERS = [
   departures:['София (Летище Т2)'],
   hotels:[
     { name:'Olkinyei Mara Camp + Lake Naivasha Simba Lodge + Praro Amboseli Lodge (пакет)', board:'Пълен пансион', price_bgn:7765, price_eur:3970, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_keniya-divoto-sartse-na-afrika-1_1779781866733.png' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_keniya-divoto-sartse-na-afrika-1_1779781866733.png',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_keniya-divoto-sartse-na-afrika-2_1779781866733.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_keniya-divoto-sartse-na-afrika-3_1779781866733.png',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_keniya-divoto-sartse-na-afrika-4_1779781866733.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_keniya-divoto-sartse-na-afrika-5_1779781866733.jpg',
   ],
   featured:false },
 
@@ -962,7 +969,7 @@ const OFFERS = [
   excludes:['Vietnam виза (€40)','Бакшиши','Лични разходи','Факулт. екскурзии'],
   departures:['София (Летище Т2)'],
   hotels:[
-    { name:'Silk Path Hanoi 4★ + Paradise Elegance Cruise 5★ + Belle Maison Hadana 4★ + Palace Hotel Saigon 4★ + Novotel Phu Quoc 5★', board:'Закуска', price_bgn:7021, price_eur:3590, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_vietnam-%E2%80%93-zlatniyat-most-kruiz-v-ha-long-bey-hanoy-ho-1_1772615892681.jpg' },
+    { name:'Silk Path Hanoi 4★ + Paradise Elegance Cruise 5★ + Belle Maison Hadana 4★ + Palace Hotel Saigon 4★ + Novotel Phu Quoc 5★', board:'Закуска', price_bgn:7021, price_eur:3590, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_vietnam%E2%80%93-zlatniyat-most-kruiz-v-ha-long-bey-hanoy-ho-1_1772615892681.jpg' },
   ],
   featured:false },
 
@@ -1248,6 +1255,17 @@ const OFFERS = [
   departures:['София (Летище Т2)'],
   hotels:[
     { name:'Metropark Lido Beijing 4★ + Tian Central Park Xian 4★ + Shaolin International Dengfeng 4★ + Shaanxi Business Shanghai 4★ + Harbour Plaza 8 Degrees HK 4★', board:'Закуска + 11 вечери', price_bgn:4999, price_eur:2556, image:'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-1._1777270516715.jpeg' },
+  ],
+  gallery:[
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-1._1777270516715.jpeg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-2._1777270516715.jpeg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-3_1777270516715.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-4_1777270516715.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-5_1777270516715.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-6._1777270516715.jpeg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-7._1777270516715.jpeg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-8_1777270516715.jpg',
+    'https://www.marveltourbg.com/img/PROGRAMI/BIG_kitay-hong-kong-i-makao-9._1777270516715.jpeg',
   ],
   featured:false },
 

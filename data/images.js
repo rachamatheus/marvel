@@ -8,7 +8,7 @@ const OFFER_IMAGES = {
   5: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_rio-de-zhaneyro-i-amazoniya-1_1765901119589.jpg',
   6: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1755178607962.png',
   7: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_karibski-kruiz-s-puerto-riko-28012027-1_1779365703732.jpg',
-  8: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_sasht%E2%80%93zapaden-bryag-1_1740054319404.jpg',
+  8: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_sasht-%E2%80%93-zapaden-bryag-1_1740054319404.jpg',
   9: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_sasht-i-kanada%E2%80%93noviyat-svyat-1_1725350463380.jpg',
   10: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-nyu-york-1_1746167920453.jpg',
   11: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_havai-1_1765901233591.jpg',
@@ -29,7 +29,7 @@ const OFFER_IMAGES = {
   26: 'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_vkusat-na-aziya-vietnam-i-kambodzha-12-noshtuvki-polet--1_17797819281150.jpg',
   27: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_vietnam-1_1770637809207.jpg',
   28: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_vietnam%E2%80%93sartseto-na-yugoiztochna-aziya-1_1772615844680.jpg',
-  29: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_vietnam-%E2%80%93-zlatniyat-most-kruiz-v-ha-long-bey-hanoy-ho-1_1772615892681.jpg',
+  29: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_vietnam%E2%80%93-zlatniyat-most-kruiz-v-ha-long-bey-hanoy-ho-1_1772615892681.jpg',
   30: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-do-vietnam-kambodzha-i-tayland-1_1770637529283.jpg',
   31: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_ekskurziya-v-indiya-zlatniyat-triagalnik-s-vodach-ot-ba-1_1765964324610.jpg',
   32: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_zlatniyat-triagalnik-na-indiya-%E2%80%93-delhi-dzhaypur-i-agr-1_1779365599730.jpg',
@@ -83,4 +83,16 @@ const OFFER_IMAGES = {
   80: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_pochivka-v-ispaniya-gran-kanariya-zagadachniyat-ostrov-1_1737983917395.jpg',
   81: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_sakrovishtata-na-ispaniya-sas-samolet-na-balgarski-ezik-1_1755763730517.jpg',
   82: 'https://www.marveltourbg.com/img/PROGRAMI/BIG_stranata-na-baskite-sas-samolet-na-balgarski-ezik-gara-1_1737985341396.jpg',
+};
+
+// Number of gallery images per offer (cover counts as #1). Used to derive
+// gallery URLs from the cover when an offer has no explicit `gallery` array.
+// Only offers with a clean, uniform-extension image sequence are listed here;
+// offers with mixed extensions or irregular names carry an explicit `gallery`.
+const GALLERY_COUNTS = {
+  2:10, 3:10, 4:5, 5:5, 6:3, 7:2, 8:10, 9:10, 10:5,
+  12:10, 13:10, 14:5, 15:10, 17:10, 18:10,
+  20:4, 21:9, 22:3, 23:10, 24:10, 25:10, 26:10, 27:5, 28:10, 29:7, 30:5,
+  31:10, 32:10, 34:10, 35:10, 37:10, 41:10, 42:10, 43:10,
+  44:10, 45:7, 47:10, 48:9, 50:9, 51:10, 52:10, 53:10, 54:10,
 };

@@ -632,6 +632,18 @@ let selectedHotelIdx = 0;
 let galleryImages = [];
 let galleryIdx = 0;
 
+// Derive gallery URLs from the cover image by incrementing the index segment
+// (e.g. ...-1_12345.jpg → ...-2_12345.jpg). Count comes from GALLERY_COUNTS.
+function buildGallery(cover, id) {
+  const n = (typeof GALLERY_COUNTS !== 'undefined' && GALLERY_COUNTS[id]) || 1;
+  if (n <= 1) return [cover];
+  const out = [];
+  for (let i = 1; i <= n; i++) {
+    out.push(cover.replace(/([-_])1_(\d+\.[a-z0-9]+)$/i, `$1${i}_$2`));
+  }
+  return out;
+}
+
 function setupGallery(imgs, alt) {
   galleryImages = imgs || [];
   galleryIdx = 0;
@@ -676,8 +688,13 @@ function openOffer(id) {
 
   // Gallery setup
   const coverImg = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[offer.id]) || offer.image || PLACEHOLDER_IMG;
-  let imgs = (offer.gallery && offer.gallery.length) ? offer.gallery.slice() : [coverImg];
-  if (imgs.indexOf(coverImg) === -1) imgs.unshift(coverImg);
+  let imgs;
+  if (offer.gallery && offer.gallery.length) {
+    imgs = offer.gallery.slice();
+    if (imgs.indexOf(coverImg) === -1) imgs.unshift(coverImg);
+  } else {
+    imgs = buildGallery(coverImg, offer.id);
+  }
   setupGallery(imgs, offer.title);
 
   document.getElementById('modalTitle').textContent = offer.title;
