@@ -559,9 +559,23 @@ function formatDate(d) {
 const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=600&q=70';
 
 // Resolve a hotel's photo: real booking photo by name (HOTEL_IMAGES) → data image → placeholder
+function hotelKeyVariants(name) {
+  if (!name) return [];
+  const out = [name];
+  // strip "(...)" parentheticals and star/rating suffixes like " 4★", " 3*"
+  let base = name.replace(/\s*\([^)]*\)/g, '').trim();
+  base = base.replace(/\s*\d?\s*★+\s*$/g, '').replace(/\s*\d\s*\*+\s*$/g, '').trim();
+  if (base && base !== name) out.push(base);
+  return out;
+}
 function hotelImg(h) {
   if (!h) return PLACEHOLDER_IMG;
-  return (typeof HOTEL_IMAGES !== 'undefined' && HOTEL_IMAGES[h.name]) || h.image || PLACEHOLDER_IMG;
+  if (typeof HOTEL_IMAGES !== 'undefined') {
+    for (const k of hotelKeyVariants(h.name)) {
+      if (HOTEL_IMAGES[k]) return HOTEL_IMAGES[k];
+    }
+  }
+  return h.image || PLACEHOLDER_IMG;
 }
 
 function renderOffers() {
