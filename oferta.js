@@ -1,6 +1,11 @@
 // Marvel Tour — single offer page (oferta.html?id=N or ?ref=Е422)
 const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=600&q=70';
 
+function hotelImg(h) {
+  if (!h) return PLACEHOLDER_IMG;
+  return (typeof HOTEL_IMAGES !== 'undefined' && HOTEL_IMAGES[h.name]) || h.image || PLACEHOLDER_IMG;
+}
+
 // Merge custom offers exactly like the main site
 const _custom = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
 const _deleted = JSON.parse(localStorage.getItem('mt_deleted_offers') || '[]');
@@ -108,12 +113,12 @@ function openHotelPhotos(idx) {
   const hotels = activeOffer.hotels || [];
   const h = hotels[idx];
   const name = h ? h.name : (activeOffer.title || '');
-  const distinct = new Set(hotels.map(x => x.image)).size;
+  const distinct = new Set(hotels.map(hotelImg)).size;
   if (distinct > 1) {
     const set = [];
     const add = u => { if (u && set.indexOf(u) === -1) set.push(u); };
-    if (h && h.image) add(h.image);
-    hotels.forEach(x => add(x.image));
+    if (h) add(hotelImg(h));
+    hotels.forEach(x => add(hotelImg(x)));
     openLightbox(set, 0, name);
     return;
   }
@@ -121,7 +126,7 @@ function openHotelPhotos(idx) {
     openLightbox(galleryImages, idx % galleryImages.length, name);
     return;
   }
-  openLightbox([(h && h.image) || PLACEHOLDER_IMG], 0, name);
+  openLightbox([hotelImg(h)], 0, name);
 }
 
 // ── Hotel / date selection ──
@@ -177,7 +182,7 @@ function renderOfferPage() {
     buildGalleryAsync(cover, (imgs) => {
       if (imgs.length <= 1) return;
       setupGallery(imgs, offer.title);
-      const distinct = new Set((activeOffer.hotels || []).map(h => h.image)).size;
+      const distinct = new Set((activeOffer.hotels || []).map(hotelImg)).size;
       if (distinct <= 1) {
         document.querySelectorAll('#offerHotels .hotel-card-img').forEach((el, i) => {
           el.src = imgs[i % imgs.length]; el.style.display = '';
@@ -205,7 +210,7 @@ function renderOfferPage() {
     hotelsEl.innerHTML = hotels.map((h, i) => `
       <div class="hotel-card ${i === 0 ? 'selected' : ''}" onclick="selectHotel(${i})">
         <div class="hotel-card-imgwrap" onclick="event.stopPropagation();openHotelPhotos(${i})" title="Виж снимки">
-          <img class="hotel-card-img" src="${h.image || ''}" alt="${h.name}" onerror="this.style.display='none'">
+          <img class="hotel-card-img" src="${hotelImg(h)}" alt="${h.name}" onerror="this.style.display='none'">
           <span class="hotel-card-zoom">🔍</span>
         </div>
         <div class="hotel-card-info">

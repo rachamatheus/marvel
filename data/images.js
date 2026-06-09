@@ -238,6 +238,33 @@ const OFFER_IMAGES = {
 // gallery URLs from the cover when an offer has no explicit `gallery` array.
 // Only offers with a clean, uniform-extension image sequence are listed here;
 // offers with mixed extensions or irregular names carry an explicit `gallery`.
+// Real per-hotel photos (booking engines). Keyed by hotel name as used in offers.
+// Applied automatically across ALL offers via hotelImg() in app.js / oferta.js.
+const HOTEL_IMAGES = {
+  // ── Турция ──
+  'Bodrum Beach Resort': 'https://xml.emerald.bg/web/files/hotels/Hotel/602/images/IMG_3240-HDR.jpg',
+  'Bodrum Beach Resort 4★': 'https://xml.emerald.bg/web/files/hotels/Hotel/602/images/IMG_3240-HDR.jpg',
+  'Bieno Club SVS': 'https://xml.emerald.bg/web/files/hotels/Hotel/5129/images/DJI_0215-1024x576.jpg',
+  'Galaxy Beach Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/1072/images/_DSC3306-HDR.jpg',
+  'Asrin Beach Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/334/images/BIG_odalar2_139282615261509.jpg',
+  'Eftalia Downtown': 'https://xml.emerald.bg/web/files/hotels/Hotel/930/images/DJI_0879.jpg',
+  'Ares Blue Hotel 3★': 'http://www.tours-club.com/img/OBEKTI/BIG_IMG_17704112672947.jpg',
+  'Garden of Sun': 'https://xml.emerald.bg/web/files/hotels/Hotel/1078/images/DSC_2043-copy.jpg',
+  'Melike Hotel 2★': 'http://www.tours-club.com/img/OBEKTI/BIG_IMG_17562842381681.jpg',
+  'Orfeus Queen Hotel Side': 'https://xml.emerald.bg/web/files/hotels/Hotel/1987/images/610b981fb28a9079255789.jpg',
+  'Clover Magic Park Side': 'https://xml.emerald.bg/web/files/hotels/Hotel/4837/images/637e3bd7a9b0c300836789.jpg',
+  'Palmora Lara Hotel': 'http://aquatour.bg/img/OBEKTI/BIG_jura_hotels_lara_resort_89591_17711604519568.jpg',
+  'Wind of Lara Hotel & Spa': 'http://aquatour.bg/img/OBEKTI/BIG_WIND%20OF%20LARA_15645775025847.jpg',
+  'Wyndham Garden Lara': 'http://aquatour.bg/img/OBEKTI/BIG_IMG_17289866056902.jpg',
+  'Grand Park Lara': 'http://aquatour.bg/img/OBEKTI/BIG_gpl_16577980945843.jpg',
+  'Greenwood Suites Resort': 'http://aquatour.bg/img/OBEKTI/BIG_IMG_16578841996589.jpg',
+  'Ramada Resort Lara': 'http://aquatour.bg/img/OBEKTI/BIG_IMG_17289864195766.jpg',
+  'Sea Life Family Resort Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/749/BIG_IMG_1700729179749.jpg',
+  'Sensitive Premium Resort & Spa': 'https://xml.emerald.bg/web/files/hotels/Hotel/2354/images/1491903189_Belek_Hotels_Sensitive_Premium_Resort_General_View_3.jpg',
+  'Design Plus Seya Beach': 'https://xml.emerald.bg/web/files/hotels/Hotel/915/images/designplusseyabeach%20(24).jpg',
+  'Maya World Park Belek': 'https://xml.emerald.bg/web/files/hotels/Hotel/2543/images/general2.jpg',
+};
+
 const GALLERY_COUNTS = {
   2:10, 3:10, 4:5, 5:5, 6:3, 7:2, 8:10, 9:10, 10:5,
   12:10, 13:10, 14:5, 15:10, 17:10, 18:10,
