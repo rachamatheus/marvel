@@ -329,6 +329,43 @@ const HOTEL_IMAGES = {
   // ── Италия / Испания ──
   'Orizzonte': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA5MjY4NDYmSW1hZ2VJRD0xNjU1&PID=B01',
   'Fuengirola Park': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAzMTQ1OTImSW1hZ2VJRD0wMzQy&PID=B01',
+
+  // ── Гръцки острови (Тасос/Корфу/Закинтос) ──
+  'Ntinas Filoxenia': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA5MDc2NzAmSW1hZ2VJRD0yMDM0&PID=B01',
+  'Potamaki Beach': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA4NDg5NzkmSW1hZ2VJRD00NjA1&PID=B01',
+  'Hellinis': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAwMDEwNzImSW1hZ2VJRD05MTE4&PID=B01',
+  'Varres': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA0NDI3MzkmSW1hZ2VJRD03NzI5&PID=B01',
+  'Strada Marina': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAxMzEzNDUmSW1hZ2VJRD03NTE4&PID=B01',
+  'Majestic Hotel & Spa': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAwMDEwNDAmSW1hZ2VJRD03Mzg1&PID=B01',
+  'Olympion Beach': 'https://static.peakview.bg/img/data2/116/hoteli/100/BIG_olympionbeach9_1677751058100.jpg',
+  'Marthas Haus': 'https://static.peakview.bg/img/data2/116/hoteli/129/BIG_Martha%27s%20House_1740567253129.jpg',
+  'Ilios Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3133/BIG_IMG_17308881893133.jpg',
+
+  // ── Тунис: Джерба ──
+  'Venice Beach Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/3873/images/601d3fb4c3076926273048.jpg',
+  'Dar Jerba Zahra': 'https://xml.emerald.bg/web/files/hotels/Hotel/3833/images/Hotel%27s%20view%201.jpg',
+  'Les Quatre Saisons': 'https://xml.emerald.bg/web/files/hotels/Hotel/4574/images/25.jpg',
+  'Dar Jerba Narjess': 'https://xml.emerald.bg/web/files/hotels/Hotel/3179/images/67f77d3cc81b4159378623.jpg',
+  'Iberostar Selection Eolia': 'https://xml.emerald.bg/web/files/hotels/Hotel/5661/images/66bf4d63c9ba1726207501.jpg',
+
+  // ── Малдиви ──
+  'Kuredu Island Resort & Spa': 'https://static.peakview.bg/img/data2/63/hoteli/208/BIG_IMG_1666856906208.jpg',
+  'Kuramathi Maldives': 'https://static.peakview.bg/img/data2/63/hoteli/256/BIG_IMG_1720599087256.jpg',
+  'Cora Cora': 'https://static.peakview.bg/img/data2/63/hoteli/316/BIG_IMG_1770732778316.jpg',
+  'Lily Beach Resort and Spa': 'https://static.peakview.bg/img/data2/63/hoteli/319/BIG_IMG_1770734051319.jpg',
+  'Siyam World Maldives': 'https://static.peakview.bg/img/data2/63/hoteli/262/BIG_IMG_1728547053262.png',
+
+  // ── Тайланд: Пукет ──
+  'The Palms Kamala Beach': 'https://static.peakview.bg/img/data2/94/hoteli/8062/BIG_IMG_17761584948062.jpg',
+  'Cocoon APK Resort & Spa': 'https://static.peakview.bg/img/data2/94/hoteli/8018/BIG_IMG_17761576538018.jpg',
+  'Phunawa Resort': 'https://static.peakview.bg/img/data2/94/hoteli/8045/BIG_IMG_17761582198045.jpg',
+  'Centara Kata Resort': 'https://static.peakview.bg/img/data2/94/hoteli/5717/BIG_IMG_17308169425717.jpg',
+  'Katathani Phuket Beach Resort': 'https://static.peakview.bg/img/data2/94/hoteli/727/BIG_IMG_1689851925727.jpg',
+
+  // ── Мароко: Маракеш ──
+  'Hotel Gomassine': 'https://store.abax.bg/book.abax.bg/img_tour/3283/hotel/10051/gallery/JBYCPU3V.jpg',
+  'Zalagh Kasbah Hotel and Spa': 'https://store.abax.bg/book.abax.bg/img_tour/3283/hotel/9303/gallery/D89B1W3L.jpg',
+  'EL Olivar Palace Hotel Marrakech': 'https://store.abax.bg/book.abax.uk/img_tour/3283/hotel/9746/gallery/D26S4RJZ.jpg',
 };
 
 const GALLERY_COUNTS = {
