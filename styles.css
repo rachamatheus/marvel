@@ -233,6 +233,9 @@ body {
   background-position: center;
   background-attachment: fixed;
 }
+@media (max-width: 1024px), (hover: none) {
+  .hero-bg { background-attachment: scroll; }
+}
 .hero-bg::after {
   content: '';
   position: absolute;
