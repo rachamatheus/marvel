@@ -519,9 +519,12 @@ body {
   color: inherit;
   display: block;
 }
-.offer-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
+@media (hover: hover) {
+  .offer-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+  }
+  .offer-card:hover .offer-card-img { transform: scale(1.05); }
 }
 .offer-card-img {
   width: 100%;
@@ -529,7 +532,6 @@ body {
   object-fit: cover;
   transition: transform var(--transition);
 }
-.offer-card:hover .offer-card-img { transform: scale(1.05); }
 .offer-card-img-wrap {
   overflow: hidden;
   position: relative;
@@ -1660,9 +1662,10 @@ footer {
   height: 48px;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1);
+  filter: none;
   transition: filter var(--transition);
 }
+.navbar.transparent .nav-logo-img { filter: drop-shadow(0 1px 4px rgba(0,0,0,0.45)); }
 .navbar.scrolled .nav-logo-img { filter: none; }
 
 /* ===== MOBILE MENU ===== */
