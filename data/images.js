@@ -429,6 +429,16 @@ const HOTEL_IMAGES = {
   'Lucky Rimini': 'https://store.abax.bg/book.abax.bg/img_tour/3078/hotel/9958/gallery/GX7Z5LEH.jpg',
   'Lucky Puglia': 'https://store.abax.bg/book.abax.bg/img_tour/3076/hotel/9957/gallery/9XT8RHQF.jpg',
   'Lucky Sardinia': 'https://store.abax.bg/book.abax.bg/img_tour/3184/hotel/9884/gallery/U37CW1VS.jpg',
+  'Torre Normanna': 'https://store.abax.bg/book.abax.bg/img_tour/3029/hotel/7807/gallery/E4BCZR7L.jpg',
+  'Torre Normanna 4★ Superior': 'https://store.abax.bg/book.abax.bg/img_tour/3029/hotel/7807/gallery/E4BCZR7L.jpg',
+  'La Serra Italy Village Beach Resort': 'https://store.abax.bg/book.abax.bg/img_tour/2963/hotel/15/gallery/NEALUHX9.jpg',
+  'Lucky Liguria': 'https://store.abax.bg/book.abax.bg/img_tour/3079/hotel/9959/gallery/MB4GFWY2.jpg',
+  'Hotel Vittoria': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAxNDQ0MzYmSW1hZ2VJRD00MzEz&PID=B01',
+
+  // ── Албания / Прага ──
+  'Sunrise Premium 5★ / Grand Blue Fafa 5★': 'https://static.peakview.bg/img/data2/116/hoteli/116/BIG_sunrise%20premium3_1704893407116.jpg',
+  'Olympik Hotel, Прага': 'https://store.abax.bg/book.abax.bg/img_tour/3091/hotel/7649/gallery/USV2JT4B.jpg',
+  'Hotelli Aakenus': 'http://planet-media.s3.amazonaws.com/images/Hotel-Aakenus-exteriors-3-1140x522.jpg',
 };
 
 const GALLERY_COUNTS = {
