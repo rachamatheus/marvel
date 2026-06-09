@@ -782,6 +782,31 @@ function buildGallery(cover, id) {
   return out;
 }
 
+// Candidate image URLs derived from the cover (cover, -2, -3 ... up to max)
+function deriveCandidates(cover, max) {
+  const out = [cover];
+  for (let i = 2; i <= (max || 12); i++) {
+    const u = cover.replace(/([-_])1_(\d+\.[a-z0-9]+)$/i, `$1${i}_$2`);
+    if (u !== cover) out.push(u);
+  }
+  return out;
+}
+
+// Preload derived candidates and call done() with only the ones that actually exist
+function buildGalleryAsync(cover, done) {
+  const cands = deriveCandidates(cover);
+  if (cands.length === 1) { done([cover]); return; }
+  const results = new Array(cands.length).fill(null);
+  let pending = cands.length;
+  const finish = () => done(results.filter(Boolean));
+  cands.forEach((u, i) => {
+    const im = new Image();
+    im.onload = () => { if (im.naturalWidth > 1) results[i] = u; if (--pending === 0) finish(); };
+    im.onerror = () => { if (--pending === 0) finish(); };
+    im.src = u;
+  });
+}
+
 function setupGallery(imgs, alt) {
   galleryImages = imgs || [];
   galleryIdx = 0;
@@ -872,14 +897,18 @@ function openOffer(id) {
 
   // Gallery setup
   const coverImg = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[offer.id]) || offer.image || PLACEHOLDER_IMG;
-  let imgs;
   if (offer.gallery && offer.gallery.length) {
-    imgs = offer.gallery.slice();
+    let imgs = offer.gallery.slice();
     if (imgs.indexOf(coverImg) === -1) imgs.unshift(coverImg);
+    setupGallery(imgs, offer.title);
   } else {
-    imgs = buildGallery(coverImg, offer.id);
+    // Show the cover immediately, then auto-discover extra real photos
+    setupGallery([coverImg], offer.title);
+    const reqId = offer.id;
+    buildGalleryAsync(coverImg, (imgs) => {
+      if (activeOffer && activeOffer.id === reqId && imgs.length > 1) setupGallery(imgs, offer.title);
+    });
   }
-  setupGallery(imgs, offer.title);
 
   document.getElementById('modalTitle').textContent = offer.title;
 

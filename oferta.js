@@ -33,6 +33,27 @@ function buildGallery(cover, id) {
   for (let i = 1; i <= n; i++) out.push(cover.replace(/([-_])1_(\d+\.[a-z0-9]+)$/i, `$1${i}_$2`));
   return out;
 }
+function deriveCandidates(cover, max) {
+  const out = [cover];
+  for (let i = 2; i <= (max || 12); i++) {
+    const u = cover.replace(/([-_])1_(\d+\.[a-z0-9]+)$/i, `$1${i}_$2`);
+    if (u !== cover) out.push(u);
+  }
+  return out;
+}
+function buildGalleryAsync(cover, done) {
+  const cands = deriveCandidates(cover);
+  if (cands.length === 1) { done([cover]); return; }
+  const results = new Array(cands.length).fill(null);
+  let pending = cands.length;
+  const finish = () => done(results.filter(Boolean));
+  cands.forEach((u, i) => {
+    const im = new Image();
+    im.onload = () => { if (im.naturalWidth > 1) results[i] = u; if (--pending === 0) finish(); };
+    im.onerror = () => { if (--pending === 0) finish(); };
+    im.src = u;
+  });
+}
 function setupGallery(imgs, alt) {
   galleryImages = imgs || [];
   galleryIdx = 0;
@@ -138,9 +159,14 @@ function renderOfferPage() {
 
   // Gallery
   const cover = coverOf(offer);
-  let imgs = (offer.gallery && offer.gallery.length) ? offer.gallery.slice() : buildGallery(cover, offer.id);
-  if (offer.gallery && imgs.indexOf(cover) === -1) imgs.unshift(cover);
-  setupGallery(imgs, offer.title);
+  if (offer.gallery && offer.gallery.length) {
+    let imgs = offer.gallery.slice();
+    if (imgs.indexOf(cover) === -1) imgs.unshift(cover);
+    setupGallery(imgs, offer.title);
+  } else {
+    setupGallery([cover], offer.title);
+    buildGalleryAsync(cover, (imgs) => { if (imgs.length > 1) setupGallery(imgs, offer.title); });
+  }
 
   // Header texts
   document.getElementById('offerTitle').textContent = offer.title;
