@@ -108,15 +108,20 @@ function openHotelPhotos(idx) {
   const hotels = activeOffer.hotels || [];
   const h = hotels[idx];
   const name = h ? h.name : (activeOffer.title || '');
+  const distinct = new Set(hotels.map(x => x.image)).size;
+  if (distinct > 1) {
+    const set = [];
+    const add = u => { if (u && set.indexOf(u) === -1) set.push(u); };
+    if (h && h.image) add(h.image);
+    hotels.forEach(x => add(x.image));
+    openLightbox(set, 0, name);
+    return;
+  }
   if (galleryImages && galleryImages.length > 1) {
     openLightbox(galleryImages, idx % galleryImages.length, name);
     return;
   }
-  const set = [];
-  const add = u => { if (u && set.indexOf(u) === -1) set.push(u); };
-  if (h && h.image) add(h.image);
-  hotels.forEach(x => add(x.image));
-  openLightbox(set.length ? set : [PLACEHOLDER_IMG], 0, name);
+  openLightbox([(h && h.image) || PLACEHOLDER_IMG], 0, name);
 }
 
 // ── Hotel / date selection ──
@@ -172,9 +177,12 @@ function renderOfferPage() {
     buildGalleryAsync(cover, (imgs) => {
       if (imgs.length <= 1) return;
       setupGallery(imgs, offer.title);
-      document.querySelectorAll('#offerHotels .hotel-card-img').forEach((el, i) => {
-        el.src = imgs[i % imgs.length]; el.style.display = '';
-      });
+      const distinct = new Set((activeOffer.hotels || []).map(h => h.image)).size;
+      if (distinct <= 1) {
+        document.querySelectorAll('#offerHotels .hotel-card-img').forEach((el, i) => {
+          el.src = imgs[i % imgs.length]; el.style.display = '';
+        });
+      }
     });
   }
 

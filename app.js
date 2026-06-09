@@ -881,16 +881,22 @@ function openHotelPhotos(idx) {
   const hotels = activeOffer.hotels || [];
   const h = hotels[idx];
   const name = h ? h.name : (activeOffer.title || '');
-  // If a real multi-photo gallery is available, open it at this hotel's photo
+  const distinct = new Set(hotels.map(x => x.image)).size;
+  // Hotels have their own real photos → show them, starting at this hotel
+  if (distinct > 1) {
+    const set = [];
+    const add = u => { if (u && set.indexOf(u) === -1) set.push(u); };
+    if (h && h.image) add(h.image);
+    hotels.forEach(x => add(x.image));
+    openLightbox(set, 0, name);
+    return;
+  }
+  // Otherwise fall back to the offer's discovered gallery
   if (galleryImages && galleryImages.length > 1) {
     openLightbox(galleryImages, idx % galleryImages.length, name);
     return;
   }
-  const set = [];
-  const add = u => { if (u && set.indexOf(u) === -1) set.push(u); };
-  if (h && h.image) add(h.image);
-  hotels.forEach(x => add(x.image));
-  openLightbox(set.length ? set : [PLACEHOLDER_IMG], 0, name);
+  openLightbox([(h && h.image) || PLACEHOLDER_IMG], 0, name);
 }
 
 function openOffer(id) {
@@ -913,10 +919,13 @@ function openOffer(id) {
     buildGalleryAsync(coverImg, (imgs) => {
       if (!activeOffer || activeOffer.id !== reqId || imgs.length <= 1) return;
       setupGallery(imgs, offer.title);
-      // give each hotel card a distinct real photo
-      document.querySelectorAll('#modalHotels .hotel-card-img').forEach((el, i) => {
-        el.src = imgs[i % imgs.length]; el.style.display = '';
-      });
+      // only fill hotel cards from the gallery if hotels don't already have distinct real photos
+      const distinct = new Set((activeOffer.hotels || []).map(h => h.image)).size;
+      if (distinct <= 1) {
+        document.querySelectorAll('#modalHotels .hotel-card-img').forEach((el, i) => {
+          el.src = imgs[i % imgs.length]; el.style.display = '';
+        });
+      }
     });
   }
 
