@@ -252,8 +252,9 @@ function updateStatCounter() {
 function renderFeatured() {
   const grid = document.getElementById('featuredGrid');
   if (!grid) return;
-  const featured = ALL_OFFERS.filter(o => o.featured).slice(0, 5);
-  if (!featured.length) return;
+  const _ids = new Set(ALL_OFFERS.map(o => o.id));
+  const featured = ALL_OFFERS.filter(o => o.featured && _ids.has(o.id)).slice(0, 5);
+  if (!featured.length) { grid.innerHTML = ''; return; }
 
   const coverOf = o => (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) ||
     (o.image && o.image.startsWith('http') ? o.image : '') || PLACEHOLDER_IMG;
@@ -488,13 +489,17 @@ function renderFilters() {
   const container = document.getElementById('tagFilters');
   if (!container) return;
 
-  const builtInTags = typeof TAGS !== 'undefined' ? TAGS : [];
+  // Show ONLY the main campaign tags — hide the descriptive ones
+  // (плаж, град, култура, природа, луксозни, семейни, приключения, all inclusive…)
+  const CAMPAIGN_TAGS = ['lyato-gartsia', 'ranni-zapisvaniya', 'uikend', 'avtorski'];
+  const builtInTags = (typeof TAGS !== 'undefined' ? TAGS : [])
+    .filter(t => CAMPAIGN_TAGS.includes(typeof t === 'object' ? t.key : t));
   // Custom tags stored as {key, label} or as strings
   const customTags = JSON.parse(localStorage.getItem('mt_custom_tags') || '[]');
   const customNorm = customTags.map(t => typeof t === 'object' ? t : { key: t, label: t });
   const allTags = [
     ...builtInTags,
-    ...customNorm.filter(ct => !builtInTags.some(bt => bt.key === ct.key))
+    ...customNorm.filter(ct => !builtInTags.some(bt => bt.key === ct.key) && CAMPAIGN_TAGS.includes(ct.key))
   ];
 
   container.innerHTML = allTags.map(tag => {
