@@ -366,6 +366,38 @@ const HOTEL_IMAGES = {
   'Hotel Gomassine': 'https://store.abax.bg/book.abax.bg/img_tour/3283/hotel/10051/gallery/JBYCPU3V.jpg',
   'Zalagh Kasbah Hotel and Spa': 'https://store.abax.bg/book.abax.bg/img_tour/3283/hotel/9303/gallery/D89B1W3L.jpg',
   'EL Olivar Palace Hotel Marrakech': 'https://store.abax.bg/book.abax.uk/img_tour/3283/hotel/9746/gallery/D26S4RJZ.jpg',
+
+  // ── Испания ──
+  'Las Palmeras': 'https://store.abax.bg/book.abax.bg/img_tour/3131/hotel/9823/gallery/ZU9863RP.jpg',
+  'Natura Park Superior': 'https://store.abax.bg/book.abax.bg/img_tour/3228/hotel/8222/gallery/F4QACNL8.jpg',
+  'Natura Park': 'https://store.abax.bg/book.abax.bg/img_tour/3228/hotel/8222/gallery/F4QACNL8.jpg',
+  'Htop Olympic': 'https://static.peakview.bg/img/data2/94/hoteli/7991/BIG_IMG_17763472257991.jpg',
+  'Gran Hotel Bali': 'https://store.abax.bg/book.abax.bg/img_tour/3094/hotel/628/gallery/N4CSM5AB.jpg',
+  'Mix Peymar': 'https://xml.emerald.bg/web/files/hotels/Hotel/5711/images/66aa50f60456d039767801.jpg',
+  'Globales Acuario': 'https://xml.emerald.bg/web/files/hotels/Hotel/5766/images/66feb0763e0db183442092.jpg',
+  'Alua Tenerife': 'https://xml.emerald.bg/web/files/hotels/Hotel/5420/images/65cf51665b952651797972.jpg',
+  'Alexandre Hotel Gala': 'https://xml.emerald.bg/web/files/hotels/Hotel/5832/images/675ea1da56431152468245.jpg',
+  'Be Live Experience Orotava': 'https://store.abax.bg/book.abax.bg/img_tour/2929/hotel/10092/gallery/UZ2JGDMY.jpg',
+  'Cavanna': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA3NzI2NDEmSW1hZ2VJRD03MDQ1&PID=B01',
+
+  // ── Италия ──
+  'Hotel Palazzo Caveja': 'https://store.abax.bg/book.abax.bg/img_tour/2970/hotel/8808/gallery/HYACWQKB.jpg',
+  'Raeli Hotel': 'https://store.abax.bg/book.abax.bg/img_tour/3290/hotel/9720/gallery/WCFXA37R.jpg',
+  'Akiris Resort Premium': 'https://store.abax.bg/book.abax.bg/img_tour/2984/hotel/8040/gallery/PKE8YR4L.jpg',
+  'Akiris Resort': 'https://store.abax.bg/book.abax.bg/img_tour/2984/hotel/8040/gallery/PKE8YR4L.jpg',
+  'VOI Marsa Sicla Essentia': 'https://xml.emerald.bg/web/files/hotels/Hotel/6925/images/20%20VOI%20MARSA%20SICLA%20ESSENTIA.png',
+  'Hotel La Fenice': 'https://store.abax.bg/book.abax.bg/img_tour/3017/hotel/9575/gallery/7ATHULQY.jpg',
+  'Grand Hotel dei Cavalieri': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA4NDg0NTImSW1hZ2VJRD0yMjUz&PID=B01',
+  'Sporting Baia': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAxNzIwMzEmSW1hZ2VJRD02NDY2&PID=B01',
+  'Nike': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAyNzgwOTgmSW1hZ2VJRD00MDg3&PID=B01',
+  'Athena Resort Village 4★ Superior': 'https://store.abax.bg/book.abax.bg/img_tour/3238/hotel/8773/gallery/HE1J7YT6.jpg',
+  'Athena Resort Village': 'https://store.abax.bg/book.abax.bg/img_tour/3238/hotel/8773/gallery/HE1J7YT6.jpg',
+  'Club Esse Gallura Beach': 'https://store.abax.bg/book.abax.bg/img_tour/3216/hotel/9884/gallery/9MYEJZ4H.jpg',
+  'Olimpia Cilento Resort & Spa': 'https://xml.emerald.bg/web/files/hotels/Hotel/6843/images/9130_15141_328954.jpg',
+  'Albatros': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAwNzc4NjQmSW1hZ2VJRD0yODMw&PID=B01',
+  'Lucky Rimini': 'https://store.abax.bg/book.abax.bg/img_tour/3078/hotel/9958/gallery/GX7Z5LEH.jpg',
+  'Lucky Puglia': 'https://store.abax.bg/book.abax.bg/img_tour/3076/hotel/9957/gallery/9XT8RHQF.jpg',
+  'Lucky Sardinia': 'https://store.abax.bg/book.abax.bg/img_tour/3184/hotel/9884/gallery/U37CW1VS.jpg',
 };
 
 const GALLERY_COUNTS = {
