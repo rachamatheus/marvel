@@ -263,6 +263,72 @@ const HOTEL_IMAGES = {
   'Sensitive Premium Resort & Spa': 'https://xml.emerald.bg/web/files/hotels/Hotel/2354/images/1491903189_Belek_Hotels_Sensitive_Premium_Resort_General_View_3.jpg',
   'Design Plus Seya Beach': 'https://xml.emerald.bg/web/files/hotels/Hotel/915/images/designplusseyabeach%20(24).jpg',
   'Maya World Park Belek': 'https://xml.emerald.bg/web/files/hotels/Hotel/2543/images/general2.jpg',
+
+  // ── Гърция: Крит ──
+  'Happiness Apartments': 'https://static.peakview.bg/img/data2/94/hoteli/3122/BIG_IMG_17308180393122.jpg',
+  'Irida Apartments': 'https://static.peakview.bg/img/data2/94/hoteli/7962/BIG_IMG_17689936007962.jpg',
+  'Kasapakis Hotel & Apartments': 'https://static.peakview.bg/img/data2/94/hoteli/3138/BIG_IMG_17308882623138.jpg',
+  'Litsa-Efi': 'https://static.peakview.bg/img/data2/94/hoteli/3144/BIG_IMG_17308883833144.jpg',
+  'Ilios': 'https://static.peakview.bg/img/data2/94/hoteli/3133/BIG_IMG_17308881893133.jpg',
+  'Kassavetis Center Hotel Studios & Apartments': 'https://static.peakview.bg/img/data2/94/hoteli/3139/BIG_IMG_17308882803139.jpg',
+  'Brascos Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3090/BIG_IMG_17308167293090.jpg',
+  'Malia Holidays Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/7011/BIG_IMG_17636496857011.jpg',
+  'Eleni Palace': 'https://static.peakview.bg/img/data2/94/hoteli/3106/BIG_IMG_17308172893106.jpg',
+  'Marirena Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3152/BIG_IMG_17308246203152.jpg',
+  'Sundance Apartments & Suites': 'https://static.peakview.bg/img/data2/94/hoteli/3183/BIG_IMG_17308891673183.jpg',
+  'Lino Mare Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/7009/BIG_IMG_17539556057009.jpg',
+  'Koutrakis Suites': 'https://static.peakview.bg/img/data2/94/hoteli/7963/BIG_IMG_17689947797963.jpg',
+  'Panormo Beach Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3168/BIG_IMG_17308253933168.jpg',
+  'Erato Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/7005/BIG_IMG_17636490607005.jpg',
+  'Philoxenia Hotel & Spa': 'https://static.peakview.bg/img/data2/94/hoteli/3169/BIG_IMG_17308888623169.jpg',
+  'Thalia Deco City & Beach Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3186/BIG_IMG_17308892393186.jpg',
+  'Dimitra Hotel & Apts': 'https://static.peakview.bg/img/data2/94/hoteli/3103/BIG_IMG_17308876763103.jpg',
+  'Marilisa Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3151/BIG_IMG_17308246103151.jpg',
+  'Almare Beach': 'https://static.peakview.bg/img/data2/94/hoteli/3076/BIG_IMG_17308157323076.jpg',
+
+  // ── Гърция: Халкидики (Касандра) ──
+  'Olympic Kosma': 'https://xml.emerald.bg/web/files/hotels/Hotel/1959/images/661944262e858467309642.jpg',
+  'Kassandra Bay Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/1455/images/BIG_IMG_148457504863238.jpg',
+  'Dionysos': 'https://xml.emerald.bg/web/files/hotels/Hotel/3524/images/20.jpeg',
+  'Sousouras Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/2426/images/BIG_839_sousouras-hotel_69007._15144481938497.peg',
+  'Elinotel Polis': 'https://xml.emerald.bg/web/files/hotels/Hotel/957/images/636e0b49728d1310889527.jpg',
+  'Chrousso Village': 'https://xml.emerald.bg/web/files/hotels/Hotel/707/images/BIG_IMG12_15181709848493.jpg',
+  'Hanioti Grand Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/1233/images/66194ce5cb41d037088182.jpg',
+  'Aegean Melathron Thalasso Spa Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/61/images/66195baa46936493973452.jpg',
+  'Ammon Zeus': 'https://xml.emerald.bg/web/files/hotels/Hotel/204/images/BIG_Amon_Zeus_2018_082_15302651128226.jpg',
+  'Kassandra Palace Seaside Resort': 'https://xml.emerald.bg/web/files/hotels/Hotel/1453/images/66195de6c0ce7715926628.jpg',
+  'Elinotel Apolamare': 'https://xml.emerald.bg/web/files/hotels/Hotel/956/images/661961c43472a655301864.jpg',
+
+  // ── Гърция: Халкидики (Ситония) ──
+  'Porfi Beach': 'https://static.peakview.bg/img/data2/116/hoteli/127/BIG_283974045_1732614824127.jpg',
+  "Martha's House": 'https://static.peakview.bg/img/data2/116/hoteli/129/BIG_Martha%27s%20House_1740567253129.jpg',
+  'Olympic Bibis': 'https://static.peakview.bg/img/data2/116/hoteli/15/BIG_Olympic%20Bibis%202_157960399815.jpeg',
+  'Olympion Beach Hotel': 'https://static.peakview.bg/img/data2/116/hoteli/100/BIG_olympionbeach9_1677751058100.jpg',
+  'Lily Ann Village': 'https://static.peakview.bg/img/data2/116/hoteli/60/BIG_LilyAnnVillage4_160388264060.jpg',
+  'Porto Matina Hotel': 'https://static.peakview.bg/img/data2/116/hoteli/10/BIG_Porto%20Matina_157960333710.jpeg',
+  'Simeon': 'https://static.peakview.bg/img/data2/116/hoteli/19/BIG_Simeon%20_157960456219.jpg',
+  'Philoxenia Hotel': 'https://static.peakview.bg/img/data2/116/hoteli/18/BIG_Philoxenia%203_157960437518.jpeg',
+  'Elinotel Sermilia': 'https://static.peakview.bg/img/data2/116/hoteli/109/BIG_sgrelin_0_1699537477109.jpg',
+  'Village Mare': 'https://static.peakview.bg/img/data2/116/hoteli/21/BIG_Village%20Mare%201_157960986721.jpg',
+  'Blue Dolphin Hotel': 'https://static.peakview.bg/img/data2/116/hoteli/13/BIG_Blue%20Dolphin10_164441077913.jpg',
+
+  // ── Тунис ──
+  'Residence Mahmoud': 'https://xml.emerald.bg/web/files/hotels/Hotel/3908/images/7.jpg',
+  'Houda Golf Beach & Aquapark': 'https://xml.emerald.bg/web/files/hotels/Hotel/3990/images/07%20HOUDA%20GOLF%20BEACH%20&%20AQUAPARK.png',
+  'Le Zenith Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/3849/images/8acebb34-4784-402a-9455-ff831db1eb3f-l.jpg',
+  'Houda Yasmine Marina & Spa': 'https://xml.emerald.bg/web/files/hotels/Hotel/3842/images/062499a_hb_a_001.jpg',
+  'Thalassa Sousse Resort & Aquapark': 'https://xml.emerald.bg/web/files/hotels/Hotel/3872/images/211.jpg',
+  'El Mouradi Club Selima': 'https://xml.emerald.bg/web/files/hotels/Hotel/3884/images/outdoor%20pool%204.jpg',
+  'El Mouradi Club Kantaoui': 'https://xml.emerald.bg/web/files/hotels/Hotel/3885/images/601d9f0861445805422092.jpg',
+  'El Mouradi Cap Mahdia': 'https://xml.emerald.bg/web/files/hotels/Hotel/3883/images/602197d990bf2726307839.jpg',
+  'Nesrine Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/3856/images/hotel-nesrine%20(6).jpg',
+  'El Mouradi Port El Kantaoui': 'https://xml.emerald.bg/web/files/hotels/Hotel/3888/images/EM%20Port%20EL%20Kantaoui%20Pool%201.jpg',
+  'Alhambra Thalasso': 'https://xml.emerald.bg/web/files/hotels/Hotel/4185/images/609001cac6790597463195.jpg',
+  'Best Beach Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/5998/images/IMG_0862.jpg',
+
+  // ── Италия / Испания ──
+  'Orizzonte': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA5MjY4NDYmSW1hZ2VJRD0xNjU1&PID=B01',
+  'Fuengirola Park': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAzMTQ1OTImSW1hZ2VJRD0wMzQy&PID=B01',
 };
 
 const GALLERY_COUNTS = {
