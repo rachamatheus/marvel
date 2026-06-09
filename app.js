@@ -607,12 +607,12 @@ function renderOffers() {
     const dateStr = formatDate(o.next_date);
     const transport = transportLabel(o.transport);
     return `
-      <div class="offer-card animate-in" style="animation-delay:${i * 0.05}s" onclick="location.href='oferta.html?id=${o.id}'">
+      <a class="offer-card animate-in" href="oferta.html?id=${o.id}" style="animation-delay:${i * 0.05}s">
         <div class="offer-card-img-wrap">
           <img class="offer-card-img" src="${imgSrc}" alt="${o.title}" loading="lazy"
                onerror="this.src='${PLACEHOLDER_IMG}'">
           <span class="offer-badge ${typeCls}">${typeLabel}</span>
-          <button class="offer-fav ${isFav ? 'active' : ''}" onclick="toggleFav(event, ${o.id})" title="Любими">${isFav ? '❤️' : '🤍'}</button>
+          <button type="button" class="offer-fav ${isFav ? 'active' : ''}" onclick="event.preventDefault();event.stopPropagation();toggleFav(event, ${o.id})" title="Любими">${isFav ? '❤️' : '🤍'}</button>
         </div>
         <div class="offer-card-body">
           <div class="offer-destination">📍 ${o.destination}</div>
@@ -638,10 +638,10 @@ function renderOffers() {
                 <span class="offer-price-eur"> / ${o.price_bgn} лв.</span>
               </div>
             </div>
-            <button class="offer-btn" onclick="event.stopPropagation();location.href='oferta.html?id=${o.id}'">Детайли →</button>
+            <span class="offer-btn">Детайли →</span>
           </div>
         </div>
-      </div>
+      </a>
     `;
   }).join('');
 }
