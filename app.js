@@ -607,7 +607,7 @@ function renderOffers() {
     const dateStr = formatDate(o.next_date);
     const transport = transportLabel(o.transport);
     return `
-      <a class="offer-card animate-in" href="oferta.html?id=${o.id}" style="animation-delay:${i * 0.05}s">
+      <a class="offer-card animate-in" href="oferta.html?id=${o.id}" style="animation-delay:${Math.min(i * 0.05, 0.4)}s">
         <div class="offer-card-img-wrap">
           <img class="offer-card-img" src="${imgSrc}" alt="${o.title}" loading="lazy"
                onerror="this.src='${PLACEHOLDER_IMG}'">
