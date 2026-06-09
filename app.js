@@ -880,12 +880,17 @@ function openHotelPhotos(idx) {
   if (!activeOffer) return;
   const hotels = activeOffer.hotels || [];
   const h = hotels[idx];
+  const name = h ? h.name : (activeOffer.title || '');
+  // If a real multi-photo gallery is available, open it at this hotel's photo
+  if (galleryImages && galleryImages.length > 1) {
+    openLightbox(galleryImages, idx % galleryImages.length, name);
+    return;
+  }
   const set = [];
   const add = u => { if (u && set.indexOf(u) === -1) set.push(u); };
-  if (h && h.image) add(h.image);          // selected hotel first
-  hotels.forEach(x => add(x.image));        // then the other hotels
-  (galleryImages || []).forEach(add);       // then the offer gallery
-  openLightbox(set.length ? set : [PLACEHOLDER_IMG], 0, h ? h.name : (activeOffer.title || ''));
+  if (h && h.image) add(h.image);
+  hotels.forEach(x => add(x.image));
+  openLightbox(set.length ? set : [PLACEHOLDER_IMG], 0, name);
 }
 
 function openOffer(id) {
@@ -906,7 +911,12 @@ function openOffer(id) {
     setupGallery([coverImg], offer.title);
     const reqId = offer.id;
     buildGalleryAsync(coverImg, (imgs) => {
-      if (activeOffer && activeOffer.id === reqId && imgs.length > 1) setupGallery(imgs, offer.title);
+      if (!activeOffer || activeOffer.id !== reqId || imgs.length <= 1) return;
+      setupGallery(imgs, offer.title);
+      // give each hotel card a distinct real photo
+      document.querySelectorAll('#modalHotels .hotel-card-img').forEach((el, i) => {
+        el.src = imgs[i % imgs.length]; el.style.display = '';
+      });
     });
   }
 
