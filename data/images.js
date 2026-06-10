@@ -447,6 +447,22 @@ const HOTEL_IMAGES = {
   'Ellaidhoo Maldives by Cinnamon': 'https://www.marveltourbg.com/img/OBEKTI/1_1780492126165.jpg',
   'Malahini Kuda Bandos': 'https://www.marveltourbg.com/img/OBEKTI/363332171_1780492747166.jpg',
   'Kurumba Maldives': 'https://www.marveltourbg.com/img/OBEKTI/1_1757663262141.jpg',
+  // ── Крит (реални снимки) ──
+  'Annabelle Beach Resort': 'https://static.peakview.bg/img/data2/94/hoteli/3079/BIG_IMG_17308158983079.jpg',
+  'Creta Maris Beach Resort': 'https://static.peakview.bg/img/data2/94/hoteli/3096/BIG_IMG_17308170953096.jpg',
+  'Grecotel Amirandes': 'https://static.peakview.bg/img/data2/94/hoteli/3118/BIG_IMG_17308879103118.jpg',
+  'Semiramis Village': 'https://static.peakview.bg/img/data2/94/hoteli/3174/BIG_IMG_17308259963174.jpg',
+  'Semiramis Village Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3174/BIG_IMG_17308259963174.jpg',
+  'Royal Imperial Belvedere': 'https://static.peakview.bg/img/data2/94/hoteli/3172/BIG_IMG_17308890313172.jpg',
+  // ── Родос (реални снимки) ──
+  'International': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA2NzE1NDgmSW1hZ2VJRD0wODE2&PID=B01',
+  'Atlantis Boutique City Hotel': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA4NzI2NzMmSW1hZ2VJRD00Njk5&PID=B01',
+  'Mediterranean Hotel': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAyMTc5MTYmSW1hZ2VJRD01Nzk2&PID=B01',
+  'Mitsis Petit Palais': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAyMzUyOTcmSW1hZ2VJRD02OTgw&PID=B01',
+  // ── Мадагаскар (реални снимки) ──
+  'Orangea Beach Resort': 'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/8940/gallery/D3L5WJVX.jpg',
+  'Palm Beach Resort': 'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/9441/gallery/HTGSZC42.jpg',
+  'Nosy Be Hotel and Spa': 'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/9294/gallery/NT2DPS5E.jpg',
 };
 
 const GALLERY_COUNTS = {
