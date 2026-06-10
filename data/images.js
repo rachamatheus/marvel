@@ -497,6 +497,18 @@ const HOTEL_IMAGES = {
   'INTERCONTINENTAL': 'https://xml.emerald.bg/web/files/hotels/Hotel/4163/images/InterContinental%20Lobby%2001%20(2)%20(1).jpg',
   'CONSTANCE BELLE MARE': 'https://xml.emerald.bg/web/files/hotels/Hotel/4265/images/60bb75cecd15e581955062.jpg',
   'Constance Belle Mare Plage': 'https://xml.emerald.bg/web/files/hotels/Hotel/4265/images/60bb75cecd15e581955062.jpg',
+  // ── Египет луксозни (реални снимки) ──
+  'Coral Sea Imperial Sensatori': 'https://store.abax.bg/book.abax.bg/img_tour/3276/hotel/836/gallery/HP4MT5CL.jpg',
+  'Four Seasons Resort Sharm El Sheikh': 'https://xml.emerald.bg/web/files/hotels/Hotel/4032/images/603fe88f58790126522470.jpg',
+  'Rixos Premium Seagate Lux': 'https://store.abax.bg/book.abax.bg/img_tour/3276/hotel/839/gallery/E1WZMDP9.jpg',
+  'Iberotel Makadi Beach Lux': 'https://store.abax.bg/book.abax.bg/img_tour/3296/hotel/770/gallery/BFJCS675.jpg',
+  'Xanadu Makadi Bay Lux': 'https://store.abax.bg/book.abax.bg/img_tour/3296/hotel/8376/gallery/BUZNYEWV.jpg',
+  // ── Гръцки бийч (реални снимки) ──
+  'Aegean Melathron Thalasso Spa': 'https://xml.emerald.bg/web/files/hotels/Hotel/61/images/66195baa46936493973452.jpg',
+  'Majestic SPA': 'https://static.peakview.bg/img/data2/116/hoteli/75/BIG_majestic2_163912691975.jpg',
+  'Cronwell Platamon Resort': 'http://www.welcometravelbg.eu/img/OBEKTI/BIG_IMG_1401349879446.jpg',
+  'Azure Mare Hotel': 'https://store.abax.bg/book.abax.bg/img_tour/3145/hotel/10104/gallery/9E1UPBLC.jpg',
+  'Blue Sea Beach Affiliated by Meliá': 'https://store.abax.bg/book.abax.bg/img_tour/3145/hotel/10107/gallery/Q2KMWXVL.jpg',
 };
 
 const GALLERY_COUNTS = {
