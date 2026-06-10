@@ -178,6 +178,18 @@ function renderOfferPage() {
   selectedHotelIdx = 0;
   document.title = `${offer.title} — Marvel Tour`;
 
+  // Auto-fill inquiry from logged-in customer (session shared via storage)
+  try {
+    const cust = JSON.parse(sessionStorage.getItem('mt_customer_session') || 'null');
+    if (cust) {
+      setTimeout(() => {
+        const n = document.getElementById('inqName'), e = document.getElementById('inqEmail');
+        if (n && !n.value) n.value = cust.name || '';
+        if (e && !e.value) e.value = cust.email || '';
+      }, 0);
+    }
+  } catch (err) {}
+
   const hotels = offer.hotels || [];
   const priceEur = hotels.length ? hotels[0].price_eur : offer.price_eur;
   const priceBgn = hotels.length ? hotels[0].price_bgn : offer.price_bgn;

@@ -74,16 +74,20 @@ function getCurrentCustomer() {
 function updateNavbarAuth() {
   const customer = getCurrentCustomer();
 
+  const initial = customer ? (customer.name || '?').trim().charAt(0).toUpperCase() : '';
+
   // Desktop navbar button
   const btn = document.getElementById('customerAuthBtn');
   if (btn) {
     if (customer) {
-      btn.textContent = `👤 ${customer.name}`;
-      btn.onclick = logoutCustomer;
-      btn.title = 'Кликнете за изход';
+      btn.innerHTML = `<span class="nav-avatar">${initial}</span><span>${customer.name.split(' ')[0]}</span>`;
+      btn.onclick = openAccountPanel;
+      btn.title = 'Моят профил';
+      btn.classList.add('logged-in');
     } else {
       btn.textContent = '👤 Вход / Регистрация';
       btn.onclick = openAuthModal;
+      btn.classList.remove('logged-in');
     }
   }
 
@@ -91,15 +95,113 @@ function updateNavbarAuth() {
   const mobileBtn = document.getElementById('mobileAuthBtn');
   if (mobileBtn) {
     if (customer) {
-      mobileBtn.textContent = `👤 ${customer.name} — Изход`;
+      mobileBtn.textContent = `👤 ${customer.name} — Моят профил`;
       mobileBtn.classList.add('logged-in');
-      mobileBtn.onclick = () => { toggleMobileMenu(); logoutCustomer(); };
+      mobileBtn.onclick = () => { toggleMobileMenu(); openAccountPanel(); };
     } else {
       mobileBtn.textContent = '👤 Вход / Регистрация';
       mobileBtn.classList.remove('logged-in');
       mobileBtn.onclick = () => { toggleMobileMenu(); openAuthModal(); };
     }
   }
+}
+
+// ===== ACCOUNT PANEL =====
+const INQUIRY_STATUS = {
+  new:        { label: 'Получено',    cls: 'st-new' },
+  processing: { label: 'В обработка',  cls: 'st-proc' },
+  in_progress:{ label: 'В обработка',  cls: 'st-proc' },
+  confirmed:  { label: 'Потвърдено',   cls: 'st-ok' },
+  done:       { label: 'Приключено',   cls: 'st-done' },
+  completed:  { label: 'Приключено',   cls: 'st-done' },
+  cancelled:  { label: 'Отказано',     cls: 'st-cancel' }
+};
+
+function openAccountPanel() {
+  const c = getCurrentCustomer();
+  if (!c) { openAuthModal(); return; }
+  renderAccount();
+  switchAccountTab('inq');
+  document.getElementById('accountModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeAccountModal() {
+  document.getElementById('accountModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function switchAccountTab(tab) {
+  const inq = tab === 'inq';
+  document.getElementById('accPanelInq').style.display = inq ? '' : 'none';
+  document.getElementById('accPanelFav').style.display = inq ? 'none' : '';
+  document.getElementById('accTabInq').classList.toggle('active', inq);
+  document.getElementById('accTabFav').classList.toggle('active', !inq);
+}
+function renderAccount() {
+  const c = getCurrentCustomer();
+  if (!c) return;
+  const initial = (c.name || '?').trim().charAt(0).toUpperCase();
+  document.getElementById('accAvatar').textContent = initial;
+  document.getElementById('accName').textContent = c.name;
+  document.getElementById('accEmail').textContent = c.email;
+
+  // Inquiries for this customer (match by email)
+  const all = JSON.parse(localStorage.getItem('mt_inquiries') || '[]');
+  const mine = all.filter(i => (i.email || '').toLowerCase() === (c.email || '').toLowerCase());
+  document.getElementById('accInqCount').textContent = mine.length;
+  document.getElementById('accFavCount').textContent = favorites.length;
+
+  const inqBox = document.getElementById('accPanelInq');
+  if (!mine.length) {
+    inqBox.innerHTML = `<div class="account-empty">📭 Все още нямате запитвания.<br><span>Разгледайте офертите и изпратете запитване — статусът ще се появи тук.</span></div>`;
+  } else {
+    inqBox.innerHTML = mine.map(i => {
+      const st = INQUIRY_STATUS[i.status] || INQUIRY_STATUS.new;
+      const d = i.created_at ? new Date(i.created_at).toLocaleDateString('bg-BG') : '';
+      return `<div class="account-inq">
+        <div class="account-inq-top">
+          <span class="account-inq-title">${i.offer_title || 'Оферта'}</span>
+          <span class="status-badge ${st.cls}">${st.label}</span>
+        </div>
+        <div class="account-inq-meta">
+          ${i.offer_ref ? `Реф. ${i.offer_ref} · ` : ''}${d}
+          ${i.preferred_date ? ` · 📅 ${i.preferred_date}` : ''}
+          ${i.hotel ? ` · 🏨 ${i.hotel}` : ''}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  const favBox = document.getElementById('accPanelFav');
+  const favOffers = favorites.map(id => ALL_OFFERS.find(o => o.id === id)).filter(Boolean);
+  if (!favOffers.length) {
+    favBox.innerHTML = `<div class="account-empty">🤍 Нямате запазени любими.<br><span>Натиснете сърцето ❤️ върху всяка оферта, за да я запазите тук.</span></div>`;
+  } else {
+    favBox.innerHTML = favOffers.map(o => {
+      const img = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) || (o.image && o.image.startsWith('http') ? o.image : PLACEHOLDER_IMG);
+      return `<a class="account-fav" href="oferta.html?id=${o.id}">
+        <img src="${img}" alt="${o.title}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'">
+        <div class="account-fav-body">
+          <div class="account-fav-title">${o.title}</div>
+          <div class="account-fav-meta">📍 ${o.destination} · от ${o.price_eur} €</div>
+        </div>
+        <button class="account-fav-x" title="Премахни" onclick="event.preventDefault();event.stopPropagation();removeFavFromAccount(${o.id})">✕</button>
+      </a>`;
+    }).join('');
+  }
+}
+function removeFavFromAccount(id) {
+  const idx = favorites.indexOf(id);
+  if (idx > -1) favorites.splice(idx, 1);
+  localStorage.setItem('mt_favorites', JSON.stringify(favorites));
+  // sync to customer profile
+  const c = getCurrentCustomer();
+  if (c) {
+    const customers = JSON.parse(localStorage.getItem('mt_customers') || '[]');
+    const cust = customers.find(x => x.id === c.id);
+    if (cust) { cust.favorites = favorites; localStorage.setItem('mt_customers', JSON.stringify(customers)); }
+  }
+  renderAccount();
+  if (typeof renderOffers === 'function') renderOffers();
 }
 
 function openAuthModal(tab) {
@@ -1082,8 +1184,20 @@ function openOffer(id) {
   document.getElementById('offerModal').classList.add('active');
   document.body.style.overflow = 'hidden';
 
+  // Auto-fill inquiry with logged-in customer details (faster inquiry perk)
+  prefillInquiryFromCustomer();
+
   // Track view
   trackOfferView(offer.id, offer.title, offer.destination, offer.category);
+}
+
+function prefillInquiryFromCustomer() {
+  const c = getCurrentCustomer();
+  if (!c) return;
+  const n = document.getElementById('inqName');
+  const e = document.getElementById('inqEmail');
+  if (n && !n.value) n.value = c.name || '';
+  if (e && !e.value) e.value = c.email || '';
 }
 
 function selectHotel(idx) {

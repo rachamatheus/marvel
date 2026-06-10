@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>Marvel Tour — Вашият туроператор</title>
   <meta name="description" content="Marvel Tour — туристически оферти, екскурзии и почивки от Пловдив. Гърция, Турция, Египет, Италия и още.">
-  <link rel="stylesheet" href="styles.css?v=87">
+  <link rel="stylesheet" href="styles.css?v=88">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
 </head>
 <body>
@@ -521,6 +521,46 @@
       <button class="auth-btn" onclick="handleRegister()">Създай профил</button>
       <p class="auth-switch">Вече имате профил? <a href="javascript:void(0)" onclick="switchAuthTab('login')">Влезте</a></p>
     </div>
+
+    <!-- Benefits teaser -->
+    <div class="auth-perks">
+      <div class="auth-perks-title">✨ Защо да си създадете профил?</div>
+      <ul>
+        <li>📬 Следете <strong>статуса на запитванията</strong> си в реално време</li>
+        <li>❤️ Запазвайте <strong>любими почивки</strong> и се връщайте към тях</li>
+        <li>⚡ По-бързо запитване — данните ви се попълват автоматично</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACCOUNT PANEL -->
+<div class="auth-overlay" id="accountModal" onclick="if(event.target===this)closeAccountModal()">
+  <div class="account-card" onclick="event.stopPropagation()">
+    <button class="auth-close" onclick="closeAccountModal()" aria-label="Затвори">✕</button>
+
+    <div class="account-head">
+      <div class="account-avatar" id="accAvatar">U</div>
+      <div>
+        <div class="account-name" id="accName">—</div>
+        <div class="account-email" id="accEmail">—</div>
+      </div>
+    </div>
+
+    <div class="account-stats">
+      <div class="account-stat"><span id="accFavCount">0</span><small>❤️ Любими</small></div>
+      <div class="account-stat"><span id="accInqCount">0</span><small>📬 Запитвания</small></div>
+    </div>
+
+    <div class="account-tabs">
+      <button id="accTabInq" class="account-tab active" onclick="switchAccountTab('inq')">📬 Моите запитвания</button>
+      <button id="accTabFav" class="account-tab" onclick="switchAccountTab('fav')">❤️ Любими почивки</button>
+    </div>
+
+    <div id="accPanelInq" class="account-panel"></div>
+    <div id="accPanelFav" class="account-panel" style="display:none;"></div>
+
+    <button class="account-logout" onclick="logoutCustomer();closeAccountModal()">↩ Изход от профила</button>
   </div>
 </div>
 
@@ -655,9 +695,9 @@
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
-<script src="data/offers.js?v=87"></script>
-<script src="data/images.js?v=87"></script>
-<script src="app.js?v=87"></script>
+<script src="data/offers.js?v=88"></script>
+<script src="data/images.js?v=88"></script>
+<script src="app.js?v=88"></script>
 
 <!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
