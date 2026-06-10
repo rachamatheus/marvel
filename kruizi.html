@@ -8,17 +8,27 @@
   <meta http-equiv="Expires" content="0">
   <title>Круизи — Marvel Tour</title>
   <meta name="description" content="Marvel Tour — круизи онлайн. Costa, MSC, Royal Caribbean, Celestyal, NCL и още. Търсете и резервирайте круиз по гръцките острови, Средиземно море и целия свят.">
-  <link rel="stylesheet" href="styles.css?v=75">
+  <link rel="stylesheet" href="styles.css?v=76">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
   <style>
-    .cruise-hero { padding: 96px 1.2rem 1.5rem; max-width: 1300px; margin: 0 auto; text-align:center; }
-    .cruise-hero h1 { font-family:'Playfair Display',serif; font-size:2.2rem; color:var(--primary); margin-bottom:.5rem; }
-    .cruise-hero p { color:var(--gray-600,#555); max-width:720px; margin:0 auto; }
-    .cruise-lines { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:1.2rem 0 0; }
-    .cruise-lines span { background:var(--gray-100,#f1f0ec); color:var(--gray-700,#444); padding:6px 14px; border-radius:100px; font-size:.82rem; font-weight:600; }
-    .cruise-frame-wrap { max-width: 1300px; margin: 1.2rem auto 0; padding: 0 0.6rem 3rem; }
-    #cruiseFrame { width:100%; border:0; border-radius:16px; box-shadow: var(--shadow-md, 0 8px 30px rgba(0,0,0,0.08)); min-height: 1600px; display:block; background:#fff; }
-    @media(max-width:700px){ .cruise-hero{ padding-top:84px; } .cruise-hero h1{ font-size:1.6rem; } #cruiseFrame{ min-height: 1400px; } }
+    body { background:#fff; }
+    /* Branded header band in our navy/gold so the section reads as part of the site */
+    .cruise-head {
+      padding: 110px 1.2rem 2.4rem;
+      text-align:center; color:#fff;
+      background:
+        linear-gradient(135deg, rgba(8,25,70,0.92) 0%, rgba(12,40,95,0.90) 55%, rgba(8,25,70,0.92) 100%),
+        url('https://images.unsplash.com/photo-1599640842225-85d111c60e6b?w=1600&q=80') center/cover;
+    }
+    .cruise-head .section-badge { background:rgba(255,255,255,0.14); color:#fff; }
+    .cruise-head h1 { font-family:'Playfair Display',serif; font-size:2.3rem; margin:.6rem 0 .5rem; color:#fff; }
+    .cruise-head p { color:rgba(255,255,255,0.88); max-width:740px; margin:0 auto; line-height:1.6; }
+    .cruise-lines { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:1.4rem 0 0; }
+    .cruise-lines span { background:rgba(255,255,255,0.12); color:#fff; border:1px solid rgba(255,255,255,0.22); padding:6px 14px; border-radius:100px; font-size:.82rem; font-weight:600; }
+    /* Seamless white frame — blends with the widget's own white background */
+    .cruise-frame-wrap { max-width: 1280px; margin: 0 auto; padding: 0 0 2.5rem; }
+    #cruiseFrame { width:100%; border:0; min-height: 1600px; display:block; background:#fff; }
+    @media(max-width:700px){ .cruise-head{ padding:90px 1rem 1.8rem; } .cruise-head h1{ font-size:1.6rem; } #cruiseFrame{ min-height: 1400px; } }
   </style>
 </head>
 <body>
@@ -41,7 +51,7 @@
   </ul>
 </nav>
 
-<div class="cruise-hero">
+<div class="cruise-head">
   <div class="section-badge" style="display:inline-block;margin-bottom:.6rem;">🚢 Круизи онлайн</div>
   <h1>Круизи по целия свят</h1>
   <p>Търсете и резервирайте круиз директно тук — гръцки острови, Средиземно море, Карибите и още. Цени на живо от водещите круизни компании, с пълните описания на маршрутите, корабите и каютите.</p>
