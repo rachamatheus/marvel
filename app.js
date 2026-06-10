@@ -234,6 +234,22 @@ function doHeroSearch() {
   setTimeout(renderOffers, 400);
 }
 
+// Inline (live) search in the filters bar
+function doInlineSearch(val) {
+  currentSearch = (val || '').trim().toLowerCase();
+  const clr = document.getElementById('inlineSearchClear');
+  if (clr) clr.style.display = currentSearch ? '' : 'none';
+  renderOffers();
+}
+function clearInlineSearch() {
+  currentSearch = '';
+  const inp = document.getElementById('inlineSearch');
+  if (inp) inp.value = '';
+  const clr = document.getElementById('inlineSearchClear');
+  if (clr) clr.style.display = 'none';
+  renderOffers();
+}
+
 // ===== STAT COUNTER =====
 function updateStatCounter() {
   const el = document.getElementById('stat-total');
@@ -731,6 +747,10 @@ function clearSearchFilter() {
   currentSearch = '';
   const s = document.getElementById('heroSearch');
   if (s) s.value = '';
+  const inp = document.getElementById('inlineSearch');
+  if (inp) inp.value = '';
+  const clr = document.getElementById('inlineSearchClear');
+  if (clr) clr.style.display = 'none';
   renderOffers();
 }
 

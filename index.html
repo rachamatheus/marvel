@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>Marvel Tour — Вашият туроператор</title>
   <meta name="description" content="Marvel Tour — туристически оферти, екскурзии и почивки от Пловдив. Гърция, Турция, Египет, Италия и още.">
-  <link rel="stylesheet" href="styles.css?v=85">
+  <link rel="stylesheet" href="styles.css?v=86">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
 </head>
 <body>
@@ -325,6 +325,12 @@
         <button class="filter-btn" data-filter="exotic" onclick="filterByCategory('exotic')">🌴 Екзотика</button>
         <button class="filter-btn" data-filter="vacation" onclick="filterByCategory('vacation')">🏖️ Почивки</button>
         <button class="filter-btn" data-filter="excursion" onclick="filterByCategory('excursion')">🗺️ Екскурзии</button>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-search">
+        <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="inlineSearch" placeholder="Търсете оферта, дестинация..." autocomplete="off" oninput="doInlineSearch(this.value)">
+        <button type="button" class="filter-search-clear" id="inlineSearchClear" onclick="clearInlineSearch()" title="Изчисти" style="display:none;">✕</button>
       </div>
       <div class="filter-divider"></div>
       <div style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--gray-400);">
@@ -651,9 +657,9 @@
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
-<script src="data/offers.js?v=85"></script>
-<script src="data/images.js?v=85"></script>
-<script src="app.js?v=85"></script>
+<script src="data/offers.js?v=86"></script>
+<script src="data/images.js?v=86"></script>
+<script src="app.js?v=86"></script>
 
 <!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
