@@ -491,6 +491,12 @@ const HOTEL_IMAGES = {
   'Vista Sol Punta Cana Beach Resort & Spa': 'https://www.marveltourbg.com/img/OBEKTI/11_1755242561113.jpg',
   'SUNSCAPE COCO PUNTA CANA': 'https://www.marveltourbg.com/img/OBEKTI/1_1755177709118.jpg',
   'Dreams Flora Resort & Spa': 'https://www.marveltourbg.com/img/OBEKTI/11_1760352044147.jpg',
+  'Secrets Royal Beach Punta Cana': 'https://www.marveltourbg.com/img/OBEKTI/11_1760354161149.jpg',
+  'Caribe Deluxe Princess': 'https://www.marveltourbg.com/img/OBEKTI/IMG_167334540880.jpg',
+  'Lopesan Costa Bavaro Resort Spa & Casino': 'https://www.marveltourbg.com/img/OBEKTI/1_1755174735123.jpg',
+  'INTERCONTINENTAL': 'https://xml.emerald.bg/web/files/hotels/Hotel/4163/images/InterContinental%20Lobby%2001%20(2)%20(1).jpg',
+  'CONSTANCE BELLE MARE': 'https://xml.emerald.bg/web/files/hotels/Hotel/4265/images/60bb75cecd15e581955062.jpg',
+  'Constance Belle Mare Plage': 'https://xml.emerald.bg/web/files/hotels/Hotel/4265/images/60bb75cecd15e581955062.jpg',
 };
 
 const GALLERY_COUNTS = {
