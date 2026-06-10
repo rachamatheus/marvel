@@ -3259,8 +3259,8 @@ const OFFERS = [
   excludes:['Такса гориво','Туристическа такса','Факулт. екскурзии','Трансфер Стара Загора (+10 €)'],
   departures:['София','Пловдив','Пазарджик','Стара Загора (+10 €)'],
   hotels:[
-    { name:'Philippos', board:'Закуска + вечеря', price_bgn:624, price_eur:319, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-olimpiyska-riviera-gartsiya-s-avtobus-ot-st-1_17762454621127.jpg' },
-    { name:'Imperia President Hotel', board:'Закуска + вечеря', price_bgn:756, price_eur:386, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-olimpiyska-riviera-gartsiya-s-avtobus-ot-st-1_17762454621127.jpg' },
+    { name:'Philippos', board:'Закуска + вечеря', price_bgn:624, price_eur:319, image:'https://xml.emerald.bg/web/files/hotels/Hotel/6226/images/photo-philippos-hotel-paralia-katerinis-13.jpg' },
+    { name:'Imperia President Hotel', board:'Закуска + вечеря', price_bgn:756, price_eur:386, image:'https://xml.emerald.bg/web/files/hotels/Hotel/6198/images/BIG_na-20m-ot-plaja-v-paraliya-katerini-noshtuvka-na-chovek-sas-zakuska-i-vecherya-490249_174281715284.jpg' },
   ],
   featured:false },
 
@@ -3533,9 +3533,9 @@ const OFFERS = [
   excludes:['Такса гориво','Закуски (Lefkas 3★)','Градска такса (1.50 €/нощ)','Факулт. екскурзии','Доплащане 64+'],
   departures:['София (07:00)','Дупница','Благоевград','Сандански'],
   hotels:[
-    { name:'Lefkas 3★', board:'Според хотела', price_bgn:937, price_eur:479, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-1_1685701206576.jpg' },
-    { name:'Villagio Maistro 3★', board:'Според хотела', price_bgn:937, price_eur:479, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-1_1685701206576.jpg' },
-    { name:'Ianos 3★', board:'Според хотела', price_bgn:1068, price_eur:546, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-1_1685701206576.jpg' },
+    { name:'Lefkas 3★', board:'Според хотела', price_bgn:937, price_eur:479, image:'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA3NzY4ODAmSW1hZ2VJRD0yMTE0' },
+    { name:'Villagio Maistro 3★', board:'Според хотела', price_bgn:937, price_eur:479, image:'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA1NjcwNzEmSW1hZ2VJRD0wNTUw' },
+    { name:'Ianos 3★', board:'Според хотела', price_bgn:1068, price_eur:546, image:'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA0NzI5MDUmSW1hZ2VJRD0wODU5' },
   ],
   gallery:[
     'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_pochivka-na-ostrov-lefkada-7-noshtuvki-s-vklyuchen-tran-1_1685701206576.jpg',
@@ -4103,9 +4103,14 @@ const OFFERS = [
     { day:'Ден 10', text:'Истанбул – София. Пристигаме обратно на летище София.' },
   ],
   hotels:[
-    {name:'Ellaidhoo Maldives by Cinnamon 4★',board:'All Inclusive',price_bgn:4448,price_eur:2274,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1757595034980.png'},
-    {name:'Malahini Kuda Bandos 5★',board:'Закуска',price_bgn:4460,price_eur:2280,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1757595034980.png'},
-    {name:'Kurumba Maldives 5★',board:'Закуска',price_bgn:5535,price_eur:2830,image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1757595034980.png'},
+    { name:'Ellaidhoo Maldives by Cinnamon 4★', board:'Според хотела', price_bgn:4448, price_eur:2274, image:'https://www.marveltourbg.com/img/OBEKTI/1_1780492126165.jpg' },
+    { name:'Malahini Kuda Bandos 5★', board:'Според хотела', price_bgn:4460, price_eur:2280, image:'https://www.marveltourbg.com/img/OBEKTI/363332171_1780492747166.jpg' },
+    { name:'Bandos Maldives 4★', board:'Според хотела', price_bgn:4598, price_eur:2351, image:'https://www.marveltourbg.com/img/OBEKTI/1_1757658983140.jpg' },
+    { name:'Kuredu Island Resort & Spa 4★', board:'Според хотела', price_bgn:4753, price_eur:2430, image:'https://www.marveltourbg.com/img/OBEKTI/1_1757593952139.jpg' },
+    { name:'Kurumba Maldives 5★', board:'Според хотела', price_bgn:5535, price_eur:2830, image:'https://www.marveltourbg.com/img/OBEKTI/1_1757663262141.jpg' },
+    { name:'Sheraton Maldives Full Moon Resort & Spa 5★', board:'Според хотела', price_bgn:5635, price_eur:2881, image:'https://www.marveltourbg.com/img/OBEKTI/1111_1774605719158.jpg' },
+    { name:'Sun Siyam Olhuveli Maldives 4★', board:'Според хотела', price_bgn:7208, price_eur:3685, image:'https://www.marveltourbg.com/img/OBEKTI/1_1774614127160.jpg' },
+    { name:'Varu by Atmosphere 5★', board:'Според хотела', price_bgn:7395, price_eur:3781, image:'https://www.marveltourbg.com/img/OBEKTI/1_1757593641138.jpg' },
   ],
   gallery:[
     'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_1757595034980.png',
