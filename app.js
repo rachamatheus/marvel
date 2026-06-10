@@ -295,7 +295,7 @@ function renderFeatured() {
 const CONTINENT_DATA = {
   europe: {
     label: 'Европа', icon: '🏰',
-    countries: ['greece','france','spain','italy','albania','poland','austria','bulgaria'],
+    countries: ['greece','france','spain','italy','albania','poland','austria','bulgaria','portugal','switzerland','germany','hungary','croatia','romania','serbia','cyprus','belgium','denmark','sweden','ireland','iceland','estonia','bosnia','kosovo','montenegro','uk','czech','finland','malta'],
     images: {
       greece:  'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&q=80',
       france:  'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80',
@@ -308,7 +308,7 @@ const CONTINENT_DATA = {
   },
   africa: {
     label: 'Африка', icon: '🦁',
-    countries: ['egypt','morocco','kenya','tanzania','mauritius','madagascar','seychelles'],
+    countries: ['egypt','morocco','kenya','tanzania','mauritius','madagascar','seychelles','tunisia','ethiopia','namibia','south-africa'],
     images: {
       egypt:   'https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80',
       morocco: 'https://images.unsplash.com/photo-1548697741-cc45ab89ef66?w=400&q=80',
@@ -316,7 +316,7 @@ const CONTINENT_DATA = {
   },
   asia: {
     label: 'Азия', icon: '🏯',
-    countries: ['turkey','uae','jordan','thailand','vietnam','india','indonesia','china','japan','srilanka','armenia','georgia','maldives'],
+    countries: ['turkey','uae','jordan','thailand','vietnam','india','indonesia','china','japan','srilanka','armenia','georgia','maldives','azerbaijan','qatar','new-zealand'],
     images: {
       turkey:   'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400&q=80',
       uae:      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80',
@@ -441,7 +441,13 @@ function selectContinent(key) {
     china:'🇨🇳', japan:'🇯🇵', srilanka:'🇱🇰', kenya:'🇰🇪', tanzania:'🇹🇿',
     mauritius:'🇲🇺', madagascar:'🇲🇬', seychelles:'🇸🇨', usa:'🇺🇸',
     argentina:'🇦🇷', brazil:'🇧🇷', colombia:'🇨🇴', peru:'🇵🇪',
-    dominicana:'🇩🇴', bahamas:'🇧🇸'
+    dominicana:'🇩🇴', bahamas:'🇧🇸',
+    portugal:'🇵🇹', switzerland:'🇨🇭', germany:'🇩🇪', hungary:'🇭🇺', croatia:'🇭🇷',
+    romania:'🇷🇴', serbia:'🇷🇸', cyprus:'🇨🇾', belgium:'🇧🇪', denmark:'🇩🇰',
+    sweden:'🇸🇪', ireland:'🇮🇪', iceland:'🇮🇸', estonia:'🇪🇪', bosnia:'🇧🇦',
+    kosovo:'🇽🇰', montenegro:'🇲🇪', uk:'🇬🇧', czech:'🇨🇿', finland:'🇫🇮',
+    malta:'🇲🇹', tunisia:'🇹🇳', ethiopia:'🇪🇹', namibia:'🇳🇦', 'south-africa':'🇿🇦',
+    'new-zealand':'🇳🇿', azerbaijan:'🇦🇿', qatar:'🇶🇦'
   };
   if (!data.countries.length) {
     grid.innerHTML = `<div style="color:rgba(255,255,255,0.5);font-size:0.9rem;padding:1rem 0;grid-column:1/-1;">Оферти за тази дестинация скоро...</div>`;
