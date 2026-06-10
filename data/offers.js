@@ -2263,6 +2263,8 @@ const OFFERS = [
   departures:['София (Летище)'],
   hotels:[
     { name:'Jaz Almazino Almaza Bay Superior', board:'All Inclusive', price_bgn:1572, price_eur:804, image:'https://store.abax.bg/book.abax.bg/img_tour/3023/hotel/9057/gallery/LCMVPW7B.jpg' },
+    { name:'Jaz Tamerina Premium', board:'All Inclusive', price_bgn:1572, price_eur:804, image:'https://store.abax.bg/book.abax.bg/img_tour/3023/hotel/9350/gallery/UZ5VEMQ6.jpg' },
+    { name:'The G Hotel Seashell', board:'All Inclusive', price_bgn:1572, price_eur:804, image:'https://store.abax.bg/book.abax.bg/img_tour/3023/hotel/10093/gallery/8A2Z59HP.jpg' },
     { name:'Jaz Almaza Blue Premium', board:'All Inclusive', price_bgn:1907, price_eur:975, image:'https://store.abax.bg/book.abax.bg/img_tour/3023/hotel/9697/gallery/BR5MDYQ8.jpg' },
     { name:'Jaz Neo Caza Maza', board:'All Inclusive', price_bgn:1907, price_eur:975, image:'https://store.abax.bg/book.abax.bg/img_tour/3023/hotel/9945/gallery/AGXZ3JLU.jpg' },
     { name:'Jaz Villagio', board:'All Inclusive', price_bgn:1973, price_eur:1009, image:'https://store.abax.bg/book.abax.bg/img_tour/3023/hotel/9946/gallery/JFDSBKUL.jpg' },
