@@ -31,7 +31,7 @@ function renderList() {
   const cards = posts.map(p => `
     <a class="blog-card" href="blog.html?id=${p.id}">
       <div class="blog-card-imgwrap">
-        <img class="blog-card-img" src="${p.cover}" alt="${p.title}" loading="lazy">
+        <img class="blog-card-img" src="${p.cover}" alt="${p.title}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&q=80'">
         <span class="blog-card-cat">${p.category}</span>
       </div>
       <div class="blog-card-body">
@@ -75,7 +75,9 @@ function renderArticle(id) {
 
   const bodyHtml = post.body.map(s =>
     (s.h ? `<h2 class="article-h">${s.h}</h2>` : '') +
-    (s.p ? `<p class="article-p">${s.p}</p>` : '')
+    (s.p ? `<p class="article-p">${s.p}</p>` : '') +
+    (s.list ? `<ul class="article-list">${s.list.map(li => `<li>${li}</li>`).join('')}</ul>` : '') +
+    (s.q ? `<blockquote class="article-quote">${s.q}</blockquote>` : '')
   ).join('');
 
   // Related posts (same category, excluding current)
@@ -86,7 +88,7 @@ function renderArticle(id) {
       <div class="blog-grid">
         ${related.map(p => `
           <a class="blog-card" href="blog.html?id=${p.id}">
-            <div class="blog-card-imgwrap"><img class="blog-card-img" src="${p.cover}" alt="${p.title}" loading="lazy"></div>
+            <div class="blog-card-imgwrap"><img class="blog-card-img" src="${p.cover}" alt="${p.title}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&q=80'"></div>
             <div class="blog-card-body">
               <h3 class="blog-card-title" style="font-size:1rem;">${p.title}</h3>
             </div>
@@ -100,7 +102,7 @@ function renderArticle(id) {
       <span class="blog-card-cat article-cat">${post.category}</span>
       <h1 class="article-title">${post.title}</h1>
       <div class="article-meta">${post.author} · ${formatBgDate(post.date)} · ${post.read} четене</div>
-      <img class="article-cover" src="${post.cover}" alt="${post.title}">
+      <img class="article-cover" src="${post.cover}" alt="${post.title}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&q=80'">
       <div class="article-body">${bodyHtml}</div>
       <div class="article-cta">
         <div>
