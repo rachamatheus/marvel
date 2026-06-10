@@ -463,6 +463,34 @@ const HOTEL_IMAGES = {
   'Orangea Beach Resort': 'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/8940/gallery/D3L5WJVX.jpg',
   'Palm Beach Resort': 'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/9441/gallery/HTGSZC42.jpg',
   'Nosy Be Hotel and Spa': 'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/9294/gallery/NT2DPS5E.jpg',
+  // ── Мавриций (реални снимки) ──
+  'Canonnier Beachcomber Golf Resort & Spa': 'https://static.peakview.bg/img/data2/63/hoteli/273/BIG_IMG_1738755492273.jpg',
+  'La Pirogue': 'https://static.peakview.bg/img/data2/63/hoteli/229/BIG_IMG_1696420424229.jpg',
+  'Sugar Beach': 'https://static.peakview.bg/img/data2/63/hoteli/275/BIG_IMG_1738756522275.jpg',
+  'Heritage Le Telfair Resort': 'https://static.peakview.bg/img/data2/63/hoteli/276/BIG_IMG_1738756600276.jpg',
+  'LUX* Belle Mare': 'https://static.peakview.bg/img/data2/63/hoteli/277/BIG_IMG_1738759688277.jpg',
+  'LUX* Le Morne': 'https://static.peakview.bg/img/data2/63/hoteli/293/BIG_IMG_1744724383293.jpg',
+  'The St. Regis Le Morne Resort': 'https://static.peakview.bg/img/data2/63/hoteli/311/BIG_IMG_1761827342311.jpg',
+  'Seasense Boutique Hotel': 'https://static.peakview.bg/img/data2/63/hoteli/166/BIG_IMG_1652077226166.jpg',
+  'Seasense Boutique': 'https://static.peakview.bg/img/data2/63/hoteli/166/BIG_IMG_1652077226166.jpg',
+  'Maritim Resort & Spa': 'https://static.peakview.bg/img/data2/63/hoteli/233/BIG_IMG_1696490852233.jpg',
+  'TARISA RESORT & SPA': 'https://xml.emerald.bg/web/files/hotels/Hotel/4166/images/66bb80a00e357769524430.jpg',
+  'BE COSY APART HOTEL': 'https://xml.emerald.bg/web/files/hotels/Hotel/5745/images/66ba049d53321242750719.jpg',
+  'VERANDA Tamarin Hotel & Spa': 'https://xml.emerald.bg/web/files/hotels/Hotel/4223/images/609a49f557881299603141.jpg',
+  // ── Сейшели (реални снимки) ──
+  'Berjaya Beau Vallon Bay Resort & Casino': 'https://www.marveltourbg.com/img/OBEKTI/1_1779964361161.jpg',
+  'Coral Strand Smart Choice': 'https://www.marveltourbg.com/img/OBEKTI/IMG_167307961261.jpg',
+  'Bliss Boutique Hotel Seychelles': 'https://www.marveltourbg.com/img/OBEKTI/1_1779966499163.jpg',
+  'Savoy Seychelles Resort & Spa': 'https://www.marveltourbg.com/img/OBEKTI/IMG_167307940060.jpg',
+  'Kempinski Seychelles Resort': 'https://www.marveltourbg.com/img/OBEKTI/IMG_167316409063.jpg',
+  'Constance Ephelia': 'https://www.marveltourbg.com/img/OBEKTI/1_1779966687164.jpg',
+  // ── Доминикана (реални снимки) ──
+  'Grand Bavaro Princess': 'https://www.marveltourbg.com/img/OBEKTI/2222_175524264291.jpg',
+  'Iberostar Waves Punta Cana': 'https://www.marveltourbg.com/img/OBEKTI/1_1755177274119.jpg',
+  'Tropical Deluxe Princess': 'https://www.marveltourbg.com/img/OBEKTI/111_1760351681146.jpg',
+  'Vista Sol Punta Cana Beach Resort & Spa': 'https://www.marveltourbg.com/img/OBEKTI/11_1755242561113.jpg',
+  'SUNSCAPE COCO PUNTA CANA': 'https://www.marveltourbg.com/img/OBEKTI/1_1755177709118.jpg',
+  'Dreams Flora Resort & Spa': 'https://www.marveltourbg.com/img/OBEKTI/11_1760352044147.jpg',
 };
 
 const GALLERY_COUNTS = {
