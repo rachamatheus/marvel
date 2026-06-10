@@ -439,6 +439,14 @@ const HOTEL_IMAGES = {
   'Sunrise Premium 5★ / Grand Blue Fafa 5★': 'https://static.peakview.bg/img/data2/116/hoteli/116/BIG_sunrise%20premium3_1704893407116.jpg',
   'Olympik Hotel, Прага': 'https://store.abax.bg/book.abax.bg/img_tour/3091/hotel/7649/gallery/USV2JT4B.jpg',
   'Hotelli Aakenus': 'http://planet-media.s3.amazonaws.com/images/Hotel-Aakenus-exteriors-3-1140x522.jpg',
+  // ── Проверка на хотелски снимки (реални от marveltour) ──
+  'Hotel Samel': 'https://www.solvex.bg/img/OBEKTI/4261/BIG_hotel_17642514974261.jpg',
+  'Samel': 'https://www.solvex.bg/img/OBEKTI/4261/BIG_hotel_17642514974261.jpg',
+  'Ibis Paris Pantin Eglise': 'https://store.abax.bg/book.abax.bg/img_tour/3142/hotel/8524/gallery/KUCGL9JW.jpg',
+  'Hotel President': 'https://www.albatrostours.net/images/Albania-Adriatika/Shengin-hotel-President-outside-albatrostours.net.jpg',
+  'Ellaidhoo Maldives by Cinnamon': 'https://www.marveltourbg.com/img/OBEKTI/1_1780492126165.jpg',
+  'Malahini Kuda Bandos': 'https://www.marveltourbg.com/img/OBEKTI/363332171_1780492747166.jpg',
+  'Kurumba Maldives': 'https://www.marveltourbg.com/img/OBEKTI/1_1757663262141.jpg',
 };
 
 const GALLERY_COUNTS = {
