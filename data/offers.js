@@ -777,9 +777,9 @@ const OFFERS = [
   excludes:['Виза Мадагаскар (€30)','Факулт. екскурзии (€74–89)','Лични разходи','Такса гориво'],
   departures:['София (Летище Т2)'],
   hotels:[
-    { name:'Orangea Beach Resort', board:'All Inclusive', price_bgn:4301, price_eur:2199, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekzotichna-pochivka-v-madagaskar-ostrov-nusi-be-2911202-1_17793653131147.jpg' },
-    { name:'Palm Beach Resort', board:'All Inclusive', price_bgn:4888, price_eur:2499, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekzotichna-pochivka-v-madagaskar-ostrov-nusi-be-2911202-1_17793653131147.jpg' },
-    { name:'Nosy Be Hotel and Spa', board:'All Inclusive', price_bgn:4997, price_eur:2555, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_ekzotichna-pochivka-v-madagaskar-ostrov-nusi-be-2911202-1_17793653131147.jpg' },
+    { name:'Orangea Beach Resort', board:'All Inclusive', price_bgn:4301, price_eur:2199, image:'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/8940/gallery/D3L5WJVX.jpg' },
+    { name:'Palm Beach Resort', board:'All Inclusive', price_bgn:4888, price_eur:2499, image:'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/9441/gallery/HTGSZC42.jpg' },
+    { name:'Nosy Be Hotel and Spa', board:'All Inclusive', price_bgn:4997, price_eur:2555, image:'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/9294/gallery/NT2DPS5E.jpg' },
   ],
   featured:false },
 
@@ -804,12 +804,13 @@ const OFFERS = [
   excludes:['Лични разходи','Обяд и вечеря','Факулт. екскурзии'],
   departures:['София (Летище Т2)'],
   hotels:[
-    { name:'Berjaya Beau Vallon Bay Resort & Casino ★★★', board:'Закуска', price_bgn:3345, price_eur:1710, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
-    { name:'Coral Strand Smart Choice ★★★★', board:'Закуска', price_bgn:3468, price_eur:1773, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
-    { name:'Bliss Boutique Hotel Seychelles ★★★★', board:'Закуска', price_bgn:3855, price_eur:1971, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
-    { name:'Savoy Seychelles Resort & Spa ★★★★★', board:'Закуска', price_bgn:4526, price_eur:2314, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
-    { name:'Kempinski Seychelles Resort ★★★★★', board:'Закуска', price_bgn:4899, price_eur:2505, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
-    { name:'Constance Ephelia ★★★★★', board:'Закуска', price_bgn:5170, price_eur:2643, image:'https://www.marveltourbg.com/img/PROGRAMI_POC/BIG_1_17799674081158.png' },
+    { name:'Berjaya Beau Vallon Bay Resort & Casino ★★★', board:'Закуска', price_bgn:3345, price_eur:1710, image:'https://www.marveltourbg.com/img/OBEKTI/1_1779964361161.jpg' },
+    { name:'Coral Strand Smart Choice ★★★★', board:'Закуска', price_bgn:3468, price_eur:1773, image:'https://www.marveltourbg.com/img/OBEKTI/IMG_167307961261.jpg' },
+    { name:'Bliss Boutique Hotel Seychelles ★★★★', board:'Закуска', price_bgn:3855, price_eur:1971, image:'https://www.marveltourbg.com/img/OBEKTI/1_1779966499163.jpg' },
+    { name:'Crown Beach Hotel Seychelles ★★★★', board:'Закуска', price_bgn:3952, price_eur:2021, image:'https://www.marveltourbg.com/img/OBEKTI/568702392_1779966359162.jpg' },
+    { name:'Savoy Seychelles Resort & Spa ★★★★★', board:'Закуска', price_bgn:4526, price_eur:2314, image:'https://www.marveltourbg.com/img/OBEKTI/IMG_167307940060.jpg' },
+    { name:'Kempinski Seychelles Resort ★★★★★', board:'Закуска', price_bgn:4899, price_eur:2505, image:'https://www.marveltourbg.com/img/OBEKTI/IMG_167316409063.jpg' },
+    { name:'Constance Ephelia ★★★★★', board:'Закуска', price_bgn:5170, price_eur:2643, image:'https://www.marveltourbg.com/img/OBEKTI/1_1779966687164.jpg' },
   ],
   featured:false },
 
