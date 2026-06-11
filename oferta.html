@@ -35,9 +35,10 @@
     .offer-details tr:nth-child(even) td { background:rgba(0,0,0,0.02); }
     .offer-details strong { color:var(--primary); }
     .offer-details .od-table-wrap { overflow-x:auto; }
-    .offer-details table tr:hover td { background: rgba(201,168,76,0.10); }
-    .offer-details tr.od-row-selected td { background: rgba(26,58,107,0.14) !important; font-weight:600; }
-    .offer-details tr.od-row-selected td:first-child { box-shadow: inset 3px 0 0 var(--primary); }
+    .offer-details table tr:hover td { background: rgba(201,168,76,0.14); }
+    .offer-details tr.od-row-selected td { background:#dcfce7 !important; color:#08351c !important; font-weight:700; border-color:#16a34a !important; }
+    .offer-details tr.od-row-selected td:first-child { box-shadow: inset 5px 0 0 #16a34a; }
+    .offer-details tr.od-row-selected td:first-child::before { content:'✔ '; color:#16a34a; font-weight:800; }
   </style>
 </head>
 <body>
@@ -199,7 +200,7 @@
 <script src="data/images.js?v=128"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="oferta.js?v=144"></script>
+<script src="oferta.js?v=145"></script>
 <script src="lang.js?v=132"></script>
 </body>
 </html>

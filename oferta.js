@@ -399,39 +399,44 @@ async function submitInquiry() {
 // without changing the layout/flow.
 function makeDetailTablesInteractive(container) {
   if (!container) return;
+  const MARKER = 'Избран вариант: ';
+  // Rebuild the inquiry message from ALL currently-selected rows (multi-select)
+  function syncSelectionToMsg() {
+    const labels = [];
+    container.querySelectorAll('tr.od-row-selected').forEach(tr => {
+      const cells = Array.from(tr.querySelectorAll('td')).map(c => c.textContent.replace(/^✔\s*/, '').trim()).filter(Boolean);
+      if (cells.length) labels.push(cells.join(' · '));
+    });
+    const inqMsg = document.getElementById('inqMsg');
+    if (!inqMsg) return;
+    const other = (inqMsg.value || '').split('\n').filter(l => l && !l.startsWith(MARKER));
+    const sel = labels.map(l => MARKER + l);
+    inqMsg.value = [...sel, ...other].join('\n').trim();
+  }
   container.querySelectorAll('table').forEach(tbl => {
     const rows = Array.from(tbl.querySelectorAll('tr'));
     if (rows.length < 2) return;
-    let hintShown = false;
     rows.forEach((tr, i) => {
       const isHeader = tr.querySelector('th') || i === 0;
       if (isHeader) return;
       const txt = tr.textContent || '';
       if (!/\d/.test(txt)) return; // only rows with a number (price) are selectable
       tr.style.cursor = 'pointer';
-      tr.title = 'Изберете този вариант';
+      tr.title = 'Кликнете, за да маркирате / размаркирате';
       tr.addEventListener('click', () => {
-        rows.forEach(r => r.classList.remove('od-row-selected'));
-        tr.classList.add('od-row-selected');
-        const cells = Array.from(tr.querySelectorAll('td')).map(c => c.textContent.trim()).filter(Boolean);
+        const on = tr.classList.toggle('od-row-selected');
+        syncSelectionToMsg();
+        const cells = Array.from(tr.querySelectorAll('td')).map(c => c.textContent.replace(/^✔\s*/, '').trim()).filter(Boolean);
         const label = cells.join(' · ');
-        const inqMsg = document.getElementById('inqMsg');
-        if (inqMsg) {
-          const marker = 'Избран вариант: ';
-          const lines = (inqMsg.value || '').split('\n').filter(l => l && !l.startsWith(marker));
-          lines.unshift(marker + label);
-          inqMsg.value = lines.join('\n').trim();
-        }
-        try { showToast('✓ Избрахте: ' + label.slice(0, 50), 'success'); } catch (e) {}
+        try { showToast((on ? '✓ Маркирано: ' : '✕ Премахнато: ') + label.slice(0, 45), on ? 'success' : 'error'); } catch (e) {}
       });
     });
-    // add a small hint once per interactive table
+    // hint once per interactive table
     const firstSelectable = rows.find((tr, i) => !(tr.querySelector('th') || i === 0) && /\d/.test(tr.textContent || ''));
-    if (firstSelectable && !hintShown) {
-      hintShown = true;
+    if (firstSelectable) {
       const hint = document.createElement('div');
-      hint.textContent = '👆 Кликнете върху ред, за да изберете вариант';
-      hint.style.cssText = 'font-size:0.78rem;color:var(--gray-400);margin:2px 0 6px;';
+      hint.textContent = '👆 Кликнете върху редове, за да маркирате един или повече варианти (отново — за размаркиране)';
+      hint.style.cssText = 'font-size:0.8rem;color:#16a34a;margin:2px 0 6px;font-weight:600;';
       tbl.parentNode.insertBefore(hint, tbl);
     }
   });
