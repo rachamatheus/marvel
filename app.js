@@ -19,8 +19,11 @@ const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
 let supabase = null;
 
 function initSupabase() {
+  // Prefer the shared client created by sb-init.js (reads keys from admin Settings / localStorage)
+  if (window.__mtSupabase) { supabase = window.__mtSupabase; return true; }
   if (typeof window.supabase !== 'undefined' && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
     supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    window.__mtSupabase = supabase;
     return true;
   }
   return false;

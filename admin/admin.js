@@ -15,13 +15,34 @@ let statusChart = null;
 let destChart = null;
 
 // ===== INIT =====
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   loadOffers();
+  await syncFromSupabase();
   loadInquiries();
   populateCountryFilter();
   showPage('dashboard');
   renderCustomTags();
 });
+
+// Pull shared data (views + inquiries from all visitors) when Supabase is configured.
+// Mirrors into localStorage so the existing render code works unchanged.
+async function syncFromSupabase() {
+  const sb = window.__mtSupabase;
+  if (!sb) return;
+  try {
+    const { data: views } = await sb.from('offer_views')
+      .select('offer_id,offer_title,created_at')
+      .order('created_at', { ascending: false }).limit(5000);
+    if (Array.isArray(views)) {
+      localStorage.setItem('mt_offer_views', JSON.stringify(
+        views.map(v => ({ offer_id: v.offer_id, offer_title: v.offer_title, created_at: v.created_at }))
+      ));
+    }
+  } catch (e) {}
+  // NOTE: inquiries contain personal data (names, phones) and are intentionally
+  // NOT made publicly readable via the anon key. They remain on the device they
+  // were created on, or require Supabase auth to read centrally.
+}
 
 function doLogout() {
   sessionStorage.removeItem('mt_admin_auth');

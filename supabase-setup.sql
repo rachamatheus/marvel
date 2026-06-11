@@ -41,10 +41,13 @@ create policy "Allow insert inquiries" on inquiries for insert with check (true)
 create policy "Allow insert offer_views" on offer_views for insert with check (true);
 create policy "Allow insert page_views" on page_views for insert with check (true);
 
--- Политики за SELECT (само authenticated — само admin)
+-- Политики за SELECT
+-- Прегледите/посещенията НЕ съдържат лични данни → четими с anon ключа (за статистиката в админа).
+create policy "Allow anon select offer_views" on offer_views for select to anon using (true);
+create policy "Allow anon select page_views"  on page_views  for select to anon using (true);
+-- Запитванията съдържат ЛИЧНИ ДАННИ (имена, телефони) → четими само от authenticated (Supabase login),
+-- за да не са публично достъпни през anon ключа, който е вграден в сайта.
 create policy "Allow select inquiries" on inquiries for select using (auth.role() = 'authenticated');
-create policy "Allow select offer_views" on offer_views for select using (auth.role() = 'authenticated');
-create policy "Allow select page_views" on page_views for select using (auth.role() = 'authenticated');
 
 -- Политики за UPDATE/DELETE (само admin)
 create policy "Allow update inquiries" on inquiries for update using (auth.role() = 'authenticated');
