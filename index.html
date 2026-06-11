@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>Marvel Tour — Вашият туроператор</title>
   <meta name="description" content="Marvel Tour — туристически оферти, екскурзии и почивки от Пловдив. Гърция, Турция, Египет, Италия и още.">
-  <link rel="stylesheet" href="styles.css?v=131">
+  <link rel="stylesheet" href="styles.css?v=141">
   <link rel="icon" href="favicon.svg?v=9">
 </head>
 <body>
@@ -429,6 +429,23 @@
   </div>
 </div>
 
+<!-- REVIEWS (Google, 5★, ръчно курирани) -->
+<section class="section" id="reviews" style="padding-top:2.5rem;display:none;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-badge">⭐ Отзиви</div>
+      <h2 class="section-title">Какво казват клиентите ни</h2>
+      <p class="section-subtitle">Истински отзиви от нашите пътешественици в Google</p>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+    <div style="text-align:center;margin-top:1.8rem;">
+      <a id="reviewsGoogleBtn" href="#" target="_blank" rel="noopener" class="contact-btn contact-btn-outline">
+        <span style="color:#FBBC05;">★★★★★</span>&nbsp; Виж всички отзиви в Google
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT SECTION (form) -->
 <section class="section" id="contact" style="padding-top:2.5rem;">
   <div style="max-width:1100px;margin:0 auto;">
@@ -780,9 +797,10 @@
 
 <script src="data/offers.js?v=135"></script>
 <script src="data/images.js?v=128"></script>
+<script src="data/reviews.js?v=1"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="app.js?v=139"></script>
+<script src="app.js?v=140"></script>
 
 <!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>

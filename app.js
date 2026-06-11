@@ -295,8 +295,38 @@ window.addEventListener('load', () => {
   if (!location.hash) window.scrollTo(0, 0);
 });
 
+// Render curated 5-star Google reviews. Hides the section if there are none.
+function renderReviews() {
+  const sec = document.getElementById('reviews');
+  const grid = document.getElementById('reviewsGrid');
+  if (!sec || !grid || typeof REVIEWS === 'undefined') return;
+  if (!REVIEWS.length) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  grid.innerHTML = REVIEWS.map(r => `
+    <div class="review-card">
+      <div class="review-head">
+        <div class="review-avatar">${(r.name || '?').trim().charAt(0).toUpperCase()}</div>
+        <div>
+          <div class="review-name">${r.name || ''}</div>
+          ${r.date ? `<div class="review-date">${r.date}</div>` : ''}
+        </div>
+        <div class="review-gicon" title="Google">G</div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">${r.text || ''}</div>
+    </div>`).join('');
+  const btn = document.getElementById('reviewsGoogleBtn');
+  if (btn && typeof REVIEWS_GOOGLE_URL !== 'undefined') {
+    btn.href = REVIEWS_GOOGLE_URL;
+    if (typeof REVIEWS_GOOGLE_RATING !== 'undefined') {
+      btn.innerHTML = `<span style="color:#FBBC05;">★★★★★</span>&nbsp; Виж всички отзиви в Google (${REVIEWS_GOOGLE_RATING})`;
+    }
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initSupabase();
+  renderReviews();
   updateStatCounter();
   renderFeatured();
   initContinentMap();
