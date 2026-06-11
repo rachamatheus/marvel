@@ -1,13 +1,23 @@
 ﻿// Marvel Tour — single offer page (oferta.html?id=N or ?ref=Е422)
 const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=600&q=70';
-// External operator CDNs sometimes hiccup — retry the same URL once before giving up.
+// Route external operator photos through a free image cache/proxy (wsrv.nl):
+// faster, cached, and bypasses hotlink blocks (e.g. aquatour.bg).
+function proxify(u) {
+  if (!u || typeof u !== 'string') return u;
+  if (u.indexOf('data:') === 0 || u.indexOf('//') === -1) return u;
+  if (u.indexOf('wsrv.nl') !== -1 || u.indexOf('images.unsplash.com') !== -1) return u;
+  return 'https://wsrv.nl/?url=' + encodeURIComponent(u) + '&w=1400&output=webp&we&q=82';
+}
+// On error: if a proxied URL failed, fall back to the direct original; then placeholder.
 function imgFallback(img) {
   try {
     if (img && !img.dataset.retried) {
       img.dataset.retried = '1';
-      var orig = img.src;
+      var s = img.src || '';
+      var m = s.match(/wsrv\.nl\/\?url=([^&]+)/);
+      if (m) { img.src = decodeURIComponent(m[1]); return; }
       img.src = '';
-      setTimeout(function () { img.src = orig; }, 700);
+      setTimeout(function () { img.src = s; }, 700);
       return;
     }
   } catch (e) {}
@@ -129,7 +139,7 @@ function setupGallery(imgs, alt) {
   if (thumbs) {
     thumbs.style.display = multi ? '' : 'none';
     thumbs.innerHTML = multi ? galleryImages.map((src, i) =>
-      `<img class="modal-thumb ${i === 0 ? 'active' : ''}" src="${src}" alt="${alt || ''} ${i + 1}" onclick="galleryGoto(${i})" onerror="this.style.display='none'">`).join('') : '';
+      `<img class="modal-thumb ${i === 0 ? 'active' : ''}" src="${proxify(src)}" alt="${alt || ''} ${i + 1}" onclick="galleryGoto(${i})" onerror="this.style.display='none'">`).join('') : '';
   }
   galleryGoto(0, alt);
 }
@@ -137,7 +147,7 @@ function galleryGoto(i, alt) {
   if (!galleryImages.length) return;
   galleryIdx = (i + galleryImages.length) % galleryImages.length;
   const img = document.getElementById('offerImg');
-  if (img) { img.dataset.retried = ''; img.onerror = function () { imgFallback(this); }; img.src = galleryImages[galleryIdx]; if (alt) img.alt = alt; }
+  if (img) { img.dataset.retried = ''; img.onerror = function () { imgFallback(this); }; img.src = proxify(galleryImages[galleryIdx]); if (alt) img.alt = alt; }
   const counter = document.getElementById('galleryCounter');
   if (counter) counter.textContent = `${galleryIdx + 1} / ${galleryImages.length}`;
   document.querySelectorAll('#offerThumbs .modal-thumb').forEach((t, idx) => t.classList.toggle('active', idx === galleryIdx));
@@ -158,7 +168,7 @@ function lbRender() {
   const img = document.getElementById('lightboxImg');
   const cap = document.getElementById('lightboxCaption');
   const multi = lbImages.length > 1;
-  if (img) img.src = lbImages[lbIdx];
+  if (img) { img.onerror = function () { imgFallback(this); }; img.dataset.retried = ''; img.src = proxify(lbImages[lbIdx]); }
   if (cap) cap.textContent = lbCaption + (multi ? `  (${lbIdx + 1}/${lbImages.length})` : '');
   document.querySelectorAll('.lightbox-nav').forEach(b => b.style.display = multi ? '' : 'none');
 }
@@ -244,7 +254,7 @@ function renderOfferPage() {
   const cover = coverOf(offer);
   // Themed page backdrop from the offer's own photo
   const ob = document.getElementById('ofertaBg');
-  if (ob && cover) ob.style.backgroundImage = `url('${cover}')`;
+  if (ob && cover) ob.style.backgroundImage = `url('${proxify(cover)}')`;
   if (offer.gallery && offer.gallery.length) {
     let imgs = offer.gallery.slice();
     if (imgs.indexOf(cover) === -1) imgs.unshift(cover);
@@ -257,7 +267,7 @@ function renderOfferPage() {
       const distinct = new Set((activeOffer.hotels || []).map(hotelImg)).size;
       if (distinct <= 1) {
         document.querySelectorAll('#offerHotels .hotel-card-img').forEach((el, i) => {
-          el.src = imgs[i % imgs.length]; el.style.display = '';
+          el.src = proxify(imgs[i % imgs.length]); el.style.display = '';
         });
       }
     });
@@ -282,7 +292,7 @@ function renderOfferPage() {
     hotelsEl.innerHTML = hotels.map((h, i) => `
       <div class="hotel-card ${i === 0 ? 'selected' : ''}" onclick="selectHotel(${i})">
         <div class="hotel-card-imgwrap" onclick="event.stopPropagation();openHotelPhotos(${i})" title="Виж снимки">
-          <img class="hotel-card-img" src="${hotelImg(h)}" alt="${h.name}" onerror="this.style.display='none'">
+          <img class="hotel-card-img" src="${proxify(hotelImg(h))}" alt="${h.name}" onerror="this.style.display='none'">
           <span class="hotel-card-zoom">🔍</span>
         </div>
         <div class="hotel-card-info">

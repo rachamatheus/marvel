@@ -13,13 +13,14 @@
   <style>
     /* Per-offer themed backdrop (set from the offer's own photo) */
     .oferta-bg { position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center; background-repeat:no-repeat; }
-    .oferta-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(rgba(244,247,251,0.88), rgba(244,247,251,0.93)); }
+    .oferta-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(rgba(228,235,246,0.8), rgba(228,235,246,0.88)); }
     body { background:transparent; }
-    .offer-page { max-width: 1000px; margin: 0 auto; padding: 96px 1.2rem 4rem; }
+    .offer-page { max-width: 1000px; margin: 88px auto 4rem; padding: 1.6rem 2.2rem 3rem; background:#fff; border-radius:22px; box-shadow:0 18px 55px rgba(8,20,50,0.22); }
+    .offer-details { color:#262b35; }
     .offer-back { display:inline-flex; align-items:center; gap:6px; color:var(--primary); text-decoration:none; font-weight:600; font-size:0.9rem; margin-bottom:1rem; }
     .offer-back:hover { color: var(--gold); }
     .offer-hero-img { width:100%; height:420px; object-fit:cover; border-radius:20px; display:block; }
-    @media(max-width:700px){ .offer-hero-img{ height:260px; } .offer-page{ padding-top:84px; } }
+    @media(max-width:700px){ .offer-hero-img{ height:260px; } .offer-page{ margin:78px 8px 2rem; padding:1.1rem 1.1rem 2rem; border-radius:16px; } }
     .offer-cols { display:grid; grid-template-columns: 1fr; gap:1.5rem; margin-top:1.5rem; }
     .offer-section-title { font-size:1.05rem; font-weight:700; color:var(--primary); margin:1.6rem 0 0.8rem; }
     .offer-details { color:var(--gray-700,#374151); line-height:1.7; font-size:0.95rem; }
@@ -197,7 +198,7 @@
 <script src="data/images.js?v=128"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="oferta.js?v=143"></script>
+<script src="oferta.js?v=144"></script>
 <script src="lang.js?v=132"></script>
 </body>
 </html>

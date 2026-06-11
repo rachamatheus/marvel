@@ -182,7 +182,7 @@ function renderAccount() {
     favBox.innerHTML = favOffers.map(o => {
       const img = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) || (o.image && o.image.startsWith('http') ? o.image : PLACEHOLDER_IMG);
       return `<a class="account-fav" href="oferta.html?id=${o.id}">
-        <img src="${img}" alt="${o.title}" loading="lazy" onerror="imgFallback(this)">
+        <img src="${proxify(img)}" alt="${o.title}" loading="lazy" onerror="imgFallback(this)">
         <div class="account-fav-body">
           <div class="account-fav-title">${o.title}</div>
           <div class="account-fav-meta">📍 ${o.destination} · от ${o.price_eur} €</div>
@@ -439,7 +439,7 @@ function renderFeatured() {
   const [main, ...rest] = featured;
   let html = `
     <a class="featured-card-large" href="oferta.html?id=${main.id}">
-      <img src="${coverOf(main)}" alt="${main.title}" loading="lazy" onerror="imgFallback(this)">
+      <img src="${proxify(coverOf(main))}" alt="${main.title}" loading="lazy" onerror="imgFallback(this)">
       <div class="featured-card-overlay">
         <div class="offer-destination">📍 ${main.destination}</div>
         <div class="offer-title">${main.title}</div>
@@ -453,7 +453,7 @@ function renderFeatured() {
   rest.slice(0, 4).forEach(o => {
     html += `
       <a class="featured-card-sm" href="oferta.html?id=${o.id}">
-        <img src="${coverOf(o)}" alt="${o.title}" loading="lazy" onerror="imgFallback(this)">
+        <img src="${proxify(coverOf(o))}" alt="${o.title}" loading="lazy" onerror="imgFallback(this)">
         <div class="featured-card-overlay">
           <div class="offer-destination">📍 ${o.destination}</div>
           <div class="offer-title">${o.title}</div>
@@ -640,7 +640,7 @@ function selectContinent(key) {
       return `
         <a class="country-card" href="javascript:void(0)" onclick="filterByCountry('${countryId}');closeContinent();document.getElementById('offers').scrollIntoView({behavior:'smooth'})">
           <div class="country-card-img-wrap">
-            <img class="country-card-img" src="${img}" alt="${country.label}" loading="lazy"
+            <img class="country-card-img" src="${proxify(img)}" alt="${country.label}" loading="lazy"
                  onerror="imgFallback(this)">
           </div>
           <div class="country-card-body">
@@ -745,14 +745,24 @@ function formatDate(d) {
 
 // Helper: fallback placeholder image
 const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=600&q=70';
-// External operator CDNs sometimes hiccup — retry the same URL once before giving up.
+// Route external operator photos through a free image cache/proxy (wsrv.nl):
+// faster, cached, and bypasses hotlink blocks (e.g. aquatour.bg).
+function proxify(u) {
+  if (!u || typeof u !== 'string') return u;
+  if (u.indexOf('data:') === 0 || u.indexOf('//') === -1) return u;
+  if (u.indexOf('wsrv.nl') !== -1 || u.indexOf('images.unsplash.com') !== -1) return u;
+  return 'https://wsrv.nl/?url=' + encodeURIComponent(u) + '&w=1400&output=webp&we&q=82';
+}
+// On error: if a proxied URL failed, fall back to the direct original; then placeholder.
 function imgFallback(img) {
   try {
     if (img && !img.dataset.retried) {
       img.dataset.retried = '1';
-      var orig = img.src;
+      var s = img.src || '';
+      var m = s.match(/wsrv\.nl\/\?url=([^&]+)/);
+      if (m) { img.src = decodeURIComponent(m[1]); return; }
       img.src = '';
-      setTimeout(function () { img.src = orig; }, 700);
+      setTimeout(function () { img.src = s; }, 700);
       return;
     }
   } catch (e) {}
@@ -816,7 +826,7 @@ function renderOffers() {
     return `
       <a class="offer-card animate-in" href="oferta.html?id=${o.id}" style="animation-delay:${Math.min(i * 0.05, 0.4)}s">
         <div class="offer-card-img-wrap">
-          <img class="offer-card-img" src="${imgSrc}" alt="${o.title}" loading="lazy"
+          <img class="offer-card-img" src="${proxify(imgSrc)}" alt="${o.title}" loading="lazy"
                onerror="imgFallback(this)">
           <span class="offer-badge ${typeCls}">${typeLabel}</span>
           <button type="button" class="offer-fav ${isFav ? 'active' : ''}" onclick="event.preventDefault();event.stopPropagation();toggleFav(event, ${o.id})" title="Любими">${isFav ? '❤️' : '🤍'}</button>
@@ -996,7 +1006,7 @@ function showFavBubble() {
     '<div style="max-height:300px;overflow:auto;">' +
     (favs.length ? favs.map(o =>
       '<a href="oferta.html?id=' + o.id + '" style="display:flex;gap:10px;align-items:center;padding:10px 14px;text-decoration:none;color:inherit;border-bottom:1px solid var(--gray-100);">' +
-        '<img src="' + favOfferImg(o) + '" style="width:54px;height:40px;object-fit:cover;border-radius:6px;flex-shrink:0;background:var(--gray-100);" onerror="this.style.visibility=\'hidden\'">' +
+        '<img src="' + proxify(favOfferImg(o)) + '" style="width:54px;height:40px;object-fit:cover;border-radius:6px;flex-shrink:0;background:var(--gray-100);" onerror="this.style.visibility=\'hidden\'">' +
         '<div style="min-width:0;flex:1;">' +
           '<div style="font-weight:600;font-size:0.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + o.title + '</div>' +
           '<div style="font-size:0.74rem;color:var(--gray-400);">' + (o.destination || '') + ' · от ' + o.price_eur + ' €</div>' +
@@ -1230,7 +1240,7 @@ function openOffer(id) {
     hotelsEl.innerHTML = hotels.map((h, i) => `
       <div class="hotel-card ${i === 0 ? 'selected' : ''}" id="hotelCard_${i}" onclick="selectHotel(${i})">
         <div class="hotel-card-imgwrap" onclick="event.stopPropagation();openHotelPhotos(${i})" title="Виж снимки">
-          <img class="hotel-card-img" src="${hotelImg(h)}" alt="${h.name}" onerror="this.style.display='none'">
+          <img class="hotel-card-img" src="${proxify(hotelImg(h))}" alt="${h.name}" onerror="this.style.display='none'">
           <span class="hotel-card-zoom">🔍</span>
         </div>
         <div class="hotel-card-info">
