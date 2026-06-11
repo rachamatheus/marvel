@@ -27,10 +27,11 @@
 
 /* ===== BLOG ===== */
 .blog-hero {
-  margin-top: 72px;
-  padding: 3.5rem 1.2rem 2.5rem;
+  margin-top: 0;
+  padding: calc(72px + 3.2rem) 1.2rem 3rem;
   text-align: center;
-  background: linear-gradient(135deg, #0d2f63 0%, #1a3a6b 60%, #08204a 100%);
+  background: linear-gradient(rgba(7,20,50,0.55), rgba(7,20,50,0.68)),
+    url('https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=2000&q=80') center center / cover no-repeat;
   color: #fff;
 }
 .blog-hero-inner { max-width: 800px; margin: 0 auto; }
@@ -94,7 +95,7 @@
   border-radius: 16px; padding: 1.4rem 1.6rem; margin: 2.5rem 0;
 }
 .article-related { margin-top: 2.5rem; }
-@media(max-width:600px){ .blog-hero{ margin-top:64px; } .article{ padding-top:84px; } }
+@media(max-width:600px){ .blog-hero{ margin-top:0; padding-top:calc(64px + 2.4rem); } .article{ padding-top:84px; } }
 
 
 :root {
