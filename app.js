@@ -16,14 +16,14 @@ const ALL_OFFERS = [...OFFERS.filter(o => !deletedIds.includes(o.id)), ...custom
 // Replace with your Supabase project URL and anon key after setup
 const SUPABASE_URL = 'YOUR_SUPABASE_URL';
 const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
-let supabase = null;
+let mtSb = null;
 
 function initSupabase() {
   // Prefer the shared client created by sb-init.js (reads keys from admin Settings / localStorage)
-  if (window.__mtSupabase) { supabase = window.__mtSupabase; return true; }
+  if (window.__mtSupabase) { mtSb = window.__mtSupabase; return true; }
   if (typeof window.supabase !== 'undefined' && SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    window.__mtSupabase = supabase;
+    mtSb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    window.__mtSupabase = mtSb;
     return true;
   }
   return false;
@@ -1291,9 +1291,9 @@ async function submitInquiry() {
 
   // Save to Supabase if configured, else localStorage fallback
   let saved = false;
-  if (supabase) {
+  if (mtSb) {
     try {
-      const { error } = await supabase.from('inquiries').insert([inquiry]);
+      const { error } = await mtSb.from('inquiries').insert([inquiry]);
       if (!error) saved = true;
     } catch (err) { /* fallback */ }
   }
@@ -1320,8 +1320,8 @@ function trackPageView(page) {
   if (views.length > 500) views.splice(0, views.length - 500);
   localStorage.setItem('mt_pageviews', JSON.stringify(views));
 
-  if (supabase) {
-    supabase.from('page_views').insert([{ page, created_at: new Date().toISOString() }]).then(() => {}, () => {});
+  if (mtSb) {
+    mtSb.from('page_views').insert([{ page, created_at: new Date().toISOString() }]).then(() => {}, () => {});
   }
 }
 
@@ -1339,8 +1339,8 @@ function trackOfferView(offerId, offerTitle, destination, category) {
   if (views.length > 500) views.splice(0, views.length - 500);
   localStorage.setItem('mt_offer_views', JSON.stringify(views));
 
-  if (supabase) {
-    supabase.from('offer_views').insert([{
+  if (mtSb) {
+    mtSb.from('offer_views').insert([{
       offer_id: offerId,
       offer_title: offerTitle,
       created_at: new Date().toISOString()
