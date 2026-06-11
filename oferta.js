@@ -42,6 +42,36 @@ function coverOf(o) {
     (o.image && o.image.startsWith('http') ? o.image : '') || PLACEHOLDER_IMG;
 }
 
+// ── View tracking (feeds admin Top-10 by what customers viewed) ──
+function recordOfferView(offer) {
+  if (!offer) return;
+  try {
+    // detailed event log (source of truth for analytics)
+    const arr = JSON.parse(localStorage.getItem('mt_offer_views') || '[]');
+    arr.push({
+      offer_id: offer.id,
+      offer_title: offer.title,
+      destination: offer.destination || '',
+      category: offer.category || '',
+      created_at: new Date().toISOString()
+    });
+    if (arr.length > 1000) arr.splice(0, arr.length - 1000);
+    localStorage.setItem('mt_offer_views', JSON.stringify(arr));
+    // legacy count map (kept in sync)
+    const map = JSON.parse(localStorage.getItem('mt_offerviews') || '{}');
+    map[offer.id] = (parseInt(map[offer.id]) || 0) + 1;
+    localStorage.setItem('mt_offerviews', JSON.stringify(map));
+    // shared backend (when configured) — enables cross-device analytics
+    if (typeof window !== 'undefined' && window.__mtSupabase) {
+      window.__mtSupabase.from('offer_views').insert([{
+        offer_id: String(offer.id),
+        offer_title: offer.title,
+        created_at: new Date().toISOString()
+      }]).catch(() => {});
+    }
+  } catch (e) {}
+}
+
 // ── Gallery ──
 let galleryImages = [], galleryIdx = 0;
 function buildGallery(cover, id) {
@@ -177,6 +207,7 @@ function renderOfferPage() {
   selectedDate = offer.dates && offer.dates[0] || null;
   selectedHotelIdx = 0;
   document.title = `${offer.title} — Marvel Tour`;
+  recordOfferView(offer);
 
   // Auto-fill inquiry from logged-in customer (session shared via storage)
   try {
@@ -266,7 +297,7 @@ function renderOfferPage() {
   if (detSec && detEl) {
     detSec.style.display = 'none';
     detEl.innerHTML = '';
-    fetch('data/details/' + offer.id + '.html?v=122')
+    fetch('data/details/' + offer.id + '.html?v=123')
       .then(r => r.ok ? r.text() : '')
       .then(t => { if (t && t.trim().length > 10) { detEl.innerHTML = t; detSec.style.display = ''; } })
       .catch(() => {});

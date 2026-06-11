@@ -153,7 +153,7 @@ function renderDashboard() {
   const total = allInquiries.length;
   const newCount = allInquiries.filter(i => i.status === 'new').length;
   const booked = allInquiries.filter(i => i.status === 'booked').length;
-  const views = JSON.parse(localStorage.getItem('mt_offerviews') || '{}');
+  const views = getViewCounts();
   const totalViews = Object.values(views).reduce((a, b) => a + b, 0);
 
   document.getElementById('statInquiries').textContent = total;
@@ -179,8 +179,27 @@ function renderRecentTable() {
   `).join('') || '<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--gray-400);">Няма запитвания</td></tr>';
 }
 
+// Unified offer-view counts based on what customers actually viewed.
+// Primary source: mt_offer_views (detailed event log written by the public site).
+// Falls back to legacy mt_offerviews count map for ids not present in the log.
+function getViewCounts() {
+  const counts = {};
+  try {
+    const arr = JSON.parse(localStorage.getItem('mt_offer_views') || '[]');
+    arr.forEach(v => {
+      const id = v && v.offer_id;
+      if (id !== undefined && id !== null && id !== '') counts[id] = (counts[id] || 0) + 1;
+    });
+  } catch (e) {}
+  try {
+    const map = JSON.parse(localStorage.getItem('mt_offerviews') || '{}');
+    Object.keys(map).forEach(id => { if (!(id in counts)) counts[id] = parseInt(map[id]) || 0; });
+  } catch (e) {}
+  return counts;
+}
+
 function renderPopularList() {
-  const views = JSON.parse(localStorage.getItem('mt_offerviews') || '{}');
+  const views = getViewCounts();
   const scores = {};
   allOffers.forEach(o => {
     scores[o.id] = { title: o.title, views: views[o.id] || 0, inq: 0 };
@@ -471,7 +490,7 @@ function populateCountryFilter() {
 function renderAdminOffers() {
   const search = (document.getElementById('offerSearch')?.value || '').toLowerCase();
   const country = document.getElementById('offerCountryFilter')?.value || '';
-  const views = JSON.parse(localStorage.getItem('mt_offerviews') || '{}');
+  const views = getViewCounts();
 
   let list = allOffers.filter(o => {
     const matchSearch = !search || o.title.toLowerCase().includes(search) || (o.destination && o.destination.toLowerCase().includes(search));
@@ -687,7 +706,7 @@ function renderOfferDates() {
 
 // ===== ANALYTICS =====
 function renderAnalytics() {
-  const views = JSON.parse(localStorage.getItem('mt_offerviews') || '{}');
+  const views = getViewCounts();
   const totalViews = Object.values(views).reduce((a, b) => a + b, 0);
   const total = allInquiries.length;
   const rate = totalViews > 0 ? Math.round((total / totalViews) * 100) : 0;
@@ -858,7 +877,7 @@ function saveSupabase() {
 
 function clearData() {
   if (!confirm('Сигурни ли сте? Ще бъдат изтрити всички локални данни.')) return;
-  ['mt_inquiries','mt_offerviews','mt_pageviews','mt_favorites','mt_custom_offers','mt_deleted_offer_ids'].forEach(k => localStorage.removeItem(k));
+  ['mt_inquiries','mt_offerviews','mt_offer_views','mt_pageviews','mt_favorites','mt_custom_offers','mt_deleted_offer_ids'].forEach(k => localStorage.removeItem(k));
   loadOffers();
   loadInquiries();
   showToast('Данните са изчистени.', 'success');
