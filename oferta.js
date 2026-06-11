@@ -1,5 +1,18 @@
 ﻿// Marvel Tour — single offer page (oferta.html?id=N or ?ref=Е422)
 const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=600&q=70';
+// External operator CDNs sometimes hiccup — retry the same URL once before giving up.
+function imgFallback(img) {
+  try {
+    if (img && !img.dataset.retried) {
+      img.dataset.retried = '1';
+      var orig = img.src;
+      img.src = '';
+      setTimeout(function () { img.src = orig; }, 700);
+      return;
+    }
+  } catch (e) {}
+  if (img) { img.onerror = null; img.src = PLACEHOLDER_IMG; }
+}
 
 function hotelKeyVariants(name) {
   if (!name) return [];
@@ -124,7 +137,7 @@ function galleryGoto(i, alt) {
   if (!galleryImages.length) return;
   galleryIdx = (i + galleryImages.length) % galleryImages.length;
   const img = document.getElementById('offerImg');
-  if (img) { img.src = galleryImages[galleryIdx]; if (alt) img.alt = alt; }
+  if (img) { img.dataset.retried = ''; img.onerror = function () { imgFallback(this); }; img.src = galleryImages[galleryIdx]; if (alt) img.alt = alt; }
   const counter = document.getElementById('galleryCounter');
   if (counter) counter.textContent = `${galleryIdx + 1} / ${galleryImages.length}`;
   document.querySelectorAll('#offerThumbs .modal-thumb').forEach((t, idx) => t.classList.toggle('active', idx === galleryIdx));
