@@ -229,6 +229,9 @@ function renderOfferPage() {
 
   // Gallery
   const cover = coverOf(offer);
+  // Themed page backdrop from the offer's own photo
+  const ob = document.getElementById('ofertaBg');
+  if (ob && cover) ob.style.backgroundImage = `url('${cover}')`;
   if (offer.gallery && offer.gallery.length) {
     let imgs = offer.gallery.slice();
     if (imgs.indexOf(cover) === -1) imgs.unshift(cover);

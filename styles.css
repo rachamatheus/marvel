@@ -2445,3 +2445,17 @@ footer {
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 1.1rem; color: #4285F4;
 }
+
+/* ===== Unified blending navbar across ALL public pages ===== */
+.navbar.scrolled { background: transparent !important; box-shadow: none !important; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.navbar::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:150px;
+  background:linear-gradient(to bottom, rgba(6,16,40,0.6), rgba(6,16,40,0));
+  z-index:-1; pointer-events:none;
+}
+.navbar .nav-links a, .navbar .nav-logo-text { text-shadow:0 1px 4px rgba(0,0,0,0.45); }
+.navbar.scrolled .nav-logo-text { color:#fff; }
+.navbar.scrolled .nav-links a { color:rgba(255,255,255,0.92); }
+.navbar.scrolled .nav-links a:hover { color:var(--gold); }
+.navbar.scrolled .nav-customer-btn { color:#fff; }
+.navbar.scrolled .nav-logo-img { filter:drop-shadow(0 1px 5px rgba(0,0,0,0.5)); }

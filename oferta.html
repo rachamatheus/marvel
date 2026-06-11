@@ -8,9 +8,13 @@
   <meta http-equiv="Expires" content="0">
   <title>Оферта — Marvel Tour</title>
   <meta name="description" content="Marvel Tour — детайли за оферта, програма, хотели и цени.">
-  <link rel="stylesheet" href="styles.css?v=136">
+  <link rel="stylesheet" href="styles.css?v=142">
   <link rel="icon" href="favicon.svg?v=9">
   <style>
+    /* Per-offer themed backdrop (set from the offer's own photo) */
+    .oferta-bg { position:fixed; inset:0; z-index:-2; background-size:cover; background-position:center; background-repeat:no-repeat; }
+    .oferta-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(rgba(244,247,251,0.88), rgba(244,247,251,0.93)); }
+    body { background:transparent; }
     .offer-page { max-width: 1000px; margin: 0 auto; padding: 96px 1.2rem 4rem; }
     .offer-back { display:inline-flex; align-items:center; gap:6px; color:var(--primary); text-decoration:none; font-weight:600; font-size:0.9rem; margin-bottom:1rem; }
     .offer-back:hover { color: var(--gold); }
@@ -35,6 +39,7 @@
   </style>
 </head>
 <body>
+<div class="oferta-bg" id="ofertaBg"></div>
 
 <!-- NAVBAR -->
 <nav class="navbar scrolled" id="navbar" style="position:fixed;">
@@ -192,7 +197,7 @@
 <script src="data/images.js?v=128"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="oferta.js?v=141"></script>
+<script src="oferta.js?v=142"></script>
 <script src="lang.js?v=132"></script>
 </body>
 </html>
