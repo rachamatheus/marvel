@@ -367,6 +367,25 @@ function updateStatCounter() {
     el.textContent = count;
     if (count >= target) clearInterval(timer);
   }, 40);
+
+  // Real number of destinations (distinct countries / destinations across offers)
+  const destEl = document.getElementById('stat-destinations');
+  if (destEl) {
+    const set = new Set();
+    ALL_OFFERS.forEach(o => {
+      const key = (o.country || '').trim() ||
+        ((o.destination || '').split(/[,–-]/)[0].trim());
+      if (key) set.add(key.toLowerCase());
+    });
+    const destTarget = set.size;
+    let dc = 0;
+    const dStep = Math.max(1, Math.ceil(destTarget / 30));
+    const dTimer = setInterval(() => {
+      dc = Math.min(dc + dStep, destTarget);
+      destEl.textContent = dc;
+      if (dc >= destTarget) clearInterval(dTimer);
+    }, 40);
+  }
 }
 
 // ===== FEATURED GRID =====

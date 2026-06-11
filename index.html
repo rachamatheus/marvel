@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>Marvel Tour — Вашият туроператор</title>
   <meta name="description" content="Marvel Tour — туристически оферти, екскурзии и почивки от Пловдив. Гърция, Турция, Египет, Италия и още.">
-  <link rel="stylesheet" href="styles.css?v=127">
+  <link rel="stylesheet" href="styles.css?v=128">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
 </head>
 <body>
@@ -70,7 +70,7 @@
         <span class="hero-stat-label">Активни оферти</span>
       </div>
       <div class="hero-stat-item">
-        <span class="hero-stat-num">12+</span>
+        <span class="hero-stat-num" id="stat-destinations">0</span>
         <span class="hero-stat-label">Дестинации</span>
       </div>
       <div class="hero-stat-item">
@@ -392,6 +392,26 @@
         <div class="why-title">Лична грижа</div>
         <div class="why-desc">Отговаряме на всяко запитване в рамките на 24 часа. Ние сме тук за вас преди, по време и след пътуването.</div>
       </div>
+      <div class="why-card">
+        <div class="why-icon">💳</div>
+        <div class="why-title">Гъвкави плащания</div>
+        <div class="why-desc">Депозит при записване и доплащане преди отпътуване. Удобни схеми за всеки бюджет.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🌍</div>
+        <div class="why-title">Богат избор</div>
+        <div class="why-desc">Стотици оферти до Гърция, Турция, Египет, Италия и екзотични дестинации по целия свят.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💻</div>
+        <div class="why-title">Лесна онлайн резервация</div>
+        <div class="why-desc">Разгледайте, изберете и изпратете запитване само за минути — изцяло онлайн.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⭐</div>
+        <div class="why-title">Хиляди доволни клиенти</div>
+        <div class="why-desc">Пътешественици, които ни се доверяват и се връщат при нас година след година.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -698,11 +718,11 @@
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
-<script src="data/offers.js?v=127"></script>
-<script src="data/images.js?v=127"></script>
+<script src="data/offers.js?v=128"></script>
+<script src="data/images.js?v=128"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="sb-init.js?v=127"></script>
-<script src="app.js?v=127"></script>
+<script src="sb-init.js?v=128"></script>
+<script src="app.js?v=128"></script>
 
 <!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
@@ -772,6 +792,6 @@
   else document.addEventListener('DOMContentLoaded', draw);
 })();
 </script>
-<script src="lang.js?v=128"></script>
+<script src="lang.js?v=129"></script>
 </body>
 </html>

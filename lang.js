@@ -78,7 +78,19 @@
     '🗺️ Програма по дни': '🗺️ Day-by-day program', '📋 Подробна информация': '📋 Detailed information',
     '✅ Какво е включено': '✅ What is included', '❌ Не е включено': '❌ Not included',
     '📅 Налични дати': '📅 Available dates', '📬 Изпратете запитване': '📬 Send an inquiry',
-    'Офертата не е намерена': 'Offer not found', 'Скоро': 'Soon'
+    'Офертата не е намерена': 'Offer not found', 'Скоро': 'Soon',
+    'Дестинации': 'Destinations', '20+ години опит': '20+ years of experience',
+    // Why-us extra cards
+    'Полети от Пловдив': 'Flights from Plovdiv',
+    'Специални оферти с директни полети от Пловдив — без да се налага да пътувате до София.': 'Special offers with direct flights from Plovdiv — no need to travel to Sofia.',
+    'Гъвкави плащания': 'Flexible payments',
+    'Депозит при записване и доплащане преди отпътуване. Удобни схеми за всеки бюджет.': 'Deposit on booking and balance before departure. Convenient plans for every budget.',
+    'Богат избор': 'Wide selection',
+    'Стотици оферти до Гърция, Турция, Египет, Италия и екзотични дестинации по целия свят.': 'Hundreds of offers to Greece, Turkey, Egypt, Italy and exotic destinations worldwide.',
+    'Лесна онлайн резервация': 'Easy online booking',
+    'Разгледайте, изберете и изпратете запитване само за минути — изцяло онлайн.': 'Browse, choose and send an inquiry in just minutes — fully online.',
+    'Хиляди доволни клиенти': 'Thousands of happy clients',
+    'Пътешественици, които ни се доверяват и се връщат при нас година след година.': 'Travelers who trust us and come back to us year after year.'
   };
 
   var PH = {
