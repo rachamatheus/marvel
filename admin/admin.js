@@ -193,11 +193,12 @@ function renderRecentTable() {
   document.getElementById('recentBody').innerHTML = recent.map(inq => `
     <tr style="cursor:pointer;" onclick="openInquiry(${inq.id})">
       <td><strong>${inq.name}</strong></td>
+      <td style="white-space:nowrap;font-weight:700;color:var(--primary);">${inq.offer_ref || '—'}</td>
       <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${shortTitle(inq.offer_title)}</td>
       <td style="white-space:nowrap;">${formatDate(inq.created_at)}</td>
       <td><span class="status-badge status-${inq.status}">${statusLabel(inq.status)}</span></td>
     </tr>
-  `).join('') || '<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--gray-400);">Няма запитвания</td></tr>';
+  `).join('') || '<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--gray-400);">Няма запитвания</td></tr>';
 }
 
 // Unified offer-view counts based on what customers actually viewed.
