@@ -221,6 +221,48 @@ function openHotelGalleryAt(i) {
   openLightbox(_hotelGalleryImgs, i, h ? h.name : '');
 }
 
+// Lazy-load a pochivka offer's scraped hotel info (data/hotels/<num>.js), then run cb.
+let _hotelDataLoaded = {};
+function loadHotelInfo(offer, cb) {
+  const m = (offer && offer.refNum || '').match(/^П(\d+)/); // П<num>
+  if (!m) { cb(); return; }
+  const num = m[1];
+  if (_hotelDataLoaded[num]) { cb(); return; }
+  const s = document.createElement('script');
+  s.src = 'data/hotels/' + num + '.js?v=1';
+  s.onload = function () { _hotelDataLoaded[num] = true; cb(); };
+  s.onerror = function () { cb(); }; // no data file yet → render with fallbacks
+  document.head.appendChild(s);
+}
+function renderHotelsSection() {
+  const offer = activeOffer; if (!offer) return;
+  const hotels = offer.hotels || [];
+  const hotelsSec = document.getElementById('offerHotelsSection');
+  const hotelsEl = document.getElementById('offerHotels');
+  if (!hotelsSec || !hotelsEl) return;
+  if (hotels.length) {
+    hotelsSec.style.display = '';
+    hotelsEl.innerHTML = hotels.map((h, i) => `
+      <div class="hotel-card ${i === 0 ? 'selected' : ''}" onclick="selectHotel(${i})">
+        <div class="hotel-card-imgwrap" onclick="event.stopPropagation();openHotelPhotos(${i})" title="Виж снимки">
+          <img class="hotel-card-img" src="${proxify(hotelImg(h))}" alt="${h.name}" onerror="hotelImgError(this)">
+          <span class="hotel-card-zoom">🔍</span>
+        </div>
+        <div class="hotel-card-info">
+          <div class="hotel-card-name">${h.name}</div>
+          <div class="hotel-card-board">${h.board}</div>
+        </div>
+        <div class="hotel-card-price">
+          <div class="hotel-card-price-eur">${h.price_eur} €</div>
+          <div class="hotel-card-price-bgn">${h.price_bgn.toFixed(2)} лв.</div>
+        </div>
+      </div>`).join('');
+    renderHotelDetail(hotels[0]);
+  } else {
+    hotelsSec.style.display = 'none';
+  }
+}
+
 // ── Hotel / date selection ──
 function selectHotel(idx) {
   if (!activeOffer || !activeOffer.hotels) return;
@@ -347,30 +389,8 @@ function renderOfferPage() {
     (offer.refNum ? `<span class="modal-tag" style="background:rgba(26,58,107,0.1);color:var(--primary);">🔖 ${offer.refNum}</span>` : '') +
     `<span class="modal-tag" style="background:rgba(201,168,76,0.15);color:#9a7b1f;">📍 ${offer.destination || ''}</span>`;
 
-  // Hotels
-  const hotelsSec = document.getElementById('offerHotelsSection');
-  const hotelsEl = document.getElementById('offerHotels');
-  if (hotels.length) {
-    hotelsSec.style.display = '';
-    hotelsEl.innerHTML = hotels.map((h, i) => `
-      <div class="hotel-card ${i === 0 ? 'selected' : ''}" onclick="selectHotel(${i})">
-        <div class="hotel-card-imgwrap" onclick="event.stopPropagation();openHotelPhotos(${i})" title="Виж снимки">
-          <img class="hotel-card-img" src="${proxify(hotelImg(h))}" alt="${h.name}" onerror="hotelImgError(this)">
-          <span class="hotel-card-zoom">🔍</span>
-        </div>
-        <div class="hotel-card-info">
-          <div class="hotel-card-name">${h.name}</div>
-          <div class="hotel-card-board">${h.board}</div>
-        </div>
-        <div class="hotel-card-price">
-          <div class="hotel-card-price-eur">${h.price_eur} €</div>
-          <div class="hotel-card-price-bgn">${h.price_bgn.toFixed(2)} лв.</div>
-        </div>
-      </div>`).join('');
-    renderHotelDetail(hotels[0]);
-  } else {
-    hotelsSec.style.display = 'none';
-  }
+  // Hotels — lazy-load this offer's per-hotel info (gallery + description), then render
+  loadHotelInfo(offer, renderHotelsSection);
 
   // Program
   const progSec = document.getElementById('offerProgramSection');
