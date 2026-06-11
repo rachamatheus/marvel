@@ -39,7 +39,11 @@ function hotelImg(h) {
       if (HOTEL_IMAGES[k]) return HOTEL_IMAGES[k];
     }
   }
-  return h.image || PLACEHOLDER_IMG;
+  // No specific hotel photo → use the offer's own cover (relevant destination
+  // image) instead of a generic placeholder, so hotels are never blank.
+  if (h.image) return h.image;
+  try { if (typeof activeOffer !== 'undefined' && activeOffer) return coverOf(activeOffer); } catch (e) {}
+  return PLACEHOLDER_IMG;
 }
 
 // Merge custom offers exactly like the main site
@@ -292,7 +296,7 @@ function renderOfferPage() {
     hotelsEl.innerHTML = hotels.map((h, i) => `
       <div class="hotel-card ${i === 0 ? 'selected' : ''}" onclick="selectHotel(${i})">
         <div class="hotel-card-imgwrap" onclick="event.stopPropagation();openHotelPhotos(${i})" title="Виж снимки">
-          <img class="hotel-card-img" src="${proxify(hotelImg(h))}" alt="${h.name}" onerror="this.style.display='none'">
+          <img class="hotel-card-img" src="${proxify(hotelImg(h))}" alt="${h.name}" onerror="imgFallback(this)">
           <span class="hotel-card-zoom">🔍</span>
         </div>
         <div class="hotel-card-info">
@@ -415,35 +419,32 @@ function makeDetailTablesInteractive(container) {
   }
   const CUR = /(€|\bEUR\b|\bBGN\b|лв|евро|лева)/i;
   container.querySelectorAll('table').forEach(tbl => {
-    // Only price/service tables (rooms, board, excursions) are selectable.
-    // Purely informative tables (flight schedules, documents, notes) have no
-    // currency anywhere → skip them entirely.
-    if (!CUR.test(tbl.textContent || '')) return;
     const rows = Array.from(tbl.querySelectorAll('tr'));
     if (rows.length < 2) return;
-    rows.forEach((tr, i) => {
-      const isHeader = tr.querySelector('th') || i === 0;
-      if (isHeader) return;
-      const txt = tr.textContent || '';
-      if (!/\d/.test(txt)) return; // a selectable service/room row must carry a price number
+    // A selectable service/room row must carry BOTH a number AND a currency
+    // (a real price). This excludes informative tables — flight schedules,
+    // documents, notes — which never satisfy this.
+    const selectable = rows.filter(function (tr, i) {
+      if (tr.querySelector('th') || i === 0) return false;
+      var t = tr.textContent || '';
+      return /\d/.test(t) && CUR.test(t);
+    });
+    if (!selectable.length) return; // purely informative table → not interactive, no hint
+    selectable.forEach(function (tr) {
       tr.style.cursor = 'pointer';
       tr.title = 'Кликнете, за да маркирате / размаркирате';
-      tr.addEventListener('click', () => {
+      tr.addEventListener('click', function () {
         const on = tr.classList.toggle('od-row-selected');
         syncSelectionToMsg();
-        const cells = Array.from(tr.querySelectorAll('td')).map(c => c.textContent.replace(/^✔\s*/, '').trim()).filter(Boolean);
+        const cells = Array.from(tr.querySelectorAll('td')).map(function (c) { return c.textContent.replace(/^✔\s*/, '').trim(); }).filter(Boolean);
         const label = cells.join(' · ');
         try { showToast((on ? '✓ Маркирано: ' : '✕ Премахнато: ') + label.slice(0, 45), on ? 'success' : 'error'); } catch (e) {}
       });
     });
-    // hint once per interactive table
-    const firstSelectable = rows.find((tr, i) => !(tr.querySelector('th') || i === 0) && /\d/.test(tr.textContent || ''));
-    if (firstSelectable) {
-      const hint = document.createElement('div');
-      hint.textContent = '👆 Кликнете върху редове, за да маркирате един или повече варианти (отново — за размаркиране)';
-      hint.style.cssText = 'font-size:0.8rem;color:#16a34a;margin:2px 0 6px;font-weight:600;';
-      tbl.parentNode.insertBefore(hint, tbl);
-    }
+    const hint = document.createElement('div');
+    hint.textContent = '👆 Кликнете върху редове, за да маркирате един или повече варианти (отново — за размаркиране)';
+    hint.style.cssText = 'font-size:0.8rem;color:#16a34a;margin:2px 0 6px;font-weight:600;';
+    tbl.parentNode.insertBefore(hint, tbl);
   });
 }
 
