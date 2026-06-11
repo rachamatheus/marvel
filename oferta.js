@@ -1,4 +1,4 @@
-// Marvel Tour — single offer page (oferta.html?id=N or ?ref=Е422)
+﻿// Marvel Tour — single offer page (oferta.html?id=N or ?ref=Е422)
 const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=600&q=70';
 
 function hotelKeyVariants(name) {
@@ -259,6 +259,18 @@ function renderOfferPage() {
     progEl.innerHTML = offer.program.map(p => `
       <div class="program-day"><div class="program-day-title">${p.day}</div><div class="program-day-text">${p.text}</div></div>`).join('');
   } else { progSec.style.display = 'none'; }
+
+  // Full details (verbatim operator text / tables)
+  const detSec = document.getElementById('offerDetailsSection');
+  const detEl = document.getElementById('offerDetails');
+  if (detSec && detEl) {
+    detSec.style.display = 'none';
+    detEl.innerHTML = '';
+    fetch('data/details/' + offer.id + '.html?v=117')
+      .then(r => r.ok ? r.text() : '')
+      .then(t => { if (t && t.trim().length > 10) { detEl.innerHTML = t; detSec.style.display = ''; } })
+      .catch(() => {});
+  }
 
   // Includes / Excludes
   document.getElementById('offerIncludes').innerHTML = (offer.includes || []).map(i => `<li>${i}</li>`).join('');
