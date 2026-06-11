@@ -10,8 +10,14 @@
   <meta name="description" content="Marvel Tour Блог — съвети, насоки, препоръки и истории за пътуване по любимите дестинации.">
   <link rel="stylesheet" href="styles.css?v=142">
   <link rel="icon" href="favicon.svg?v=9">
+  <style>
+    .exotic-bg { position:fixed; inset:0; z-index:-2; background:url('https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=2000&q=80') center center / cover no-repeat fixed; }
+    .exotic-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(rgba(245,248,252,0.8), rgba(245,248,252,0.88)); }
+    body { background:transparent; }
+  </style>
 </head>
 <body>
+<div class="exotic-bg"></div>
 
 <!-- NAVBAR -->
 <nav class="navbar scrolled" id="navbar" style="position:fixed;">
