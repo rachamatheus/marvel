@@ -32,6 +32,17 @@
     }
     #why-us { background:rgba(255,255,255,0.8) !important; backdrop-filter:blur(3px); }
     footer { position:relative; }
+    /* Navbar blends with the backdrop on scroll instead of turning white */
+    .navbar.scrolled {
+      background:rgba(10,24,58,0.45) !important;
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      box-shadow:0 2px 24px rgba(0,0,0,0.22);
+    }
+    .navbar.scrolled .nav-logo-text { color:#fff; }
+    .navbar.scrolled .nav-links a { color:rgba(255,255,255,0.92); }
+    .navbar.scrolled .nav-links a:hover { color:var(--gold); }
+    .navbar.scrolled .nav-customer-btn { color:#fff; }
+    .navbar.scrolled .nav-logo-img { filter:drop-shadow(0 1px 5px rgba(0,0,0,0.5)); }
   </style>
 </head>
 <body>
