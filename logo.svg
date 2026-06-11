@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 96" width="300" height="96" role="img" aria-label="Marvel Tour">
+  <defs>
+    <linearGradient id="mtMagenta" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D81E7E"/>
+      <stop offset="1" stop-color="#B01368"/>
+    </linearGradient>
+    <linearGradient id="mtTeal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22B0AE"/>
+      <stop offset="1" stop-color="#138C8E"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Wireframe globe (behind) -->
+  <g fill="none" stroke="url(#mtTeal)" stroke-width="2.4" opacity="0.9" stroke-linecap="round">
+    <circle cx="52" cy="48" r="34"/>
+    <ellipse cx="52" cy="48" rx="13" ry="34"/>
+    <ellipse cx="52" cy="48" rx="27" ry="34"/>
+    <line x1="52" y1="14" x2="52" y2="82"/>
+    <line x1="18" y1="48" x2="86" y2="48"/>
+    <path d="M21 32 Q52 44 83 32"/>
+    <path d="M21 64 Q52 52 83 64"/>
+  </g>
+
+  <!-- MARVEL -->
+  <text x="34" y="56" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
+        font-size="42" font-weight="900" font-style="italic" letter-spacing="1.5"
+        fill="url(#mtMagenta)">MARVEL</text>
+
+  <!-- tour (script) -->
+  <text x="196" y="84" font-family="'Brush Script MT','Segoe Script','Comic Sans MS',cursive"
+        font-size="46" font-style="italic" fill="url(#mtTeal)">tour</text>
+</svg>
