@@ -519,6 +519,29 @@ function populateCountryFilter() {
   });
 }
 
+// Where an offer really comes from — inferred from the host of its photos
+// (each tour operator / wholesaler serves images from its own CDN).
+const SOURCE_MAP = {
+  'www.marveltourbg.com': 'Marvel Tour',
+  'static.peakview.bg': 'PeakView',
+  'xml.emerald.bg': 'Emerald',
+  'store.abax.bg': 'Abax',
+  'api.internationaltravelgroup.net': 'Intl. Travel Group',
+  'aquatour.bg': 'Aquatour',
+  'www.solvex.bg': 'Solvex',
+  'www.tours-club.com': 'Tours Club',
+  'www.welcometravelbg.eu': 'Welcome Travel',
+  'www.albatrostours.net': 'Albatros Tours',
+  'planet-media.s3.amazonaws.com': 'Planet Media',
+  'images.unsplash.com': 'Без доставчик'
+};
+function offerSource(o) {
+  const url = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) || o.image || '';
+  const m = String(url).match(/^https?:\/\/([^/]+)/i);
+  const host = m ? m[1].toLowerCase() : '';
+  return SOURCE_MAP[host] || (host ? host.replace(/^www\./, '') : '—');
+}
+
 function renderAdminOffers() {
   const search = (document.getElementById('offerSearch')?.value || '').toLowerCase();
   const country = document.getElementById('offerCountryFilter')?.value || '';
@@ -543,6 +566,7 @@ function renderAdminOffers() {
         </td>
         <td><span class="modal-tag ${o.category === 'vacation' ? 'blue' : ''}">${ {vacation:'Почивка',excursion:'Екскурзия',exotic:'Екзотика',cruise:'Круиз'}[o.category] || o.category || '—' }</span></td>
         <td>${o.destination || '—'}</td>
+        <td style="white-space:nowrap;font-size:0.82rem;"><span style="background:rgba(26,58,107,0.08);color:var(--primary);padding:3px 9px;border-radius:100px;font-weight:600;">${offerSource(o)}</span></td>
         <td style="font-weight:700;color:var(--primary);white-space:nowrap;">${o.price_bgn ? o.price_bgn.toFixed(0) + ' лв.' : '—'}<div style="font-weight:600;color:var(--gray-400);font-size:0.78rem;">${o.price_eur ? o.price_eur.toFixed(0) + ' €' : ''}</div></td>
         <td>${o.duration || '—'}</td>
         <td style="white-space:nowrap;">${nextDateOf(o) || '—'}${remainingDatesBadge(o)}</td>
@@ -814,6 +838,28 @@ function renderAnalytics() {
   renderTopViewsList(views);
   renderTopLocationsList(views);
   renderTopByCategory(views);
+  renderTopSources(views);
+}
+
+// Offers grouped by their real source/operator (count + total views)
+function renderTopSources(views) {
+  const body = document.getElementById('topSourcesBody');
+  if (!body) return;
+  const agg = {};
+  allOffers.forEach(o => {
+    const s = offerSource(o);
+    if (!agg[s]) agg[s] = { count: 0, views: 0 };
+    agg[s].count++;
+    agg[s].views += views[o.id] || 0;
+  });
+  const rows = Object.entries(agg).sort((a, b) => b[1].count - a[1].count);
+  body.innerHTML = rows.map(([src, d]) => `
+    <tr>
+      <td style="font-weight:600;">${src}</td>
+      <td style="font-weight:700;color:var(--primary);">${d.count}</td>
+      <td>${d.views}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="3" style="text-align:center;padding:1.5rem;color:var(--gray-400);">Няма данни</td></tr>';
 }
 
 function renderStatusChart() {

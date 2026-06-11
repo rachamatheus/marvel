@@ -206,6 +206,7 @@
                   <th>Оферта</th>
                   <th>Категория</th>
                   <th>Дестинация</th>
+                  <th>Източник</th>
                   <th>Цена от</th>
                   <th>Продължителност</th>
                   <th>Дати (оставащи)</th>
@@ -271,6 +272,16 @@
           <div class="admin-card-header"><div class="admin-card-title">📍 Топ 10 локации</div></div>
           <div class="admin-card-body">
             <div class="popular-list" id="topLocationsList"></div>
+          </div>
+        </div>
+
+        <div class="admin-card" style="margin-top:1.5rem;">
+          <div class="admin-card-header"><div class="admin-card-title">🏷️ Оферти по източник (доставчик)</div></div>
+          <div class="admin-card-body" style="padding:0;overflow-x:auto;">
+            <table class="inquiries-table" id="topSourcesTable">
+              <thead><tr><th>Източник</th><th>Брой оферти</th><th>Прегледи</th></tr></thead>
+              <tbody id="topSourcesBody"></tbody>
+            </table>
           </div>
         </div>
 
@@ -489,8 +500,9 @@
 <div class="toast-container" id="toastContainer"></div>
 
 <script src="../data/offers.js?v=128"></script>
+<script src="../data/images.js?v=128"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../sb-init.js?v=128"></script>
-<script src="admin.js?v=130"></script>
+<script src="admin.js?v=131"></script>
 </body>
 </html>
