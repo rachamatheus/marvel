@@ -194,25 +194,31 @@ function lbRender() {
 }
 function lightboxStep(d) { if (lbImages.length) { lbIdx = (lbIdx + d + lbImages.length) % lbImages.length; lbRender(); } }
 function closeLightbox() { const lb = document.getElementById('lightbox'); if (lb) lb.classList.remove('active'); document.body.style.overflow = ''; }
+// Per-hotel scraped info (gallery + description), keyed by the hotel's cover image.
+function hotelInfoFor(h) {
+  if (!h || typeof HOTEL_INFO === 'undefined') return null;
+  return HOTEL_INFO[h.image] || null;
+}
+// A hotel's OWN gallery only — never mixes other hotels' photos.
+function hotelGallery(h) {
+  const info = hotelInfoFor(h);
+  if (info && info.images && info.images.length) return info.images.slice();
+  const c = hotelImg(h);
+  return c ? [c] : [];
+}
+let _hotelGalleryImgs = [];
 function openHotelPhotos(idx) {
   if (!activeOffer) return;
-  const hotels = activeOffer.hotels || [];
-  const h = hotels[idx];
-  const name = h ? h.name : (activeOffer.title || '');
-  const distinct = new Set(hotels.map(hotelImg)).size;
-  if (distinct > 1) {
-    const set = [];
-    const add = u => { if (u && set.indexOf(u) === -1) set.push(u); };
-    if (h) add(hotelImg(h));
-    hotels.forEach(x => add(hotelImg(x)));
-    openLightbox(set, 0, name);
-    return;
-  }
-  if (galleryImages && galleryImages.length > 1) {
-    openLightbox(galleryImages, idx % galleryImages.length, name);
-    return;
-  }
-  openLightbox([hotelImg(h)], 0, name);
+  const h = (activeOffer.hotels || [])[idx];
+  if (!h) return;
+  const imgs = hotelGallery(h);
+  if (!imgs.length) return;
+  openLightbox(imgs, 0, h.name);
+}
+function openHotelGalleryAt(i) {
+  if (!_hotelGalleryImgs.length) return;
+  const h = activeOffer && activeOffer.hotels ? activeOffer.hotels[selectedHotelIdx] : null;
+  openLightbox(_hotelGalleryImgs, i, h ? h.name : '');
 }
 
 // ── Hotel / date selection ──
@@ -224,6 +230,25 @@ function selectHotel(idx) {
   document.getElementById('offerPrice').textContent = `от ${h.price_eur} €`;
   document.getElementById('offerPriceSub').textContent = `/ ${h.price_bgn.toFixed(2)} лв. · ${activeOffer.duration}`;
   const inq = document.getElementById('inqHotel'); if (inq) inq.value = h.name;
+  renderHotelDetail(h);
+}
+function renderHotelDetail(h) {
+  const box = document.getElementById('hotelDetail');
+  if (!box || !h) return;
+  const info = hotelInfoFor(h);
+  const imgs = hotelGallery(h);
+  _hotelGalleryImgs = imgs;
+  const stars = info && info.stars ? ' ' + '★'.repeat(info.stars) : '';
+  const thumbs = imgs.slice(0, 10).map((u, i) =>
+    `<img src="${proxify(u)}" alt="${h.name} ${i + 1}" loading="lazy" onclick="openHotelGalleryAt(${i})" onerror="hotelImgError(this)" style="width:104px;height:76px;object-fit:cover;border-radius:8px;cursor:pointer;flex:0 0 auto;">`).join('');
+  const desc = info && info.desc ? info.desc : '';
+  box.innerHTML =
+    `<div style="font-weight:800;color:var(--primary);font-size:1.12rem;margin-bottom:2px;">${h.name}<span style="color:var(--gold);">${stars}</span></div>` +
+    `<div style="color:var(--gray-600);font-size:0.86rem;margin-bottom:10px;">${h.board || ''}${info && info.location ? ' · 📍 ' + info.location : ''}</div>` +
+    (imgs.length > 1 ? `<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px;">${thumbs}</div>` : '') +
+    (desc ? `<div class="offer-details" style="font-size:0.92rem;">${desc}</div>`
+          : `<div style="color:var(--gray-400);font-size:0.86rem;">Подробна информация за този хотел предстои да бъде добавена.</div>`);
+  box.style.display = '';
 }
 function selectDate(date) {
   selectedDate = date;
@@ -324,6 +349,7 @@ function renderOfferPage() {
           <div class="hotel-card-price-bgn">${h.price_bgn.toFixed(2)} лв.</div>
         </div>
       </div>`).join('');
+    renderHotelDetail(hotels[0]);
   } else {
     hotelsSec.style.display = 'none';
   }
