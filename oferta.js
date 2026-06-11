@@ -67,7 +67,7 @@ function recordOfferView(offer) {
         offer_id: String(offer.id),
         offer_title: offer.title,
         created_at: new Date().toISOString()
-      }]).catch(() => {});
+      }]).then(() => {}, () => {});
     }
   } catch (e) {}
 }
@@ -297,7 +297,7 @@ function renderOfferPage() {
   if (detSec && detEl) {
     detSec.style.display = 'none';
     detEl.innerHTML = '';
-    fetch('data/details/' + offer.id + '.html?v=125')
+    fetch('data/details/' + offer.id + '.html?v=126')
       .then(r => r.ok ? r.text() : '')
       .then(t => { if (t && t.trim().length > 10) { detEl.innerHTML = t; detSec.style.display = ''; } })
       .catch(() => {});

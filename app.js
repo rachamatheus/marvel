@@ -1321,7 +1321,7 @@ function trackPageView(page) {
   localStorage.setItem('mt_pageviews', JSON.stringify(views));
 
   if (supabase) {
-    supabase.from('page_views').insert([{ page, created_at: new Date().toISOString() }]).catch(() => {});
+    supabase.from('page_views').insert([{ page, created_at: new Date().toISOString() }]).then(() => {}, () => {});
   }
 }
 
@@ -1344,7 +1344,7 @@ function trackOfferView(offerId, offerTitle, destination, category) {
       offer_id: offerId,
       offer_title: offerTitle,
       created_at: new Date().toISOString()
-    }]).catch(() => {});
+    }]).then(() => {}, () => {});
   }
 }
 
