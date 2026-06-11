@@ -90,7 +90,14 @@
     'Лесна онлайн резервация': 'Easy online booking',
     'Разгледайте, изберете и изпратете запитване само за минути — изцяло онлайн.': 'Browse, choose and send an inquiry in just minutes — fully online.',
     'Хиляди доволни клиенти': 'Thousands of happy clients',
-    'Пътешественици, които ни се доверяват и се връщат при нас година след година.': 'Travelers who trust us and come back to us year after year.'
+    'Пътешественици, които ни се доверяват и се връщат при нас година след година.': 'Travelers who trust us and come back to us year after year.',
+    // Contact section
+    '📨 Контакти': '📨 Contacts', 'Свържете се с нас': 'Contact us',
+    'Попълнете формата и ще се свържем с вас възможно най-скоро.': 'Fill in the form and we will get back to you as soon as possible.',
+    'Тема': 'Subject', 'Съобщение *': 'Message *', 'Email': 'Email',
+    '✉️ Изпрати съобщение': '✉️ Send message', '✉️ Изпратете запитване': '✉️ Send an inquiry',
+    'Съобщението е изпратено!': 'Your message has been sent!',
+    'Благодарим ви! Ще се свържем с вас възможно най-скоро.': 'Thank you! We will contact you as soon as possible.'
   };
 
   var PH = {
@@ -98,7 +105,9 @@
     'Търсете оферта, дестинация...': 'Search offer, destination...',
     'Иван Иванов': 'John Smith', 'Изберете хотел от списъка': 'Select a hotel from the list',
     'Специални изисквания, въпроси...': 'Special requirements, questions...',
-    'Минимум 6 символа': 'Minimum 6 characters', 'вашия@имейл.bg': 'your@email.com'
+    'Минимум 6 символа': 'Minimum 6 characters', 'вашия@имейл.bg': 'your@email.com',
+    'Запитване за оферта': 'Inquiry about an offer',
+    'Опишете накратко какво търсите — дестинация, дати, брой пътници...': 'Briefly describe what you are looking for — destination, dates, number of travelers...'
   };
 
   function getLang() { try { return localStorage.getItem('mt_lang') || 'bg'; } catch (e) { return 'bg'; } }

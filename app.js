@@ -1331,6 +1331,52 @@ async function submitInquiry() {
   showToast('✅ Запитването е изпратено!', 'success');
 }
 
+// ===== CONTACT FORM SUBMIT =====
+async function submitContactForm() {
+  const name = document.getElementById('cfName').value.trim();
+  const phone = document.getElementById('cfPhone').value.trim();
+  const email = document.getElementById('cfEmail').value.trim();
+  const subject = document.getElementById('cfSubject').value.trim();
+  const message = document.getElementById('cfMessage').value.trim();
+
+  if (!name || !phone || !message) {
+    showToast('❗ Моля попълнете име, телефон и съобщение.', 'error');
+    return;
+  }
+
+  const btn = document.querySelector('#contactFormContent .form-submit');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Изпращане...'; }
+
+  const record = {
+    offer_id: null,
+    offer_title: 'Контактна форма' + (subject ? ': ' + subject : ''),
+    name, phone, email,
+    people: '',
+    preferred_date: '',
+    message: message,
+    status: 'new',
+    created_at: new Date().toISOString()
+  };
+
+  let saved = false;
+  if (mtSb) {
+    try {
+      const { error } = await mtSb.from('inquiries').insert([record]);
+      if (!error) saved = true;
+    } catch (err) { /* fallback */ }
+  }
+  if (!saved) {
+    const local = JSON.parse(localStorage.getItem('mt_inquiries') || '[]');
+    local.unshift({ ...record, id: Date.now() });
+    localStorage.setItem('mt_inquiries', JSON.stringify(local));
+  }
+
+  if (btn) { btn.disabled = false; btn.textContent = '✉️ Изпрати съобщение'; }
+  document.getElementById('contactFormContent').style.display = 'none';
+  document.getElementById('contactFormSuccess').style.display = 'block';
+  showToast('✅ Съобщението е изпратено!', 'success');
+}
+
 // ===== ANALYTICS TRACKING =====
 function trackPageView(page) {
   const views = JSON.parse(localStorage.getItem('mt_pageviews') || '[]');
