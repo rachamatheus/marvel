@@ -11,18 +11,26 @@
   <link rel="stylesheet" href="styles.css?v=141">
   <link rel="icon" href="favicon.svg?v=9">
   <style>
-    /* Exotic tropical backdrop across the whole home page */
+    /* Exotic backdrops across the home page — different photo per band, no repeat, more visible */
     .home-bg {
       position:fixed; inset:0; z-index:-2;
-      background:url('https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=2000&q=80') center/cover fixed;
+      background:url('https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=2000&q=80') center center / cover no-repeat fixed;
     }
     .home-bg::after {
       content:''; position:absolute; inset:0;
-      background:linear-gradient(rgba(247,250,253,0.74), rgba(247,250,253,0.82));
+      background:linear-gradient(rgba(247,250,253,0.55), rgba(247,250,253,0.62));
     }
     body { background:transparent; }
-    #featured, #offers, #reviews { background:transparent; }
-    #why-us { background:rgba(255,255,255,0.82) !important; backdrop-filter:blur(3px); }
+    #featured { background:transparent; }
+    #offers {
+      background:linear-gradient(rgba(247,250,253,0.5), rgba(247,250,253,0.6)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2000&q=80') center center / cover no-repeat fixed;
+    }
+    #reviews {
+      background:linear-gradient(rgba(247,250,253,0.5), rgba(247,250,253,0.6)),
+        url('https://images.unsplash.com/photo-1519046904884-53103b34b206?w=2000&q=80') center center / cover no-repeat fixed;
+    }
+    #why-us { background:rgba(255,255,255,0.8) !important; backdrop-filter:blur(3px); }
     footer { position:relative; }
   </style>
 </head>
