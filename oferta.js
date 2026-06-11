@@ -29,7 +29,7 @@ let selectedDate = null;
 let selectedHotelIdx = 0;
 
 function transportLabel(t) {
-  const map = { flight: '✈️ Самолет', plane: '✈️ Самолет', bus: '🚌 Автобус', car: '🚗 Автомобил', ship: '🚢 Кораб', train: '🚆 Влак' };
+  const map = { flight: '✈️ Полет', plane: '✈️ Полет', bus: '🚌 Бус', car: '🚗 Кола', ship: '🚢 Кораб', train: '🚆 Влак' };
   return map[t] || t || '✈️ Самолет';
 }
 

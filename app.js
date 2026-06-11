@@ -288,6 +288,13 @@ function handleRegister() {
 }
 
 // ===== INIT =====
+// Don't let the browser restore the old scroll position on reload — if there is
+// no explicit anchor (e.g. after adding a favourite), start at the top of the page.
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('load', () => {
+  if (!location.hash) window.scrollTo(0, 0);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   initSupabase();
   updateStatCounter();
@@ -691,7 +698,7 @@ function getFilteredOffers() {
 
 // Helper: translate transport
 function transportLabel(t) {
-  const map = { flight: '✈️ Самолет', bus: '🚌 Автобус', car: '🚗 Автомобил', ship: '🚢 Кораб', train: '🚆 Влак' };
+  const map = { flight: '✈️ Полет', plane: '✈️ Полет', bus: '🚌 Бус', car: '🚗 Кола', ship: '🚢 Кораб', train: '🚆 Влак' };
   return map[t] || t || '✈️ Самолет';
 }
 
