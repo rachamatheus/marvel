@@ -485,6 +485,7 @@ function renderAdminOffers() {
     return `
       <tr>
         <td style="color:var(--gray-400);font-size:0.8rem;">${o.id}</td>
+        <td style="font-weight:700;color:var(--primary);font-size:0.82rem;white-space:nowrap;">${o.refNum || '—'}</td>
         <td style="max-width:220px;">
           <div style="font-weight:600;font-size:0.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${o.title}</div>
           ${isCustom ? '<span style="font-size:0.7rem;color:#7c3aed;background:#f5f3ff;padding:2px 6px;border-radius:4px;">custom</span>' : ''}
@@ -529,6 +530,7 @@ function openOfferModal(id) {
     if (!offer) return;
     titleEl.textContent = 'Редактирай оферта';
     document.getElementById('of_title').value = offer.title || '';
+    document.getElementById('of_refnum').value = offer.refNum || '';
     document.getElementById('of_category').value = offer.category || 'excursion';
     document.getElementById('of_destination').value = offer.destination || '';
     document.getElementById('of_country').value = offer.country || '';
@@ -545,6 +547,7 @@ function openOfferModal(id) {
   } else {
     titleEl.textContent = 'Добави нова оферта';
     document.getElementById('of_title').value = '';
+    document.getElementById('of_refnum').value = '';
     document.getElementById('of_category').value = 'excursion';
     document.getElementById('of_destination').value = '';
     document.getElementById('of_country').value = '';
@@ -587,6 +590,7 @@ function saveOfferFromModal() {
   const data = {
     id,
     title,
+    refNum: document.getElementById('of_refnum').value.trim(),
     category: document.getElementById('of_category').value,
     destination: document.getElementById('of_destination').value.trim(),
     country: document.getElementById('of_country').value.trim(),
