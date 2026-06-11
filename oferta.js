@@ -229,7 +229,7 @@ function loadHotelInfo(offer, cb) {
   const num = m[1];
   if (_hotelDataLoaded[num]) { cb(); return; }
   const s = document.createElement('script');
-  s.src = 'data/hotels/' + num + '.js?v=1';
+  s.src = 'data/hotels/' + num + '.js?v=2';
   s.onload = function () { _hotelDataLoaded[num] = true; cb(); };
   s.onerror = function () { cb(); }; // no data file yet → render with fallbacks
   document.head.appendChild(s);
@@ -307,9 +307,34 @@ function renderHotelDetail(h) {
     big +
     (imgs.length > 1 ? `<div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;">${thumbs}</div>` : '') +
     (desc ? `<div class="hotel-desc">${structureHotelDesc(desc)}</div>`
-          : `<div style="color:var(--gray-400);font-size:0.86rem;">Подробна информация за този хотел предстои да бъде добавена.</div>`);
+          : `<div style="color:var(--gray-400);font-size:0.86rem;">Подробна информация за този хотел предстои да бъде добавена.</div>`) +
+    renderHotelPrices(info);
   box.style.display = '';
 }
+// Option B: clean room-type → price table with a date dropdown.
+let _hotelPrices = null;
+function renderHotelPrices(info) {
+  if (!info || !info.rooms || !info.rooms.length || !info.dates || !info.dates.length) return '';
+  _hotelPrices = info;
+  const opts = info.dates.map((d, i) => `<option value="${i}">${d}</option>`).join('');
+  return `<div class="hotel-prices">
+    <div class="hp-head"><span>💶 Цени по тип стая</span>
+      <label>📅 Дата: <select id="hpDate" onchange="hpUpdate(this.value)">${opts}</select></label></div>
+    <div id="hpBody">${hpTable(0)}</div>
+    <div style="font-size:0.76rem;color:var(--gray-400);margin-top:6px;">Цените са ориентировъчни, на човек. Изпратете запитване за точна оферта.</div>
+  </div>`;
+}
+function hpTable(di) {
+  di = +di || 0;
+  if (!_hotelPrices) return '';
+  const rows = _hotelPrices.rooms.map(r => {
+    const eur = r.p[di] || 0;
+    const bgn = eur ? eur * 1.95583 : 0;
+    return `<tr><td>${r.n}</td><td style="white-space:nowrap;text-align:right;font-weight:700;color:var(--primary);">${eur ? eur + ' € <span style="color:var(--gray-500);font-weight:500;">/ ' + bgn.toFixed(2) + ' лв.</span>' : '—'}</td></tr>`;
+  }).join('');
+  return `<table class="hp-table"><thead><tr><th>Тип стая</th><th style="text-align:right;">Цена / човек</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function hpUpdate(di) { const b = document.getElementById('hpBody'); if (b) b.innerHTML = hpTable(di); }
 function selectDate(date) {
   selectedDate = date;
   document.querySelectorAll('.modal-date-btn').forEach(b => b.classList.toggle('selected', b.textContent === date));

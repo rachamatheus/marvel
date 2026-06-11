@@ -45,6 +45,15 @@
     .hotel-desc .hd-body { color:#1f2430; font-size:0.94rem; line-height:1.65; }
     .hotel-desc .hd-body p { margin:0 0 5px; }
     .hotel-desc .hd-body strong { color:var(--primary); }
+    /* Hotel price table (room type -> price, date dropdown) */
+    .hotel-prices { margin-top:16px; border-top:1px solid var(--gray-200,#e5e7eb); padding-top:14px; }
+    .hotel-prices .hp-head { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:10px; font-weight:800; color:var(--primary); }
+    .hotel-prices .hp-head select { font-family:inherit; padding:6px 10px; border:1.5px solid var(--gray-300,#d1d5db); border-radius:8px; font-size:0.9rem; cursor:pointer; }
+    .hotel-prices .hp-head label { font-weight:600; color:var(--gray-700,#374151); font-size:0.9rem; }
+    .hp-table { width:100%; border-collapse:collapse; font-size:0.9rem; }
+    .hp-table th { background:rgba(26,58,107,0.06); color:var(--primary); text-align:left; padding:8px 10px; border:1px solid var(--gray-200,#e5e7eb); }
+    .hp-table td { padding:8px 10px; border:1px solid var(--gray-200,#e5e7eb); color:#1f2430; }
+    .hp-table tr:nth-child(even) td { background:rgba(0,0,0,0.02); }
   </style>
 </head>
 <body>
@@ -208,7 +217,7 @@
 <script src="data/hotels.js?v=1"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="oferta.js?v=151"></script>
+<script src="oferta.js?v=152"></script>
 <script src="lang.js?v=132"></script>
 <script src="auth.js?v=1"></script>
 </body>
