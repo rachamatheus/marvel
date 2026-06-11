@@ -297,7 +297,7 @@ function renderOfferPage() {
   if (detSec && detEl) {
     detSec.style.display = 'none';
     detEl.innerHTML = '';
-    fetch('data/details/' + offer.id + '.html?v=135')
+    fetch('data/details/' + offer.id + '.html?v=141')
       .then(r => r.ok ? r.text() : '')
       .then(t => { if (t && t.trim().length > 10) {
         detEl.innerHTML = t; detSec.style.display = ''; makeDetailTablesInteractive(detEl);
