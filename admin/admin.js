@@ -490,7 +490,7 @@ function renderAdminOffers() {
           <div style="font-weight:600;font-size:0.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${o.title}</div>
           ${isCustom ? '<span style="font-size:0.7rem;color:#7c3aed;background:#f5f3ff;padding:2px 6px;border-radius:4px;">custom</span>' : ''}
         </td>
-        <td><span class="modal-tag ${o.category === 'vacation' ? 'blue' : ''}">${o.category === 'vacation' ? 'Почивка' : 'Екскурзия'}</span></td>
+        <td><span class="modal-tag ${o.category === 'vacation' ? 'blue' : ''}">${ {vacation:'Почивка',excursion:'Екскурзия',exotic:'Екзотика',cruise:'Круиз'}[o.category] || o.category || '—' }</span></td>
         <td>${o.destination || '—'}</td>
         <td style="font-weight:700;color:var(--primary);white-space:nowrap;">${o.price_bgn ? o.price_bgn.toFixed(0) + ' лв.' : '—'}<div style="font-weight:600;color:var(--gray-400);font-size:0.78rem;">${o.price_eur ? o.price_eur.toFixed(0) + ' €' : ''}</div></td>
         <td>${o.duration || '—'}</td>
