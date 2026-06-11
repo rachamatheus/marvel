@@ -1,0 +1,2 @@
+// AUTO hotels for pochivka 862
+HOTEL_INFO["https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAzMTQ1OTImSW1hZ2VJRD0wMzQy&PID=B01"]={images:["https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAzMTQ1OTImSW1hZ2VJRD0wMzQy&PID=B01"],stars:4,location:"Коста дел Сол , Испания",desc:"<p><strong>Разположение:</strong>Avenida de Las Gaviotas s/n, Fuengirola (M </p>"};
