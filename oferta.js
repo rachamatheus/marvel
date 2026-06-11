@@ -299,7 +299,7 @@ function renderOfferPage() {
     detEl.innerHTML = '';
     fetch('data/details/' + offer.id + '.html?v=135')
       .then(r => r.ok ? r.text() : '')
-      .then(t => { if (t && t.trim().length > 10) { detEl.innerHTML = t; detSec.style.display = ''; } })
+      .then(t => { if (t && t.trim().length > 10) { detEl.innerHTML = t; detSec.style.display = ''; makeDetailTablesInteractive(detEl); } })
       .catch(() => {});
   }
 
@@ -359,6 +359,49 @@ async function submitInquiry() {
   document.getElementById('inquiryFormContent').style.display = 'none';
   document.getElementById('inquirySuccess').style.display = 'block';
   showToast('✅ Запитването е изпратено!', 'success');
+}
+
+// Make price/variant tables in the details clickable — the client can pick a
+// row (e.g. apartment with/without sea view) and it is added to the inquiry,
+// without changing the layout/flow.
+function makeDetailTablesInteractive(container) {
+  if (!container) return;
+  container.querySelectorAll('table').forEach(tbl => {
+    const rows = Array.from(tbl.querySelectorAll('tr'));
+    if (rows.length < 2) return;
+    let hintShown = false;
+    rows.forEach((tr, i) => {
+      const isHeader = tr.querySelector('th') || i === 0;
+      if (isHeader) return;
+      const txt = tr.textContent || '';
+      if (!/\d/.test(txt)) return; // only rows with a number (price) are selectable
+      tr.style.cursor = 'pointer';
+      tr.title = 'Изберете този вариант';
+      tr.addEventListener('click', () => {
+        rows.forEach(r => r.classList.remove('od-row-selected'));
+        tr.classList.add('od-row-selected');
+        const cells = Array.from(tr.querySelectorAll('td')).map(c => c.textContent.trim()).filter(Boolean);
+        const label = cells.join(' · ');
+        const inqMsg = document.getElementById('inqMsg');
+        if (inqMsg) {
+          const marker = 'Избран вариант: ';
+          const lines = (inqMsg.value || '').split('\n').filter(l => l && !l.startsWith(marker));
+          lines.unshift(marker + label);
+          inqMsg.value = lines.join('\n').trim();
+        }
+        try { showToast('✓ Избрахте: ' + label.slice(0, 50), 'success'); } catch (e) {}
+      });
+    });
+    // add a small hint once per interactive table
+    const firstSelectable = rows.find((tr, i) => !(tr.querySelector('th') || i === 0) && /\d/.test(tr.textContent || ''));
+    if (firstSelectable && !hintShown) {
+      hintShown = true;
+      const hint = document.createElement('div');
+      hint.textContent = '👆 Кликнете върху ред, за да изберете вариант';
+      hint.style.cssText = 'font-size:0.78rem;color:var(--gray-400);margin:2px 0 6px;';
+      tbl.parentNode.insertBefore(hint, tbl);
+    }
+  });
 }
 
 function showToast(msg, type = 'success') {
