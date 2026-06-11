@@ -410,6 +410,28 @@ function openInquiry(id) {
   if (!inq) return;
 
   document.getElementById('inqDetailTitle').textContent = `Запитване от ${inq.name}`;
+
+  // Split the message: pull out "Избран вариант: …" lines as separate cards
+  const _selected = [], _freeLines = [];
+  (inq.message || '').split('\n').forEach(l => {
+    l = l.trim(); if (!l) return;
+    if (l.indexOf('Избран вариант:') === 0) _selected.push(l.replace('Избран вариант:', '').trim());
+    else _freeLines.push(l);
+  });
+  const _variantsHtml = _selected.length ? `
+      <div style="grid-column:span 2;">
+        <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Избрани варианти / екскурзии (${_selected.length})</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${_selected.map(v => `<div style="background:#ecfdf3;border:1px solid #86efac;border-left:4px solid #16a34a;border-radius:8px;padding:9px 12px;font-size:0.86rem;color:#08351c;font-weight:600;"><span style="color:#16a34a;">✔</span> ${v}</div>`).join('')}
+        </div>
+      </div>` : '';
+  const _freeText = _freeLines.join('\n');
+  const _messageHtml = _freeText ? `
+      <div style="grid-column:span 2;">
+        <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Съобщение</div>
+        <div style="background:var(--gray-100);border-radius:8px;padding:12px;font-size:0.88rem;color:var(--gray-600);white-space:pre-wrap;">${_freeText}</div>
+      </div>` : '';
+
   document.getElementById('inqDetailContent').innerHTML = `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;">
       <div>
@@ -444,11 +466,8 @@ function openInquiry(id) {
         <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Изпратено на</div>
         <div>${formatDate(inq.created_at, true)}</div>
       </div>
-      ${inq.message ? `
-      <div style="grid-column:span 2;">
-        <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Съобщение</div>
-        <div style="background:var(--gray-100);border-radius:8px;padding:12px;font-size:0.88rem;color:var(--gray-600);">${inq.message}</div>
-      </div>` : ''}
+      ${_variantsHtml}
+      ${_messageHtml}
       <div style="grid-column:span 2;">
         <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Статус</div>
         <select onchange="changeStatus(${inq.id}, this.value)" style="border:1.5px solid var(--gray-200);border-radius:8px;padding:8px 12px;font-size:0.88rem;font-family:inherit;cursor:pointer;background:white;width:100%;">
