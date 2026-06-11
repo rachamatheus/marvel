@@ -232,6 +232,20 @@ function selectHotel(idx) {
   const inq = document.getElementById('inqHotel'); if (inq) inq.value = h.name;
   renderHotelDetail(h);
 }
+// Turn the flat operator description into clear, client-friendly sections.
+function structureHotelDesc(html) {
+  if (!html) return '';
+  const segs = html.split(/<strong>([^<]{2,45}?):<\/strong>/);
+  let out = '';
+  const intro = (segs[0] || '').trim();
+  if (intro && intro.replace(/<[^>]+>/g, '').trim()) out += `<div class="hd-body">${intro}</div>`;
+  for (let i = 1; i < segs.length; i += 2) {
+    const label = (segs[i] || '').trim();
+    const body = (segs[i + 1] || '').trim();
+    out += `<div class="hd-sec"><div class="hd-sec-title">${label}</div><div class="hd-body">${body}</div></div>`;
+  }
+  return out || html;
+}
 function renderHotelDetail(h) {
   const box = document.getElementById('hotelDetail');
   if (!box || !h) return;
@@ -239,14 +253,18 @@ function renderHotelDetail(h) {
   const imgs = hotelGallery(h);
   _hotelGalleryImgs = imgs;
   const stars = info && info.stars ? ' ' + '★'.repeat(info.stars) : '';
-  const thumbs = imgs.slice(0, 10).map((u, i) =>
-    `<img src="${proxify(u)}" alt="${h.name} ${i + 1}" loading="lazy" onclick="openHotelGalleryAt(${i})" onerror="hotelImgError(this)" style="width:104px;height:76px;object-fit:cover;border-radius:8px;cursor:pointer;flex:0 0 auto;">`).join('');
+  const big = imgs.length
+    ? `<img src="${proxify(imgs[0])}" alt="${h.name}" loading="lazy" onclick="openHotelGalleryAt(0)" onerror="hotelImgError(this)" style="width:100%;max-height:340px;height:auto;object-fit:cover;border-radius:12px;cursor:pointer;display:block;margin-bottom:10px;">`
+    : '';
+  const thumbs = imgs.slice(1, 13).map((u, i) =>
+    `<img src="${proxify(u)}" alt="${h.name} ${i + 2}" loading="lazy" onclick="openHotelGalleryAt(${i + 1})" onerror="hotelImgError(this)" style="width:190px;height:134px;object-fit:cover;border-radius:10px;cursor:pointer;flex:0 0 auto;">`).join('');
   const desc = info && info.desc ? info.desc : '';
   box.innerHTML =
-    `<div style="font-weight:800;color:var(--primary);font-size:1.12rem;margin-bottom:2px;">${h.name}<span style="color:var(--gold);">${stars}</span></div>` +
-    `<div style="color:var(--gray-600);font-size:0.86rem;margin-bottom:10px;">${h.board || ''}${info && info.location ? ' · 📍 ' + info.location : ''}</div>` +
-    (imgs.length > 1 ? `<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px;">${thumbs}</div>` : '') +
-    (desc ? `<div class="offer-details" style="font-size:0.92rem;">${desc}</div>`
+    `<div style="font-weight:800;color:var(--primary);font-size:1.2rem;margin-bottom:2px;">${h.name}<span style="color:var(--gold);">${stars}</span></div>` +
+    `<div style="color:var(--gray-600);font-size:0.9rem;margin-bottom:12px;">${h.board || ''}${info && info.location ? ' · 📍 ' + info.location : ''}</div>` +
+    big +
+    (imgs.length > 1 ? `<div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;">${thumbs}</div>` : '') +
+    (desc ? `<div class="hotel-desc">${structureHotelDesc(desc)}</div>`
           : `<div style="color:var(--gray-400);font-size:0.86rem;">Подробна информация за този хотел предстои да бъде добавена.</div>`);
   box.style.display = '';
 }
