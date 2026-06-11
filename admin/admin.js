@@ -362,15 +362,24 @@ function renderInquiriesTable() {
   table.style.display = 'table';
   empty.style.display = 'none';
 
-  document.getElementById('inqBody').innerHTML = list.map((inq, idx) => `
+  document.getElementById('inqBody').innerHTML = list.map((inq, idx) => {
+    const kids = (typeof inq.children !== 'undefined' && inq.children !== null && inq.children !== '')
+      ? inq.children
+      : ((/(\d+)\s*(?:деца|дете)/.exec(inq.people || '') || [])[1] || 0);
+    const adu = (typeof inq.adults !== 'undefined' && inq.adults !== null && inq.adults !== '')
+      ? inq.adults
+      : ((/(\d+)\s*възр/.exec(inq.people || '') || [])[1] || (inq.people ? inq.people : '—'));
+    return `
     <tr style="cursor:pointer;" onclick="openInquiry(${inq.id})">
       <td style="color:var(--gray-400);font-size:0.8rem;">#${idx + 1}</td>
       <td><strong>${inq.name}</strong></td>
       <td><a href="tel:${inq.phone}" onclick="event.stopPropagation()" style="color:var(--primary);text-decoration:none;">${inq.phone}</a></td>
       <td style="color:var(--gray-600);">${inq.email || '—'}</td>
-      <td style="max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${inq.offer_ref ? `<strong style="color:var(--primary);">${inq.offer_ref}</strong> · ` : ''}${shortTitle(inq.offer_title)}</td>
+      <td style="white-space:nowrap;font-weight:700;color:var(--primary);">${inq.offer_ref || '—'}</td>
+      <td style="max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${shortTitle(inq.offer_title)}</td>
       <td>${inq.preferred_date || '—'}</td>
-      <td>${inq.people || '—'}</td>
+      <td style="text-align:center;">${adu}</td>
+      <td style="text-align:center;font-weight:600;${(+kids) > 0 ? 'color:var(--primary);' : 'color:var(--gray-400);'}">${kids}</td>
       <td style="white-space:nowrap;">${formatDate(inq.created_at)}</td>
       <td><span class="status-badge status-${inq.status}">${statusLabel(inq.status)}</span></td>
       <td onclick="event.stopPropagation()">
@@ -382,7 +391,8 @@ function renderInquiriesTable() {
         </select>
       </td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function changeStatus(id, status) {
