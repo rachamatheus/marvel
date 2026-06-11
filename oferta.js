@@ -413,14 +413,19 @@ function makeDetailTablesInteractive(container) {
     const sel = labels.map(l => MARKER + l);
     inqMsg.value = [...sel, ...other].join('\n').trim();
   }
+  const CUR = /(€|\bEUR\b|\bBGN\b|лв|евро|лева)/i;
   container.querySelectorAll('table').forEach(tbl => {
+    // Only price/service tables (rooms, board, excursions) are selectable.
+    // Purely informative tables (flight schedules, documents, notes) have no
+    // currency anywhere → skip them entirely.
+    if (!CUR.test(tbl.textContent || '')) return;
     const rows = Array.from(tbl.querySelectorAll('tr'));
     if (rows.length < 2) return;
     rows.forEach((tr, i) => {
       const isHeader = tr.querySelector('th') || i === 0;
       if (isHeader) return;
       const txt = tr.textContent || '';
-      if (!/\d/.test(txt)) return; // only rows with a number (price) are selectable
+      if (!/\d/.test(txt)) return; // a selectable service/room row must carry a price number
       tr.style.cursor = 'pointer';
       tr.title = 'Кликнете, за да маркирате / размаркирате';
       tr.addEventListener('click', () => {
