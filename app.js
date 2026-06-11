@@ -737,6 +737,17 @@ function renderOffers() {
   renderActiveFilters();
 
   const list = getFilteredOffers();
+
+  // results count
+  const cntEl = document.getElementById('offersCount');
+  if (cntEl) {
+    const total = (typeof ALL_OFFERS !== 'undefined' ? ALL_OFFERS : OFFERS).length;
+    const filtered = (currentCategory !== 'all') || currentCountry || currentTag || currentSearch;
+    cntEl.innerHTML = filtered
+      ? '🔎 Намерени <strong style="color:var(--primary);">' + list.length + '</strong> от ' + total + ' оферти'
+      : '🔎 <strong style="color:var(--primary);">' + total + '</strong> оферти общо';
+  }
+
   if (!list.length) {
     grid.innerHTML = '';
     noRes.style.display = 'block';
