@@ -5,8 +5,8 @@
 //
 // To hardcode keys for all visitors (the anon key is public/safe for client code),
 // fill these two constants. Otherwise enter them in Admin → Настройки.
-window.MT_SB_URL = window.MT_SB_URL || '';
-window.MT_SB_KEY = window.MT_SB_KEY || '';
+window.MT_SB_URL = window.MT_SB_URL || 'https://ulmnmaxekfqmhseuyqtj.supabase.co';
+window.MT_SB_KEY = window.MT_SB_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbW5tYXhla2ZxbWhzZXV5cXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4NTA0MzYsImV4cCI6MjA5NjQyNjQzNn0.baAJ3k3F3rbD_ymq6TyyHvtT1YpAoQ9qdBZIan_cdrg';
 
 (function () {
   function read(k) {
