@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8">
@@ -202,7 +202,7 @@
                   <th>Дестинация</th>
                   <th>Цена от</th>
                   <th>Продължителност</th>
-                  <th>Следваща дата</th>
+                  <th>Дати (оставащи)</th>
                   <th>Прегледи</th>
                   <th>Запитвания</th>
                   <th>Действия</th>
@@ -408,19 +408,27 @@
           </div>
           <div class="form-group">
             <label class="form-label">Цена (лв.)</label>
-            <input type="number" class="form-input" id="of_price_bgn" min="0" placeholder="1200">
+            <input type="number" class="form-input" id="of_price_bgn" min="0" step="0.01" placeholder="1200" oninput="syncPrice('bgn')">
+            <small style="color:var(--gray-400);font-size:0.72rem;">Автоматично пресмята EUR</small>
           </div>
           <div class="form-group">
             <label class="form-label">Цена (EUR)</label>
-            <input type="number" class="form-input" id="of_price_eur" min="0" placeholder="600">
+            <input type="number" class="form-input" id="of_price_eur" min="0" step="0.01" placeholder="600" oninput="syncPrice('eur')">
+            <small style="color:var(--gray-400);font-size:0.72rem;">Курс 1 € = 1.95583 лв.</small>
           </div>
           <div class="form-group">
             <label class="form-label">Продължителност (текст)</label>
             <input type="text" class="form-input" id="of_duration" placeholder="напр. 7 дни / 6 нощувки">
           </div>
-          <div class="form-group">
-            <label class="form-label">Следваща дата</label>
-            <input type="text" class="form-input" id="of_next_date" placeholder="напр. 15 юни 2025">
+          <div class="form-group" style="grid-column:span 2;">
+            <label class="form-label">Дати на тръгване</label>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <input type="date" class="form-input" id="of_date_add" style="max-width:180px;">
+              <button type="button" onclick="addOfferDate()" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-family:inherit;font-weight:600;cursor:pointer;">+ Добави дата</button>
+              <span id="of_dates_remaining" style="font-size:0.82rem;font-weight:700;padding:5px 12px;border-radius:100px;background:rgba(34,197,94,0.12);color:#15803d;"></span>
+            </div>
+            <div id="of_dates_list" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;"></div>
+            <input type="hidden" id="of_next_date">
           </div>
           <div class="form-group" style="grid-column:span 2;">
             <label class="form-label">Тагове (разделени със запетая)</label>
@@ -446,7 +454,7 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
-<script src="../data/offers.js"></script>
-<script src="admin.js"></script>
+<script src="../data/offers.js?v=122"></script>
+<script src="admin.js?v=122"></script>
 </body>
 </html>

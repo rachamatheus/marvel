@@ -491,9 +491,9 @@ function renderAdminOffers() {
         </td>
         <td><span class="modal-tag ${o.category === 'vacation' ? 'blue' : ''}">${o.category === 'vacation' ? 'Почивка' : 'Екскурзия'}</span></td>
         <td>${o.destination || '—'}</td>
-        <td style="font-weight:700;color:var(--primary);">${o.price_bgn ? o.price_bgn.toFixed(0) + ' лв.' : '—'}</td>
+        <td style="font-weight:700;color:var(--primary);white-space:nowrap;">${o.price_bgn ? o.price_bgn.toFixed(0) + ' лв.' : '—'}<div style="font-weight:600;color:var(--gray-400);font-size:0.78rem;">${o.price_eur ? o.price_eur.toFixed(0) + ' €' : ''}</div></td>
         <td>${o.duration || '—'}</td>
-        <td style="white-space:nowrap;">${o.next_date || '—'}</td>
+        <td style="white-space:nowrap;">${nextDateOf(o) || '—'}${remainingDatesBadge(o)}</td>
         <td>${views[o.id] || 0}</td>
         <td>
           <span style="background:${inqCount > 0 ? 'rgba(59,130,246,0.1)' : 'var(--gray-100)'};color:${inqCount > 0 ? '#1d4ed8' : 'var(--gray-400)'};padding:3px 10px;border-radius:100px;font-size:0.75rem;font-weight:700;">
@@ -538,7 +538,7 @@ function openOfferModal(id) {
     document.getElementById('of_price_bgn').value = offer.price_bgn || '';
     document.getElementById('of_price_eur').value = offer.price_eur || '';
     document.getElementById('of_duration').value = offer.duration || '';
-    document.getElementById('of_next_date').value = offer.next_date || '';
+    editorDates = Array.isArray(offer.dates) ? offer.dates.slice() : [];
     document.getElementById('of_tags').value = Array.isArray(offer.tags) ? offer.tags.join(', ') : (offer.tags || '');
     document.getElementById('of_description').value = offer.description || '';
     document.getElementById('of_featured').checked = !!offer.featured;
@@ -554,12 +554,13 @@ function openOfferModal(id) {
     document.getElementById('of_price_bgn').value = '';
     document.getElementById('of_price_eur').value = '';
     document.getElementById('of_duration').value = '';
-    document.getElementById('of_next_date').value = '';
+    editorDates = [];
     document.getElementById('of_tags').value = '';
     document.getElementById('of_description').value = '';
     document.getElementById('of_featured').checked = false;
   }
 
+  renderOfferDates();
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -599,13 +600,85 @@ function saveOfferFromModal() {
     tags,
     description: document.getElementById('of_description').value.trim(),
     featured: document.getElementById('of_featured').checked,
-    dates: []
+    dates: editorDates.slice().sort()
   };
 
   saveOffer(data);
   closeOfferModal();
   renderAdminOffers();
   showToast('Офертата е запазена.', 'success');
+}
+
+// ===== PRICE (BGN <-> EUR) + DATES =====
+const EUR_RATE = 1.95583;
+let _priceSyncing = false;
+function syncPrice(src) {
+  if (_priceSyncing) return;
+  _priceSyncing = true;
+  const bgnEl = document.getElementById('of_price_bgn');
+  const eurEl = document.getElementById('of_price_eur');
+  if (src === 'bgn') {
+    const v = parseFloat(bgnEl.value);
+    eurEl.value = (v > 0) ? (Math.round(v / EUR_RATE * 100) / 100) : '';
+  } else {
+    const v = parseFloat(eurEl.value);
+    bgnEl.value = (v > 0) ? (Math.round(v * EUR_RATE * 100) / 100) : '';
+  }
+  _priceSyncing = false;
+}
+
+let editorDates = [];
+function _todayISO() { return new Date().toISOString().slice(0, 10); }
+function _fmtDate(d) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || '');
+  return m ? (m[3] + '.' + m[2] + '.' + m[1]) : (d || '');
+}
+function upcomingDates(dates) {
+  const t = _todayISO();
+  return (dates || []).filter(d => /^\d{4}-\d{2}-\d{2}/.test(d) && d >= t);
+}
+function nextDateOf(o) {
+  const up = upcomingDates(o.dates).sort();
+  if (up.length) return _fmtDate(up[0]);
+  if (o.dates && o.dates.length) return _fmtDate([...o.dates].sort()[0]);
+  return o.next_date || '';
+}
+function remainingDatesBadge(o) {
+  const total = (o.dates || []).length;
+  if (!total) return '';
+  const rem = upcomingDates(o.dates).length;
+  const color = rem === 0 ? '#b91c1c' : (rem <= 2 ? '#b45309' : '#15803d');
+  const bg = rem === 0 ? 'rgba(239,68,68,0.12)' : (rem <= 2 ? 'rgba(245,158,11,0.14)' : 'rgba(34,197,94,0.12)');
+  return `<div style="margin-top:3px;"><span style="font-size:0.7rem;font-weight:700;color:${color};background:${bg};padding:2px 8px;border-radius:100px;">${rem} оставащи / ${total}</span></div>`;
+}
+function addOfferDate() {
+  const el = document.getElementById('of_date_add');
+  const v = el.value;
+  if (!v) { showToast('Изберете дата.', 'error'); return; }
+  if (editorDates.indexOf(v) === -1) { editorDates.push(v); editorDates.sort(); }
+  el.value = '';
+  renderOfferDates();
+}
+function removeOfferDate(d) {
+  editorDates = editorDates.filter(x => x !== d);
+  renderOfferDates();
+}
+function renderOfferDates() {
+  const list = document.getElementById('of_dates_list');
+  const rem = document.getElementById('of_dates_remaining');
+  const hidden = document.getElementById('of_next_date');
+  if (!list) return;
+  editorDates.sort();
+  const up = upcomingDates(editorDates).sort();
+  list.innerHTML = editorDates.map(d => {
+    const past = d < _todayISO();
+    return `<span style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;padding:4px 10px;border-radius:100px;background:${past ? 'var(--gray-100)' : 'rgba(26,58,107,0.08)'};color:${past ? 'var(--gray-400)' : 'var(--primary)'};">
+      ${_fmtDate(d)}${past ? ' (минала)' : ''}
+      <button type="button" onclick="removeOfferDate('${d}')" title="Премахни" style="border:none;background:none;color:#b91c1c;cursor:pointer;font-size:1rem;line-height:1;padding:0;">×</button>
+    </span>`;
+  }).join('') || '<span style="color:var(--gray-400);font-size:0.82rem;">Няма добавени дати</span>';
+  if (rem) rem.textContent = `${up.length} оставащи дати`;
+  if (hidden) hidden.value = up[0] || editorDates[0] || '';
 }
 
 // ===== ANALYTICS =====
