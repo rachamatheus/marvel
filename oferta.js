@@ -23,6 +23,22 @@ function imgFallback(img) {
   } catch (e) {}
   if (img) { img.onerror = null; img.src = PLACEHOLDER_IMG; }
 }
+// Hotel photo failed: try the direct original (if it was proxied), then fall back
+// to the offer's own cover image, then a generic placeholder — never blank.
+function hotelImgError(img) {
+  try {
+    var s = img.src || '';
+    var m = s.match(/wsrv\.nl\/\?url=([^&]+)/);
+    if (m && !img.dataset.triedDirect) { img.dataset.triedDirect = '1'; img.src = decodeURIComponent(m[1]); return; }
+    if (!img.dataset.triedCover && typeof activeOffer !== 'undefined' && activeOffer) {
+      img.dataset.triedCover = '1';
+      img.onerror = function () { this.onerror = null; this.src = PLACEHOLDER_IMG; };
+      img.src = proxify(coverOf(activeOffer));
+      return;
+    }
+  } catch (e) {}
+  img.onerror = null; img.src = PLACEHOLDER_IMG;
+}
 
 function hotelKeyVariants(name) {
   if (!name) return [];
@@ -296,7 +312,7 @@ function renderOfferPage() {
     hotelsEl.innerHTML = hotels.map((h, i) => `
       <div class="hotel-card ${i === 0 ? 'selected' : ''}" onclick="selectHotel(${i})">
         <div class="hotel-card-imgwrap" onclick="event.stopPropagation();openHotelPhotos(${i})" title="Виж снимки">
-          <img class="hotel-card-img" src="${proxify(hotelImg(h))}" alt="${h.name}" onerror="imgFallback(this)">
+          <img class="hotel-card-img" src="${proxify(hotelImg(h))}" alt="${h.name}" onerror="hotelImgError(this)">
           <span class="hotel-card-zoom">🔍</span>
         </div>
         <div class="hotel-card-info">
