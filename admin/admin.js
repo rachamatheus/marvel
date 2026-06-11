@@ -560,6 +560,10 @@ function openOfferModal(id) {
     document.getElementById('of_price_eur').value = offer.price_eur || '';
     document.getElementById('of_duration').value = offer.duration || '';
     editorDates = Array.isArray(offer.dates) ? offer.dates.slice() : [];
+    editorHotels = Array.isArray(offer.hotels) ? offer.hotels.map(h => ({ ...h })) : [];
+    const vc = getViewCounts()[offer.id] || 0;
+    const vb = document.getElementById('of_views_badge');
+    if (vb) { vb.style.display = ''; vb.textContent = `👁️ ${vc} прегледа`; }
     document.getElementById('of_tags').value = Array.isArray(offer.tags) ? offer.tags.join(', ') : (offer.tags || '');
     document.getElementById('of_description').value = offer.description || '';
     document.getElementById('of_featured').checked = !!offer.featured;
@@ -577,12 +581,16 @@ function openOfferModal(id) {
     document.getElementById('of_price_eur').value = '';
     document.getElementById('of_duration').value = '';
     editorDates = [];
+    editorHotels = [];
+    const vb = document.getElementById('of_views_badge');
+    if (vb) vb.style.display = 'none';
     document.getElementById('of_tags').value = '';
     document.getElementById('of_description').value = '';
     document.getElementById('of_featured').checked = false;
   }
 
   renderOfferDates();
+  renderOfferHotels();
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -606,7 +614,11 @@ function saveOfferFromModal() {
     id = 'custom_' + Date.now();
   }
 
+  // Preserve any fields not present in the form (program, includes/excludes, gallery, image, etc.)
+  const original = currentEditOfferId ? (allOffers.find(o => o.id == currentEditOfferId) || {}) : {};
+
   const data = {
+    ...original,
     id,
     title,
     refNum: document.getElementById('of_refnum').value.trim(),
@@ -623,7 +635,8 @@ function saveOfferFromModal() {
     tags,
     description: document.getElementById('of_description').value.trim(),
     featured: document.getElementById('of_featured').checked,
-    dates: editorDates.slice().sort()
+    dates: editorDates.slice().sort(),
+    hotels: editorHotels.slice()
   };
 
   saveOffer(data);
@@ -702,6 +715,51 @@ function renderOfferDates() {
   }).join('') || '<span style="color:var(--gray-400);font-size:0.82rem;">Няма добавени дати</span>';
   if (rem) rem.textContent = `${up.length} оставащи дати`;
   if (hidden) hidden.value = up[0] || editorDates[0] || '';
+}
+
+// ===== HOTELS MANAGER (offer edit) =====
+const OF_HOTEL_PLACEHOLDER = 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=200&q=60';
+let editorHotels = [];
+function syncHotelPrice(src) {
+  const b = document.getElementById('oh_bgn'), e = document.getElementById('oh_eur');
+  if (src === 'bgn') { const v = parseFloat(b.value); e.value = (v > 0) ? (Math.round(v / EUR_RATE * 100) / 100) : ''; }
+  else { const v = parseFloat(e.value); b.value = (v > 0) ? (Math.round(v * EUR_RATE * 100) / 100) : ''; }
+}
+function renderOfferHotels() {
+  const list = document.getElementById('of_hotels_list');
+  if (!list) return;
+  list.innerHTML = editorHotels.map((h, i) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:8px;border:1px solid var(--gray-200);border-radius:10px;">
+      <img src="${h.image || OF_HOTEL_PLACEHOLDER}" onerror="this.src='${OF_HOTEL_PLACEHOLDER}'" style="width:56px;height:42px;object-fit:cover;border-radius:6px;flex-shrink:0;background:var(--gray-100);">
+      <div style="flex:1;min-width:0;">
+        <div style="font-weight:600;font-size:0.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${h.name}</div>
+        <div style="font-size:0.74rem;color:var(--gray-400);">${h.board || '—'}</div>
+      </div>
+      <div style="font-weight:700;color:var(--primary);font-size:0.82rem;text-align:right;white-space:nowrap;">${h.price_bgn ? h.price_bgn + ' лв.' : '—'}<div style="font-weight:600;color:var(--gray-400);">${h.price_eur ? h.price_eur + ' €' : ''}</div></div>
+      <button type="button" onclick="removeOfferHotel(${i})" title="Премахни хотел" style="border:none;background:#fee2e2;color:#b91c1c;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:1.05rem;line-height:1;flex-shrink:0;">×</button>
+    </div>`).join('') || '<div style="color:var(--gray-400);font-size:0.82rem;padding:4px 0;">Няма добавени хотели</div>';
+}
+function addOfferHotel() {
+  const name = document.getElementById('oh_name').value.trim();
+  if (!name) { showToast('Въведете име на хотел.', 'error'); return; }
+  let bgn = parseFloat(document.getElementById('oh_bgn').value) || 0;
+  let eur = parseFloat(document.getElementById('oh_eur').value) || 0;
+  if (bgn && !eur) eur = Math.round(bgn / EUR_RATE * 100) / 100;
+  if (eur && !bgn) bgn = Math.round(eur * EUR_RATE * 100) / 100;
+  editorHotels.push({
+    name,
+    board: document.getElementById('oh_board').value.trim() || '—',
+    price_bgn: bgn,
+    price_eur: eur,
+    image: document.getElementById('oh_img').value.trim()
+  });
+  ['oh_name', 'oh_board', 'oh_bgn', 'oh_eur', 'oh_img'].forEach(id => document.getElementById(id).value = '');
+  renderOfferHotels();
+  document.getElementById('oh_name').focus();
+}
+function removeOfferHotel(i) {
+  editorHotels.splice(i, 1);
+  renderOfferHotels();
 }
 
 // ===== ANALYTICS =====
