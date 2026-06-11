@@ -1,0 +1,78 @@
+REMOVED id=1 (no program on its own page) (Аржентина / Бразилия)
+REMOVED id=4 (no program on its own page) (САЩ / Бахамски острови)
+REMOVED id=5 (no program on its own page) (Бразилия)
+TABLE_MISSING id=8 mt=1 ours=0 (САЩ – Западен бряг)
+TABLE_MISSING id=9 mt=1 ours=0 (САЩ / Канада)
+TABLE_MISSING id=10 mt=1 ours=0 (Ню Йорк, САЩ)
+TABLE_MISSING id=11 mt=1 ours=0 (о-в Оаху, Хаваи, САЩ)
+TABLE_MISSING id=14 mt=1 ours=0 (САЩ – цялата страна + Бахами)
+REF? id=16 num=733 dest='Кения – Сафари' title='Почивка в Алания, Турция със самолет от Пловдив в Петък - 7 нощувки | marveltourbg.com'
+TABLE_MISSING id=27 mt=1 ours=0 (Виетнам)
+TABLE_MISSING id=28 mt=1 ours=0 (Виетнам – Ханой, Хой Ан, Хюе, Муй Не)
+TABLE_MISSING id=30 mt=1 ours=0 (Виетнам / Камбоджа / Тайланд)
+TABLE_MISSING id=36 mt=1 ours=0 (Сингапур / о-в Бали)
+TABLE_MISSING id=37 mt=1 ours=0 (Китай – Шанхай / Янцзъ / Сиан / Пекин)
+TABLE_MISSING id=42 mt=1 ours=0 (Китай / Южна Корея)
+TABLE_MISSING id=49 mt=1 ours=0 (Япония / Южна Корея)
+TABLE_MISSING id=55 mt=1 ours=0 (Испания – Барселона / Мадрид / Валенсия)
+REF? id=56 num=556 dest='Египет – Кайро' title='Почивка в ГЪРЦИЯ - ОСТРОВ КОРФУ - 4 нощувки - полет от София! | marveltourbg.com'
+TABLE_MISSING id=76 mt=1 ours=0 (Испания – о-в Майорка)
+REF? id=77 num=726 dest='Испания – Коста дел Сол' title='Почивка в Алания, Турция с автобус от София - 7 нощувки | marveltourbg.com'
+REMOVED id=78 (no program on its own page) (Испания – 3 града)
+TABLE_MISSING id=83 mt=1 ours=0 (Метеора / Солун, Гърция)
+REF? id=87 num=712 dest='Йонийски острови, Гърция' title='Йонийска мечта | marveltourbg.com'
+TABLE_MISSING id=89 mt=1 ours=0 (о-в Евия – Едипсос, Гърция)
+TABLE_MISSING id=99 mt=1 ours=0 (о-в Крит, Гърция)
+TABLE_MISSING id=107 mt=1 ours=0 (Истанбул, Турция)
+REMOVED id=119 (no program on its own page) (Рим, Италия)
+TABLE_MISSING id=133 mt=1 ours=0 (Одрин, Турция)
+TABLE_MISSING id=134 mt=1 ours=0 (Солун, Гърция)
+REMOVED id=187 (no program on its own page) (Рим, Италия)
+REF? id=194 num=1130 dest='Сицилия, Италия' title='Athena Resort Village 4* Superior - разкошен плаж и вълнуващи екскурзии, полет от София | marveltourbg.com'
+TABLE_MISSING id=229 mt=1 ours=0 (Измир, Турция)
+TABLE_MISSING id=242 mt=1 ours=0 (Рим, Италия)
+REF? id=242 num=593 dest='Рим, Италия' title='Самолетна екскурзия до Рим с три нощувки с включена панорамна обиколка на града с екскурзовод | marveltourbg.com'
+TABLE_MISSING id=249 mt=1 ours=0 (Амалфийско крайбрежие, Италия)
+REF? id=249 num=173 dest='Амалфийско крайбрежие, Италия' title='АМАЛФИЙСКА РИВИЕРА | marveltourbg.com'
+TABLE_MISSING id=252 mt=1 ours=0 (Италианска ривиера / Лазурен бряг)
+TABLE_MISSING id=255 mt=1 ours=0 (Тоскана, Италия)
+TABLE_MISSING id=260 mt=1 ours=0 (Сицилия, Италия)
+TABLE_MISSING id=263 mt=1 ours=0 (Неа Ираклица, Гърция)
+TABLE_MISSING id=289 mt=1 ours=0 (Италия / Швейцария)
+TABLE_MISSING id=292 mt=1 ours=0 (Истанбул, Турция)
+TABLE_MISSING id=295 mt=1 ours=0 (Истанбул / Кападокия, Турция)
+TABLE_MISSING id=296 mt=1 ours=0 (Ликия, Турция)
+TABLE_MISSING id=302 mt=1 ours=0 (о-в Мадейра, Португалия)
+TABLE_MISSING id=303 mt=1 ours=0 (Лисабон / Порто, Португалия)
+TABLE_MISSING id=304 mt=1 ours=0 (Лисабон / Мадейра, Португалия)
+TABLE_MISSING id=310 mt=1 ours=0 (Букурещ / Брашов, Румъния)
+TABLE_MISSING id=311 mt=1 ours=0 (Букурещ / Брашов, Румъния)
+TABLE_MISSING id=312 mt=1 ours=0 (Букурещ / Брашов, Румъния)
+TABLE_MISSING id=313 mt=1 ours=0 (Букурещ, Румъния)
+TABLE_MISSING id=317 mt=1 ours=0 (Северен Кипър)
+TABLE_MISSING id=320 mt=1 ours=0 (Малта)
+TABLE_MISSING id=325 mt=1 ours=0 (Дубай, ОАЕ)
+TABLE_MISSING id=331 mt=1 ours=0 (Абу Даби, ОАЕ)
+TABLE_MISSING id=335 mt=1 ours=0 (Прибалтика (Литва, Латвия, Естония))
+TABLE_MISSING id=336 mt=1 ours=0 (Ирландия)
+TABLE_MISSING id=338 mt=1 ours=0 (Исландия)
+TABLE_MISSING id=340 mt=1 ours=0 (Исландия)
+TABLE_MISSING id=342 mt=1 ours=0 (Доха, Катар)
+REF? id=342 num=663 dest='Доха, Катар' title='QATAR 2026 - FORMULA 1 GRAND PRIX - 7 Нощувки - хотел 4* - NORTH GRANDSTAND | marveltourbg.com'
+TABLE_MISSING id=343 mt=1 ours=0 (Доха, Катар)
+REF? id=343 num=667 dest='Доха, Катар' title='QATAR 2026 - FORMULA 1 GRAND PRIX - от Варна 3 Нощувки - хотел 4* - MAIN GRANDSTAND | marveltourbg.com'
+TABLE_MISSING id=344 mt=1 ours=0 (Доха, Катар)
+REF? id=344 num=662 dest='Доха, Катар' title='QATAR 2026 - FORMULA 1 GRAND PRIX - 7 Нощувки - хотел 4* - MAIN GRANDSTAND | marveltourbg.com'
+TABLE_MISSING id=345 mt=1 ours=0 (Доха, Катар)
+REF? id=345 num=731 dest='Доха, Катар' title='QATAR 2026 - FORMULA 1 GRAND PRIX - от Варна 3 Нощувки - хотел 5* - NORTH GRANDSTAND | marveltourbg.com'
+TABLE_MISSING id=346 mt=1 ours=0 (Доха, Катар)
+REF? id=346 num=661 dest='Доха, Катар' title='QATAR 2026 - FORMULA 1 GRAND PRIX - 4 Нощувки - хотел 4* - T16 GRANDSTAND | marveltourbg.com'
+TABLE_MISSING id=347 mt=1 ours=0 (Доха, Катар)
+REF? id=347 num=660 dest='Доха, Катар' title='QATAR 2026 - FORMULA 1 GRAND PRIX - 4 Нощувки - хотел 4* - NORTH GRANDSTAND | marveltourbg.com'
+TABLE_MISSING id=348 mt=1 ours=0 (Доха, Катар)
+REF? id=348 num=595 dest='Доха, Катар' title='QATAR 2026 - FORMULA 1 GRAND PRIX - 4 Нощувки - хотел 4* - MAIN GRANDSTAND | marveltourbg.com'
+TABLE_MISSING id=349 mt=1 ours=0 (Косово)
+REMOVED id=350 (no program on its own page) (Френска Полинезия / Нова Зеландия)
+TABLE_MISSING id=351 mt=1 ours=0 (Намибия)
+TABLE_MISSING id=354 mt=1 ours=0 (Южно Мароко)
+REF? id=356 num=569 dest='Черна Гора' title='Перлите на Адриатика - екскурзия с автобус | marveltourbg.com'
