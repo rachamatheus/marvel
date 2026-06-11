@@ -266,7 +266,7 @@ function renderOfferPage() {
   if (detSec && detEl) {
     detSec.style.display = 'none';
     detEl.innerHTML = '';
-    fetch('data/details/' + offer.id + '.html?v=121')
+    fetch('data/details/' + offer.id + '.html?v=122')
       .then(r => r.ok ? r.text() : '')
       .then(t => { if (t && t.trim().length > 10) { detEl.innerHTML = t; detSec.style.display = ''; } })
       .catch(() => {});
