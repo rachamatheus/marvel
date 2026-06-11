@@ -299,7 +299,14 @@ function renderOfferPage() {
     detEl.innerHTML = '';
     fetch('data/details/' + offer.id + '.html?v=135')
       .then(r => r.ok ? r.text() : '')
-      .then(t => { if (t && t.trim().length > 10) { detEl.innerHTML = t; detSec.style.display = ''; makeDetailTablesInteractive(detEl); } })
+      .then(t => { if (t && t.trim().length > 10) {
+        detEl.innerHTML = t; detSec.style.display = ''; makeDetailTablesInteractive(detEl);
+        // Avoid duplication: if the full detail already contains a section, hide the structured copy
+        const has = re => re.test(t);
+        if (has(/<h3>\s*Програма/i) && progSec) progSec.style.display = 'none';
+        const incExc = document.getElementById('offerIncExcSection');
+        if (incExc && (has(/Цената включва/i) || has(/Цената не включва/i))) incExc.style.display = 'none';
+      } })
       .catch(() => {});
   }
 
