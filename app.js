@@ -911,12 +911,48 @@ function renderActiveFilters() {
 }
 
 // ===== FAVORITES =====
+function favOfferImg(o) {
+  return (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) ||
+    (o.image && String(o.image).startsWith('http') ? o.image : '') ||
+    'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=200&q=60';
+}
+// Floating bubble listing favorites — works for guests and logged-in users
+function showFavBubble() {
+  let el = document.getElementById('favBubble');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'favBubble';
+    el.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:3500;width:330px;max-width:92vw;background:#fff;border:1px solid var(--gray-200);border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,0.18);overflow:hidden;font-family:inherit;animation:fadeInUp .25s ease;';
+    document.body.appendChild(el);
+  }
+  const all = (typeof ALL_OFFERS !== 'undefined' ? ALL_OFFERS : OFFERS);
+  const favs = favorites.map(id => all.find(o => o.id === id)).filter(Boolean);
+  el.innerHTML =
+    '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--primary);color:#fff;">' +
+      '<strong style="font-size:0.95rem;">❤️ Любими (' + favs.length + ')</strong>' +
+      '<button onclick="document.getElementById(\'favBubble\').remove()" style="background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;line-height:1;">✕</button>' +
+    '</div>' +
+    '<div style="max-height:300px;overflow:auto;">' +
+    (favs.length ? favs.map(o =>
+      '<a href="oferta.html?id=' + o.id + '" style="display:flex;gap:10px;align-items:center;padding:10px 14px;text-decoration:none;color:inherit;border-bottom:1px solid var(--gray-100);">' +
+        '<img src="' + favOfferImg(o) + '" style="width:54px;height:40px;object-fit:cover;border-radius:6px;flex-shrink:0;background:var(--gray-100);" onerror="this.style.visibility=\'hidden\'">' +
+        '<div style="min-width:0;flex:1;">' +
+          '<div style="font-weight:600;font-size:0.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + o.title + '</div>' +
+          '<div style="font-size:0.74rem;color:var(--gray-400);">' + (o.destination || '') + ' · от ' + o.price_eur + ' €</div>' +
+        '</div>' +
+        '<span style="color:var(--gray-400);font-size:0.9rem;">›</span>' +
+      '</a>').join('') :
+      '<div style="padding:18px;text-align:center;color:var(--gray-400);font-size:0.85rem;">Няма любими още.</div>') +
+    '</div>';
+  clearTimeout(window.__favBubbleT);
+  window.__favBubbleT = setTimeout(() => { const b = document.getElementById('favBubble'); if (b) b.remove(); }, 7000);
+}
 function toggleFav(event, id) {
   event.stopPropagation();
   const idx = favorites.indexOf(id);
   if (idx === -1) {
     favorites.push(id);
-    showToast('❤️ Добавено в любими!', 'success');
+    showFavBubble();
   } else {
     favorites.splice(idx, 1);
     showToast('🤍 Премахнато от любими', 'success');
