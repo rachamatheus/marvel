@@ -32,15 +32,28 @@
     }
     #why-us { background:rgba(255,255,255,0.8) !important; backdrop-filter:blur(3px); }
     footer { position:relative; }
-    /* Nav dropdowns: Почивки / Екскурзии by destination */
+    /* Nav dropdowns: Почивки / Екскурзии / Екзотика by destination */
     .nav-dd { position:relative; }
-    .nav-dd-btn { font-family:inherit; font-size:0.9rem; font-weight:500; color:rgba(255,255,255,0.92); background:none; border:none; cursor:pointer; padding:0; text-shadow:0 1px 4px rgba(0,0,0,0.45); }
+    .nav-dd-btn { font-family:inherit; font-size:0.9rem; font-weight:600; color:rgba(255,255,255,0.94); background:none; border:none; cursor:pointer; padding:0; text-shadow:0 1px 4px rgba(0,0,0,0.45); transition:color .15s; }
     .nav-dd-btn:hover { color:var(--gold); }
-    .nav-dd-menu { position:absolute; top:calc(100% + 14px); left:50%; transform:translateX(-50%) translateY(-6px); min-width:230px; max-height:64vh; overflow-y:auto; background:#fff; border:1px solid var(--gray-200,#e5e7eb); border-radius:12px; box-shadow:0 16px 44px rgba(0,0,0,0.2); padding:6px; opacity:0; visibility:hidden; transition:opacity .15s, transform .15s; z-index:1200; }
-    .nav-dd-menu.open { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
-    .nav-dd-menu a { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:8px 12px; border-radius:8px; color:var(--gray-700,#374151); text-decoration:none; font-size:0.88rem; cursor:pointer; white-space:nowrap; }
-    .nav-dd-menu a:hover { background:rgba(26,58,107,0.07); color:var(--primary); }
-    .nav-dd-n { color:var(--gray-400,#9ca3af); font-size:0.78rem; font-weight:400; }
+    .nav-dd-menu {
+      position:absolute; top:calc(100% + 16px); left:50%; transform:translateX(-50%) translateY(-8px) scale(.98);
+      width:360px; max-width:88vw; max-height:70vh; overflow-y:auto;
+      background:#fff; border:1px solid rgba(26,58,107,0.10); border-radius:16px;
+      box-shadow:0 24px 60px rgba(8,20,50,0.28); padding:14px; z-index:1200;
+      opacity:0; visibility:hidden; transition:opacity .18s ease, transform .18s ease;
+    }
+    .nav-dd-menu.open { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0) scale(1); }
+    .nav-dd-menu::before { content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%) rotate(45deg); width:16px; height:16px; background:#fff; border-left:1px solid rgba(26,58,107,0.10); border-top:1px solid rgba(26,58,107,0.10); border-radius:3px; }
+    .nav-dd-head { font-size:0.72rem; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:var(--gray-400,#9ca3af); padding:2px 6px 10px; }
+    .nav-dd-all { display:flex !important; justify-content:space-between; align-items:center; gap:12px; padding:11px 14px !important; margin-bottom:10px; border-radius:12px; font-weight:700 !important; color:#fff !important; background:linear-gradient(135deg,var(--primary),#2c5aa0); text-decoration:none; cursor:pointer; box-shadow:0 6px 16px rgba(26,58,107,0.28); }
+    .nav-dd-all:hover { filter:brightness(1.08); }
+    .nav-dd-all .nav-dd-n { color:rgba(255,255,255,0.85) !important; background:rgba(255,255,255,0.18); }
+    .nav-dd-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+    .nav-dd-menu a { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 12px; border-radius:10px; color:var(--gray-700,#374151); text-decoration:none; font-size:0.88rem; font-weight:500; cursor:pointer; transition:background .12s, color .12s; }
+    .nav-dd-grid a:hover { background:rgba(201,168,76,0.16); color:var(--primary); }
+    .nav-dd-name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .nav-dd-n { flex:0 0 auto; color:var(--gray-500,#6b7280); font-size:0.74rem; font-weight:700; background:var(--gray-100,#f3f4f6); border-radius:100px; padding:2px 8px; min-width:22px; text-align:center; }
     @media(max-width:900px){ .nav-dd { display:none; } }
   </style>
 </head>
@@ -69,6 +82,10 @@
       <button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddEkskurzii')">🗺️ Екскурзии ▾</button>
       <div class="nav-dd-menu" id="ddEkskurzii"></div>
     </li>
+    <li class="nav-dd">
+      <button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddEkzotika')">🏝️ Екзотика ▾</button>
+      <div class="nav-dd-menu" id="ddEkzotika"></div>
+    </li>
     <li><a href="#destinations">Дестинации</a></li>
     <li><a href="kruizi.html">Круизи</a></li>
     <li><a href="blog.html">Блог</a></li>
@@ -85,6 +102,7 @@
   <a href="#offers" onclick="toggleMobileMenu()">✈️ Оферти</a>
   <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('vacation',null)">🏖️ Почивки</a>
   <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('excursion',null)">🗺️ Екскурзии</a>
+  <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('exotic',null)">🏝️ Екзотика</a>
   <a href="#destinations" onclick="toggleMobileMenu()">🗺️ Дестинации</a>
   <a href="kruizi.html">🚢 Круизи</a>
   <a href="blog.html">📖 Блог</a>
@@ -775,7 +793,7 @@
 <script src="data/reviews.js?v=4"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="app.js?v=145"></script>
+<script src="app.js?v=146"></script>
 
 <!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>

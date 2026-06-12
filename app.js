@@ -923,9 +923,13 @@ function filterCatCountry(cat, country) {
   renderOffers();
   const off = document.getElementById('offers'); if (off) off.scrollIntoView();
 }
-// Populate the "Почивки" / "Екскурзии" nav dropdowns with destinations
+// Populate the Почивки / Екскурзии / Екзотика nav dropdowns with destinations
 function buildCategoryMenus() {
-  [['vacation', 'ddPochivki', 'почивки'], ['excursion', 'ddEkskurzii', 'екскурзии']].forEach(([cat, id, word]) => {
+  [
+    ['vacation', 'ddPochivki', 'почивки', '🏖️'],
+    ['excursion', 'ddEkskurzii', 'екскурзии', '🗺️'],
+    ['exotic', 'ddEkzotika', 'екзотика', '🏝️']
+  ].forEach(([cat, id, word, icon]) => {
     const menu = document.getElementById(id);
     if (!menu) return;
     const counts = {};
@@ -934,8 +938,11 @@ function buildCategoryMenus() {
       const c = (typeof COUNTRIES !== 'undefined') ? COUNTRIES.find(x => x.key === k) : null;
       return { key: k, label: c ? c.label : k, n: counts[k] };
     }).sort((a, b) => a.label.localeCompare(b.label, 'bg'));
-    let html = `<a onclick="filterCatCountry('${cat}', null)"><b>Всички ${word}</b><span class="nav-dd-n">${items.reduce((s, i) => s + i.n, 0)}</span></a>`;
-    html += items.map(it => `<a onclick="filterCatCountry('${cat}','${it.key}')">${it.label}<span class="nav-dd-n">${it.n}</span></a>`).join('');
+    const total = items.reduce((s, i) => s + i.n, 0);
+    let html = `<div class="nav-dd-head">${icon} Изберете дестинация</div>`;
+    html += `<a class="nav-dd-all" onclick="filterCatCountry('${cat}', null)">🌍 Всички ${word}<span class="nav-dd-n">${total}</span></a>`;
+    html += `<div class="nav-dd-grid">` + items.map(it =>
+      `<a onclick="filterCatCountry('${cat}','${it.key}')"><span class="nav-dd-name">${it.label}</span><span class="nav-dd-n">${it.n}</span></a>`).join('') + `</div>`;
     menu.innerHTML = html;
   });
 }
