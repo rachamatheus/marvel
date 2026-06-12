@@ -1928,6 +1928,16 @@ footer {
   box-shadow: 0 0 80px rgba(0,0,0,0.5) inset;
 }
 
+/* Inner layer holding land + continent pins + destination dots — scaled to zoom
+   the whole map uniformly (kept in sync so pins/dots stay aligned) */
+.world-map-inner {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transform: scale(1.18);
+  transform-origin: 50% 50%;
+}
+
 /* SVG world map fills the container */
 .world-svg {
   position: absolute;

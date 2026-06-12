@@ -561,7 +561,7 @@ function geoToPercent(lat, lon) {
 }
 
 function renderDestinationPins() {
-  const map = document.querySelector('.world-map');
+  const map = document.querySelector('.world-map-inner') || document.querySelector('.world-map');
   if (!map) return;
   let layer = document.getElementById('destPins');
   if (layer) layer.remove();

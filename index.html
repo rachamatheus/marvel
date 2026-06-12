@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>Marvel Tour — Вашият туроператор</title>
   <meta name="description" content="Marvel Tour — туристически оферти, екскурзии и почивки от Пловдив. Гърция, Турция, Египет, Италия и още.">
-  <link rel="stylesheet" href="styles.css?v=148">
+  <link rel="stylesheet" href="styles.css?v=149">
   <link rel="icon" href="favicon.svg?v=9">
   <style>
     /* Exotic backdrops across the home page — different photo per band, no repeat, more visible */
@@ -215,6 +215,8 @@
         <!-- Light overlay (let the exotic background shine through) -->
         <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,25,70,0.12) 0%,rgba(10,30,80,0.06) 50%,rgba(8,25,70,0.12) 100%);z-index:1;border-radius:20px;"></div>
 
+        <div class="world-map-inner">
+
         <!-- SVG World Map — realistic continent shapes (equirectangular projection 1010×510) -->
         <svg class="world-svg" viewBox="0 0 1010 510" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;">
           <defs>
@@ -316,7 +318,7 @@
         </svg>
 
         <!-- ★ EUROPE bubble (centered on Europe shape) -->
-        <div class="continent-pin" id="pin-europe" style="left:50%;top:18%;z-index:10;" onclick="selectContinent('europe')">
+        <div class="continent-pin" id="pin-europe" style="left:50%;top:27%;z-index:10;" onclick="selectContinent('europe')">
           <div class="continent-bubble" data-continent="europe">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -371,6 +373,7 @@
           </div>
         </div>
 
+        </div><!-- /.world-map-inner -->
       </div>
     </div>
 
@@ -806,7 +809,7 @@
 <script src="data/reviews.js?v=4"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="app.js?v=154"></script>
+<script src="app.js?v=155"></script>
 
 <!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
