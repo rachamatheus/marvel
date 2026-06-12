@@ -181,7 +181,10 @@ body {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  flex: 1;
+  justify-content: space-evenly;
+  gap: 0.4rem;
+  margin-left: 1.5rem;
   list-style: none;
 }
 .nav-links a {
