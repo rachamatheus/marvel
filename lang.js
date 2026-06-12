@@ -167,8 +167,8 @@
     li.setAttribute('translate', 'no');
     li.innerHTML =
       '<span class="mt-lang-wrap">' +
-      '<button type="button" class="mt-flag' + (cur === 'bg' ? ' active' : '') + '" data-l="bg" title="Български" aria-label="Български">🇧🇬</button>' +
-      '<button type="button" class="mt-flag' + (cur === 'en' ? ' active' : '') + '" data-l="en" title="English" aria-label="English">🇬🇧</button>' +
+      '<button type="button" class="mt-flag' + (cur === 'bg' ? ' active' : '') + '" data-l="bg" title="Български" aria-label="Български"><img src="https://flagcdn.com/32x24/bg.png" alt="БГ" width="24" height="18"></button>' +
+      '<button type="button" class="mt-flag' + (cur === 'en' ? ' active' : '') + '" data-l="en" title="English" aria-label="English"><img src="https://flagcdn.com/32x24/gb.png" alt="EN" width="24" height="18"></button>' +
       '</span>';
     li.querySelectorAll('.mt-flag').forEach(function (b) {
       b.onclick = function () { var l = b.getAttribute('data-l'); if (l !== getLang()) setLang(l); };
@@ -180,9 +180,10 @@
   var st = document.createElement('style');
   st.textContent =
     '.mt-lang-wrap{display:inline-flex;gap:4px;align-items:center;background:rgba(255,255,255,0.12);padding:3px;border-radius:100px;}' +
-    '.mt-flag{border:none;background:transparent;cursor:pointer;font-size:1.05rem;line-height:1;padding:4px 7px;border-radius:100px;opacity:0.5;transition:.18s;filter:grayscale(0.4);}' +
-    '.mt-flag:hover{opacity:0.85;}' +
-    '.mt-flag.active{opacity:1;background:rgba(255,255,255,0.9);filter:none;box-shadow:0 1px 4px rgba(0,0,0,0.15);}' +
+    '.mt-flag{border:none;background:transparent;cursor:pointer;font-size:0.85rem;font-weight:600;color:#fff;line-height:1;padding:4px 7px;border-radius:100px;opacity:0.55;transition:.18s;filter:grayscale(0.5);display:inline-flex;align-items:center;gap:5px;}' +
+    '.mt-flag img{border-radius:3px;display:block;box-shadow:0 1px 3px rgba(0,0,0,0.25);}' +
+    '.mt-flag:hover{opacity:0.9;}' +
+    '.mt-flag.active{opacity:1;background:rgba(255,255,255,0.92);color:var(--primary,#1A3A6B);filter:none;box-shadow:0 1px 4px rgba(0,0,0,0.15);}' +
     '#mobileMenu .mt-lang-wrap{margin:8px 0;}';
   (document.head || document.documentElement).appendChild(st);
 
@@ -194,7 +195,7 @@
       var cur = getLang();
       var d = document.createElement('div');
       d.id = 'mt-lang-m'; d.className = 'notranslate'; d.setAttribute('translate', 'no');
-      d.innerHTML = '<span class="mt-lang-wrap"><button type="button" class="mt-flag' + (cur === 'bg' ? ' active' : '') + '" data-l="bg">🇧🇬 БГ</button><button type="button" class="mt-flag' + (cur === 'en' ? ' active' : '') + '" data-l="en">🇬🇧 EN</button></span>';
+      d.innerHTML = '<span class="mt-lang-wrap"><button type="button" class="mt-flag mt-flag-m' + (cur === 'bg' ? ' active' : '') + '" data-l="bg"><img src="https://flagcdn.com/32x24/bg.png" width="22" height="16" alt=""> БГ</button><button type="button" class="mt-flag mt-flag-m' + (cur === 'en' ? ' active' : '') + '" data-l="en"><img src="https://flagcdn.com/32x24/gb.png" width="22" height="16" alt=""> EN</button></span>';
       d.querySelectorAll('.mt-flag').forEach(function (b) { b.onclick = function () { var l = b.getAttribute('data-l'); if (l !== getLang()) setLang(l); }; });
       mob.appendChild(d);
     }

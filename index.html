@@ -54,8 +54,13 @@
     .nav-dd-grid a:hover { background:rgba(201,168,76,0.16); color:var(--primary); }
     .nav-dd-name { min-width:0; display:flex; align-items:center; gap:7px; overflow:hidden; }
     .nav-dd-lbl { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .nav-dd-flag { font-size:1.05rem; line-height:1; flex:0 0 auto; }
+    .nav-dd-flag { flex:0 0 auto; width:22px; height:16px; border-radius:3px; box-shadow:0 1px 3px rgba(0,0,0,0.2); display:block; object-fit:cover; }
     .nav-dd-n { flex:0 0 auto; color:var(--gray-500,#6b7280); font-size:0.74rem; font-weight:700; background:var(--gray-100,#f3f4f6); border-radius:100px; padding:2px 8px; min-width:22px; text-align:center; }
+    /* Keep dropdown text its own colors even when the navbar is scrolled (don't inherit white) */
+    .navbar .nav-dd-menu a, .navbar.scrolled .nav-dd-menu a { color:var(--gray-700,#374151) !important; text-shadow:none !important; }
+    .navbar .nav-dd-menu .nav-dd-grid a:hover { color:var(--primary) !important; }
+    .navbar .nav-dd-all, .navbar.scrolled .nav-dd-all { color:#fff !important; text-shadow:none !important; }
+    .navbar .nav-dd-head { color:var(--gray-400,#9ca3af) !important; }
     @media(max-width:900px){ .nav-dd { display:none; } }
   </style>
 </head>
@@ -795,7 +800,7 @@
 <script src="data/reviews.js?v=4"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="app.js?v=148"></script>
+<script src="app.js?v=149"></script>
 
 <!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
@@ -865,6 +870,6 @@
   else document.addEventListener('DOMContentLoaded', draw);
 })();
 </script>
-<script src="lang.js?v=132"></script>
+<script src="lang.js?v=136"></script>
 </body>
 </html>

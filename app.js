@@ -923,20 +923,24 @@ function filterCatCountry(cat, country) {
   renderOffers();
   const off = document.getElementById('offers'); if (off) off.scrollIntoView();
 }
-// Country → flag emoji (for the destination dropdowns)
-const COUNTRY_FLAGS = {
-  albania:'🇦🇱', argentina:'🇦🇷', armenia:'🇦🇲', austria:'🇦🇹', azerbaijan:'🇦🇿', bahamas:'🇧🇸',
-  belgium:'🇧🇪', bosnia:'🇧🇦', brazil:'🇧🇷', bulgaria:'🇧🇬', china:'🇨🇳', colombia:'🇨🇴',
-  croatia:'🇭🇷', cyprus:'🇨🇾', czech:'🇨🇿', denmark:'🇩🇰', dominicana:'🇩🇴', egypt:'🇪🇬',
-  estonia:'🇪🇪', ethiopia:'🇪🇹', finland:'🇫🇮', france:'🇫🇷', georgia:'🇬🇪', germany:'🇩🇪',
-  greece:'🇬🇷', hungary:'🇭🇺', iceland:'🇮🇸', india:'🇮🇳', indonesia:'🇮🇩', ireland:'🇮🇪',
-  italy:'🇮🇹', japan:'🇯🇵', jordan:'🇯🇴', kenya:'🇰🇪', kosovo:'🇽🇰', madagascar:'🇲🇬',
-  maldives:'🇲🇻', malta:'🇲🇹', mauritius:'🇲🇺', montenegro:'🇲🇪', morocco:'🇲🇦', namibia:'🇳🇦',
-  'new-zealand':'🇳🇿', peru:'🇵🇪', poland:'🇵🇱', portugal:'🇵🇹', qatar:'🇶🇦', romania:'🇷🇴',
-  serbia:'🇷🇸', seychelles:'🇸🇨', 'south-africa':'🇿🇦', spain:'🇪🇸', srilanka:'🇱🇰', sweden:'🇸🇪',
-  switzerland:'🇨🇭', tanzania:'🇹🇿', thailand:'🇹🇭', tunisia:'🇹🇳', turkey:'🇹🇷', uae:'🇦🇪',
-  uk:'🇬🇧', usa:'🇺🇸', vietnam:'🇻🇳'
+// Country → ISO code (colorful flag images via flagcdn)
+const COUNTRY_ISO = {
+  albania:'al', argentina:'ar', armenia:'am', austria:'at', azerbaijan:'az', bahamas:'bs',
+  belgium:'be', bosnia:'ba', brazil:'br', bulgaria:'bg', china:'cn', colombia:'co',
+  croatia:'hr', cyprus:'cy', czech:'cz', denmark:'dk', dominicana:'do', egypt:'eg',
+  estonia:'ee', ethiopia:'et', finland:'fi', france:'fr', georgia:'ge', germany:'de',
+  greece:'gr', hungary:'hu', iceland:'is', india:'in', indonesia:'id', ireland:'ie',
+  italy:'it', japan:'jp', jordan:'jo', kenya:'ke', kosovo:'xk', madagascar:'mg',
+  maldives:'mv', malta:'mt', mauritius:'mu', montenegro:'me', morocco:'ma', namibia:'na',
+  'new-zealand':'nz', peru:'pe', poland:'pl', portugal:'pt', qatar:'qa', romania:'ro',
+  serbia:'rs', seychelles:'sc', 'south-africa':'za', spain:'es', srilanka:'lk', sweden:'se',
+  switzerland:'ch', tanzania:'tz', thailand:'th', tunisia:'tn', turkey:'tr', uae:'ae',
+  uk:'gb', usa:'us', vietnam:'vn'
 };
+function flagImg(key) {
+  const iso = COUNTRY_ISO[key];
+  return iso ? `<img class="nav-dd-flag" src="https://flagcdn.com/32x24/${iso}.png" width="22" height="16" alt="" loading="lazy">` : '<span class="nav-dd-flag">🏳️</span>';
+}
 // Populate the Почивки / Екскурзии / Екзотика nav dropdowns with destinations
 function buildCategoryMenus() {
   [
@@ -956,7 +960,7 @@ function buildCategoryMenus() {
     let html = `<div class="nav-dd-head">${icon} Изберете дестинация</div>`;
     html += `<a class="nav-dd-all" onclick="filterCatCountry('${cat}', null)">🌍 Всички ${word}<span class="nav-dd-n">${total}</span></a>`;
     html += `<div class="nav-dd-grid">` + items.map(it =>
-      `<a onclick="filterCatCountry('${cat}','${it.key}')"><span class="nav-dd-name"><span class="nav-dd-flag">${COUNTRY_FLAGS[it.key] || '🏳️'}</span><span class="nav-dd-lbl">${it.label}</span></span><span class="nav-dd-n">${it.n}</span></a>`).join('') + `</div>`;
+      `<a onclick="filterCatCountry('${cat}','${it.key}')"><span class="nav-dd-name">${flagImg(it.key)}<span class="nav-dd-lbl">${it.label}</span></span><span class="nav-dd-n">${it.n}</span></a>`).join('') + `</div>`;
     menu.innerHTML = html;
   });
 }
