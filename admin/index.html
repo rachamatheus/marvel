@@ -33,6 +33,9 @@
       <button class="sidebar-link" onclick="showPage('analytics')" id="nav-analytics">
         <span class="icon">📈</span> Статистики
       </button>
+      <button class="sidebar-link" onclick="showPage('peakview')" id="nav-peakview">
+        <span class="icon">🌍</span> PeakView
+      </button>
       <div class="sidebar-label" style="margin-top:1rem;">Настройки</div>
       <button class="sidebar-link" onclick="showPage('settings')" id="nav-settings">
         <span class="icon">⚙️</span> Настройки
@@ -358,6 +361,19 @@
         </div>
       </div>
 
+      <!-- ===== PEAKVIEW PAGE ===== -->
+      <div id="page-peakview" style="display:none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-title">🌍 PeakView — оферти на живо</div>
+            <a href="https://www.peakview.bg/" target="_blank" rel="noopener" style="font-size:0.8rem;color:var(--primary);text-decoration:none;font-weight:600;">Отвори PeakView ↗</a>
+          </div>
+          <div class="admin-card-body">
+            <iframe id="pvFrame" width="100%" src="https://iframe.peakview.bg/?cl=999&ifr_id=38116" scrolling="no" frameborder="0" style="border:0;width:100%;min-height:600px;" onload="window.scroll(0,0);"></iframe>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>
@@ -493,6 +509,7 @@
 <script src="../data/images.js?v=128"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../sb-init.js?v=128"></script>
-<script src="admin.js?v=133"></script>
+<script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
+<script src="admin.js?v=134"></script>
 </body>
 </html>

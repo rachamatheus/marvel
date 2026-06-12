@@ -57,7 +57,8 @@ function showPage(page) {
     inquiries: 'Запитвания',
     offers: 'Оферти',
     analytics: 'Статистики',
-    settings: 'Настройки'
+    settings: 'Настройки',
+    peakview: 'PeakView — оферти на живо'
   };
   document.getElementById('pageTitle').textContent = titles[page] || page;
 
@@ -73,6 +74,10 @@ function showPage(page) {
   if (page === 'offers') renderAdminOffers();
   if (page === 'analytics') renderAnalytics();
   if (page === 'settings') renderCustomTags();
+  if (page === 'peakview' && !window._pvInit && typeof iFrameResize === 'function') {
+    window._pvInit = true;
+    try { iFrameResize({ checkOrigin: false, heightCalculationMethod: 'max' }, '#pvFrame'); } catch (e) {}
+  }
 }
 
 // ===== LOAD OFFERS =====
