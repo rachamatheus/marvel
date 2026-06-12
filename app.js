@@ -594,7 +594,7 @@ function renderDestinationPins() {
     };
     pin.innerHTML =
       `<span class="dest-dot-core"></span>` +
-      `<span class="dest-tip">${FLAGS[key] || '🌍'} ${name} · ${count}</span>`;
+      `<span class="dest-tip">${name}</span>`;
     layer.appendChild(pin);
   });
 
@@ -613,16 +613,22 @@ function placeLabels() {
   const dots = Array.from(document.querySelectorAll('#destPins .dest-dot'));
   if (!dots.length) return;
   dots.forEach(d => d.classList.remove('labeled'));
+  const hit = (a, b) => !(a.right < b.left || a.left > b.right || a.bottom < b.top || a.top > b.bottom);
+  // Boxes of all destination dots — a label must not cover another dest's dot
+  const dotBoxes = dots.map(d => {
+    const r = d.getBoundingClientRect();
+    return { el: d, box: { left: r.left - 2, right: r.right + 2, top: r.top - 2, bottom: r.bottom + 2 } };
+  });
   dots.sort((a, b) => (+b.dataset.count || 0) - (+a.dataset.count || 0));
   const placed = [];
-  const hit = (a, b) => !(a.right < b.left || a.left > b.right || a.bottom < b.top || a.top > b.bottom);
   dots.forEach(d => {
     const tip = d.querySelector('.dest-tip');
     if (!tip) return;
     const r = tip.getBoundingClientRect();
     if (!r.width) return;
     const box = { left: r.left - 4, right: r.right + 4, top: r.top - 4, bottom: r.bottom + 4 };
-    if (placed.some(p => hit(box, p))) return;
+    if (placed.some(p => hit(box, p))) return;                       // not over another label
+    if (dotBoxes.some(db => db.el !== d && hit(box, db.box))) return; // not over another dot
     d.classList.add('labeled');
     placed.push(box);
   });
