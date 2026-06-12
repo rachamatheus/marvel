@@ -234,14 +234,58 @@ function loadHotelInfo(offer, cb) {
   s.onerror = function () { cb(); }; // no data file yet → render with fallbacks
   document.head.appendChild(s);
 }
+// Split the operator detail HTML into the same sections the operator uses.
+function splitDetailSections(html) {
+  const parts = html.split(/<h3[^>]*>(.*?)<\/h3>/i);
+  const map = { program: [], includes: [], excludes: [], other: [] };
+  const intro = (parts[0] || '').trim();
+  if (intro) map.program.push(intro);
+  for (let i = 1; i < parts.length; i += 2) {
+    const label = (parts[i] || '').replace(/<[^>]+>/g, '').trim();
+    const body = parts[i + 1] || '';
+    if (/Цената\s+не\s+включва/i.test(label)) map.excludes.push(body);
+    else if (/Цената\s+включва/i.test(label)) map.includes.push(body);
+    else if (/Програма/i.test(label)) map.program.push(body);
+    else map.other.push(`<h3>${label}</h3>${body}`);
+  }
+  return {
+    program: map.program.join(''),
+    includes: map.includes.join(''),
+    excludes: map.excludes.join(''),
+    other: map.other.join('')
+  };
+}
+let _offerTab = null;
+function buildOfferTabs() {
+  const tabsEl = document.getElementById('offerTabs');
+  if (!tabsEl) return;
+  const defs = [
+    ['hotels', '🏨 Хотели', 'panelHotels'],
+    ['program', '🗺️ Програма', 'panelProgram'],
+    ['includes', '✅ Цената включва', 'panelIncludes'],
+    ['excludes', '❌ Цената не включва', 'panelExcludes'],
+    ['other', '📋 Други', 'panelOther']
+  ];
+  const avail = defs.filter(([k, l, id]) => {
+    const el = document.getElementById(id);
+    if (!el) return false;
+    if (k === 'hotels') return !!(activeOffer && activeOffer.hotels && activeOffer.hotels.length);
+    return el.innerHTML.trim().length > 0;
+  });
+  if (!avail.length) { tabsEl.style.display = 'none'; return; }
+  tabsEl.style.display = '';
+  if (!_offerTab || !avail.some(a => a[0] === _offerTab)) _offerTab = avail[0][0];
+  tabsEl.innerHTML = avail.map(([k, l]) => `<button class="offer-tab-btn ${k === _offerTab ? 'active' : ''}" onclick="showOfferTab('${k}')">${l}</button>`).join('');
+  defs.forEach(([k, l, id]) => { const el = document.getElementById(id); if (el) el.style.display = (k === _offerTab) ? '' : 'none'; });
+}
+function showOfferTab(k) { _offerTab = k; buildOfferTabs(); }
+
 function renderHotelsSection() {
   const offer = activeOffer; if (!offer) return;
   const hotels = offer.hotels || [];
-  const hotelsSec = document.getElementById('offerHotelsSection');
   const hotelsEl = document.getElementById('offerHotels');
-  if (!hotelsSec || !hotelsEl) return;
+  if (!hotelsEl) { return; }
   if (hotels.length) {
-    hotelsSec.style.display = '';
     hotelsEl.innerHTML = hotels.map((h, i) => `
       <div class="hotel-card ${i === 0 ? 'selected' : ''}" onclick="selectHotel(${i})">
         <div class="hotel-card-imgwrap" onclick="event.stopPropagation();openHotelPhotos(${i})" title="Виж снимки">
@@ -258,9 +302,8 @@ function renderHotelsSection() {
         </div>
       </div>`).join('');
     renderHotelDetail(hotels[0]);
-  } else {
-    hotelsSec.style.display = 'none';
   }
+  buildOfferTabs();
 }
 
 // ── Hotel / date selection ──
@@ -417,37 +460,34 @@ function renderOfferPage() {
   // Hotels — lazy-load this offer's per-hotel info (gallery + description), then render
   loadHotelInfo(offer, renderHotelsSection);
 
-  // Program
-  const progSec = document.getElementById('offerProgramSection');
-  const progEl = document.getElementById('offerProgram');
-  if (offer.program && offer.program.length) {
-    progSec.style.display = '';
-    progEl.innerHTML = offer.program.map(p => `
-      <div class="program-day"><div class="program-day-title">${p.day}</div><div class="program-day-text">${p.text}</div></div>`).join('');
-  } else { progSec.style.display = 'none'; }
-
-  // Full details (verbatim operator text / tables)
-  const detSec = document.getElementById('offerDetailsSection');
-  const detEl = document.getElementById('offerDetails');
-  if (detSec && detEl) {
-    detSec.style.display = 'none';
-    detEl.innerHTML = '';
-    fetch('data/details/' + offer.id + '.html?v=141')
-      .then(r => r.ok ? r.text() : '')
-      .then(t => { if (t && t.trim().length > 10) {
-        detEl.innerHTML = t; detSec.style.display = ''; makeDetailTablesInteractive(detEl);
-        // Avoid duplication: if the full detail already contains a section, hide the structured copy
-        const has = re => re.test(t);
-        if (has(/<h3>\s*Програма/i) && progSec) progSec.style.display = 'none';
-        const incExc = document.getElementById('offerIncExcSection');
-        if (incExc && (has(/Цената включва/i) || has(/Цената не включва/i))) incExc.style.display = 'none';
-      } })
-      .catch(() => {});
-  }
-
-  // Includes / Excludes
-  document.getElementById('offerIncludes').innerHTML = (offer.includes || []).map(i => `<li>${i}</li>`).join('');
-  document.getElementById('offerExcludes').innerHTML = (offer.excludes || []).map(e => `<li>${e}</li>`).join('');
+  // ── Tabbed content (Хотели · Програма · Цената включва · Цената не включва · Други) ──
+  const pProgram = document.getElementById('panelProgram');
+  const pInc = document.getElementById('panelIncludes');
+  const pExc = document.getElementById('panelExcludes');
+  const pOther = document.getElementById('panelOther');
+  const listHTML = arr => (arr && arr.length) ? '<ul class="modal-list">' + arr.map(x => `<li>${x}</li>`).join('') + '</ul>' : '';
+  const progHTML = (offer.program && offer.program.length)
+    ? offer.program.map(p => `<div class="program-day"><div class="program-day-title">${p.day}</div><div class="program-day-text">${p.text}</div></div>`).join('')
+    : '';
+  if (pProgram) pProgram.innerHTML = progHTML;
+  if (pInc) pInc.innerHTML = listHTML(offer.includes);
+  if (pExc) pExc.innerHTML = listHTML(offer.excludes);
+  if (pOther) pOther.innerHTML = '';
+  buildOfferTabs();
+  // detail file → split into the operator's sections and override the panels
+  fetch('data/details/' + offer.id + '.html?v=141')
+    .then(r => r.ok ? r.text() : '')
+    .then(t => {
+      if (!t || t.trim().length < 10) return;
+      const sec = splitDetailSections(t);
+      if (sec.program && pProgram) pProgram.innerHTML = sec.program;
+      if (sec.includes && pInc) pInc.innerHTML = sec.includes;
+      if (sec.excludes && pExc) pExc.innerHTML = sec.excludes;
+      if (sec.other && pOther) pOther.innerHTML = sec.other;
+      [pProgram, pInc, pExc, pOther].forEach(p => { if (p) makeDetailTablesInteractive(p); });
+      buildOfferTabs();
+    })
+    .catch(() => {});
 
   // Dates
   document.getElementById('offerDates').innerHTML = (offer.dates || []).map(d =>
