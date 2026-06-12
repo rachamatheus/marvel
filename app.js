@@ -586,6 +586,7 @@ function renderDestinationPins() {
     pin.style.left = pos.left + '%';
     pin.style.top = pos.top + '%';
     pin.setAttribute('aria-label', name);
+    pin.dataset.count = count;
     pin.onclick = () => {
       filterByCountry(key);
       closeContinent();
@@ -598,6 +599,33 @@ function renderDestinationPins() {
   });
 
   map.appendChild(layer);
+  requestAnimationFrame(placeLabels);
+  if (!window._destLabelsBound) {
+    window._destLabelsBound = true;
+    let t;
+    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(placeLabels, 200); });
+  }
+}
+
+// Show as many destination name-bubbles as fit without overlapping (greedy by
+// offer count). The rest keep their label on hover only.
+function placeLabels() {
+  const dots = Array.from(document.querySelectorAll('#destPins .dest-dot'));
+  if (!dots.length) return;
+  dots.forEach(d => d.classList.remove('labeled'));
+  dots.sort((a, b) => (+b.dataset.count || 0) - (+a.dataset.count || 0));
+  const placed = [];
+  const hit = (a, b) => !(a.right < b.left || a.left > b.right || a.bottom < b.top || a.top > b.bottom);
+  dots.forEach(d => {
+    const tip = d.querySelector('.dest-tip');
+    if (!tip) return;
+    const r = tip.getBoundingClientRect();
+    if (!r.width) return;
+    const box = { left: r.left - 4, right: r.right + 4, top: r.top - 4, bottom: r.bottom + 4 };
+    if (placed.some(p => hit(box, p))) return;
+    d.classList.add('labeled');
+    placed.push(box);
+  });
 }
 
 function selectContinent(key) {

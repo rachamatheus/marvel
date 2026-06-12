@@ -1913,7 +1913,7 @@ footer {
 .world-map-wrap {
   position: relative;
   width: 100%;
-  max-width: 1700px;
+  max-width: 1900px;
   margin: 0 auto 2rem;
 }
 
@@ -2007,6 +2007,16 @@ footer {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+/* Always-visible name bubbles for non-overlapping pins (set by placeLabels) */
+.dest-dot.labeled .dest-tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  font-size: 0.68rem;
+  padding: 3px 8px;
+  background: rgba(10,25,60,0.92);
+}
+.dest-dot.labeled:hover { z-index: 32; }
+.dest-dot.labeled:hover .dest-tip { background: rgba(10,25,60,0.98); }
 
 /* Animated route arcs */
 .route-arc {
