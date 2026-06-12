@@ -40,6 +40,7 @@
     <li><a href="index.html?cat=exotic#offers">🏝️ Екзотика</a></li>
     <li><a href="jivo.html?dest=garcia">Хотели в Гърция</a></li>
     <li><a href="jivo.html?dest=turcia">Хотели в Турция</a></li>
+    <li><a href="jivo.html?dest=yacht">Яхтен туризъм</a></li>
     <li><a href="index.html#destinations">Дестинации</a></li>
     <li><a href="kruizi.html">Круизи</a></li>
     <li><a href="blog.html">Блог</a></li>
@@ -58,6 +59,7 @@
   <a href="index.html?cat=exotic#offers">🏝️ Екзотика</a>
   <a href="jivo.html?dest=garcia">Хотели в Гърция</a>
   <a href="jivo.html?dest=turcia">Хотели в Турция</a>
+  <a href="jivo.html?dest=yacht">Яхтен туризъм</a>
   <a href="index.html#destinations">🗺️ Дестинации</a>
   <a href="kruizi.html">🚢 Круизи</a>
   <a href="blog.html">📖 Блог</a>
@@ -79,8 +81,9 @@
 
 <script>
   var JIVO_DESTS = {
-    garcia: { src:'https://iframe.peakview.bg/garcia/?cl=999', title:'Хотели в Гърция', flag:'🇬🇷' },
-    turcia: { src:'https://iframe.peakview.bg/turcia/?cl=999', title:'Хотели в Турция', flag:'🇹🇷' }
+    garcia: { src:'https://iframe.peakview.bg/garcia/?cl=999', title:'Хотели в Гърция', flag:'🇬🇷', resizer:'https://iframe.peakview.bg/js/iframeResizer.min.js' },
+    turcia: { src:'https://iframe.peakview.bg/turcia/?cl=999', title:'Хотели в Турция', flag:'🇹🇷', resizer:'https://iframe.peakview.bg/js/iframeResizer.min.js' },
+    yacht:  { src:'https://evertour.art.bg/iframe/yahten-turizam?&cl=999', title:'Яхтен туризъм', flag:'⛵', resizer:'https://evertour.art.bg/js/iframeResizer.min.js' }
   };
   var _dk = new URLSearchParams(location.search).get('dest');
   var _d = JIVO_DESTS[_dk] || JIVO_DESTS.garcia;
@@ -88,9 +91,11 @@
   document.getElementById('jivoTitle').textContent = _d.title;
   document.getElementById('jivoBadge').textContent = _d.flag + ' На живо';
   document.title = _d.title + ' — Marvel Tour';
+  var _rs = document.createElement('script');
+  _rs.src = _d.resizer;
+  _rs.onload = function () { try { iFrameResize({ checkOrigin:false }, '#jivoFrame'); } catch (e) {} };
+  document.body.appendChild(_rs);
 </script>
-<script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
-<script>try{ iFrameResize({ checkOrigin:false }, '#jivoFrame'); }catch(e){}</script>
 <script src="lang.js?v=136"></script>
 <script src="auth.js?v=1"></script>
 </body>
