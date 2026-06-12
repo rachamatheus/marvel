@@ -52,7 +52,8 @@
     .nav-dd-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
     .nav-dd-menu a { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 12px; border-radius:10px; color:var(--gray-700,#374151); text-decoration:none; font-size:0.88rem; font-weight:500; cursor:pointer; transition:background .12s, color .12s; }
     .nav-dd-grid a:hover { background:rgba(201,168,76,0.16); color:var(--primary); }
-    .nav-dd-name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .nav-dd-name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center; gap:7px; }
+    .nav-dd-flag { font-size:1.05rem; line-height:1; flex:0 0 auto; }
     .nav-dd-n { flex:0 0 auto; color:var(--gray-500,#6b7280); font-size:0.74rem; font-weight:700; background:var(--gray-100,#f3f4f6); border-radius:100px; padding:2px 8px; min-width:22px; text-align:center; }
     @media(max-width:900px){ .nav-dd { display:none; } }
   </style>
@@ -793,7 +794,7 @@
 <script src="data/reviews.js?v=4"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="app.js?v=146"></script>
+<script src="app.js?v=147"></script>
 
 <!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>

@@ -923,6 +923,20 @@ function filterCatCountry(cat, country) {
   renderOffers();
   const off = document.getElementById('offers'); if (off) off.scrollIntoView();
 }
+// Country → flag emoji (for the destination dropdowns)
+const COUNTRY_FLAGS = {
+  albania:'🇦🇱', argentina:'🇦🇷', armenia:'🇦🇲', austria:'🇦🇹', azerbaijan:'🇦🇿', bahamas:'🇧🇸',
+  belgium:'🇧🇪', bosnia:'🇧🇦', brazil:'🇧🇷', bulgaria:'🇧🇬', china:'🇨🇳', colombia:'🇨🇴',
+  croatia:'🇭🇷', cyprus:'🇨🇾', czech:'🇨🇿', denmark:'🇩🇰', dominicana:'🇩🇴', egypt:'🇪🇬',
+  estonia:'🇪🇪', ethiopia:'🇪🇹', finland:'🇫🇮', france:'🇫🇷', georgia:'🇬🇪', germany:'🇩🇪',
+  greece:'🇬🇷', hungary:'🇭🇺', iceland:'🇮🇸', india:'🇮🇳', indonesia:'🇮🇩', ireland:'🇮🇪',
+  italy:'🇮🇹', japan:'🇯🇵', jordan:'🇯🇴', kenya:'🇰🇪', kosovo:'🇽🇰', madagascar:'🇲🇬',
+  maldives:'🇲🇻', malta:'🇲🇹', mauritius:'🇲🇺', montenegro:'🇲🇪', morocco:'🇲🇦', namibia:'🇳🇦',
+  'new-zealand':'🇳🇿', peru:'🇵🇪', poland:'🇵🇱', portugal:'🇵🇹', qatar:'🇶🇦', romania:'🇷🇴',
+  serbia:'🇷🇸', seychelles:'🇸🇨', 'south-africa':'🇿🇦', spain:'🇪🇸', srilanka:'🇱🇰', sweden:'🇸🇪',
+  switzerland:'🇨🇭', tanzania:'🇹🇿', thailand:'🇹🇭', tunisia:'🇹🇳', turkey:'🇹🇷', uae:'🇦🇪',
+  uk:'🇬🇧', usa:'🇺🇸', vietnam:'🇻🇳'
+};
 // Populate the Почивки / Екскурзии / Екзотика nav dropdowns with destinations
 function buildCategoryMenus() {
   [
@@ -942,7 +956,7 @@ function buildCategoryMenus() {
     let html = `<div class="nav-dd-head">${icon} Изберете дестинация</div>`;
     html += `<a class="nav-dd-all" onclick="filterCatCountry('${cat}', null)">🌍 Всички ${word}<span class="nav-dd-n">${total}</span></a>`;
     html += `<div class="nav-dd-grid">` + items.map(it =>
-      `<a onclick="filterCatCountry('${cat}','${it.key}')"><span class="nav-dd-name">${it.label}</span><span class="nav-dd-n">${it.n}</span></a>`).join('') + `</div>`;
+      `<a onclick="filterCatCountry('${cat}','${it.key}')"><span class="nav-dd-name"><span class="nav-dd-flag">${COUNTRY_FLAGS[it.key] || '🏳️'}</span> ${it.label}</span><span class="nav-dd-n">${it.n}</span></a>`).join('') + `</div>`;
     menu.innerHTML = html;
   });
 }
