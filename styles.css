@@ -642,8 +642,11 @@ body {
 /* ===== OFFER CARDS ===== */
 .offers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.4rem;
+}
+@media (min-width: 1500px) {
+  .offers-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 .offer-card {
   background: var(--white);
