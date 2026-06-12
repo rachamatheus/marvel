@@ -543,7 +543,13 @@ const DEST_COORDS = {
   madagascar:[-19,47], seychelles:[-4.6,55.5], usa:[39,-98], argentina:[-34,-64],
   brazil:[-15,-48], colombia:[4.5,-73], peru:[-10,-76], dominicana:[18.7,-70.2], bahamas:[24.5,-76.5],
   spain:[40.2,-3.7], france:[47,2], italy:[42.8,12.5], morocco:[32,-6], jordan:[31,36],
-  poland:[52,19], austria:[47.5,14]
+  poland:[52,19], austria:[47.5,14],
+  azerbaijan:[40.4,47.9], belgium:[50.6,4.7], bosnia:[44,18], croatia:[45.1,15.5], cyprus:[35,33.2],
+  czech:[49.8,15.5], denmark:[56,10], estonia:[58.7,25.5], ethiopia:[9,39.5], finland:[62,26],
+  germany:[51,10.4], hungary:[47.2,19.5], iceland:[64.9,-18.5], ireland:[53.2,-8], kosovo:[42.6,21],
+  malta:[35.9,14.4], montenegro:[42.7,19.3], namibia:[-22,17], 'new-zealand':[-41,174], portugal:[39.5,-8],
+  qatar:[25.3,51.2], romania:[45.9,25], serbia:[44,21], 'south-africa':[-29,24], sweden:[62,15],
+  switzerland:[46.8,8.2], tunisia:[34,9.5], uk:[54,-2.5]
 };
 
 // d3 geoEquirectangular params used for the map: scale = 1010/(2π), translate [505,255]
