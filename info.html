@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Информация — Marvel Tour</title>
+  <meta name="description" content="Marvel Tour — полезна информация: общи условия, застраховки, трансфери и още.">
+  <link rel="stylesheet" href="styles.css?v=151">
+  <link rel="icon" href="favicon.svg?v=9">
+  <style>
+    .exotic-bg { position:fixed; inset:0; z-index:-2; background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2000&q=80') center center / cover no-repeat fixed; }
+    .exotic-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(rgba(245,248,252,0.9), rgba(245,248,252,0.95)); }
+    body { background:transparent; }
+    .info-page { max-width:920px; margin:104px auto 4rem; padding:0 1rem; }
+    .info-head { text-align:center; margin-bottom:1.6rem; }
+    .info-head .section-badge { background:rgba(201,168,76,0.18); color:#9a7b1f; }
+    .info-head h1 { font-family:'Playfair Display',serif; font-size:clamp(1.9rem,4vw,2.7rem); color:var(--primary); margin:0.5rem 0 0; }
+    .info-card { background:#fff; border-radius:18px; box-shadow:0 18px 55px rgba(8,20,50,0.12); padding:clamp(1.4rem,4vw,3rem); }
+    .info-body { color:#374151; line-height:1.75; font-size:1.02rem; }
+    .info-body h2 { font-family:'Playfair Display',serif; color:var(--primary); font-size:1.4rem; margin:2rem 0 0.7rem; }
+    .info-body h3 { color:var(--primary); font-size:1.15rem; margin:1.6rem 0 0.5rem; }
+    .info-body p { margin:0 0 1rem; }
+    .info-body strong { color:#1f2937; }
+    .info-body ul, .info-body ol { margin:0 0 1rem 1.3rem; }
+    .info-body li { margin:0.3rem 0; }
+    .info-body table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.95rem; }
+    .info-body td, .info-body th { border:1px solid #e5e7eb; padding:8px 10px; text-align:left; vertical-align:top; }
+    .info-body th { background:#f3f6fb; }
+    .info-back { display:inline-block; margin-top:2rem; color:var(--primary); font-weight:600; text-decoration:none; }
+    .info-back:hover { text-decoration:underline; }
+    .info-other { margin-top:2.5rem; text-align:center; }
+    .info-other-title { color:#6b7280; font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.8rem; }
+    .info-other a { display:inline-block; margin:0.25rem; padding:0.5rem 1rem; background:#fff; border:1px solid #e5e7eb; border-radius:999px; color:#374151; text-decoration:none; font-size:0.92rem; transition:all .15s; }
+    .info-other a:hover { border-color:var(--primary); color:var(--primary); }
+    .info-other a.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+  </style>
+</head>
+<body>
+<div class="exotic-bg"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" id="navbar" style="position:fixed;">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.svg?v=7" alt="Marvel Tour" class="nav-logo-img" style="height:64px;width:auto;object-fit:contain;" onerror="this.style.display='none';document.getElementById('nlf').style.display='flex'">
+    <div id="nlf" style="display:none;align-items:center;gap:10px;">
+      <div class="nav-logo-icon">✈️</div>
+      <div><div class="nav-logo-text" style="color:var(--primary);">Marvel Tour</div></div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#offers">Оферти</a></li>
+    <li><a href="index.html?cat=vacation#offers">🏖️ Почивки</a></li>
+    <li><a href="index.html?cat=excursion#offers">🗺️ Екскурзии</a></li>
+    <li><a href="index.html?cat=exotic#offers">🏝️ Екзотика</a></li>
+    <li><a href="jivo.html?dest=garcia">Хотели в Гърция</a></li>
+    <li><a href="jivo.html?dest=turcia">Хотели в Турция</a></li>
+    <li><a href="jivo.html?dest=yacht">Яхтен туризъм</a></li>
+    <li><a href="index.html#destinations">Дестинации</a></li>
+    <li><a href="kruizi.html">Круизи</a></li>
+    <li><a href="blog.html">Блог</a></li>
+    <li><a href="index.html#why-us">За нас</a></li>
+    <li><a href="index.html#reviews">Отзиви</a></li>
+    <li><a href="contact.html">Контакти</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#offers">✈️ Оферти</a>
+  <a href="index.html?cat=vacation#offers">🏖️ Почивки</a>
+  <a href="index.html?cat=excursion#offers">🗺️ Екскурзии</a>
+  <a href="index.html?cat=exotic#offers">🏝️ Екзотика</a>
+  <a href="jivo.html?dest=garcia">Хотели в Гърция</a>
+  <a href="jivo.html?dest=turcia">Хотели в Турция</a>
+  <a href="jivo.html?dest=yacht">Яхтен туризъм</a>
+  <a href="index.html#destinations">🗺️ Дестинации</a>
+  <a href="kruizi.html">🚢 Круизи</a>
+  <a href="blog.html">📖 Блог</a>
+  <a href="index.html#why-us">💎 За нас</a>
+  <a href="index.html#reviews">⭐ Отзиви</a>
+  <a href="contact.html">📧 Контакти</a>
+</div>
+
+<div class="info-page">
+  <div class="info-head">
+    <div class="section-badge">📋 Полезна информация</div>
+    <h1 id="infoTitle">Информация</h1>
+  </div>
+  <div class="info-card">
+    <div class="info-body" id="infoBody">Зареждане…</div>
+    <a href="index.html" class="info-back">← Обратно към началото</a>
+  </div>
+  <div class="info-other">
+    <div class="info-other-title">Други полезни страници</div>
+    <div id="infoOther"></div>
+  </div>
+</div>
+
+<script>
+  var INFO_PAGES = [
+    { slug:'obshti-usloviya',        title:'Общи условия' },
+    { slug:'politika',               title:'Политика за поверителност' },
+    { slug:'zastrahovki',            title:'Застраховки' },
+    { slug:'transferi',              title:'Трансфери' },
+    { slug:'podarachen-vaucher',     title:'Подаръчен ваучер' },
+    { slug:'individualni-ekskurzii', title:'Индивидуални екскурзии' }
+  ];
+  var _slug = new URLSearchParams(location.search).get('p') || 'obshti-usloviya';
+  var _page = INFO_PAGES.find(function(p){ return p.slug === _slug; }) || INFO_PAGES[0];
+  document.getElementById('infoTitle').textContent = _page.title;
+  document.title = _page.title + ' — Marvel Tour';
+
+  // other-pages chips
+  var oc = document.getElementById('infoOther');
+  INFO_PAGES.forEach(function(p){
+    var a = document.createElement('a');
+    a.href = 'info.html?p=' + p.slug;
+    a.textContent = p.title;
+    if (p.slug === _page.slug) a.className = 'active';
+    oc.appendChild(a);
+  });
+
+  fetch('data/pages/' + _page.slug + '.html')
+    .then(function(r){ if(!r.ok) throw new Error('not found'); return r.text(); })
+    .then(function(html){
+      html = html.replace(/^\s*<!--\s*title:[^>]*-->\s*/i, '');
+      document.getElementById('infoBody').innerHTML = html;
+    })
+    .catch(function(){
+      document.getElementById('infoBody').innerHTML = '<p>Съдържанието не е налично в момента.</p>';
+    });
+</script>
+<script src="lang.js?v=136"></script>
+<script src="auth.js?v=1"></script>
+</body>
+</html>

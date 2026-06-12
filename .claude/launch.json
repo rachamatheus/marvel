@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "marveltour",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8099"],
+      "runtimeExecutable": "C:\\Program Files\\Git\\usr\\bin\\perl.exe",
+      "runtimeArgs": ["_serve.pl", "8099"],
       "port": 8099
     }
   ]
