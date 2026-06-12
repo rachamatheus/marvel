@@ -38,7 +38,8 @@
     <li><a href="index.html?cat=vacation#offers">🏖️ Почивки</a></li>
     <li><a href="index.html?cat=excursion#offers">🗺️ Екскурзии</a></li>
     <li><a href="index.html?cat=exotic#offers">🏝️ Екзотика</a></li>
-    <li><a href="jivo.html">🇬🇷 Хотели в Гърция</a></li>
+    <li><a href="jivo.html?dest=garcia">🇬🇷 Хотели в Гърция</a></li>
+    <li><a href="jivo.html?dest=turcia">🇹🇷 Хотели в Турция</a></li>
     <li><a href="index.html#destinations">Дестинации</a></li>
     <li><a href="kruizi.html">Круизи</a></li>
     <li><a href="blog.html">Блог</a></li>
@@ -55,7 +56,8 @@
   <a href="index.html?cat=vacation#offers">🏖️ Почивки</a>
   <a href="index.html?cat=excursion#offers">🗺️ Екскурзии</a>
   <a href="index.html?cat=exotic#offers">🏝️ Екзотика</a>
-  <a href="jivo.html">🇬🇷 Хотели в Гърция</a>
+  <a href="jivo.html?dest=garcia">🇬🇷 Хотели в Гърция</a>
+  <a href="jivo.html?dest=turcia">🇹🇷 Хотели в Турция</a>
   <a href="index.html#destinations">🗺️ Дестинации</a>
   <a href="kruizi.html">🚢 Круизи</a>
   <a href="blog.html">📖 Блог</a>
@@ -66,15 +68,27 @@
 
 <div class="jivo-page">
   <div class="jivo-head">
-    <div class="section-badge">🇬🇷 На живо</div>
-    <h1>Хотели в Гърция</h1>
+    <div class="section-badge" id="jivoBadge">🇬🇷 На живо</div>
+    <h1 id="jivoTitle">Хотели в Гърция</h1>
     <p>Реални цени и наличности в реално време — директно от платформата.</p>
   </div>
   <div class="jivo-frame-wrap">
-    <iframe id="jivoFrame" src="https://iframe.peakview.bg/garcia/?cl=999" scrolling="no" frameborder="0" onload="window.scroll(0,0);"></iframe>
+    <iframe id="jivoFrame" scrolling="no" frameborder="0" onload="window.scroll(0,0);"></iframe>
   </div>
 </div>
 
+<script>
+  var JIVO_DESTS = {
+    garcia: { src:'https://iframe.peakview.bg/garcia/?cl=999', title:'Хотели в Гърция', flag:'🇬🇷' },
+    turcia: { src:'https://iframe.peakview.bg/turcia/?cl=999', title:'Хотели в Турция', flag:'🇹🇷' }
+  };
+  var _dk = new URLSearchParams(location.search).get('dest');
+  var _d = JIVO_DESTS[_dk] || JIVO_DESTS.garcia;
+  document.getElementById('jivoFrame').src = _d.src;
+  document.getElementById('jivoTitle').textContent = _d.title;
+  document.getElementById('jivoBadge').textContent = _d.flag + ' На живо';
+  document.title = _d.title + ' — Marvel Tour';
+</script>
 <script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
 <script>try{ iFrameResize({ checkOrigin:false }, '#jivoFrame'); }catch(e){}</script>
 <script src="lang.js?v=136"></script>
