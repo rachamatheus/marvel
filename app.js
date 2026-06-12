@@ -553,11 +553,13 @@ const DEST_COORDS = {
 };
 
 // d3 geoEquirectangular params used for the map: scale = 1010/(2π), translate [505,255]
+// Map cropped vertically to the inhabited band (viewBox "0 40 1010 420")
+const MAP_Y0 = 40, MAP_VH = 420;
 function geoToPercent(lat, lon) {
   const k = 1010 / (2 * Math.PI) * Math.PI / 180; // ≈ 2.8056 px per degree
   const x = 505 + lon * k;
   const y = 255 - lat * k;
-  return { left: (x / 1010) * 100, top: (y / 510) * 100 };
+  return { left: (x / 1010) * 100, top: ((y - MAP_Y0) / MAP_VH) * 100 };
 }
 
 function renderDestinationPins() {

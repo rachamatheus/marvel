@@ -1920,7 +1920,7 @@ footer {
 .world-map {
   position: relative;
   width: 100%;
-  padding-bottom: 51%; /* 1010:510 aspect ratio */
+  padding-bottom: 41.6%; /* cropped viewBox 1010:420 aspect (inhabited band) */
   border-radius: 20px;
   background: radial-gradient(ellipse at 50% 45%, rgba(15,50,100,0.55) 0%, rgba(5,15,40,0.9) 100%);
   border: 1px solid rgba(201,168,76,0.18);
@@ -1934,7 +1934,7 @@ footer {
   position: absolute;
   inset: 0;
   z-index: 2;
-  transform: scale(1.18);
+  transform: scale(1.28);
   transform-origin: 50% 50%;
 }
 
@@ -2249,7 +2249,7 @@ footer {
 @media (max-width: 768px) {
   .nav-hamburger { display: flex; }
   .nav-links { display: none; }
-  .world-map { padding-bottom: 120%; }
+  .world-map { padding-bottom: 41.6%; }
   .continent-bubble { width: 90px; height: 90px; }
   .continent-icon { font-size: 1.2rem; }
   .continent-name { font-size: 0.62rem; }

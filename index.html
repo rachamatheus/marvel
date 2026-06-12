@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>Marvel Tour — Вашият туроператор</title>
   <meta name="description" content="Marvel Tour — туристически оферти, екскурзии и почивки от Пловдив. Гърция, Турция, Египет, Италия и още.">
-  <link rel="stylesheet" href="styles.css?v=149">
+  <link rel="stylesheet" href="styles.css?v=150">
   <link rel="icon" href="favicon.svg?v=9">
   <style>
     /* Exotic backdrops across the home page — different photo per band, no repeat, more visible */
@@ -210,7 +210,7 @@
 
     <!-- World Map with SVG Continents -->
     <div class="world-map-wrap">
-      <div class="world-map" style="background: rgba(10,35,80,0.18);">
+      <div class="world-map">
 
         <!-- Light overlay (let the exotic background shine through) -->
         <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,25,70,0.12) 0%,rgba(10,30,80,0.06) 50%,rgba(8,25,70,0.12) 100%);z-index:1;border-radius:20px;"></div>
@@ -218,7 +218,7 @@
         <div class="world-map-inner">
 
         <!-- SVG World Map — realistic continent shapes (equirectangular projection 1010×510) -->
-        <svg class="world-svg" viewBox="0 0 1010 510" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;">
+        <svg class="world-svg" viewBox="0 40 1010 420" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;">
           <defs>
             <filter id="cont-glow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
@@ -318,7 +318,7 @@
         </svg>
 
         <!-- ★ EUROPE bubble (centered on Europe shape) -->
-        <div class="continent-pin" id="pin-europe" style="left:50%;top:27%;z-index:10;" onclick="selectContinent('europe')">
+        <div class="continent-pin" id="pin-europe" style="left:50%;top:23%;z-index:10;" onclick="selectContinent('europe')">
           <div class="continent-bubble" data-continent="europe">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -332,7 +332,7 @@
         </div>
 
         <!-- ★ AFRICA bubble -->
-        <div class="continent-pin" id="pin-africa" style="left:49%;top:50%;z-index:10;" onclick="selectContinent('africa')">
+        <div class="continent-pin" id="pin-africa" style="left:49%;top:52%;z-index:10;" onclick="selectContinent('africa')">
           <div class="continent-bubble" data-continent="africa">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -346,7 +346,7 @@
         </div>
 
         <!-- ★ ASIA bubble -->
-        <div class="continent-pin" id="pin-asia" style="left:73%;top:25%;z-index:10;" onclick="selectContinent('asia')">
+        <div class="continent-pin" id="pin-asia" style="left:73%;top:21%;z-index:10;" onclick="selectContinent('asia')">
           <div class="continent-bubble" data-continent="asia">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -360,7 +360,7 @@
         </div>
 
         <!-- ★ AMERICA bubble -->
-        <div class="continent-pin" id="pin-america" style="left:19%;top:22%;z-index:10;" onclick="selectContinent('america')">
+        <div class="continent-pin" id="pin-america" style="left:19%;top:17%;z-index:10;" onclick="selectContinent('america')">
           <div class="continent-bubble" data-continent="america">
             <div class="continent-img" style="background-image:url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400&q=80')"></div>
             <div class="continent-glow"></div>
@@ -809,7 +809,7 @@
 <script src="data/reviews.js?v=4"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="app.js?v=155"></script>
+<script src="app.js?v=156"></script>
 
 <!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
