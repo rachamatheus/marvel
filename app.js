@@ -956,7 +956,7 @@ function buildCategoryMenus() {
     let html = `<div class="nav-dd-head">${icon} Изберете дестинация</div>`;
     html += `<a class="nav-dd-all" onclick="filterCatCountry('${cat}', null)">🌍 Всички ${word}<span class="nav-dd-n">${total}</span></a>`;
     html += `<div class="nav-dd-grid">` + items.map(it =>
-      `<a onclick="filterCatCountry('${cat}','${it.key}')"><span class="nav-dd-name"><span class="nav-dd-flag">${COUNTRY_FLAGS[it.key] || '🏳️'}</span> ${it.label}</span><span class="nav-dd-n">${it.n}</span></a>`).join('') + `</div>`;
+      `<a onclick="filterCatCountry('${cat}','${it.key}')"><span class="nav-dd-name"><span class="nav-dd-flag">${COUNTRY_FLAGS[it.key] || '🏳️'}</span><span class="nav-dd-lbl">${it.label}</span></span><span class="nav-dd-n">${it.n}</span></a>`).join('') + `</div>`;
     menu.innerHTML = html;
   });
 }
