@@ -599,12 +599,6 @@ function renderDestinationPins() {
   });
 
   map.appendChild(layer);
-  requestAnimationFrame(placeLabels);
-  if (!window._destLabelsBound) {
-    window._destLabelsBound = true;
-    let t;
-    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(placeLabels, 200); });
-  }
 }
 
 // Show as many destination name-bubbles as fit without overlapping (greedy by
