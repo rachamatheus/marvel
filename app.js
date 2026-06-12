@@ -9,8 +9,14 @@ let favorites = JSON.parse(localStorage.getItem('mt_favorites') || '[]');
 
 // ===== MERGE CUSTOM OFFERS =====
 const customOffers = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
-const deletedIds = JSON.parse(localStorage.getItem('mt_deleted_offers') || '[]');
-const ALL_OFFERS = [...OFFERS.filter(o => !deletedIds.includes(o.id)), ...customOffers];
+const deletedIds = [].concat(
+  JSON.parse(localStorage.getItem('mt_deleted_offers') || '[]'),
+  JSON.parse(localStorage.getItem('mt_deleted_offer_ids') || '[]')
+);
+// Custom offers OVERRIDE base offers with the same id (no double counting) — the
+// total is the distinct sum of base + custom.
+const _customIds = new Set(customOffers.map(o => o.id));
+const ALL_OFFERS = [...OFFERS.filter(o => !deletedIds.includes(o.id) && !_customIds.has(o.id)), ...customOffers];
 
 // ===== SUPABASE CONFIG =====
 // Replace with your Supabase project URL and anon key after setup

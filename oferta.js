@@ -64,8 +64,12 @@ function hotelImg(h) {
 
 // Merge custom offers exactly like the main site
 const _custom = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
-const _deleted = JSON.parse(localStorage.getItem('mt_deleted_offers') || '[]');
-const ALL_OFFERS = [...OFFERS.filter(o => !_deleted.includes(o.id)), ..._custom];
+const _deleted = [].concat(
+  JSON.parse(localStorage.getItem('mt_deleted_offers') || '[]'),
+  JSON.parse(localStorage.getItem('mt_deleted_offer_ids') || '[]')
+);
+const _customIds = new Set(_custom.map(o => o.id));
+const ALL_OFFERS = [...OFFERS.filter(o => !_deleted.includes(o.id) && !_customIds.has(o.id)), ..._custom];
 
 let activeOffer = null;
 let selectedDate = null;
