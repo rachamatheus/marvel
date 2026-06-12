@@ -333,6 +333,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFilters();
   renderOffers();
   buildCategoryMenus();
+  // Apply ?cat / ?country from URL (links from inner pages' Почивки/Екскурзии)
+  try {
+    const _p = new URLSearchParams(location.search);
+    const _cat = _p.get('cat');
+    if (_cat) setTimeout(() => filterCatCountry(_cat, _p.get('country')), 60);
+  } catch (e) {}
   initNavbar();
   initHeroSearch();
   updateNavbarAuth();
