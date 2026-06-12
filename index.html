@@ -32,6 +32,16 @@
     }
     #why-us { background:rgba(255,255,255,0.8) !important; backdrop-filter:blur(3px); }
     footer { position:relative; }
+    /* Nav dropdowns: Почивки / Екскурзии by destination */
+    .nav-dd { position:relative; }
+    .nav-dd-btn { font-family:inherit; font-size:0.9rem; font-weight:500; color:rgba(255,255,255,0.92); background:none; border:none; cursor:pointer; padding:0; text-shadow:0 1px 4px rgba(0,0,0,0.45); }
+    .nav-dd-btn:hover { color:var(--gold); }
+    .nav-dd-menu { position:absolute; top:calc(100% + 14px); left:50%; transform:translateX(-50%) translateY(-6px); min-width:230px; max-height:64vh; overflow-y:auto; background:#fff; border:1px solid var(--gray-200,#e5e7eb); border-radius:12px; box-shadow:0 16px 44px rgba(0,0,0,0.2); padding:6px; opacity:0; visibility:hidden; transition:opacity .15s, transform .15s; z-index:1200; }
+    .nav-dd-menu.open { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+    .nav-dd-menu a { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:8px 12px; border-radius:8px; color:var(--gray-700,#374151); text-decoration:none; font-size:0.88rem; cursor:pointer; white-space:nowrap; }
+    .nav-dd-menu a:hover { background:rgba(26,58,107,0.07); color:var(--primary); }
+    .nav-dd-n { color:var(--gray-400,#9ca3af); font-size:0.78rem; font-weight:400; }
+    @media(max-width:900px){ .nav-dd { display:none; } }
   </style>
 </head>
 <body>
@@ -51,6 +61,14 @@
   </a>
   <ul class="nav-links">
     <li><a href="#offers">Оферти</a></li>
+    <li class="nav-dd">
+      <button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddPochivki')">🏖️ Почивки ▾</button>
+      <div class="nav-dd-menu" id="ddPochivki"></div>
+    </li>
+    <li class="nav-dd">
+      <button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddEkskurzii')">🗺️ Екскурзии ▾</button>
+      <div class="nav-dd-menu" id="ddEkskurzii"></div>
+    </li>
     <li><a href="#destinations">Дестинации</a></li>
     <li><a href="kruizi.html">Круизи</a></li>
     <li><a href="blog.html">Блог</a></li>
@@ -65,6 +83,8 @@
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#offers" onclick="toggleMobileMenu()">✈️ Оферти</a>
+  <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('vacation',null)">🏖️ Почивки</a>
+  <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('excursion',null)">🗺️ Екскурзии</a>
   <a href="#destinations" onclick="toggleMobileMenu()">🗺️ Дестинации</a>
   <a href="kruizi.html">🚢 Круизи</a>
   <a href="blog.html">📖 Блог</a>

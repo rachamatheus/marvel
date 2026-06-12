@@ -332,6 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContinentMap();
   renderFilters();
   renderOffers();
+  buildCategoryMenus();
   initNavbar();
   initHeroSearch();
   updateNavbarAuth();
@@ -901,6 +902,46 @@ function filterByCountry(country) {
   renderOffers();
   document.getElementById('offers').scrollIntoView({ behavior: 'smooth' });
 }
+
+// Filter by category + destination together (used by the nav dropdowns)
+function filterCatCountry(cat, country) {
+  currentCategory = cat;
+  currentCountry = country || null;
+  currentTag = null;
+  currentSearch = '';
+  const hs = document.getElementById('heroSearch'); if (hs) hs.value = '';
+  document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === cat));
+  document.querySelectorAll('[data-tag]').forEach(b => b.classList.remove('active'));
+  closeAllNavDD();
+  if (typeof closeMobileMenuIfOpen === 'function') closeMobileMenuIfOpen();
+  renderOffers();
+  const off = document.getElementById('offers'); if (off) off.scrollIntoView();
+}
+// Populate the "Почивки" / "Екскурзии" nav dropdowns with destinations
+function buildCategoryMenus() {
+  [['vacation', 'ddPochivki', 'почивки'], ['excursion', 'ddEkskurzii', 'екскурзии']].forEach(([cat, id, word]) => {
+    const menu = document.getElementById(id);
+    if (!menu) return;
+    const counts = {};
+    ALL_OFFERS.forEach(o => { if (o.category === cat && o.country) counts[o.country] = (counts[o.country] || 0) + 1; });
+    const items = Object.keys(counts).map(k => {
+      const c = (typeof COUNTRIES !== 'undefined') ? COUNTRIES.find(x => x.key === k) : null;
+      return { key: k, label: c ? c.label : k, n: counts[k] };
+    }).sort((a, b) => a.label.localeCompare(b.label, 'bg'));
+    let html = `<a onclick="filterCatCountry('${cat}', null)"><b>Всички ${word}</b><span class="nav-dd-n">${items.reduce((s, i) => s + i.n, 0)}</span></a>`;
+    html += items.map(it => `<a onclick="filterCatCountry('${cat}','${it.key}')">${it.label}<span class="nav-dd-n">${it.n}</span></a>`).join('');
+    menu.innerHTML = html;
+  });
+}
+function toggleNavDD(id) {
+  const m = document.getElementById(id);
+  if (!m) return;
+  const wasOpen = m.classList.contains('open');
+  closeAllNavDD();
+  if (!wasOpen) m.classList.add('open');
+}
+function closeAllNavDD() { document.querySelectorAll('.nav-dd-menu.open').forEach(m => m.classList.remove('open')); }
+document.addEventListener('click', e => { if (!e.target.closest('.nav-dd')) closeAllNavDD(); });
 
 function applySortAndRender() {
   currentSort = document.getElementById('sortSelect').value;
