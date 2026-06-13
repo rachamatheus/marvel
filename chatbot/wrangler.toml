@@ -1,0 +1,12 @@
+name = "marveltour-chat"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# По избор: ограничи кой сайт може да вика бота (по-сигурно от '*').
+# Смени с твоя GitHub Pages адрес след първия деплой.
+[vars]
+ALLOWED_ORIGIN = "*"
+MODEL = "claude-opus-4-8"
+
+# ANTHROPIC_API_KEY НЕ се пише тук — задава се като secret:
+#   npx wrangler secret put ANTHROPIC_API_KEY
