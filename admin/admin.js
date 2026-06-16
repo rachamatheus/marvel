@@ -1012,12 +1012,32 @@ function renderUsers() {
     return;
   }
   wrap.innerHTML = users.map(function (u, i) {
-    return '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:var(--gray-50,#f9fafb);border:1px solid var(--gray-200,#e5e7eb);border-radius:10px;margin-bottom:8px;">' +
-      '<div><strong>' + escapeHtml(u.u) + '</strong>' +
-      '<span style="color:var(--gray-400);font-size:0.8rem;margin-left:8px;">работник</span></div>' +
-      '<button onclick="removeUser(' + i + ')" style="background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;border-radius:8px;padding:5px 12px;font-size:0.8rem;cursor:pointer;font-family:inherit;font-weight:600;">Премахни</button>' +
+    return '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:var(--gray-50,#f9fafb);border:1px solid var(--gray-200,#e5e7eb);border-radius:10px;margin-bottom:8px;flex-wrap:wrap;">' +
+      '<div style="min-width:0;">' +
+        '<strong>' + escapeHtml(u.u) + '</strong>' +
+        '<span style="color:var(--gray-400);font-size:0.8rem;margin-left:8px;">работник</span>' +
+        '<div style="font-size:0.8rem;color:var(--gray-500);margin-top:2px;">Парола: <code>' + escapeHtml(u.p) + '</code></div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;">' +
+        '<button onclick="editUserPass(' + i + ')" style="background:#eff6ff;color:var(--primary);border:1px solid #bfdbfe;border-radius:8px;padding:5px 12px;font-size:0.8rem;cursor:pointer;font-family:inherit;font-weight:600;">Смени парола</button>' +
+        '<button onclick="removeUser(' + i + ')" style="background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;border-radius:8px;padding:5px 12px;font-size:0.8rem;cursor:pointer;font-family:inherit;font-weight:600;">Премахни</button>' +
+      '</div>' +
       '</div>';
   }).join('');
+}
+
+function editUserPass(index) {
+  if (!isAdmin()) return;
+  const users = getUsers();
+  if (index < 0 || index >= users.length) return;
+  const np = prompt('Нова парола за „' + users[index].u + '" (мин. 4 символа):', users[index].p);
+  if (np === null) return; // отказ
+  const pass = np.trim();
+  if (pass.length < 4) { showToast('Паролата трябва да е поне 4 символа.', 'error'); return; }
+  users[index].p = pass;
+  saveUsers(users);
+  renderUsers();
+  showToast('Паролата на „' + users[index].u + '" е сменена.', 'success');
 }
 
 function addUser() {
