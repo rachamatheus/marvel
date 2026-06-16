@@ -1612,6 +1612,18 @@ footer {
   vertical-align: middle;
 }
 .inquiries-table tr:hover td { background: var(--gray-100); }
+
+/* ===== ADMIN — цветни етикети за категория ===== */
+.cat-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 11px; border-radius: 100px;
+  font-size: 0.74rem; font-weight: 700; white-space: nowrap; line-height: 1.6;
+}
+.cat-badge.vacation  { background: #e0f2fe; color: #0369a1; }
+.cat-badge.excursion { background: #ede9fe; color: #6d28d9; }
+.cat-badge.exotic    { background: #fef3c7; color: #b45309; }
+.cat-badge.cruise    { background: #cffafe; color: #0e7490; }
+.cat-badge.other     { background: var(--gray-100); color: var(--gray-600); }
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -1821,9 +1833,40 @@ footer {
   .stat-card { padding: 1rem; }
   .admin-grid-2 { grid-template-columns: 1fr !important; gap: 1rem !important; }
 
-  /* широки таблици да скролват, не да се затрупват */
-  .admin-card-body { overflow-x: auto; }
-  .inquiries-table { min-width: 560px; }
+  /* Широките таблици → карти (стек), вместо хоризонтален скрол */
+  .admin-card-body { overflow-x: visible; }
+  .resp-table, .resp-table tbody, .resp-table tr, .resp-table td { display: block; width: 100%; }
+  .resp-table { min-width: 0; }
+  .resp-table thead { display: none; }
+  .resp-table tr {
+    margin: 0 0 12px; padding: 6px 4px; border: 1px solid var(--gray-200);
+    border-radius: 12px; background: #fff; box-shadow: var(--shadow-sm);
+  }
+  .resp-table tr:hover td { background: transparent; }
+  .resp-table td {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 8px 12px; border: none; border-bottom: 1px solid var(--gray-100);
+    font-size: 0.9rem; max-width: none !important; white-space: normal !important;
+    text-align: right; overflow: visible; text-overflow: clip;
+  }
+  .resp-table td:last-child { border-bottom: none; }
+  .resp-table td::before {
+    content: attr(data-label); font-weight: 700; color: var(--gray-400);
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px;
+    text-align: left; flex: 0 0 auto;
+  }
+  .resp-table td.td-hide-sm { display: none; }       /* маловажни полета — скрити (видими в детайла) */
+  .resp-table td.td-actions { justify-content: stretch; flex-wrap: wrap; }
+  .resp-table td.td-actions::before { display: none; }
+  .resp-table td.td-actions button { flex: 1; margin: 0 !important; }
+  .resp-table td select { max-width: 60%; }
+
+  /* Филтри/търсачки на пълна ширина */
+  #page-offers > div:first-child,
+  #page-offers > div:first-child > div { width: 100%; }
+  #page-offers .form-input, #page-offers .form-select { max-width: none !important; flex: 1; }
+  #page-offers button[onclick*="openOfferModal"] { width: 100%; }
+  #offerSearch { width: 100%; }
 }
 
 @media (max-width: 480px) {

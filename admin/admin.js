@@ -211,11 +211,11 @@ function renderRecentTable() {
   const recent = allInquiries.slice(0, 6);
   document.getElementById('recentBody').innerHTML = recent.map(inq => `
     <tr style="cursor:pointer;" onclick="openInquiry(${inq.id})">
-      <td><strong>${inq.name}</strong></td>
-      <td style="white-space:nowrap;font-weight:700;color:var(--primary);">${inq.offer_ref || '—'}</td>
-      <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${shortTitle(inq.offer_title)}</td>
-      <td style="white-space:nowrap;">${formatDate(inq.created_at)}</td>
-      <td><span class="status-badge status-${inq.status}">${statusLabel(inq.status)}</span></td>
+      <td data-label="Клиент"><strong>${inq.name}</strong></td>
+      <td data-label="Реф. №" style="white-space:nowrap;font-weight:700;color:var(--primary);">${inq.offer_ref || '—'}</td>
+      <td data-label="Оферта" style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${shortTitle(inq.offer_title)}</td>
+      <td data-label="Дата" style="white-space:nowrap;">${formatDate(inq.created_at)}</td>
+      <td data-label="Статус"><span class="status-badge status-${inq.status}">${statusLabel(inq.status)}</span></td>
     </tr>
   `).join('') || '<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--gray-400);">Няма запитвания</td></tr>';
 }
@@ -391,18 +391,18 @@ function renderInquiriesTable() {
       : ((/(\d+)\s*възр/.exec(inq.people || '') || [])[1] || (inq.people ? inq.people : '—'));
     return `
     <tr style="cursor:pointer;" onclick="openInquiry(${inq.id})">
-      <td style="color:var(--gray-400);font-size:0.8rem;">#${idx + 1}</td>
-      <td><strong>${inq.name}</strong></td>
-      <td><a href="tel:${inq.phone}" onclick="event.stopPropagation()" style="color:var(--primary);text-decoration:none;">${inq.phone}</a></td>
-      <td style="color:var(--gray-600);">${inq.email || '—'}</td>
-      <td style="white-space:nowrap;font-weight:700;color:var(--primary);">${inq.offer_ref || '—'}</td>
-      <td style="max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${shortTitle(inq.offer_title)}</td>
-      <td>${inq.preferred_date || '—'}</td>
-      <td style="text-align:center;">${adu}</td>
-      <td style="text-align:center;font-weight:600;${(+kids) > 0 ? 'color:var(--primary);' : 'color:var(--gray-400);'}">${kids}</td>
-      <td style="white-space:nowrap;">${formatDate(inq.created_at)}</td>
-      <td><span class="status-badge status-${inq.status}">${statusLabel(inq.status)}</span></td>
-      <td onclick="event.stopPropagation()">
+      <td class="td-hide-sm" data-label="#" style="color:var(--gray-400);font-size:0.8rem;">#${idx + 1}</td>
+      <td data-label="Клиент"><strong>${inq.name}</strong></td>
+      <td data-label="Телефон"><a href="tel:${inq.phone}" onclick="event.stopPropagation()" style="color:var(--primary);text-decoration:none;">${inq.phone}</a></td>
+      <td class="td-hide-sm" data-label="Имейл" style="color:var(--gray-600);">${inq.email || '—'}</td>
+      <td data-label="Реф. №" style="white-space:nowrap;font-weight:700;color:var(--primary);">${inq.offer_ref || '—'}</td>
+      <td data-label="Оферта" style="max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${shortTitle(inq.offer_title)}</td>
+      <td class="td-hide-sm" data-label="Дата">${inq.preferred_date || '—'}</td>
+      <td class="td-hide-sm" data-label="Възрастни" style="text-align:center;">${adu}</td>
+      <td class="td-hide-sm" data-label="Деца" style="text-align:center;font-weight:600;${(+kids) > 0 ? 'color:var(--primary);' : 'color:var(--gray-400);'}">${kids}</td>
+      <td data-label="Получено" style="white-space:nowrap;">${formatDate(inq.created_at)}</td>
+      <td data-label="Статус"><span class="status-badge status-${inq.status}">${statusLabel(inq.status)}</span></td>
+      <td class="td-actions" data-label="Промени" onclick="event.stopPropagation()">
         <select onchange="changeStatus(${inq.id}, this.value)" style="border:1.5px solid var(--gray-200);border-radius:6px;padding:4px 8px;font-size:0.78rem;font-family:inherit;cursor:pointer;background:white;">
           <option value="new" ${inq.status === 'new' ? 'selected' : ''}>Ново</option>
           <option value="contacted" ${inq.status === 'contacted' ? 'selected' : ''}>Контактувано</option>
@@ -573,24 +573,24 @@ function renderAdminOffers() {
     const isCustom = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]').some(c => c.id === o.id);
     return `
       <tr>
-        <td style="color:var(--gray-400);font-size:0.8rem;">${o.id}</td>
-        <td style="font-weight:700;color:var(--primary);font-size:0.82rem;white-space:nowrap;">${o.refNum || '—'}</td>
-        <td style="max-width:220px;">
+        <td class="td-hide-sm" data-label="ID" style="color:var(--gray-400);font-size:0.8rem;">${o.id}</td>
+        <td data-label="Номер" style="font-weight:700;color:var(--primary);font-size:0.82rem;white-space:nowrap;">${o.refNum || '—'}</td>
+        <td data-label="Оферта" style="max-width:220px;">
           <div style="font-weight:600;font-size:0.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${o.title}</div>
           ${isCustom ? '<span style="font-size:0.7rem;color:#7c3aed;background:#f5f3ff;padding:2px 6px;border-radius:4px;">custom</span>' : ''}
         </td>
-        <td><span class="modal-tag ${o.category === 'vacation' ? 'blue' : ''}">${ {vacation:'Почивка',excursion:'Екскурзия',exotic:'Екзотика',cruise:'Круиз'}[o.category] || o.category || '—' }</span></td>
-        <td>${o.destination || '—'}</td>
-        <td style="font-weight:700;color:var(--primary);white-space:nowrap;">${o.price_bgn ? o.price_bgn.toFixed(0) + ' лв.' : '—'}<div style="font-weight:600;color:var(--gray-400);font-size:0.78rem;">${o.price_eur ? o.price_eur.toFixed(0) + ' €' : ''}</div></td>
-        <td>${o.duration || '—'}</td>
-        <td style="white-space:nowrap;">${nextDateOf(o) || '—'}${remainingDatesBadge(o)}</td>
-        <td>${views[o.id] || 0}</td>
-        <td>
+        <td data-label="Категория"><span class="cat-badge ${o.category || 'other'}">${ {vacation:'🏖️ Почивка',excursion:'🗺️ Екскурзия',exotic:'🏝️ Екзотика',cruise:'🚢 Круиз'}[o.category] || o.category || '—' }</span></td>
+        <td data-label="Дестинация">${o.destination || '—'}</td>
+        <td data-label="Цена от" style="font-weight:700;color:var(--primary);white-space:nowrap;">${o.price_bgn ? o.price_bgn.toFixed(0) + ' лв.' : '—'}<span style="font-weight:600;color:var(--gray-400);font-size:0.78rem;"> ${o.price_eur ? o.price_eur.toFixed(0) + ' €' : ''}</span></td>
+        <td class="td-hide-sm" data-label="Продълж.">${o.duration || '—'}</td>
+        <td data-label="Следваща дата" style="white-space:nowrap;">${nextDateOf(o) || '—'}${remainingDatesBadge(o)}</td>
+        <td class="td-hide-sm" data-label="Прегледи">${views[o.id] || 0}</td>
+        <td data-label="Запитвания">
           <span style="background:${inqCount > 0 ? 'rgba(59,130,246,0.1)' : 'var(--gray-100)'};color:${inqCount > 0 ? '#1d4ed8' : 'var(--gray-400)'};padding:3px 10px;border-radius:100px;font-size:0.75rem;font-weight:700;">
             ${inqCount}
           </span>
         </td>
-        <td style="white-space:nowrap;">
+        <td class="td-actions" data-label="Действия" style="white-space:nowrap;">
           <button onclick="openOfferModal('${o.id}')" style="margin-right:6px;padding:5px 12px;background:var(--primary);color:white;border:none;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:inherit;font-weight:600;">Редактирай</button>
           <button onclick="confirmDeleteOffer('${o.id}')" style="padding:5px 12px;background:#fef2f2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:inherit;font-weight:600;">Изтрий</button>
         </td>
