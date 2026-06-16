@@ -8,7 +8,7 @@
   // Попълни тези два реда СЛЕД като деплойнеш push Worker-а и генерираш VAPID ключ.
   // Докато са празни, бутонът „Известия" не се показва (Фаза 1 работи и без тях).
   var PUSH_ENDPOINT = '';        // напр. 'https://marveltour-push.ТВОЙ.workers.dev'
-  var VAPID_PUBLIC_KEY = '';     // публичният VAPID ключ (base64url)
+  var VAPID_PUBLIC_KEY = 'BC3abPw_LVHivGqPREggE31IpbWBGEFwABs-748-xN5H5nN6iGfloWBTlS-KRelYng8zMklEAxPChNzDhgs1QGE';     // публичният VAPID ключ (base64url)
 
   // ---------- Service worker ----------
   if ('serviceWorker' in navigator) {

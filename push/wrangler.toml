@@ -5,7 +5,7 @@ compatibility_date = "2026-01-01"
 [vars]
 ALLOWED_ORIGIN = "*"
 VAPID_SUBJECT = "mailto:rumexplovdiv@gmail.com"
-VAPID_PUBLIC_KEY = ""   # ← публичният VAPID ключ (от: npx web-push generate-vapid-keys)
+VAPID_PUBLIC_KEY = "BC3abPw_LVHivGqPREggE31IpbWBGEFwABs-748-xN5H5nN6iGfloWBTlS-KRelYng8zMklEAxPChNzDhgs1QGE"   # ← публичният VAPID ключ (от: npx web-push generate-vapid-keys)
 
 # KV за абонаментите — създай namespace и сложи id-то тук:
 #   npx wrangler kv namespace create SUBS
