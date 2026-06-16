@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard — Marvel Tour</title>
   <link rel="stylesheet" href="../styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1e3a8a">
+  <link rel="apple-touch-icon" href="../favicon.svg?v=9">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
@@ -58,6 +61,7 @@
     <div class="admin-topbar">
       <h1 id="pageTitle">Табло</h1>
       <div class="admin-topbar-actions">
+        <button id="installAppBtn" onclick="mtInstallApp()" style="display:none;font-size:0.85rem;color:#fff;background:var(--primary);border:none;cursor:pointer;padding:8px 16px;border-radius:8px;font-family:inherit;font-weight:600;">⬇️ Свали панела на компютъра</button>
         <a href="../index.html" target="_blank" style="font-size:0.85rem;color:var(--gray-600);text-decoration:none;padding:8px 14px;border:1.5px solid var(--gray-200);border-radius:8px;">↗ Виж сайта</a>
         <div class="admin-avatar" title="Admin">A</div>
       </div>
@@ -508,5 +512,45 @@
 <script src="../sb-init.js?v=128"></script>
 <script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
 <script src="admin.js?v=136"></script>
+<script>
+  // ===== PWA: инсталиране на админ панела като приложение =====
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+
+  var _mtDeferredPrompt = null;
+  var _installBtn = document.getElementById('installAppBtn');
+
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    _mtDeferredPrompt = e;
+    if (_installBtn) _installBtn.style.display = 'inline-block';
+  });
+
+  window.addEventListener('appinstalled', function () {
+    _mtDeferredPrompt = null;
+    if (_installBtn) _installBtn.style.display = 'none';
+  });
+
+  // Ако вече е стартиран като инсталирано приложение — скрий бутона.
+  if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+    if (_installBtn) _installBtn.style.display = 'none';
+  }
+
+  function mtInstallApp() {
+    if (_mtDeferredPrompt) {
+      _mtDeferredPrompt.prompt();
+      _mtDeferredPrompt.userChoice.finally(function () {
+        _mtDeferredPrompt = null;
+        if (_installBtn) _installBtn.style.display = 'none';
+      });
+      return;
+    }
+    // Резервно: браузъри без автоматичен prompt (напр. iOS Safari).
+    alert('За да инсталирате панела:\n\n• Chrome/Edge: иконата „инсталирай" ⊕ в адресната лента, или меню ⋮ → „Инсталирай приложението".\n• iPhone (Safari): бутон Сподели → „Към началния екран".');
+  }
+</script>
 </body>
 </html>

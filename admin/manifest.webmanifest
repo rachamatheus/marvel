@@ -1,0 +1,24 @@
+{
+  "name": "Marvel Tour — Админ панел",
+  "short_name": "MT Админ",
+  "description": "Административен панел на Marvel Tour — оферти, запитвания, статистики.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f1b30",
+  "theme_color": "#1e3a8a",
+  "icons": [
+    {
+      "src": "../logo.svg?v=7",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "../favicon.svg?v=9",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
