@@ -1787,11 +1787,47 @@ footer {
   .featured-grid { grid-template-columns: 1fr; }
   .modal-list { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
-  .admin-sidebar { display: none; }
-  .admin-content { margin-left: 0; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
   .contact-banner { margin: 0 1rem 3rem; }
+
+  /* ---- АДМИН на телефон: меню горе (хоризонтално), без затрупване ---- */
+  .admin-layout { flex-direction: column; }
+  .admin-sidebar {
+    position: static; width: 100%; flex-direction: column;
+    bottom: auto; padding-bottom: 0;
+  }
+  .sidebar-header { padding: 0.8rem 1rem; display: flex; justify-content: center; }
+  .sidebar-header > div { max-width: 150px; }   /* свива логото да не е огромно */
+  .sidebar-label { display: none; }              /* секционните надписи чупят реда */
+  .sidebar-nav {
+    display: flex; flex-direction: row; flex-wrap: nowrap;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    gap: 4px; padding: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .sidebar-link {
+    width: auto; white-space: nowrap; padding: 9px 14px;
+    border-radius: 10px; flex: 0 0 auto;
+  }
+  .sidebar-link.active { border-right: none; background: rgba(201,168,76,0.22); }
+  .admin-sidebar > div:last-child { display: none; }  /* реда „Версия 1.0" */
+
+  .admin-content { margin-left: 0; }
+  .admin-topbar { padding: 0.8rem 1rem; flex-wrap: wrap; gap: 8px; }
+  .admin-topbar h1 { font-size: 1.05rem; }
+  .admin-topbar-actions { gap: 0.5rem; flex-wrap: wrap; }
+  .admin-main { padding: 1rem; }
+
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .stat-card { padding: 1rem; }
+  .admin-grid-2 { grid-template-columns: 1fr !important; gap: 1rem !important; }
+
+  /* широки таблици да скролват, не да се затрупват */
+  .admin-card-body { overflow-x: auto; }
+  .inquiries-table { min-width: 560px; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
 }
 
 /* ===== LOADING SKELETON ===== */
