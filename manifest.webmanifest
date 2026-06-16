@@ -1,0 +1,17 @@
+{
+  "name": "Marvel Tour — Туроператор",
+  "short_name": "Marvel Tour",
+  "description": "Оферти за почивки, екскурзии и екзотични пътувания от Пловдив.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7fafd",
+  "theme_color": "#1e3a8a",
+  "lang": "bg",
+  "categories": ["travel", "lifestyle"],
+  "icons": [
+    { "src": "logo.svg?v=7", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "favicon.svg?v=9", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
