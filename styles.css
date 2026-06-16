@@ -1515,6 +1515,14 @@ footer {
 }
 .admin-topbar h1 { font-size: 1.15rem; font-weight: 700; color: var(--dark); }
 .admin-topbar-actions { display: flex; align-items: center; gap: 1rem; }
+/* Хамбургер бутон за меню — скрит на десктоп, показва се на телефон */
+.admin-nav-toggle {
+  display: none; flex-direction: column; justify-content: center; gap: 4px;
+  width: 42px; height: 42px; margin-right: 10px;
+  border: none; background: var(--gray-100); border-radius: 9px; cursor: pointer; padding: 0 10px;
+}
+.admin-nav-toggle span { display: block; height: 2.5px; background: var(--dark); border-radius: 2px; transition: all .2s; }
+.admin-nav-backdrop { display: none; }
 .admin-avatar {
   width: 40px;
   height: 40px;
@@ -1802,28 +1810,23 @@ footer {
   .footer-grid { grid-template-columns: 1fr; }
   .contact-banner { margin: 0 1rem 3rem; }
 
-  /* ---- АДМИН на телефон: меню горе (хоризонтално), без затрупване ---- */
+  /* ---- АДМИН на телефон: меню като изскачащ drawer с бутон ---- */
   .admin-layout { flex-direction: column; }
-  .admin-sidebar {
-    position: static; width: 100%; flex-direction: column;
-    bottom: auto; padding-bottom: 0;
-  }
-  .sidebar-header { padding: 0.8rem 1rem; display: flex; justify-content: center; }
-  .sidebar-header > div { max-width: 150px; }   /* свива логото да не е огромно */
-  .sidebar-label { display: none; }              /* секционните надписи чупят реда */
-  .sidebar-nav {
-    display: flex; flex-direction: row; flex-wrap: nowrap;
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
-    gap: 4px; padding: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1);
-  }
-  .sidebar-link {
-    width: auto; white-space: nowrap; padding: 9px 14px;
-    border-radius: 10px; flex: 0 0 auto;
-  }
-  .sidebar-link.active { border-right: none; background: rgba(201,168,76,0.22); }
-  .admin-sidebar > div:last-child { display: none; }  /* реда „Версия 1.0" */
-
   .admin-content { margin-left: 0; }
+  .admin-nav-toggle { display: flex; }
+  .admin-sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0; width: 260px; max-width: 82vw;
+    flex-direction: column; transform: translateX(-100%);
+    transition: transform .25s ease; z-index: 1300;
+  }
+  .admin-sidebar.open { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,.45); }
+  .admin-nav-backdrop {
+    display: block; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1250;
+    opacity: 0; visibility: hidden; transition: opacity .25s;
+  }
+  .admin-nav-backdrop.open { opacity: 1; visibility: visible; }
+  .sidebar-header > div { max-width: 150px; margin: 0 auto; }  /* свива логото */
+
   .admin-topbar { padding: 0.8rem 1rem; flex-wrap: wrap; gap: 8px; }
   .admin-topbar h1 { font-size: 1.05rem; }
   .admin-topbar-actions { gap: 0.5rem; flex-wrap: wrap; }

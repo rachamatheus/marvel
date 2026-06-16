@@ -1,9 +1,9 @@
 /* Marvel Tour Admin — service worker (нужен за инсталиране като приложение).
  * Лек кеш на основните файлове, за да работи и офлайн. */
-var CACHE = 'mt-admin-v2';
+var CACHE = 'mt-admin-v3';
 var CORE = [
   './index.html',
-  './admin.js?v=137',
+  './admin.js?v=138',
   '../styles.css',
   '../logo.svg?v=7',
   '../favicon.svg?v=9',

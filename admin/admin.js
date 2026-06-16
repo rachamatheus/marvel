@@ -59,6 +59,20 @@ function doLogout() {
   window.location.href = 'login.html';
 }
 
+// ===== МОБИЛНО МЕНЮ (drawer) =====
+function toggleAdminNav() {
+  const sb = document.getElementById('adminSidebar');
+  const bd = document.getElementById('adminNavBackdrop');
+  const open = sb.classList.toggle('open');
+  if (bd) bd.classList.toggle('open', open);
+}
+function closeAdminNav() {
+  const sb = document.getElementById('adminSidebar');
+  const bd = document.getElementById('adminNavBackdrop');
+  if (sb) sb.classList.remove('open');
+  if (bd) bd.classList.remove('open');
+}
+
 // ===== PAGE ROUTER =====
 function showPage(page) {
   currentPage = page;
@@ -74,6 +88,7 @@ function showPage(page) {
   // Само админ може да отвори страницата с потребителите.
   if (page === 'users' && !isAdmin()) { page = 'dashboard'; }
   document.getElementById('pageTitle').textContent = titles[page] || page;
+  closeAdminNav(); // затвори мобилното меню при избор на страница
 
   document.querySelectorAll('[id^="page-"]').forEach(el => el.style.display = 'none');
   document.getElementById(`page-${page}`).style.display = 'block';
