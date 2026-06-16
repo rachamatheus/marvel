@@ -45,17 +45,33 @@
     const user = document.getElementById('username').value.trim();
     const pass = document.getElementById('password').value;
     const ADMIN_USER = 'admin';
-    const ADMIN_PASS = 'marvel2026';
+    const ADMIN_PASS = localStorage.getItem('mt_admin_pass') || 'marvel2026';
 
+    // 1) Администратор
     if (user === ADMIN_USER && pass === ADMIN_PASS) {
       sessionStorage.setItem('mt_admin_auth', '1');
+      sessionStorage.setItem('mt_role', 'admin');
+      sessionStorage.setItem('mt_user', user);
       window.location.href = 'index.html';
-    } else {
-      const err = document.getElementById('loginError');
-      err.textContent = '❌ Грешно потребителско ime или парола.';
-      err.style.display = 'block';
-      document.getElementById('password').value = '';
+      return;
     }
+
+    // 2) Работник (профили, създадени от админа)
+    let workers = [];
+    try { workers = JSON.parse(localStorage.getItem('mt_users') || '[]'); } catch (e) {}
+    const match = workers.find(w => w.u === user && w.p === pass);
+    if (match) {
+      sessionStorage.setItem('mt_admin_auth', '1');
+      sessionStorage.setItem('mt_role', 'worker');
+      sessionStorage.setItem('mt_user', user);
+      window.location.href = 'index.html';
+      return;
+    }
+
+    const err = document.getElementById('loginError');
+    err.textContent = '❌ Грешно потребителско име или парола.';
+    err.style.display = 'block';
+    document.getElementById('password').value = '';
   }
 
   // Already logged in?

@@ -2,6 +2,9 @@
 if (sessionStorage.getItem('mt_admin_auth') !== '1') {
   window.location.href = 'login.html';
 }
+// Роля на влезлия: 'admin' (пълни права + управление на потребители) или 'worker'.
+const MT_ROLE = sessionStorage.getItem('mt_role') || 'admin';
+function isAdmin() { return MT_ROLE === 'admin'; }
 
 // ===== STATE =====
 let currentPage = 'dashboard';
@@ -22,6 +25,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   populateCountryFilter();
   showPage('dashboard');
   renderCustomTags();
+  // Скрий бутона „Потребители" за работници — само админ го вижда/отваря.
+  if (!isAdmin()) {
+    const nu = document.getElementById('nav-users');
+    if (nu) nu.style.display = 'none';
+  }
 });
 
 // Pull shared data (views + inquiries from all visitors) when Supabase is configured.
@@ -46,6 +54,8 @@ async function syncFromSupabase() {
 
 function doLogout() {
   sessionStorage.removeItem('mt_admin_auth');
+  sessionStorage.removeItem('mt_role');
+  sessionStorage.removeItem('mt_user');
   window.location.href = 'login.html';
 }
 
@@ -58,8 +68,11 @@ function showPage(page) {
     offers: 'Оферти',
     analytics: 'Статистики',
     settings: 'Настройки',
+    users: 'Потребители',
     peakview: 'PeakView — оферти на живо'
   };
+  // Само админ може да отвори страницата с потребителите.
+  if (page === 'users' && !isAdmin()) { page = 'dashboard'; }
   document.getElementById('pageTitle').textContent = titles[page] || page;
 
   document.querySelectorAll('[id^="page-"]').forEach(el => el.style.display = 'none');
@@ -74,6 +87,7 @@ function showPage(page) {
   if (page === 'offers') renderAdminOffers();
   if (page === 'analytics') renderAnalytics();
   if (page === 'settings') renderCustomTags();
+  if (page === 'users') renderUsers();
   if (page === 'peakview' && !window._pvInit && typeof iFrameResize === 'function') {
     window._pvInit = true;
     try { iFrameResize({ checkOrigin: false, heightCalculationMethod: 'max' }, '#pvFrame'); } catch (e) {}
@@ -970,6 +984,7 @@ function renderTopByCategory(views) {
 
 // ===== SETTINGS =====
 function changePassword() {
+  if (!isAdmin()) { showToast('Само администраторът може да сменя паролата.', 'error'); return; }
   const p1 = document.getElementById('newPass').value;
   const p2 = document.getElementById('confirmPass').value;
   if (!p1 || p1.length < 6) { showToast('Паролата трябва да е поне 6 символа.', 'error'); return; }
@@ -980,24 +995,64 @@ function changePassword() {
   showToast('Паролата е сменена! (Supabase не е настроен — промяната е само локална)', 'success');
 }
 
-function saveSupabase() {
-  const url = document.getElementById('sbUrl').value.trim();
-  const key = document.getElementById('sbKey').value.trim();
-  if (!url || !key) { showToast('Въведете URL и Key.', 'error'); return; }
-  localStorage.setItem('mt_sb_url', url);
-  localStorage.setItem('mt_sb_key', key);
-  showToast('Настройките са запазени. Обновете страницата.', 'success');
+// ===== ПОТРЕБИТЕЛИ / РАБОТНИЦИ (само админ) =====
+function getUsers() {
+  try { return JSON.parse(localStorage.getItem('mt_users') || '[]'); } catch (e) { return []; }
+}
+function saveUsers(list) {
+  localStorage.setItem('mt_users', JSON.stringify(list));
 }
 
-function clearData() {
-  if (!confirm('Сигурни ли сте? Ще бъдат изтрити всички локални данни.')) return;
-  ['mt_inquiries','mt_offerviews','mt_offer_views','mt_pageviews','mt_favorites','mt_custom_offers','mt_deleted_offer_ids'].forEach(k => localStorage.removeItem(k));
-  loadOffers();
-  loadInquiries();
-  showToast('Данните са изчистени.', 'success');
-  if (currentPage === 'dashboard') renderDashboard();
-  if (currentPage === 'inquiries') renderInquiriesTable();
-  if (currentPage === 'offers') renderAdminOffers();
+function renderUsers() {
+  const wrap = document.getElementById('usersList');
+  if (!wrap) return;
+  const users = getUsers();
+  if (users.length === 0) {
+    wrap.innerHTML = '<p style="font-size:0.85rem;color:var(--gray-400);">Все още няма добавени работници.</p>';
+    return;
+  }
+  wrap.innerHTML = users.map(function (u, i) {
+    return '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:var(--gray-50,#f9fafb);border:1px solid var(--gray-200,#e5e7eb);border-radius:10px;margin-bottom:8px;">' +
+      '<div><strong>' + escapeHtml(u.u) + '</strong>' +
+      '<span style="color:var(--gray-400);font-size:0.8rem;margin-left:8px;">работник</span></div>' +
+      '<button onclick="removeUser(' + i + ')" style="background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;border-radius:8px;padding:5px 12px;font-size:0.8rem;cursor:pointer;font-family:inherit;font-weight:600;">Премахни</button>' +
+      '</div>';
+  }).join('');
+}
+
+function addUser() {
+  if (!isAdmin()) return;
+  const name = (document.getElementById('newUserName').value || '').trim();
+  const pass = (document.getElementById('newUserPass').value || '').trim();
+  if (!name || name.toLowerCase() === 'admin') { showToast('Въведете валидно потребителско име (различно от admin).', 'error'); return; }
+  if (pass.length < 4) { showToast('Паролата трябва да е поне 4 символа.', 'error'); return; }
+  const users = getUsers();
+  if (users.some(function (u) { return u.u.toLowerCase() === name.toLowerCase(); })) {
+    showToast('Вече има работник с това име.', 'error'); return;
+  }
+  users.push({ u: name, p: pass });
+  saveUsers(users);
+  document.getElementById('newUserName').value = '';
+  document.getElementById('newUserPass').value = '';
+  renderUsers();
+  showToast('Работникът е добавен.', 'success');
+}
+
+function removeUser(index) {
+  if (!isAdmin()) return;
+  const users = getUsers();
+  if (index < 0 || index >= users.length) return;
+  if (!confirm('Премахване на работник „' + users[index].u + '"?')) return;
+  users.splice(index, 1);
+  saveUsers(users);
+  renderUsers();
+  showToast('Работникът е премахнат.', 'success');
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
 }
 
 // ===== CUSTOM TAGS =====
