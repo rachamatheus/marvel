@@ -1,0 +1,18 @@
+name = "marveltour-push"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+[vars]
+ALLOWED_ORIGIN = "*"
+VAPID_SUBJECT = "mailto:rumexplovdiv@gmail.com"
+VAPID_PUBLIC_KEY = ""   # ← публичният VAPID ключ (от: npx web-push generate-vapid-keys)
+
+# KV за абонаментите — създай namespace и сложи id-то тук:
+#   npx wrangler kv namespace create SUBS
+[[kv_namespaces]]
+binding = "SUBS"
+id = ""                 # ← постави id-то, което wrangler ти върна
+
+# Secrets (НЕ тук — задават се с команда):
+#   npx wrangler secret put VAPID_PRIVATE_KEY   (приватният VAPID ключ)
+#   npx wrangler secret put ADMIN_TOKEN          (таен низ, който само ти знаеш)

@@ -3,7 +3,7 @@
 var CACHE = 'mt-admin-v3';
 var CORE = [
   './index.html',
-  './admin.js?v=138',
+  './admin.js?v=139',
   '../styles.css',
   '../logo.svg?v=7',
   '../favicon.svg?v=9',

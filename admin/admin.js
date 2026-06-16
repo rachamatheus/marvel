@@ -101,7 +101,11 @@ function showPage(page) {
   if (page === 'inquiries') renderInquiriesTable();
   if (page === 'offers') renderAdminOffers();
   if (page === 'analytics') renderAnalytics();
-  if (page === 'settings') renderCustomTags();
+  if (page === 'settings') {
+    renderCustomTags();
+    var pt = document.getElementById('pushToken');
+    if (pt) pt.value = localStorage.getItem('mt_push_token') || '';
+  }
   if (page === 'users') renderUsers();
   if (page === 'peakview' && !window._pvInit && typeof iFrameResize === 'function') {
     window._pvInit = true;
@@ -1008,6 +1012,40 @@ function changePassword() {
   document.getElementById('newPass').value = '';
   document.getElementById('confirmPass').value = '';
   showToast('Паролата е сменена! (Supabase не е настроен — промяната е само локална)', 'success');
+}
+
+// ===== PUSH ИЗВЕСТИЯ =====
+// Попълни адреса на push Worker-а след деплой (същия като в pwa.js/sw.js):
+var PUSH_ENDPOINT = '';   // напр. 'https://marveltour-push.ТВОЙ.workers.dev'
+
+function sendPush() {
+  var token = (document.getElementById('pushToken').value || '').trim();
+  var title = (document.getElementById('pushTitle').value || '').trim();
+  var body = (document.getElementById('pushBody').value || '').trim();
+  var url = (document.getElementById('pushUrl').value || '').trim();
+  var out = document.getElementById('pushResult');
+  if (!PUSH_ENDPOINT) { out.style.color = '#dc2626'; out.textContent = 'Липсва адрес на push Worker-а (PUSH_ENDPOINT в admin.js).'; return; }
+  if (!token) { out.style.color = '#dc2626'; out.textContent = 'Въведете тайния код (ADMIN_TOKEN).'; return; }
+  if (!title && !body) { out.style.color = '#dc2626'; out.textContent = 'Въведете заглавие или текст.'; return; }
+  localStorage.setItem('mt_push_token', token);
+  out.style.color = 'var(--gray-600)'; out.textContent = 'Изпращане…';
+  fetch(PUSH_ENDPOINT + '/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+    body: JSON.stringify({ title: title, body: body, url: url })
+  }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+    .then(function (res) {
+      if (res.ok && res.d.ok) {
+        out.style.color = '#16a34a';
+        out.textContent = '✅ Изпратено до ' + res.d.sent + ' устройства' + (res.d.removed ? ' (' + res.d.removed + ' неактивни премахнати)' : '') + '.';
+        document.getElementById('pushTitle').value = '';
+        document.getElementById('pushBody').value = '';
+        document.getElementById('pushUrl').value = '';
+      } else {
+        out.style.color = '#dc2626';
+        out.textContent = '❌ Грешка: ' + (res.d.error || 'неуспешно изпращане') + (res.d.status ? ' (' + res.d.status + ')' : '');
+      }
+    }).catch(function () { out.style.color = '#dc2626'; out.textContent = '❌ Няма връзка с push Worker-а.'; });
 }
 
 // ===== ПОТРЕБИТЕЛИ / РАБОТНИЦИ (само админ) =====

@@ -340,6 +340,33 @@
           </div>
         </div>
 
+        <div class="admin-card" style="margin-top:1.5rem;">
+          <div class="admin-card-header"><div class="admin-card-title">🔔 Изпрати известие до клиентите</div></div>
+          <div class="admin-card-body" style="max-width:520px;">
+            <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1rem;">
+              Праща push известие до всички клиенти, инсталирали приложението и разрешили известия (нова оферта, промоция, last-minute).
+            </p>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label">Таен код (ADMIN_TOKEN)</label>
+              <input type="password" class="form-input" id="pushToken" placeholder="кодът, зададен в Worker-а" autocomplete="off">
+            </div>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label">Заглавие</label>
+              <input type="text" class="form-input" id="pushTitle" placeholder="напр. 🔥 Нова оферта за Гърция!">
+            </div>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label">Текст</label>
+              <input type="text" class="form-input" id="pushBody" placeholder="напр. 7 нощувки All Inclusive от 599 лв.">
+            </div>
+            <div class="form-group" style="margin-bottom:12px;">
+              <label class="form-label">Линк (по избор)</label>
+              <input type="text" class="form-input" id="pushUrl" placeholder="index.html#offers">
+            </div>
+            <button class="form-submit" style="max-width:220px;" onclick="sendPush()">Изпрати известие</button>
+            <div id="pushResult" style="margin-top:10px;font-size:0.85rem;"></div>
+          </div>
+        </div>
+
       </div>
 
       <!-- ===== ПОТРЕБИТЕЛИ PAGE (само админ) ===== -->
@@ -516,7 +543,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../sb-init.js?v=128"></script>
 <script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
-<script src="admin.js?v=138"></script>
+<script src="admin.js?v=139"></script>
 <script>
   // ===== PWA: инсталиране на админ панела като приложение =====
   if ('serviceWorker' in navigator) {

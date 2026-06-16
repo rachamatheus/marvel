@@ -1,7 +1,9 @@
 /* Marvel Tour — service worker за публичното приложение (PWA).
  * Фаза 1: офлайн кеш на основните файлове.
  * Фаза 2: получаване и показване на push нотификации. */
-var CACHE = 'mt-app-v1';
+var CACHE = 'mt-app-v2';
+// Push Worker endpoint — попълни СЪЩИЯ адрес като в pwa.js (за payload-less известия).
+var PUSH_ENDPOINT = '';
 var CORE = [
   './index.html',
   './styles.css?v=151',
@@ -42,17 +44,23 @@ self.addEventListener('fetch', function (e) {
 
 // ===== Фаза 2: PUSH нотификации =====
 self.addEventListener('push', function (e) {
-  var data = {};
-  try { data = e.data ? e.data.json() : {}; } catch (err) { data = { body: e.data && e.data.text() }; }
-  var title = data.title || 'Marvel Tour';
-  var options = {
-    body: data.body || 'Имаме нещо ново за вас!',
-    icon: 'logo.svg?v=7',
-    badge: 'favicon.svg?v=9',
-    data: { url: data.url || './index.html' },
-    tag: data.tag || 'mt-news'
-  };
-  e.waitUntil(self.registration.showNotification(title, options));
+  e.waitUntil((async function () {
+    var data = {};
+    // 1) Ако има payload в самото известие — ползвай него.
+    if (e.data) { try { data = e.data.json(); } catch (err) { data = { body: e.data.text() }; } }
+    // 2) Иначе (payload-less) — дръпни последното известие от Worker-а.
+    if ((!data || !data.title) && PUSH_ENDPOINT) {
+      try { data = await (await fetch(PUSH_ENDPOINT + '/latest', { cache: 'no-store' })).json(); } catch (err) {}
+    }
+    data = data || {};
+    return self.registration.showNotification(data.title || 'Marvel Tour', {
+      body: data.body || 'Имаме нещо ново за вас!',
+      icon: 'logo.svg?v=7',
+      badge: 'favicon.svg?v=9',
+      data: { url: data.url || './index.html' },
+      tag: data.tag || ('mt-' + (data.ts || ''))
+    });
+  })());
 });
 
 self.addEventListener('notificationclick', function (e) {
