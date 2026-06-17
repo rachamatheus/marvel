@@ -31,7 +31,7 @@ export default {
     if (url.pathname === '/hotels' && req.method === 'GET') {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
-      const ck = 'hl:' + await sha256(target);
+      const ck = 'hl3:' + await sha256(target);
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
       const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
       const hotels = parseHotelList(html);
@@ -44,7 +44,7 @@ export default {
     if (url.pathname === '/hotel' && req.method === 'GET') {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
-      const ck = 'h1:' + await sha256(target);
+      const ck = 'h3:' + await sha256(target);
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
       const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
       const body = JSON.stringify(parseHotelDetail(html));
@@ -56,7 +56,7 @@ export default {
     if (url.pathname === '/detail' && req.method === 'GET') {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
-      const ck = 'd1:' + await sha256(target);
+      const ck = 'd2:' + await sha256(target);
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
       const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
       const body = JSON.stringify(parseProgramDetail(html, target));
@@ -176,6 +176,15 @@ export default {
 // ===== PeakView парсване =====
 function isPeakview(u) { try { return new URL(u).hostname === 'iframe.peakview.bg'; } catch { return false; } }
 
+// общи филтри/нормализация за изображения (хотелски снимки от ЛЮБ хост)
+var IMG_BAD = /(logo|bialfon|pv_bial|sprite|icon|favicon|flag|blank|loader|spinner|placeholder|noimage|wd_)/i;
+var IMG_GOOD = /(hoteli|\/hotel\/|\/hotels\/|\/images\/|programi|\/files\/)/i;
+function normImg(u) { if (u.indexOf('//') === 0) u = 'https:' + u; return u.replace(/^http:\/\//i, 'https://').replace(/ /g, '%20'); }
+function firstHotelImg(block) {
+  var re = /(?:data-original|data-src|src)\s*=\s*["'](https?:\/\/[^"']+?\.(?:jpe?g|png|webp)|\/\/[^"']+?\.(?:jpe?g|png|webp))["']/gi, m;
+  while ((m = re.exec(block))) { if (IMG_BAD.test(m[1]) || !IMG_GOOD.test(m[1])) continue; return normImg(m[1]); }
+  return '';
+}
 function parseHotelList(html) {
   var hotels = [];
   var re = /<h2>\s*<a[^>]*href="(hotel-pochivka\.php\?[^"]+)"[^>]*>([\s\S]*?)<\/a>\s*<\/h2>([\s\S]*?)(?=<h2>\s*<a[^>]*hotel-pochivka|resp-tabs|$)/g;
@@ -184,13 +193,13 @@ function parseHotelList(html) {
     var href = m[1].replace(/&amp;/g, '&');
     var name = m[2].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
     var rest = m[3];
-    var cov = rest.match(/(\/\/static\.peakview\.bg\/img\/data2?\/\d+\/hoteli\/\d+\/[^"]+\.(?:jpg|jpeg|png))/i);
+    var cover = firstHotelImg(rest);   // снимка от ЛЮБ хост (emerald.bg, static.peakview, solvex и т.н.)
     var loc = rest.match(/>\s*([^<]*Турция[^<]*|[^<]*,\s*[^<]+?)<br/);
     var price = rest.match(/Цена\s*от[\s\S]{0,60}?([\d.]+)\s*лв/);
     hotels.push({
       name: name,
       url: 'https://iframe.peakview.bg/' + href,
-      cover: cov ? ('https:' + cov[1]) : '',
+      cover: cover,
       loc: loc ? loc[1].trim() : '',
       price: price ? price[1] : ''
     });
