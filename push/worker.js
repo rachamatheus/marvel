@@ -56,7 +56,7 @@ export default {
     if (url.pathname === '/detail' && req.method === 'GET') {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
-      const ck = 'd2:' + await sha256(target);
+      const ck = 'd3:' + await sha256(target);
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
       const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
       const body = JSON.stringify(parseProgramDetail(html, target));
@@ -253,17 +253,27 @@ function parseProgramDetail(html, target) {
   const gallery = [], seen = {};
   const gre = new RegExp('(\\/\\/static\\.peakview\\.bg\\/img\\/data\\/' + toid + '\\/programi\\/' + spo + '\\/[A-Za-z0-9_]+\\.(?:jpg|jpeg|png))', 'gi');
   let g; while ((g = gre.exec(html))) { const u = 'https:' + g[1]; if (!seen[u]) { seen[u] = 1; gallery.push(u); } }
-  // панели от resp-tabs-container — взимаме ВСИЧКИ (нищо не пропускаме)
+  // заглавия на табовете (resp-tabs-list) → за да мапнем панелите по СМИСЪЛ, не по позиция
+  const listM = html.match(/resp-tabs-list[^>]*>([\s\S]*?)<\/ul>/i);
+  const titles = [];
+  if (listM) { let lm, lre = /<li[^>]*>([\s\S]*?)<\/li>/gi; while ((lm = lre.exec(listM[1]))) titles.push(lm[1].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim().toLowerCase()); }
+  // панели от resp-tabs-container
   const ci = (html.match(/resp-tabs-container[^>]*>([\s\S]*)/) || [])[1] || '';
   const panels = topDivs(ci).map(cleanHtml);
-  return {
-    gallery: gallery,
-    hotels: panels[0] || '',
-    program: panels[1] || '',
-    includes: panels[2] || '',
-    excludes: panels[3] || '',
-    extra: panels.slice(4).filter(Boolean).join('<br><br>')   // „Допълнителна информация" и всичко след 4-те
-  };
+  const res = { gallery: gallery, hotels: '', program: '', includes: '', excludes: '', extra: '' };
+  panels.forEach(function (pan, idx) {
+    if (!pan) return;
+    const t = titles[idx] || '';
+    let key;
+    if (/хотел/.test(t)) key = 'hotels';
+    else if (/програма/.test(t)) key = 'program';
+    else if (/не\s*(е\s*)?вкл/.test(t)) key = 'excludes';
+    else if (/вкл/.test(t)) key = 'includes';
+    else if (/допълнителн|информац/.test(t)) key = 'extra';
+    else key = 'extra';
+    res[key] += (res[key] ? '<br><br>' : '') + pan;
+  });
+  return res;
 }
 // top-level <div> деца (по дълбочина)
 function topDivs(html) {
