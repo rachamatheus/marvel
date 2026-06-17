@@ -47,6 +47,7 @@
       if (typeof renderOffers === 'function') renderOffers();
       if (typeof renderFilters === 'function') renderFilters();
       if (typeof renderFeatured === 'function') renderFeatured();
+      if (typeof initContinentMap === 'function') initContinentMap();
       if (typeof updateStatCounter === 'function') updateStatCounter();
     }
   }
@@ -74,6 +75,7 @@
       if (typeof renderOffers === 'function') renderOffers();
       if (typeof renderFilters === 'function') renderFilters();
       if (typeof renderFeatured === 'function') renderFeatured();
+      if (typeof initContinentMap === 'function') initContinentMap();
       if (typeof updateStatCounter === 'function') updateStatCounter();
     }
   }).catch(function () {});

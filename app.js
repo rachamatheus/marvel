@@ -537,12 +537,24 @@ const CONTINENT_DATA = {
 
 let activeContinent = null;
 
+// Континент + координати на оферта — определя се от чистата дестинация (авто-попълване).
+function offerGeo(o) {
+  if (typeof window.mtGeo !== 'function') {
+    var coord0 = DEST_COORDS[o.country]; if (!coord0) return null;
+    var cont0 = Object.keys(CONTINENT_DATA).find(k => CONTINENT_DATA[k].countries.includes(o.country));
+    return cont0 ? { country: o.country, cont: cont0, lat: coord0[0], lon: coord0[1], flag: '📍' } : null;
+  }
+  var c = window.mtCountryFromDest(o.destination || '');
+  if (!c || !window.mtGeo(c)) c = window.mtCountryFromDest(window.mtDeriveDest(o.title || ''));
+  var g = window.mtGeo(c);
+  return g ? { country: c, cont: g[0], lat: g[1], lon: g[2], flag: g[3] } : null;
+}
 function initContinentMap() {
-  // Count offers per continent and update badges
-  Object.entries(CONTINENT_DATA).forEach(([key, data]) => {
-    const count = ALL_OFFERS.filter(o => data.countries.includes(o.country)).length;
+  var counts = { europe: 0, africa: 0, asia: 0, america: 0 };
+  ALL_OFFERS.forEach(o => { var g = offerGeo(o); if (g && counts[g.cont] != null) counts[g.cont]++; });
+  Object.keys(counts).forEach(key => {
     const el = document.getElementById(`cnt-${key}`);
-    if (el) el.textContent = count > 0 ? `${count} оферти` : 'Скоро';
+    if (el) el.textContent = counts[key] > 0 ? `${counts[key]} оферти` : 'Скоро';
   });
   renderDestinationPins();
 }
@@ -591,16 +603,13 @@ function renderDestinationPins() {
     bahamas:'🇧🇸', france:'🇫🇷', italy:'🇮🇹', morocco:'🇲🇦', jordan:'🇯🇴', poland:'🇵🇱', austria:'🇦🇹'
   };
 
-  // One pin per country that has offers
-  const seen = {};
-  ALL_OFFERS.forEach(o => { seen[o.country] = (seen[o.country] || 0) + 1; });
-  Object.keys(seen).forEach(key => {
-    const coord = DEST_COORDS[key];
-    if (!coord) return;
-    const country = COUNTRIES.find(c => c.key === key);
-    const name = country ? country.label : key;
-    const pos = geoToPercent(coord[0], coord[1]);
-    const count = seen[key];
+  // По една точка на държава с оферти — автоматично от дестинациите
+  const byCountry = {};
+  ALL_OFFERS.forEach(o => { const g = offerGeo(o); if (!g) return; (byCountry[g.country] = byCountry[g.country] || { n: 0, g: g }).n++; });
+  Object.keys(byCountry).forEach(name => {
+    const g = byCountry[name].g;
+    const pos = geoToPercent(g.lat, g.lon);
+    const count = byCountry[name].n;
     const pin = document.createElement('button');
     pin.className = 'dest-dot';
     pin.style.left = pos.left + '%';
@@ -608,13 +617,16 @@ function renderDestinationPins() {
     pin.setAttribute('aria-label', name);
     pin.dataset.count = count;
     pin.onclick = () => {
-      filterByCountry(key);
+      currentCountry = null; currentCategory = 'all'; currentTag = null;
+      currentSearch = name.toLowerCase();
+      const si = document.getElementById('searchInput'); if (si) si.value = name;
+      renderOffers();
       closeContinent();
       document.getElementById('offers').scrollIntoView({ behavior: 'smooth' });
     };
     pin.innerHTML =
       `<span class="dest-dot-core"></span>` +
-      `<span class="dest-tip">${name}</span>`;
+      `<span class="dest-tip">${(g.flag ? g.flag + ' ' : '') + name}</span>`;
     layer.appendChild(pin);
   });
 
