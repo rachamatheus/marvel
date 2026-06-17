@@ -464,7 +464,7 @@ function renderFeatured() {
 
   const [main, ...rest] = featured;
   let html = `
-    <a class="featured-card-large" href="oferta.html?id=${main.id}" target="_blank" rel="noopener">
+    <a class="featured-card-large" href="oferta.html?id=${main.id}">
       <img src="${proxify(coverOf(main))}" alt="${main.title}" loading="lazy" onerror="imgFallback(this)">
       <div class="featured-card-overlay">
         <div class="offer-destination">📍 ${main.destination}</div>
@@ -478,7 +478,7 @@ function renderFeatured() {
   `;
   rest.slice(0, 4).forEach(o => {
     html += `
-      <a class="featured-card-sm" href="oferta.html?id=${o.id}" target="_blank" rel="noopener">
+      <a class="featured-card-sm" href="oferta.html?id=${o.id}">
         <img src="${proxify(coverOf(o))}" alt="${o.title}" loading="lazy" onerror="imgFallback(this)">
         <div class="featured-card-overlay">
           <div class="offer-destination">📍 ${o.destination}</div>
@@ -563,7 +563,7 @@ function flagImg(cc, h) { return cc ? `<img src="https://flagcdn.com/h${h || 20}
 function filterByCountryName(name) {
   currentCountry = null; currentCategory = 'all'; currentTag = null;
   currentSearch = (name || '').toLowerCase();
-  const si = document.getElementById('searchInput'); if (si) si.value = name;
+  const si = document.getElementById('heroSearch'); if (si) si.value = name;
   if (typeof closeContinent === 'function') closeContinent();
   renderOffers();
   const sec = document.getElementById('offers'); if (sec) sec.scrollIntoView({ behavior: 'smooth' });
@@ -921,7 +921,7 @@ function renderOffers() {
     const _href = o.pv ? `oferta-jivo.html?id=${encodeURIComponent(o.id)}` : `oferta.html?id=${o.id}`;
     const _img = o.pv ? (o.image || imgSrc) : imgSrc;
     return `
-      <a class="offer-card animate-in" href="${_href}" target="_blank" rel="noopener" style="animation-delay:${Math.min(i * 0.05, 0.4)}s">
+      <a class="offer-card animate-in" href="${_href}" style="animation-delay:${Math.min(i * 0.05, 0.4)}s">
         <div class="offer-card-img-wrap">
           <img class="offer-card-img" src="${o.pv ? _img : proxify(_img)}" alt="${o.title}" loading="lazy"
                onerror="imgFallback(this)">
@@ -1013,6 +1013,20 @@ function filterCatCountry(cat, country) {
   renderOffers();
   const off = document.getElementById('offers'); if (off) off.scrollIntoView();
 }
+// Филтър по категория + държава (по име на дестинация)
+function filterCatCountryName(cat, name) {
+  currentCategory = cat || 'all';
+  currentCountry = null;
+  currentTag = null;
+  currentSearch = name ? name.toLowerCase() : '';
+  const hs = document.getElementById('heroSearch'); if (hs) hs.value = name || '';
+  document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === cat));
+  document.querySelectorAll('[data-tag]').forEach(b => b.classList.remove('active'));
+  closeAllNavDD();
+  if (typeof closeMobileMenuIfOpen === 'function') closeMobileMenuIfOpen();
+  renderOffers();
+  const off = document.getElementById('offers'); if (off) off.scrollIntoView();
+}
 // Country → ISO code (colorful flag images via flagcdn)
 const COUNTRY_ISO = {
   albania:'al', argentina:'ar', armenia:'am', austria:'at', azerbaijan:'az', bahamas:'bs',
@@ -1040,17 +1054,21 @@ function buildCategoryMenus() {
   ].forEach(([cat, id, word, icon]) => {
     const menu = document.getElementById(id);
     if (!menu) return;
+    // брои по реална дестинация (Бг държава), а не по англ. ключ — уеднаквено и без дубли
     const counts = {};
-    ALL_OFFERS.forEach(o => { if (o.category === cat && o.country) counts[o.country] = (counts[o.country] || 0) + 1; });
-    const items = Object.keys(counts).map(k => {
-      const c = (typeof COUNTRIES !== 'undefined') ? COUNTRIES.find(x => x.key === k) : null;
-      return { key: k, label: c ? c.label : k, n: counts[k] };
-    }).sort((a, b) => a.label.localeCompare(b.label, 'bg'));
+    ALL_OFFERS.forEach(o => {
+      const cats = (o.categories && o.categories.length ? o.categories : [o.category]);
+      if (cats.indexOf(cat) === -1) return;
+      const g = offerGeo(o); if (!g) return;
+      counts[g.country] = (counts[g.country] || 0) + 1;
+    });
+    const items = Object.keys(counts).map(name => ({ name: name, cc: ccOfCountry(name), n: counts[name] }))
+      .sort((a, b) => a.name.localeCompare(b.name, 'bg'));
     const total = items.reduce((s, i) => s + i.n, 0);
     let html = `<div class="nav-dd-head">${icon} Изберете дестинация</div>`;
-    html += `<a class="nav-dd-all" onclick="filterCatCountry('${cat}', null)">🌍 Всички ${word}<span class="nav-dd-n">${total}</span></a>`;
+    html += `<a class="nav-dd-all" onclick="filterCatCountryName('${cat}', null)">🌍 Всички ${word}<span class="nav-dd-n">${total}</span></a>`;
     html += `<div class="nav-dd-grid">` + items.map(it =>
-      `<a onclick="filterCatCountry('${cat}','${it.key}')"><span class="nav-dd-name">${flagImg(it.key)}<span class="nav-dd-lbl">${it.label}</span></span><span class="nav-dd-n">${it.n}</span></a>`).join('') + `</div>`;
+      `<a onclick="filterCatCountryName('${cat}','${it.name.replace(/'/g, "\\'")}')"><span class="nav-dd-name">${flagImg(it.cc, 16)}<span class="nav-dd-lbl">${it.name}</span></span><span class="nav-dd-n">${it.n}</span></a>`).join('') + `</div>`;
     menu.innerHTML = html;
   });
 }
