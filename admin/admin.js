@@ -1089,6 +1089,7 @@ var PV_OFFERS = (typeof window !== 'undefined' && window.PEAKVIEW_OFFERS) ? wind
 var pvSel = null;      // Set с публикуваните id-та
 var pvPrice = {};      // override цени {id: bgn}
 var pvLoaded = false;
+var pvComps = new Set(); // избрани оператори (показват се само техните оферти)
 
 function initPvCatalog() {
   if (pvLoaded) { renderPvCatalog(); return; }
@@ -1101,11 +1102,28 @@ function initPvCatalog() {
     pvPrice = d.prices || {};
   }).catch(function () {}).finally(function () {
     pvLoaded = true;
-    // фирми във филтъра
-    var sel = document.getElementById('pvCompFilter'); var seen = {};
-    PV_OFFERS.map(function (o) { return pvParse(o).operator; }).sort().forEach(function (name) { if (name && !seen[name]) { seen[name] = 1; var op = document.createElement('option'); op.value = name; op.textContent = name; sel.appendChild(op); } });
+    // чекбокс-меню с операторите
+    var menu = document.getElementById('pvCompMenu'); var seen = {};
+    var names = PV_OFFERS.map(function (o) { return pvParse(o).operator; }).filter(function (n) { if (!n || seen[n]) return false; seen[n] = 1; return true; }).sort(function (a, b) { return a.localeCompare(b, 'bg'); });
+    menu.innerHTML =
+      '<label style="display:flex;align-items:center;gap:8px;padding:6px 8px;font-size:0.82rem;color:var(--gray-500);border-bottom:1px solid var(--gray-100,#f3f4f6);cursor:pointer;"><input type="checkbox" id="pvCompAll" onchange="pvCompToggleAll(this.checked)" style="width:16px;height:16px;"> Избери всички</label>' +
+      names.map(function (n) {
+        return '<label style="display:flex;align-items:center;gap:8px;padding:6px 8px;font-size:0.85rem;cursor:pointer;border-radius:6px;" onmouseover="this.style.background=\'#f3f4f6\'" onmouseout="this.style.background=\'\'">' +
+          '<input type="checkbox" value="' + escapeHtml(n) + '" onchange="pvCompToggle(this)" style="width:16px;height:16px;flex:0 0 auto;"> ' + escapeHtml(n) + '</label>';
+      }).join('');
     renderPvCatalog();
   });
+}
+function togglePvComp(e) { if (e) e.stopPropagation(); var m = document.getElementById('pvCompMenu'); m.style.display = (m.style.display === 'block') ? 'none' : 'block'; }
+document.addEventListener('click', function (e) { var w = document.getElementById('pvCompWrap'); var m = document.getElementById('pvCompMenu'); if (m && w && !w.contains(e.target)) m.style.display = 'none'; });
+function pvCompToggle(cb) { if (cb.checked) pvComps.add(cb.value); else pvComps.delete(cb.value); pvCompUpdateBtn(); renderPvCatalog(); }
+function pvCompToggleAll(on) {
+  document.querySelectorAll('#pvCompMenu input[type=checkbox]').forEach(function (cb) { if (cb.id === 'pvCompAll') return; cb.checked = on; if (on) pvComps.add(cb.value); else pvComps.delete(cb.value); });
+  pvCompUpdateBtn(); renderPvCatalog();
+}
+function pvCompUpdateBtn() {
+  var b = document.getElementById('pvCompBtn');
+  b.textContent = pvComps.size ? ('🏢 Фирми: ' + pvComps.size + ' избрани ▾') : '🏢 Изберете фирми ▾';
 }
 
 // оператор от id "<toid>-<spo>" (само за админа)
@@ -1114,32 +1132,39 @@ function pvParse(o) { var m = String(o.id || '').match(/^(\d+)-(\d+)$/); return 
 function renderPvCatalog() {
   var q = (document.getElementById('pvSearch').value || '').toLowerCase().trim();
   var cat = document.getElementById('pvCatFilter').value;
-  var comp = document.getElementById('pvCompFilter').value;
+
+  // показваме оферти само ако е маркиран поне един оператор
+  if (!pvComps.size) {
+    document.getElementById('pvCount').textContent = 'Избрани за публикуване: ' + (pvSel ? pvSel.size : 0);
+    document.getElementById('pvCatalogList').innerHTML = '<div style="text-align:center;color:var(--gray-400);padding:2.4rem 1rem;border:1.5px dashed var(--gray-200,#e5e7eb);border-radius:12px;">🏢 Изберете една или повече <strong>фирми</strong> отгоре, за да видите техните оферти.</div>';
+    return;
+  }
+
   var list = PV_OFFERS.filter(function (o) {
+    if (!pvComps.has(pvParse(o).operator)) return false;
     if (cat && o.cat !== cat) return false;
-    if (comp && pvParse(o).operator !== comp) return false;
     if (q && (o.title + ' ' + o.dest).toLowerCase().indexOf(q) === -1) return false;
     return true;
   });
-  document.getElementById('pvCount').textContent = 'Избрани: ' + pvSel.size + ' / ' + PV_OFFERS.length + ' (показани ' + list.length + ')';
+  document.getElementById('pvCount').textContent = 'Избрани за публикуване: ' + pvSel.size + ' · показани ' + list.length;
   var html = list.map(function (o) {
     var checked = pvSel.has(o.id) ? 'checked' : '';
     var price = (pvPrice[o.id] != null && pvPrice[o.id] !== '') ? pvPrice[o.id] : (o.bgn || '');
     var img = o.cover;
-    return '<div style="display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--gray-200,#e5e7eb);border-radius:10px;margin-bottom:8px;background:' + (checked ? '#f0fdf4' : '#fff') + ';">' +
-      '<input type="checkbox" ' + checked + ' onchange="pvToggle(\'' + o.id + '\',this.checked)" style="width:20px;height:20px;flex:0 0 auto;cursor:pointer;">' +
-      '<img src="' + img + '" style="width:56px;height:42px;object-fit:cover;border-radius:6px;flex:0 0 auto;" loading="lazy">' +
+    return '<div style="display:flex;align-items:center;gap:16px;padding:14px 16px;border:1px solid var(--gray-200,#e5e7eb);border-radius:12px;margin-bottom:10px;background:' + (checked ? '#f0fdf4' : '#fff') + ';">' +
+      '<input type="checkbox" ' + checked + ' onchange="pvToggle(\'' + o.id + '\',this.checked)" style="width:22px;height:22px;flex:0 0 auto;cursor:pointer;">' +
+      '<img src="' + img + '" style="width:88px;height:66px;object-fit:cover;border-radius:8px;flex:0 0 auto;" loading="lazy">' +
       '<div style="min-width:0;flex:1;">' +
-        '<div style="font-weight:600;font-size:0.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escapeHtml(o.title) + '</div>' +
-        '<div style="font-size:0.76rem;color:var(--gray-500);">' + o.catlbl + ' · <strong style="color:#7c2d12;">🏢 ' + escapeHtml(pvParse(o).operator) + '</strong> · ID: ' + pvParse(o).spo + (o.dates ? ' · ' + o.dates : '') + '</div>' +
+        '<div style="font-weight:700;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;">' + escapeHtml(o.title) + '</div>' +
+        '<div style="font-size:0.82rem;color:var(--gray-500);">' + o.catlbl + ' · <strong style="color:#7c2d12;">🏢 ' + escapeHtml(pvParse(o).operator) + '</strong> · ID: ' + pvParse(o).spo + (o.dates ? ' · ' + o.dates : '') + '</div>' +
       '</div>' +
-      '<div style="flex:0 0 auto;display:flex;align-items:center;gap:8px;">' +
-        '<button type="button" onclick="pvPreview(\'' + o.id + '\')" style="font-size:0.8rem;font-weight:700;color:var(--primary);background:#fff;cursor:pointer;border:1.5px solid var(--gray-200,#e5e7eb);border-radius:8px;padding:6px 10px;white-space:nowrap;font-family:inherit;">👁 Отвори</button>' +
-        '<input type="number" value="' + price + '" onchange="pvSetPrice(\'' + o.id + '\',this.value)" style="width:80px;padding:6px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.82rem;"> лв.' +
+      '<div style="flex:0 0 auto;display:flex;align-items:center;gap:10px;">' +
+        '<button type="button" onclick="pvPreview(\'' + o.id + '\')" style="font-size:0.86rem;font-weight:700;color:var(--primary);background:#fff;cursor:pointer;border:1.5px solid var(--gray-200,#e5e7eb);border-radius:8px;padding:9px 14px;white-space:nowrap;font-family:inherit;">👁 Отвори</button>' +
+        '<input type="number" value="' + price + '" onchange="pvSetPrice(\'' + o.id + '\',this.value)" style="width:90px;padding:8px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.88rem;"> лв.' +
       '</div>' +
       '</div>';
   }).join('');
-  document.getElementById('pvCatalogList').innerHTML = html || '<p style="color:var(--gray-400);">Няма оферти по филтъра.</p>';
+  document.getElementById('pvCatalogList').innerHTML = html || '<p style="color:var(--gray-400);">Няма оферти по този филтър за избраните фирми.</p>';
 }
 
 // Преглед на оферта в overlay вътре в админа (не в PWA приложението) + ✕ за затваряне

@@ -428,7 +428,10 @@
                 <option value="exotic">Екзотика</option>
                 <option value="cruise">Круизи</option>
               </select>
-              <select class="form-select" id="pvCompFilter" onchange="renderPvCatalog()" style="max-width:200px;"><option value="">Всички фирми</option></select>
+              <div id="pvCompWrap" style="position:relative;">
+                <button type="button" class="form-select" id="pvCompBtn" onclick="togglePvComp(event)" style="max-width:260px;min-width:200px;text-align:left;cursor:pointer;">🏢 Изберете фирми ▾</button>
+                <div id="pvCompMenu" style="display:none;position:absolute;top:calc(100% + 4px);left:0;z-index:80;background:#fff;border:1px solid var(--gray-200,#e5e7eb);border-radius:10px;box-shadow:0 12px 34px rgba(8,20,50,.18);width:300px;max-height:360px;overflow:auto;padding:8px;"></div>
+              </div>
               <span id="pvCount" style="font-size:0.82rem;color:var(--gray-500);"></span>
               <button class="form-submit" style="max-width:220px;margin-left:auto;" onclick="savePvCatalog()">💾 Запази и публикувай</button>
             </div>
@@ -575,7 +578,7 @@
 <script src="../sb-init.js?v=128"></script>
 <script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
 <script src="../data/peakview.js?v=2"></script>
-<script src="admin.js?v=148"></script>
+<script src="admin.js?v=149"></script>
 <script>
   // ===== PWA: инсталиране на админ панела като приложение =====
   if ('serviceWorker' in navigator) {
