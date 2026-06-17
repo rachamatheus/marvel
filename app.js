@@ -544,7 +544,10 @@ function offerGeo(o) {
     var cont0 = Object.keys(CONTINENT_DATA).find(k => CONTINENT_DATA[k].countries.includes(o.country));
     return cont0 ? { country: o.country, cont: cont0, lat: coord0[0], lon: coord0[1], flag: '📍' } : null;
   }
-  var c = window.mtCountryFromDest(o.destination || '');
+  // 1) ако офертата има изрично избрана държава (на кирилица) — тя е водеща
+  var c = (o.country && window.mtGeo(o.country)) ? o.country : '';
+  // 2) иначе изведи от дестинацията/заглавието
+  if (!c) c = window.mtCountryFromDest(o.destination || '');
   if (!c || !window.mtGeo(c)) c = window.mtCountryFromDest(window.mtDeriveDest(o.title || ''));
   var g = window.mtGeo(c);
   return g ? { country: c, cont: g[0], lat: g[1], lon: g[2], flag: g[3] } : null;

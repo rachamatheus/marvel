@@ -165,6 +165,8 @@
     return last.replace(/^[\(\[]+/, '').replace(/[\)\]\.!?]+$/, '').trim();
   };
   window.mtGeo = function (country) { return GEO[country] || null; };
+  // подреден списък с всички държави (на кирилица) — за падащо меню/търсачка
+  window.mtCountries = Object.keys(GEO).sort(function (a, b) { return a.localeCompare(b, 'bg'); });
 
   window.mtDeriveDest = function (title) {
     var t = ' ' + String(title || '').toLowerCase().replace(/ё/g, 'е') + ' ';

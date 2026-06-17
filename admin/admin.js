@@ -799,6 +799,25 @@ function confirmDeleteOffer(id) {
 }
 
 // ===== OFFER MODAL =====
+// българско име на държавата за дадена оферта (от полето country, или изведено)
+function bgCountryOf(o) {
+  if (!o) return '';
+  if (window.mtGeo && window.mtGeo(o.country)) return o.country;
+  var c = (typeof COUNTRIES !== 'undefined') ? COUNTRIES.find(function (x) { return x.key === o.country; }) : null;
+  if (c) return c.label;
+  if (window.mtCountryFromDest) {
+    var d = window.mtCountryFromDest(o.destination || '');
+    if (d && window.mtGeo(d)) return d;
+    d = window.mtCountryFromDest(window.mtDeriveDest(o.title || ''));
+    if (d && window.mtGeo(d)) return d;
+  }
+  return '';
+}
+function fillCountryList() {
+  var dl = document.getElementById('mtCountryList');
+  if (!dl || dl.childElementCount || !window.mtCountries) return;
+  dl.innerHTML = window.mtCountries.map(function (n) { return '<option value="' + n + '">'; }).join('');
+}
 function getOfferCategories() {
   return [].slice.call(document.querySelectorAll('#of_categories .of-cat:checked')).map(function (c) { return c.value; });
 }
@@ -819,7 +838,7 @@ function openOfferModal(id) {
     document.getElementById('of_refnum').value = offer.refNum || '';
     setOfferCategories(offer.categories && offer.categories.length ? offer.categories : [offer.category || 'excursion']);
     document.getElementById('of_destination').value = offer.destination || '';
-    document.getElementById('of_country').value = offer.country || '';
+    document.getElementById('of_country').value = bgCountryOf(offer);
     document.getElementById('of_transport').value = offer.transport || '';
     document.getElementById('of_days').value = offer.days || '';
     document.getElementById('of_nights').value = offer.nights || '';
@@ -858,6 +877,7 @@ function openOfferModal(id) {
     document.getElementById('of_featured').checked = false;
   }
 
+  fillCountryList();
   renderOfferDates();
   renderOfferHotels();
   renderOfferGallery();

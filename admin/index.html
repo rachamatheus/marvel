@@ -491,8 +491,9 @@
             <input type="text" class="form-input" id="of_destination" placeholder="напр. Рим — Ватикана">
           </div>
           <div class="form-group">
-            <label class="form-label">Страна (ID)</label>
-            <input type="text" class="form-input" id="of_country" placeholder="напр. italy">
+            <label class="form-label">Държава</label>
+            <input type="text" class="form-input" id="of_country" list="mtCountryList" placeholder="Търси държава… (на кирилица)" autocomplete="off">
+            <datalist id="mtCountryList"></datalist>
           </div>
           <div class="form-group">
             <label class="form-label">Транспорт</label>
@@ -586,8 +587,8 @@
 <script src="../sb-init.js?v=128"></script>
 <script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
 <script src="../data/peakview.js?v=2"></script>
-<script src="../dest-util.js?v=4"></script>
-<script src="admin.js?v=164"></script>
+<script src="../dest-util.js?v=5"></script>
+<script src="admin.js?v=165"></script>
 <script>
   // ===== PWA: инсталиране на админ панела като приложение =====
   if ('serviceWorker' in navigator) {
