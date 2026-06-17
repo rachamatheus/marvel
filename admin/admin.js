@@ -632,10 +632,10 @@ function populateCountryFilter() {
 // Публикуваните PeakView оферти (глобално в /catalog) — кеширани веднъж за таблицата.
 var pvPubCache = null;
 function pvDateNext(txt) { var m = String(txt || '').match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/); return m ? (m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0')) : ''; }
-function buildPvOnlineRows() {
+function buildPvOnlineRows(excludeIds) {
   if (!pvPubCache || !PV_OFFERS.length) return [];
-  var nativeIds = {}; allOffers.forEach(function (o) { nativeIds[String(o.id)] = 1; });
-  return PV_OFFERS.filter(function (p) { return pvPubCache.ids.has(String(p.id)) && !nativeIds[String(p.id)]; }).map(function (p) {
+  var skip = {}; (excludeIds || []).forEach(function (i) { skip[String(i)] = 1; });
+  return PV_OFFERS.filter(function (p) { return pvPubCache.ids.has(String(p.id)) && !skip[String(p.id)]; }).map(function (p) {
     var bgn = (pvPubCache.prices[p.id] != null && pvPubCache.prices[p.id] !== '') ? parseFloat(pvPubCache.prices[p.id]) : (parseFloat(p.bgn) || 0);
     return {
       id: p.id, pv: true, title: p.title, refNum: '', destination: p.dest || '',
@@ -658,10 +658,12 @@ function renderAdminOffers() {
   const search = (document.getElementById('offerSearch')?.value || '').toLowerCase();
   const country = document.getElementById('offerCountryFilter')?.value || '';
   const views = getViewCounts();
-  const customIds = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]').map(c => String(c.id));
+  const customList = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
+  const customIds = customList.map(c => String(c.id));
 
-  // онлайн = нативните (data/offers.js + custom) + публикуваните PeakView
-  let combined = allOffers.concat(buildPvOnlineRows());
+  // показваме САМО това, което е добавено: ръчни (глобални) оферти + публикувани PeakView.
+  // Старият статичен каталог (data/offers.js) не се изрежда тук.
+  let combined = customList.concat(buildPvOnlineRows(customIds));
   let list = combined.filter(o => {
     const matchSearch = !search || o.title.toLowerCase().includes(search) || (o.destination && o.destination.toLowerCase().includes(search));
     const matchCountry = !country || o.country === country;
