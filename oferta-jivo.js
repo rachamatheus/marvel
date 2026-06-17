@@ -86,7 +86,7 @@
               (h.cover ? '<img src="' + h.cover + '" loading="lazy" onerror="this.style.display=\'none\'">' : '') +
               '<div class="pv-hotel-info"><div class="pv-hotel-name">' + h.name + '</div>' +
                 '<div class="pv-hotel-loc">' + (h.loc || '') + '</div>' +
-                (h.price ? '<div class="pv-hotel-price">от ' + h.price + ' лв.</div>' : '') +
+                (h.price ? '<div class="pv-hotel-price">от ' + money(h.price) + '</div>' : '') +
               '</div>' +
               '<span class="pv-hotel-toggle">Виж повече ▾</span>' +
             '</div>' +
@@ -109,6 +109,8 @@
       .finally(function () { if (body.style.display === 'block') body.innerHTML = hotelBodyHtml(i); });
   };
   function dsort(a, b) { var x = a.split('.'), y = b.split('.'); return (x[2] - y[2]) || (x[1] - y[1]) || (x[0] - y[0]); }
+  function eurOf(bgn) { var n = parseFloat(String(bgn).replace(/[^\d.]/g, '')); return n ? Math.round(n / 1.95583) : 0; }
+  function money(bgn) { var e = eurOf(bgn); return bgn + ' лв.' + (e ? ' / ' + e + ' €' : ''); }
   // групира плоските редове по ТИП СТАЯ → { roomKey: { occs:[], byDate:{ date:{ occ:price } } } }
   function groupRooms(d) {
     var rooms = {}, order = [];
@@ -134,11 +136,12 @@
       var dates = Object.keys(rm.byDate).sort(dsort);
       var head = '<tr><th>Дата</th>' + rm.occs.map(function (o) { return '<th>' + o + '</th>'; }).join('') + '</tr>';
       var body = dates.map(function (date) {
-        return '<tr><td><strong>' + date + '</strong></td>' + rm.occs.map(function (o) {
+        var rowSel = (SELP && SELP.i === i && SELP.key === key && SELP.date === date);
+        return '<tr class="pv-price-row' + (rowSel ? ' selected' : '') + '"><td><strong>' + (rowSel ? '✔ ' : '') + date + '</strong></td>' + rm.occs.map(function (o) {
           var p = rm.byDate[date][o];
           if (p == null) return '<td>—</td>';
-          var sel = (SELP && SELP.i === i && SELP.key === key && SELP.date === date && SELP.occ === o);
-          return '<td class="pv-price-cell' + (sel ? ' selected' : '') + '" onclick="pickCell(' + i + ',\'' + esc(key) + '\',\'' + date + '\',\'' + esc(o) + '\',\'' + p + '\')">' + (sel ? '✔ ' : '') + p + ' лв.</td>';
+          var sel = (rowSel && SELP.occ === o);
+          return '<td class="pv-price-cell' + (sel ? ' selected' : '') + '" onclick="pickCell(' + i + ',\'' + esc(key) + '\',\'' + date + '\',\'' + esc(o) + '\',\'' + p + '\')">' + money(p) + '</td>';
         }).join('') + '</tr>';
       }).join('');
       return '<div class="pv-room-title">' + key + '</div><div style="overflow-x:auto;"><table class="pv-price-table">' + head + body + '</table></div>';
@@ -158,7 +161,7 @@
     var body = document.getElementById('pvhb-' + i); if (body) body.innerHTML = hotelBodyHtml(i);  // пре-маркирай
     var dsel = document.getElementById('inqDate'); if (dsel) { for (var o = 0; o < dsel.options.length; o++) if (dsel.options[o].value === date) dsel.selectedIndex = o; }
     var box = document.getElementById('inqSelected');
-    if (box) { box.style.display = 'block'; box.innerHTML = '✅ Избрано: <strong>' + SELP.hotel + '</strong> · ' + key + ' · ' + occ + ' · ' + date + ' · <strong>' + price + ' лв.</strong>'; }
+    if (box) { box.style.display = 'block'; box.innerHTML = '✅ Избрано: <strong>' + SELP.hotel + '</strong> · ' + key + ' · ' + occ + ' · ' + date + ' · <strong>' + money(price) + '</strong>'; }
     var sec = document.getElementById('inquirySection'); if (sec) sec.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -226,7 +229,7 @@
       adults: document.getElementById('inqAdults').value,
       children: document.getElementById('inqChildren').value,
       hotel: SELP ? SELP.hotel : '',
-      message: (SELP ? ('Избрано: ' + SELP.hotel + ' · ' + SELP.key + ' · ' + SELP.occ + ' · ' + SELP.date + ' · ' + SELP.price + ' лв.\n') : '') + document.getElementById('inqMsg').value.trim(),
+      message: (SELP ? ('Избрано: ' + SELP.hotel + ' · ' + SELP.key + ' · ' + SELP.occ + ' · ' + SELP.date + ' · ' + money(SELP.price) + '\n') : '') + document.getElementById('inqMsg').value.trim(),
       status: 'new',
       created_at: new Date().toISOString()
     };
