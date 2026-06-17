@@ -10,10 +10,17 @@
   var PUSH_ENDPOINT = 'https://marveltour-push.marveltour.workers.dev';        // напр. 'https://marveltour-push.ТВОЙ.workers.dev'
   var VAPID_PUBLIC_KEY = 'BC3abPw_LVHivGqPREggE31IpbWBGEFwABs-748-xN5H5nN6iGfloWBTlS-KRelYng8zMklEAxPChNzDhgs1QGE';     // публичният VAPID ключ (base64url)
 
-  // ---------- Service worker ----------
+  // ---------- Service worker (с авто-обновяване) ----------
   if ('serviceWorker' in navigator) {
+    var _refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (_refreshing) return; _refreshing = true; window.location.reload();
+    });
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').catch(function () {});
+      navigator.serviceWorker.register('sw.js').then(function (reg) {
+        reg.update();
+        setInterval(function () { reg.update(); }, 60 * 60 * 1000); // проверка на всеки час
+      }).catch(function () {});
     });
   }
 
