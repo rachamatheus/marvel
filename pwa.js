@@ -25,7 +25,7 @@
   function makeChip(label, bg) {
     var b = document.createElement('button');
     b.textContent = label;
-    b.style.cssText = 'display:none;border:0;border-radius:999px;padding:11px 16px;font:600 0.85rem system-ui,sans-serif;color:#fff;cursor:pointer;box-shadow:0 8px 24px rgba(8,20,50,.28);background:' + bg + ';';
+    b.style.cssText = 'display:none;border:0;border-radius:999px;padding:7px 12px;font:600 0.74rem system-ui,sans-serif;color:#fff;cursor:pointer;box-shadow:0 6px 18px rgba(8,20,50,.25);background:' + bg + ';';
     bar.appendChild(b);
     return b;
   }
