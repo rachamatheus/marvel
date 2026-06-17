@@ -12,6 +12,9 @@
   var CHAT_ENDPOINT = 'https://marveltour-chat.YOUR-SUBDOMAIN.workers.dev';
   // ⬆⬆⬆ напр. https://marveltour-chat.ivan.workers.dev ⬆⬆⬆
 
+  // Докато адресът не е настроен (placeholder), чатът е скрит — да не дава грешка на клиентите.
+  if (CHAT_ENDPOINT.indexOf('YOUR-SUBDOMAIN') !== -1) return;
+
   var GREETING = 'Здравейте! 👋 Аз съм виртуалният асистент на Marvel Tour. С какво да помогна — почивка, екскурзия или нещо екзотично?';
 
   var history = []; // [{role, content}]
