@@ -1103,10 +1103,13 @@ function initPvCatalog() {
     pvLoaded = true;
     // фирми във филтъра
     var sel = document.getElementById('pvCompFilter'); var seen = {};
-    PV_OFFERS.forEach(function (o) { if (o.company && !seen[o.company]) { seen[o.company] = 1; var op = document.createElement('option'); op.value = o.company; op.textContent = o.company; sel.appendChild(op); } });
+    PV_OFFERS.map(function (o) { return pvParse(o).operator; }).sort().forEach(function (name) { if (name && !seen[name]) { seen[name] = 1; var op = document.createElement('option'); op.value = name; op.textContent = name; sel.appendChild(op); } });
     renderPvCatalog();
   });
 }
+
+// оператор от id "<toid>-<spo>" (само за админа)
+function pvParse(o) { var m = String(o.id || '').match(/^(\d+)-(\d+)$/); return m ? { operator: PV_OPERATORS[+m[1]] || ('Оператор #' + m[1]), spo: m[2] } : { operator: o.company || '', spo: '' }; }
 
 function renderPvCatalog() {
   var q = (document.getElementById('pvSearch').value || '').toLowerCase().trim();
@@ -1114,7 +1117,7 @@ function renderPvCatalog() {
   var comp = document.getElementById('pvCompFilter').value;
   var list = PV_OFFERS.filter(function (o) {
     if (cat && o.cat !== cat) return false;
-    if (comp && o.company !== comp) return false;
+    if (comp && pvParse(o).operator !== comp) return false;
     if (q && (o.title + ' ' + o.dest).toLowerCase().indexOf(q) === -1) return false;
     return true;
   });
@@ -1128,7 +1131,7 @@ function renderPvCatalog() {
       '<img src="' + img + '" style="width:56px;height:42px;object-fit:cover;border-radius:6px;flex:0 0 auto;" loading="lazy">' +
       '<div style="min-width:0;flex:1;">' +
         '<div style="font-weight:600;font-size:0.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escapeHtml(o.title) + '</div>' +
-        '<div style="font-size:0.76rem;color:var(--gray-500);">' + o.catlbl + ' · ' + escapeHtml(o.company) + (o.dates ? ' · ' + o.dates : '') + '</div>' +
+        '<div style="font-size:0.76rem;color:var(--gray-500);">' + o.catlbl + ' · <strong style="color:#7c2d12;">🏢 ' + escapeHtml(pvParse(o).operator) + '</strong> · ID: ' + pvParse(o).spo + (o.dates ? ' · ' + o.dates : '') + '</div>' +
       '</div>' +
       '<div style="flex:0 0 auto;display:flex;align-items:center;gap:4px;">' +
         '<input type="number" value="' + price + '" onchange="pvSetPrice(\'' + o.id + '\',this.value)" style="width:80px;padding:6px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.82rem;"> лв.' +
