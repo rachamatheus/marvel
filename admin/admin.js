@@ -1134,12 +1134,42 @@ function renderPvCatalog() {
         '<div style="font-size:0.76rem;color:var(--gray-500);">' + o.catlbl + ' · <strong style="color:#7c2d12;">🏢 ' + escapeHtml(pvParse(o).operator) + '</strong> · ID: ' + pvParse(o).spo + (o.dates ? ' · ' + o.dates : '') + '</div>' +
       '</div>' +
       '<div style="flex:0 0 auto;display:flex;align-items:center;gap:8px;">' +
-        '<a href="../oferta-jivo.html?id=' + encodeURIComponent(o.id) + '" target="_blank" rel="noopener" style="font-size:0.8rem;font-weight:700;color:var(--primary);text-decoration:none;border:1.5px solid var(--gray-200,#e5e7eb);border-radius:8px;padding:6px 10px;white-space:nowrap;">👁 Отвори</a>' +
+        '<button type="button" onclick="pvPreview(\'' + o.id + '\')" style="font-size:0.8rem;font-weight:700;color:var(--primary);background:#fff;cursor:pointer;border:1.5px solid var(--gray-200,#e5e7eb);border-radius:8px;padding:6px 10px;white-space:nowrap;font-family:inherit;">👁 Отвори</button>' +
         '<input type="number" value="' + price + '" onchange="pvSetPrice(\'' + o.id + '\',this.value)" style="width:80px;padding:6px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.82rem;"> лв.' +
       '</div>' +
       '</div>';
   }).join('');
   document.getElementById('pvCatalogList').innerHTML = html || '<p style="color:var(--gray-400);">Няма оферти по филтъра.</p>';
+}
+
+// Преглед на оферта в overlay вътре в админа (не в PWA приложението) + ✕ за затваряне
+function pvPreview(id) {
+  var ov = document.getElementById('pvPreviewOverlay');
+  if (!ov) {
+    ov = document.createElement('div');
+    ov.id = 'pvPreviewOverlay';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(8,16,35,.62);display:flex;align-items:center;justify-content:center;padding:18px;';
+    ov.onclick = function (e) { if (e.target === ov) closePvPreview(); };
+    ov.innerHTML = '<div style="background:#fff;border-radius:16px;width:100%;max-width:1040px;height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(8,20,50,.5);">' +
+        '<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid #eef0f4;">' +
+          '<strong style="flex:1;color:var(--primary,#1a3a6b);font-size:0.95rem;">👁 Преглед на оферта</strong>' +
+          '<button type="button" onclick="closePvPreview()" aria-label="Затвори" style="background:none;border:none;font-size:26px;line-height:1;cursor:pointer;color:#6b7280;">✕</button>' +
+        '</div>' +
+        '<iframe id="pvPreviewFrame" style="flex:1;width:100%;border:0;"></iframe>' +
+      '</div>';
+    document.body.appendChild(ov);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePvPreview(); });
+  }
+  document.getElementById('pvPreviewFrame').src = '../oferta-jivo.html?id=' + encodeURIComponent(id);
+  ov.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closePvPreview() {
+  var ov = document.getElementById('pvPreviewOverlay');
+  if (!ov) return;
+  ov.style.display = 'none';
+  document.getElementById('pvPreviewFrame').src = 'about:blank';
+  document.body.style.overflow = '';
 }
 
 function pvToggle(id, on) {
