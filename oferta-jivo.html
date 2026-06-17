@@ -53,9 +53,10 @@
     .pv-price-table th { background:rgba(26,58,107,0.06); color:var(--primary); text-align:left; padding:8px 10px; border:1px solid var(--gray-200,#e5e7eb); }
     .pv-price-table td { padding:8px 10px; border:1px solid var(--gray-200,#e5e7eb); color:#1f2430; }
     .pv-price-table tr:nth-child(even) td { background:rgba(0,0,0,0.02); }
-    .pv-price-row { cursor:pointer; }
-    .pv-price-row:hover td { background:rgba(201,168,76,0.16); }
-    .pv-price-row.selected td { background:#dcfce7 !important; color:#08351c; font-weight:700; }
+    .pv-room-title { font-weight:800; color:var(--primary); margin:14px 0 6px; font-size:0.98rem; }
+    .pv-price-cell { cursor:pointer; color:var(--primary); font-weight:600; white-space:nowrap; }
+    .pv-price-cell:hover { background:rgba(201,168,76,0.18); }
+    .pv-price-cell.selected { background:#dcfce7 !important; color:#08351c; font-weight:800; }
   </style>
 </head>
 <body>
@@ -153,7 +154,7 @@
 <div class="toast-container" id="toastContainer"></div>
 
 <script src="data/peakview.js?v=1"></script>
-<script src="oferta-jivo.js?v=2"></script>
+<script src="oferta-jivo.js?v=3"></script>
 <script src="lang.js?v=136"></script>
 <script src="pwa.js?v=8"></script>
 <script src="auth.js?v=1"></script>

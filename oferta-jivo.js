@@ -108,40 +108,57 @@
       .catch(function () { PVH.det[i] = { gallery: [], dates: {} }; })
       .finally(function () { if (body.style.display === 'block') body.innerHTML = hotelBodyHtml(i); });
   };
+  function dsort(a, b) { var x = a.split('.'), y = b.split('.'); return (x[2] - y[2]) || (x[1] - y[1]) || (x[0] - y[0]); }
+  // групира плоските редове по ТИП СТАЯ → { roomKey: { occs:[], byDate:{ date:{ occ:price } } } }
+  function groupRooms(d) {
+    var rooms = {}, order = [];
+    Object.keys(d.dates || {}).forEach(function (date) {
+      (d.dates[date] || []).forEach(function (r) {
+        var parts = r.room.split(' - ');
+        var occ = (parts[0] || '').trim() || 'Настаняване';
+        var key = (parts.slice(1).join(' - ').trim()) || 'Стая';
+        if (!rooms[key]) { rooms[key] = { occs: [], byDate: {} }; order.push(key); }
+        var rm = rooms[key];
+        if (rm.occs.indexOf(occ) === -1) rm.occs.push(occ);
+        (rm.byDate[date] = rm.byDate[date] || {})[occ] = r.price;
+      });
+    });
+    return { rooms: rooms, order: order };
+  }
   function hotelBodyHtml(i) {
     var d = PVH.det[i]; if (!d) return '';
     var thumbs = (d.gallery || []).map(function (u, k) { return '<img src="' + u + '" loading="lazy" onclick="openLightbox(PVHGAL(' + i + '),' + k + ')" onerror="this.style.display=\'none\'">'; }).join('');
-    var dates = Object.keys(d.dates || {});
-    var dsel = dates.length ? ('<div class="pv-hp-head"><label>📅 Дата:</label> <select onchange="hotelDate(' + i + ',this.value)">' + dates.map(function (x) { return '<option value="' + x + '">' + x + '</option>'; }).join('') + '</select></div>') : '';
+    var g = groupRooms(d);
+    var tables = g.order.map(function (key) {
+      var rm = g.rooms[key];
+      var dates = Object.keys(rm.byDate).sort(dsort);
+      var head = '<tr><th>Дата</th>' + rm.occs.map(function (o) { return '<th>' + o + '</th>'; }).join('') + '</tr>';
+      var body = dates.map(function (date) {
+        return '<tr><td><strong>' + date + '</strong></td>' + rm.occs.map(function (o) {
+          var p = rm.byDate[date][o];
+          if (p == null) return '<td>—</td>';
+          var sel = (SELP && SELP.i === i && SELP.key === key && SELP.date === date && SELP.occ === o);
+          return '<td class="pv-price-cell' + (sel ? ' selected' : '') + '" onclick="pickCell(' + i + ',\'' + esc(key) + '\',\'' + date + '\',\'' + esc(o) + '\',\'' + p + '\')">' + (sel ? '✔ ' : '') + p + ' лв.</td>';
+        }).join('') + '</tr>';
+      }).join('');
+      return '<div class="pv-room-title">' + key + '</div><div style="overflow-x:auto;"><table class="pv-price-table">' + head + body + '</table></div>';
+    }).join('');
     return (thumbs ? '<div class="pv-hgal">' + thumbs + '</div>' : '') +
       (d.desc ? '<p class="pv-hdesc">' + d.desc + '</p>' : '') +
-      dsel +
-      (dates.length ? '<div style="font-size:0.82rem;color:var(--gray-500,#6b7280);margin:2px 0 6px;">Натиснете ред, за да изберете настаняване — отива в запитването.</div>' : '') +
-      '<div id="pvhp-' + i + '">' + priceTable(i, dates[0]) + '</div>' +
-      (!dates.length && !thumbs ? '<p style="color:var(--gray-400);">Няма допълнителна информация. Свържете се с нас за този хотел.</p>' : '');
+      (tables ? '<div style="font-size:0.82rem;color:var(--gray-500,#6b7280);margin:6px 0;">💡 Натиснете цена, за да я добавите в запитването.</div>' + tables : '') +
+      (!tables && !thumbs && !d.desc ? '<p style="color:var(--gray-400);">Свържете се с нас за този хотел.</p>' : '');
   }
   window.PVHGAL = function (i) { return (PVH.det[i] && PVH.det[i].gallery) || []; };
-  function priceTable(i, date) {
-    var d = PVH.det[i]; var rows = (d && d.dates && d.dates[date]) || [];
-    if (!rows.length) return '';
-    return '<table class="pv-price-table"><thead><tr><th>Настаняване</th><th>Цена</th></tr></thead><tbody>' +
-      rows.map(function (r, k) {
-        var sel = (SELP && SELP.i === i && SELP.date === date && SELP.room === r.room);
-        return '<tr class="pv-price-row' + (sel ? ' selected' : '') + '" onclick="pickRoom(' + i + ',\'' + date + '\',' + k + ')">' +
-          '<td>' + (sel ? '✔ ' : '') + r.room + '</td><td><strong>' + r.price + ' лв.</strong></td></tr>';
-      }).join('') + '</tbody></table>';
-  }
-  window.hotelDate = function (i, date) { var t = document.getElementById('pvhp-' + i); if (t) t.innerHTML = priceTable(i, date); };
+  function esc(s) { return String(s).replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
 
-  // избор на настаняване → в запитването
+  // избор на цена (стая · настаняване · дата) → в запитването
   var SELP = null;
-  window.pickRoom = function (i, date, k) {
-    var d = PVH.det[i]; var r = d && d.dates && d.dates[date] && d.dates[date][k]; if (!r) return;
-    SELP = { i: i, date: date, room: r.room, price: r.price, hotel: (PVH.list[i] || {}).name || '' };
-    document.getElementById('pvhp-' + i).innerHTML = priceTable(i, date);   // пре-маркирай
+  window.pickCell = function (i, key, date, occ, price) {
+    SELP = { i: i, key: key, date: date, occ: occ, price: price, hotel: (PVH.list[i] || {}).name || '' };
+    var body = document.getElementById('pvhb-' + i); if (body) body.innerHTML = hotelBodyHtml(i);  // пре-маркирай
     var dsel = document.getElementById('inqDate'); if (dsel) { for (var o = 0; o < dsel.options.length; o++) if (dsel.options[o].value === date) dsel.selectedIndex = o; }
     var box = document.getElementById('inqSelected');
-    if (box) { box.style.display = 'block'; box.innerHTML = '✅ Избрано: <strong>' + SELP.hotel + '</strong> · ' + SELP.room + ' · ' + date + ' · <strong>' + SELP.price + ' лв.</strong>'; }
+    if (box) { box.style.display = 'block'; box.innerHTML = '✅ Избрано: <strong>' + SELP.hotel + '</strong> · ' + key + ' · ' + occ + ' · ' + date + ' · <strong>' + price + ' лв.</strong>'; }
     var sec = document.getElementById('inquirySection'); if (sec) sec.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -209,7 +226,7 @@
       adults: document.getElementById('inqAdults').value,
       children: document.getElementById('inqChildren').value,
       hotel: SELP ? SELP.hotel : '',
-      message: (SELP ? ('Избрано: ' + SELP.hotel + ' · ' + SELP.room + ' · ' + SELP.date + ' · ' + SELP.price + ' лв.\n') : '') + document.getElementById('inqMsg').value.trim(),
+      message: (SELP ? ('Избрано: ' + SELP.hotel + ' · ' + SELP.key + ' · ' + SELP.occ + ' · ' + SELP.date + ' · ' + SELP.price + ' лв.\n') : '') + document.getElementById('inqMsg').value.trim(),
       status: 'new',
       created_at: new Date().toISOString()
     };
