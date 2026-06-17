@@ -1049,10 +1049,6 @@ const COUNTRY_ISO = {
   switzerland:'ch', tanzania:'tz', thailand:'th', tunisia:'tn', turkey:'tr', uae:'ae',
   uk:'gb', usa:'us', vietnam:'vn'
 };
-function flagImg(key) {
-  const iso = COUNTRY_ISO[key];
-  return iso ? `<img class="nav-dd-flag" src="https://flagcdn.com/32x24/${iso}.png" width="22" height="16" alt="" loading="lazy">` : '<span class="nav-dd-flag">🏳️</span>';
-}
 // Populate the Почивки / Екскурзии / Екзотика nav dropdowns with destinations
 function buildCategoryMenus() {
   [
