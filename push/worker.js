@@ -64,6 +64,42 @@ export default {
       return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
     }
 
+    // ---- /upload (POST {data:"<dataURL>"}) → хоства снимка глобално, връща {url} ----
+    if (url.pathname === '/upload' && req.method === 'POST') {
+      let body; try { body = await req.json(); } catch { return J({ error: 'bad json' }, 400); }
+      const m = /^data:([^;]+);base64,(.+)$/s.exec(body.data || '');
+      if (!m) return J({ error: 'bad data url' }, 400);
+      const ct = m[1], b64 = m[2];
+      const bin = atob(b64); const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      if (bytes.length > 6 * 1024 * 1024) return J({ error: 'too large' }, 413);
+      const id = await sha256(b64);
+      await env.SUBS.put('img:' + id, bytes, { metadata: { ct } });
+      return J({ url: new URL(req.url).origin + '/img/' + id });
+    }
+    // ---- /img/<id> — сервира хостната снимка ----
+    if (url.pathname.startsWith('/img/') && req.method === 'GET') {
+      const id = url.pathname.slice(5);
+      const r = await env.SUBS.getWithMetadata('img:' + id, { type: 'arrayBuffer' });
+      if (!r || !r.value) return new Response('not found', { status: 404, headers: cors });
+      return new Response(r.value, { headers: { 'Content-Type': (r.metadata && r.metadata.ct) || 'image/jpeg', 'Cache-Control': 'public, max-age=31536000, immutable', ...cors } });
+    }
+    // ---- /offers (глобални ръчни оферти) GET връща масив; POST записва ----
+    if (url.pathname === '/offers') {
+      if (req.method === 'GET') {
+        const c = await env.SUBS.get('customoffers');
+        return new Response(c || '[]', { headers: { 'Content-Type': 'application/json', ...cors } });
+      }
+      if (req.method === 'POST') {
+        let body; try { body = await req.json(); } catch { return J({ error: 'bad json' }, 400); }
+        const arr = Array.isArray(body) ? body : (body.offers || []);
+        const s = JSON.stringify(arr.slice(0, 1000));
+        if (s.length > 20 * 1024 * 1024) return J({ error: 'too large' }, 413);
+        await env.SUBS.put('customoffers', s);
+        return J({ ok: true, count: arr.length });
+      }
+    }
+
     // ---- /subscribe ----
     if (url.pathname === '/subscribe' && req.method === 'POST') {
       let sub; try { sub = await req.json(); } catch { return J({ error: 'bad json' }, 400); }

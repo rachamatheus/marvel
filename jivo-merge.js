@@ -60,4 +60,17 @@
     if (!ids.length) return;
     loadData(function () { merge(ids, (d && d.prices) || {}); });
   }).catch(function () {});
+
+  // Глобални ръчни оферти (от админ редактора) → в основната мрежа „Оферти".
+  fetch(EP + '/offers').then(function (r) { return r.json(); }).then(function (arr) {
+    if (!Array.isArray(arr) || !arr.length || typeof ALL_OFFERS === 'undefined') return;
+    var have = {}; ALL_OFFERS.forEach(function (o) { have[String(o.id)] = 1; });
+    var added = 0;
+    arr.forEach(function (o) { if (o && o.id != null && !have[String(o.id)]) { ALL_OFFERS.push(o); added++; } });
+    if (added) {
+      if (typeof renderOffers === 'function') renderOffers();
+      if (typeof renderFilters === 'function') renderFilters();
+      if (typeof updateStatCounter === 'function') updateStatCounter();
+    }
+  }).catch(function () {});
 })();

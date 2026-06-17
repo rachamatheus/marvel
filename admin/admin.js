@@ -54,6 +54,7 @@ let destChart = null;
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   loadOffers();
+  pullGlobalOffers(function () { try { renderAdminOffers(); } catch (e) {} });
   await syncFromSupabase();
   loadInquiries();
   populateCountryFilter();
@@ -173,6 +174,21 @@ function saveOffer(data) {
   }
   localStorage.setItem('mt_custom_offers', JSON.stringify(customOffers));
   loadOffers();
+  pushGlobalOffers();
+}
+
+// ===== ГЛОБАЛНИ РЪЧНИ ОФЕРТИ (Worker /offers) =====
+function pushGlobalOffers() {
+  if (!PUSH_ENDPOINT) return;
+  var arr = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
+  fetch(PUSH_ENDPOINT + '/offers', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(arr) })
+    .then(function (r) { return r.json(); }).then(function (d) { if (d && d.ok) showToast('Запазено глобално (' + d.count + ' оферти).', 'success'); }).catch(function () {});
+}
+function pullGlobalOffers(cb) {
+  if (!PUSH_ENDPOINT) { if (cb) cb(); return; }
+  fetch(PUSH_ENDPOINT + '/offers').then(function (r) { return r.json(); }).then(function (arr) {
+    if (Array.isArray(arr)) localStorage.setItem('mt_custom_offers', JSON.stringify(arr));
+  }).catch(function () {}).finally(function () { loadOffers(); if (cb) cb(); });
 }
 
 function deleteOffer(id) {
@@ -191,6 +207,7 @@ function deleteOffer(id) {
     }
   }
   loadOffers();
+  pushGlobalOffers();
 }
 
 // ===== LOAD INQUIRIES =====
@@ -961,12 +978,23 @@ function _fileToDataURL(file, cb) {
   };
   fr.readAsDataURL(file);
 }
+// качва data URL на глобалния хостинг (Worker /upload) → връща публичен URL (или самия data URL при грешка)
+function _uploadDataURL(dataURL, cb) {
+  if (!PUSH_ENDPOINT) return cb(dataURL);
+  fetch(PUSH_ENDPOINT + '/upload', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ data: dataURL }) })
+    .then(function (r) { return r.json(); })
+    .then(function (d) { cb(d && d.url ? d.url : dataURL); })
+    .catch(function () { cb(dataURL); });
+}
 function uploadOfferImages(input) {
   const files = Array.from(input.files || []);
   let pending = files.length;
   if (!pending) return;
+  showToast('Качване на снимки…', 'success');
   files.forEach(function (f) {
-    _fileToDataURL(f, function (url) { editorImages.push(url); if (--pending === 0) { renderOfferGallery(); input.value = ''; } });
+    _fileToDataURL(f, function (durl) {
+      _uploadDataURL(durl, function (url) { editorImages.push(url); if (--pending === 0) { renderOfferGallery(); input.value = ''; } });
+    });
   });
 }
 function renderOfferGallery() {
@@ -982,7 +1010,9 @@ function renderOfferGallery() {
 function removeOfferImage(i) { editorImages.splice(i, 1); renderOfferGallery(); }
 function uploadHotelImage(input) {
   const f = (input.files || [])[0]; if (!f) return;
-  _fileToDataURL(f, function (url) { document.getElementById('oh_img').value = url; showToast('Снимката на хотела е добавена — натиснете „+ Добави".', 'success'); });
+  _fileToDataURL(f, function (durl) {
+    _uploadDataURL(durl, function (url) { document.getElementById('oh_img').value = url; showToast('Снимката на хотела е добавена — натиснете „+ Добави".', 'success'); });
+  });
 }
 
 // ===== ANALYTICS =====
