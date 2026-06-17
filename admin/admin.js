@@ -1160,7 +1160,8 @@ function renderPvCatalog() {
       '</div>' +
       '<div style="flex:0 0 auto;display:flex;align-items:center;gap:10px;">' +
         '<button type="button" onclick="pvPreview(\'' + o.id + '\')" style="font-size:0.86rem;font-weight:700;color:var(--primary);background:#fff;cursor:pointer;border:1.5px solid var(--gray-200,#e5e7eb);border-radius:8px;padding:9px 14px;white-space:nowrap;font-family:inherit;">👁 Отвори</button>' +
-        '<input type="number" value="' + price + '" onchange="pvSetPrice(\'' + o.id + '\',this.value)" style="width:90px;padding:8px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.88rem;"> лв.' +
+        '<input type="number" id="pvbgn_' + o.id + '" value="' + price + '" oninput="pvBgnInput(\'' + o.id + '\')" style="width:84px;padding:8px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.88rem;"> лв.' +
+        '<input type="number" id="pveur_' + o.id + '" value="' + (price ? Math.round(price / 1.95583) : '') + '" oninput="pvEurInput(\'' + o.id + '\')" style="width:78px;padding:8px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.88rem;"> €' +
       '</div>' +
       '</div>';
   }).join('');
@@ -1203,6 +1204,19 @@ function pvToggle(id, on) {
   renderPvCatalog();
 }
 function pvSetPrice(id, val) { pvPrice[id] = val; }
+// двойно поле лв./€ с авто-конверсия (1 € = 1.95583 лв.)
+function pvBgnInput(id) {
+  var bgn = parseFloat(document.getElementById('pvbgn_' + id).value);
+  var eurEl = document.getElementById('pveur_' + id);
+  if (!isNaN(bgn)) { eurEl.value = Math.round(bgn / 1.95583); pvPrice[id] = String(bgn); }
+  else { eurEl.value = ''; pvPrice[id] = ''; }
+}
+function pvEurInput(id) {
+  var eur = parseFloat(document.getElementById('pveur_' + id).value);
+  var bgnEl = document.getElementById('pvbgn_' + id);
+  if (!isNaN(eur)) { var bgn = Math.round(eur * 1.95583); bgnEl.value = bgn; pvPrice[id] = String(bgn); }
+  else { bgnEl.value = ''; pvPrice[id] = ''; }
+}
 
 function savePvCatalog() {
   var out = document.getElementById('pvSaveResult');
