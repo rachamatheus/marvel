@@ -9,6 +9,13 @@
     return m ? (m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0')) : '';
   }
   function eurOf(bgn) { var n = parseFloat(bgn); return n ? Math.round(n / 1.95583) : 0; }
+  function deriveDest(title) {
+    var t = String(title || '');
+    var m = t.match(/\b(?:във|в|до|на|из)\s+([A-ZА-ЯЁ][^,\-–—!?()0-9]{2,32})/);
+    if (m) return m[1].replace(/\s+(със|с|от|за|и).*$/i, '').trim();
+    var first = t.split(/[,\-–—!?()]/)[0].trim();
+    return first.length <= 34 ? first : '';
+  }
   // изтекла ли е (всички дати в миналото). Ако няма дати → не я смятаме за изтекла.
   function pvExpired(datesText) {
     var t0 = new Date(); t0.setHours(0, 0, 0, 0); t0 = t0.getTime();
@@ -22,7 +29,7 @@
     var nbgn = parseFloat(bgn) || 0;
     return {
       id: p.id, pv: true,
-      title: p.title, destination: p.dest || '', country: '',
+      title: p.title, destination: p.dest || deriveDest(p.title), country: '',
       category: p.cat || 'vacation',
       tags: (p.cat === 'cruise') ? ['cruise'] : [],
       duration: (p.days ? p.days + ' дни' : '') + (p.nights ? ' / ' + p.nights + ' нощувки' : ''),
