@@ -703,7 +703,7 @@ function buildPvOnlineRows(excludeIds) {
   return PV_OFFERS.filter(function (p) { return pvPubCache.ids.has(String(p.id)) && !skip[String(p.id)] && !pvDatesExpired(p.dates); }).map(function (p) {
     var bgn = (pvPubCache.prices[p.id] != null && pvPubCache.prices[p.id] !== '') ? parseFloat(pvPubCache.prices[p.id]) : (parseFloat(p.bgn) || 0);
     return {
-      id: p.id, pv: true, title: (pvPubCache.titles && pvPubCache.titles[p.id]) || p.title, refNum: '', destination: p.dest || deriveDest((pvPubCache.titles && pvPubCache.titles[p.id]) || p.title),
+      id: p.id, pv: true, title: (pvPubCache.titles && pvPubCache.titles[p.id]) || p.title, refNum: '', destination: deriveDest((pvPubCache.titles && pvPubCache.titles[p.id]) || p.title) || p.dest,
       category: p.cat || 'vacation', country: '',
       price_bgn: bgn, price_eur: bgn ? Math.round(bgn / EUR_RATE) : (parseFloat(p.eur) || 0),
       duration: (p.days ? p.days + ' дни' : '') + (p.nights ? ' / ' + p.nights + ' нощ.' : ''),

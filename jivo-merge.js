@@ -24,7 +24,7 @@
     var title = (titles && titles[p.id]) ? titles[p.id] : p.title;
     return {
       id: p.id, pv: true,
-      title: title, destination: p.dest || deriveDest(title), country: '',
+      title: title, destination: deriveDest(title) || p.dest, country: '',
       category: p.cat || 'vacation',
       tags: (p.cat === 'cruise') ? ['cruise'] : [],
       duration: (p.days ? p.days + ' дни' : '') + (p.nights ? ' / ' + p.nights + ' нощувки' : ''),
