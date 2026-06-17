@@ -1088,7 +1088,7 @@ function renderPvCatalog() {
   var html = list.map(function (o) {
     var checked = pvSel.has(o.id) ? 'checked' : '';
     var price = (pvPrice[o.id] != null && pvPrice[o.id] !== '') ? pvPrice[o.id] : (o.bgn || '');
-    var img = 'https://wsrv.nl/?url=' + encodeURIComponent(o.cover) + '&w=120&output=webp&q=70';
+    var img = o.cover;
     return '<div style="display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--gray-200,#e5e7eb);border-radius:10px;margin-bottom:8px;background:' + (checked ? '#f0fdf4' : '#fff') + ';">' +
       '<input type="checkbox" ' + checked + ' onchange="pvToggle(\'' + o.id + '\',this.checked)" style="width:20px;height:20px;flex:0 0 auto;cursor:pointer;">' +
       '<img src="' + img + '" style="width:56px;height:42px;object-fit:cover;border-radius:6px;flex:0 0 auto;" loading="lazy">' +

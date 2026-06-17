@@ -36,6 +36,15 @@
     .cat-btn { display:block; text-align:center; margin-top:8px; background:var(--primary); color:#fff; text-decoration:none; padding:10px; border-radius:10px; font-weight:600; font-size:.9rem; }
     .cat-btn:hover { background:#16307a; }
     .cat-empty { text-align:center; color:#6b7280; padding:3rem 1rem; grid-column:1/-1; }
+    /* Модал за разглеждане на оферта */
+    .off-modal { position:fixed; inset:0; z-index:10000; background:rgba(8,16,35,.6); display:none; align-items:center; justify-content:center; padding:18px; }
+    .off-modal.open { display:flex; }
+    .off-box { background:#fff; border-radius:16px; width:100%; max-width:1000px; height:90vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 30px 80px rgba(8,20,50,.5); }
+    .off-bar { display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #eef0f4; }
+    .off-bar h3 { margin:0; font-size:1rem; color:var(--primary); flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .off-bar a { font-size:.82rem; color:var(--primary); text-decoration:none; font-weight:600; white-space:nowrap; }
+    .off-bar button { background:none; border:none; font-size:26px; line-height:1; cursor:pointer; color:#6b7280; }
+    .off-frame { flex:1; width:100%; border:0; }
   </style>
 </head>
 <body>
@@ -78,6 +87,18 @@
   </div>
   <div class="cat-chips" id="catChips"></div>
   <div class="cat-grid" id="catGrid"></div>
+</div>
+
+<!-- Модал за оферта -->
+<div class="off-modal" id="offModal" onclick="if(event.target===this)closeOffer()">
+  <div class="off-box">
+    <div class="off-bar">
+      <h3 id="offTitle">Оферта</h3>
+      <a id="offNewTab" href="#" target="_blank" rel="noopener">Отвори в нов таб ↗</a>
+      <button onclick="closeOffer()" aria-label="Затвори">×</button>
+    </div>
+    <iframe class="off-frame" id="offFrame" scrolling="yes"></iframe>
+  </div>
 </div>
 
 <script src="data/peakview.js?v=1"></script>
@@ -128,7 +149,7 @@
     if (!list.length) { grid.innerHTML = '<div class="cat-empty">Няма оферти по този филтър.<br>Скоро добавяме още! 🌴</div>'; return; }
     grid.innerHTML = list.map(function(o){
       var price = (PUB.prices && PUB.prices[o.id]) ? PUB.prices[o.id] : o.bgn;
-      var img = 'https://wsrv.nl/?url=' + encodeURIComponent(o.cover) + '&w=600&output=webp&q=80';
+      var img = o.cover;
       return '<div class="cat-card">' +
         '<div class="cat-card-img" style="background-image:url(\''+img+'\')">' +
           '<span class="cat-badge2">'+o.catlbl+'</span>' +
@@ -138,10 +159,26 @@
           '<h3>'+o.title+'</h3>' +
           '<div class="cat-meta">'+(o.days?('🗓️ '+o.days+' дни / '+o.nights+' нощувки'):'')+(o.dates?(' · '+o.dates):'')+'</div>' +
           '<div class="cat-price">'+(price?('от '+price+' лв.'):'')+(o.eur?' <span>/ '+o.eur+' €</span>':'')+'</div>' +
-          '<a class="cat-btn" href="'+o.detail+'" target="_blank" rel="noopener">Виж повече</a>' +
+          '<button class="cat-btn" onclick="openOffer(\''+o.id+'\')">Виж повече</button>' +
         '</div></div>';
     }).join('');
   }
+
+  function openOffer(id) {
+    var o = ALL.filter(function(x){return x.id===id;})[0];
+    if (!o) return;
+    document.getElementById('offTitle').textContent = o.title;
+    document.getElementById('offNewTab').href = o.detail;
+    document.getElementById('offFrame').src = o.detail;
+    document.getElementById('offModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeOffer() {
+    document.getElementById('offModal').classList.remove('open');
+    document.getElementById('offFrame').src = 'about:blank';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeOffer(); });
 
   // зареди публикуваните и стартирай
   fetch(PUSH_ENDPOINT + '/catalog').then(function(r){return r.json();})
