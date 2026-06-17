@@ -6,6 +6,40 @@ if (sessionStorage.getItem('mt_admin_auth') !== '1') {
 const MT_ROLE = sessionStorage.getItem('mt_role') || 'admin';
 function isAdmin() { return MT_ROLE === 'admin'; }
 
+// ===== PeakView туроператори (toid → име). Само за вътрешна употреба в админа —
+// клиентите НЕ виждат оператора. ID-то на живите оферти е "<toid>-<spo>". =====
+const PV_OPERATORS = {
+  20:'2МКО',109:'Abax.bg',138:'AdvenTour',164:'Alba Travel',139:'AlbatrosTours',150:'Albena Tour',
+  55:'Alexander Tour',177:'Alexandra Holidays',25:'Aloha Travel',26:'AnaTravel',36:'Apollo 2000 Ltd.',
+  110:'Apsara Travel',97:'AQUA TOUR',170:'Aros Travel',183:'AVIVA TRAVEL',206:'AWAY',200:'Axivo Travel',
+  121:'Belprego Travel',21:'Bohemia',166:'Boiana MG',159:'Book and Go',12:'Bulcom Tour',190:'Bulgaria Travel',
+  34:'Buro Radetsky',165:'Clavis Trend',185:'Compass Reisen',195:'D-TRAVEL',28:'Dari Tour',217:'Dary Travel',
+  86:'DeltaTours',201:'Diva 3',111:'Doris',99:'Dunav Tours Hotels Ltd.',149:'E-Tours',186:'Edelvais Travel',
+  209:'Eden Travel',123:'Emerald Travel',184:'Euphoria Travel',193:'EVELIN R',13:'Exotic Holiday',
+  148:'Four Seasons Travel',42:'Geografski Sviat',68:'GlobalTour',104:'Globe Trade',151:'Globus Tours',
+  205:'Go To Paradise',85:'Go2Holiday',216:'HOLIDAY PIRATI',169:'Idea Travel',27:'Interlax',160:'KaraciTours',
+  98:'Karta Holiday',218:'KAVOGO TOURS',105:'Kunchev Travel',126:'Liyamar Travel',178:'Loyal Travel',
+  122:'LuckyHoliday',189:'LUXTRAVEL',154:'Luxury Holidays',63:'MarbroTours',213:'MG TOURS',134:'MG Travel',
+  136:'Mistral Travel',16:'Mondel Travel',221:'NEDA TOURS',119:'New World Travel',191:'NIKONA',
+  211:'Niramar Travel',116:'NovaTours',163:'NV TOURS',11:'Odans Travel',94:'OnexTour',219:'ORMA TRAVEL',
+  53:'Partner Travel',132:'PirinTourist 2000',64:'Planet Travel Center',155:'Polonia BG',92:'PREMIO TRAVEL',
+  141:'Profi Tours',142:'Profi Travel Center',30:'RAD Festa',73:'Reyma Bulgaria',204:'Rossa Travel',
+  31:'Rual Travel',91:'Sarnela World',187:'Serdika Holidays',173:'Slavi Travel',43:'Solvex TA',
+  198:'STENLI TRAVEL',70:'SunTravel',140:'TansuTravel',15:'TEZ TOUR',220:'TITELINA TRAVEL',22:'Top Travels',
+  44:'ToursClub',128:'TRAVEL CLUB BULGARIA',210:'Travel Escape',196:'Travel Escape',203:'TRAVEL GROUP BULGARIA',
+  194:'Travel Holidays',199:'TrendWay Travel',174:'Tzanita Travel',181:'Usit Colours Travel Agency',
+  215:'Veni Vici Tours',146:'Via Travel',19:'WelcomeTravel',137:'Yasmin Holidays',158:'ZEFIR TRAVEL'
+};
+// Връща {operator, spo} за живите оферти (offer_ref започва с "PV-", offer_id = "<toid>-<spo>"); иначе null.
+function pvOperatorInfo(inq) {
+  const ref = inq && inq.offer_ref || '';
+  const oid = inq && inq.offer_id || '';
+  const m = String(oid).match(/^(\d+)-(\d+)$/);
+  if (!/^PV-/.test(ref) && !m) return null;
+  if (!m) return null;
+  return { operator: PV_OPERATORS[+m[1]] || ('Оператор #' + m[1]), spo: m[2] };
+}
+
 // ===== STATE =====
 let currentPage = 'dashboard';
 let inquiriesFilter = 'all';
@@ -498,6 +532,11 @@ function openInquiry(id) {
         <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Оферта</div>
         <div style="font-weight:600;">${inq.offer_ref ? inq.offer_ref + ' — ' : ''}${inq.offer_title}</div>
       </div>
+      ${(() => { const op = pvOperatorInfo(inq); return op ? `
+      <div style="grid-column:span 2;">
+        <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Туроператор (само за вас)</div>
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 12px;font-size:0.9rem;color:#7c2d12;font-weight:700;">🏢 туроператор: ${op.operator} &nbsp;|&nbsp; ID на оферта при туроператор: ${op.spo}</div>
+      </div>` : ''; })()}
       <div>
         <div style="font-size:0.72rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Предпочитана дата</div>
         <div>${inq.preferred_date || '—'}</div>
@@ -549,12 +588,12 @@ function exportInquiries() {
   let list = [...allInquiries];
   if (inquiriesFilter !== 'all') list = list.filter(i => i.status === inquiriesFilter);
   list = getInquiriesByPeriod(list);
-  const headers = ['Ime', 'Телефон', 'Email', 'Реф. номер', 'Оферта', 'Дата пътуване', 'Възрастни', 'Деца', 'Пътуващи', 'Съобщение', 'Изпратено', 'Статус'];
-  const rows = list.map(i => [
-    i.name, i.phone, i.email || '', i.offer_ref || '', i.offer_title, i.preferred_date || '',
+  const headers = ['Ime', 'Телефон', 'Email', 'Реф. номер', 'Оферта', 'Туроператор', 'ID при туроператор', 'Дата пътуване', 'Възрастни', 'Деца', 'Пътуващи', 'Съобщение', 'Изпратено', 'Статус'];
+  const rows = list.map(i => { const op = pvOperatorInfo(i); return [
+    i.name, i.phone, i.email || '', i.offer_ref || '', i.offer_title, op ? op.operator : '', op ? op.spo : '', i.preferred_date || '',
     (typeof i.adults !== 'undefined' ? i.adults : ''), (typeof i.children !== 'undefined' ? i.children : ''),
     i.people || '', i.message || '', formatDate(i.created_at, true), statusLabel(i.status)
-  ]);
+  ]; });
   const csv = [headers, ...rows].map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
   const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement('a');

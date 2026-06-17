@@ -188,7 +188,6 @@
     document.getElementById('offerPriceSub').textContent = (offer.eur ? '/ ' + offer.eur + ' € ' : '') + (offer.days ? '· ' + offer.days + ' дни / ' + offer.nights + ' нощувки' : '');
     document.getElementById('offerBadges').innerHTML =
       '<span class="modal-tag blue">' + offer.catlbl + '</span>' +
-      (offer.company ? '<span class="modal-tag">🏢 ' + offer.company + '</span>' : '') +
       (offer.dest ? '<span class="modal-tag" style="background:rgba(201,168,76,0.15);color:#9a7b1f;">📍 ' + offer.dest + '</span>' : '');
 
     buildTabs();

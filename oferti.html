@@ -95,13 +95,6 @@
         <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <input type="text" id="catSearch" placeholder="Търсете оферта, дестинация..." autocomplete="off" oninput="catRender()">
       </div>
-      <div class="filter-divider"></div>
-      <div style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--gray-400);">
-        Фирма:
-        <select id="catCompany" onchange="catRender()" style="border:none;background:transparent;font-family:inherit;color:var(--dark);font-size:0.85rem;cursor:pointer;">
-          <option value="">Всички</option>
-        </select>
-      </div>
     </div>
 
     <div id="catCount" style="margin:0.6rem 0 1rem;font-size:0.92rem;color:var(--gray-600);font-weight:600;"></div>
@@ -142,10 +135,6 @@
   }
 
   function init() {
-    // фирми в падащото меню
-    var sel = document.getElementById('catCompany');
-    var seen = {};
-    published().forEach(function(o){ if(o.company && !seen[o.company]){ seen[o.company]=1; var op=document.createElement('option'); op.value=o.company; op.textContent=o.company; sel.appendChild(op);} });
     catRender();
   }
 
@@ -158,7 +147,7 @@
 
   function catRender() {
     state.q = (document.getElementById('catSearch').value||'').toLowerCase().trim();
-    state.company = document.getElementById('catCompany').value;
+    var _cc = document.getElementById('catCompany'); state.company = _cc ? _cc.value : '';
     var list = published().filter(function(o){
       if (state.cat!=='all' && o.cat!==state.cat) return false;
       if (state.company && o.company!==state.company) return false;
@@ -183,7 +172,6 @@
           '<div class="offer-meta">' +
             (o.nights?('<div class="offer-meta-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> '+o.days+' дни / '+o.nights+' нощ.</div>'):'') +
             (o.dates?('<div class="offer-meta-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> '+o.dates+'</div>'):'') +
-            (o.company?('<div class="offer-meta-item">🏢 '+o.company+'</div>'):'') +
           '</div>' +
           '<div class="offer-card-footer">' +
             '<div><div class="offer-price-label">Цена от</div><div>' +
