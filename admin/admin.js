@@ -1112,14 +1112,12 @@ function pvToggle(id, on) {
 function pvSetPrice(id, val) { pvPrice[id] = val; }
 
 function savePvCatalog() {
-  var token = localStorage.getItem('mt_push_token') || '';
   var out = document.getElementById('pvSaveResult');
-  if (!token) { out.style.color = '#dc2626'; out.textContent = 'Първо въведи тайния код в Настройки → Изпрати известие (ADMIN_TOKEN).'; return; }
   var prices = {};
   pvSel.forEach(function (id) { if (pvPrice[id] != null && pvPrice[id] !== '') prices[id] = pvPrice[id]; });
   out.style.color = 'var(--gray-600)'; out.textContent = 'Запазване…';
   fetch(PUSH_ENDPOINT + '/catalog', {
-    method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ ids: Array.from(pvSel), prices: prices })
   }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
     .then(function (res) {

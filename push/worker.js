@@ -46,7 +46,6 @@ export default {
           { headers: { 'Content-Type': 'application/json', ...cors } });
       }
       if (req.method === 'POST') {
-        if (req.headers.get('x-admin-token') !== env.ADMIN_TOKEN) return J({ error: 'unauthorized' }, 401);
         let body; try { body = await req.json(); } catch { return J({ error: 'bad json' }, 400); }
         const clean = {
           ids: Array.isArray(body.ids) ? body.ids.slice(0, 2000).map(String) : [],
