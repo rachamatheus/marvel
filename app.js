@@ -549,6 +549,25 @@ function offerGeo(o) {
   var g = window.mtGeo(c);
   return g ? { country: c, cont: g[0], lat: g[1], lon: g[2], flag: g[3] } : null;
 }
+// ISO код от флаг-емоджи (за флаг-картинки от flagcdn — Windows не рисува емоджи-флагове)
+function flagCC(emoji) {
+  if (!emoji) return '';
+  var cps = Array.from(emoji).map(c => c.codePointAt(0));
+  if (cps.length >= 2 && cps[0] >= 0x1F1E6 && cps[0] <= 0x1F1FF)
+    return String.fromCharCode(cps[0] - 0x1F1E6 + 97) + String.fromCharCode(cps[1] - 0x1F1E6 + 97);
+  return '';
+}
+function ccOfCountry(bgName) { var g = (typeof window.mtGeo === 'function') ? window.mtGeo(bgName) : null; return g ? flagCC(g[3]) : ''; }
+function flagImg(cc, h) { return cc ? `<img src="https://flagcdn.com/h${h || 20}/${cc}.png" alt="" style="height:${(h || 20) / 1.33}px;width:auto;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.3);vertical-align:middle;">` : '🌍'; }
+// филтрира офертите по име на държава (бг) — за картата/континентите
+function filterByCountryName(name) {
+  currentCountry = null; currentCategory = 'all'; currentTag = null;
+  currentSearch = (name || '').toLowerCase();
+  const si = document.getElementById('searchInput'); if (si) si.value = name;
+  if (typeof closeContinent === 'function') closeContinent();
+  renderOffers();
+  const sec = document.getElementById('offers'); if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+}
 function initContinentMap() {
   var counts = { europe: 0, africa: 0, asia: 0, america: 0 };
   ALL_OFFERS.forEach(o => { var g = offerGeo(o); if (g && counts[g.cont] != null) counts[g.cont]++; });
@@ -626,7 +645,7 @@ function renderDestinationPins() {
     };
     pin.innerHTML =
       `<span class="dest-dot-core"></span>` +
-      `<span class="dest-tip">${(g.flag ? g.flag + ' ' : '') + name}</span>`;
+      `<span class="dest-tip">${flagImg(flagCC(g.flag), 16)} ${name}</span>`;
     layer.appendChild(pin);
   });
 
@@ -705,20 +724,22 @@ function selectContinent(key) {
     grid.innerHTML = data.countries.map(countryId => {
       const country = COUNTRIES.find(c => c.key === countryId);
       if (!country) return '';
-      const offers = ALL_OFFERS.filter(o => o.country === countryId);
-      const minPrice = offers.length ? Math.min(...offers.map(o => o.price_eur)) : 0;
-      const offerImg = offers.length ? ((typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[offers[0].id]) || offers[0].image || '') : '';
-      const img = data.images[countryId] || offerImg || '';
-      const flag = FLAGS[countryId] || '🌍';
+      // брой оферти за тази държава — по реалната дестинация (Бг име)
+      const offers = ALL_OFFERS.filter(o => { const g = offerGeo(o); return g && g.country === country.label; });
+      const minPrice = offers.length ? Math.min(...offers.map(o => o.price_eur).filter(p => p)) : 0;
+      const cc = ccOfCountry(country.label);
+      const offerImg = offers.length ? ((typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[offers[0].id]) || offers[0].image || offers[0].cover || '') : '';
+      const fallbackFlag = cc ? `https://flagcdn.com/w320/${cc}.png` : '';
+      const img = data.images[countryId] || offerImg || fallbackFlag;
       return `
-        <a class="country-card" href="javascript:void(0)" onclick="filterByCountry('${countryId}');closeContinent();document.getElementById('offers').scrollIntoView({behavior:'smooth'})">
+        <a class="country-card" href="javascript:void(0)" onclick="filterByCountryName('${country.label.replace(/'/g, "\\'")}')">
           <div class="country-card-img-wrap">
-            <img class="country-card-img" src="${proxify(img)}" alt="${country.label}" loading="lazy"
-                 onerror="imgFallback(this)">
+            <img class="country-card-img" src="${(img && img.indexOf('flagcdn') === -1) ? proxify(img) : img}" alt="${country.label}" loading="lazy"
+                 onerror="this.onerror=null;this.src='${fallbackFlag || 'https://flagcdn.com/w320/xx.png'}';this.style.objectFit='contain';this.style.background='#0d1b3e';">
           </div>
           <div class="country-card-body">
             <div class="country-flag-name">
-              <span class="country-flag">${flag}</span>
+              <span class="country-flag">${flagImg(cc, 22)}</span>
               <span class="country-name-text">${country.label}</span>
             </div>
             <div class="country-offer-count">${offers.length} оферт${offers.length === 1 ? 'а' : 'и'}</div>
