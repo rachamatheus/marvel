@@ -558,7 +558,7 @@ function flagCC(emoji) {
   return '';
 }
 function ccOfCountry(bgName) { var g = (typeof window.mtGeo === 'function') ? window.mtGeo(bgName) : null; return g ? flagCC(g[3]) : ''; }
-function flagImg(cc, h) { return cc ? `<img src="https://flagcdn.com/h${h || 20}/${cc}.png" alt="" style="height:${(h || 20) / 1.33}px;width:auto;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.3);vertical-align:middle;">` : '🌍'; }
+function flagImg(cc, h) { h = h || 18; return cc ? `<img src="https://flagcdn.com/w40/${cc}.png" alt="" style="height:${h}px;width:auto;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.3);vertical-align:middle;object-fit:cover;">` : '🌍'; }
 // филтрира офертите по име на държава (бг) — за картата/континентите
 function filterByCountryName(name) {
   currentCountry = null; currentCategory = 'all'; currentTag = null;
@@ -721,33 +721,38 @@ function selectContinent(key) {
   if (!data.countries.length) {
     grid.innerHTML = `<div style="color:rgba(255,255,255,0.5);font-size:0.9rem;padding:1rem 0;grid-column:1/-1;">Оферти за тази дестинация скоро...</div>`;
   } else {
-    grid.innerHTML = data.countries.map(countryId => {
+    const cards = data.countries.map(countryId => {
       const country = COUNTRIES.find(c => c.key === countryId);
       if (!country) return '';
-      // брой оферти за тази държава — по реалната дестинация (Бг име)
-      const offers = ALL_OFFERS.filter(o => { const g = offerGeo(o); return g && g.country === country.label; });
-      const minPrice = offers.length ? Math.min(...offers.map(o => o.price_eur).filter(p => p)) : 0;
+      const nameLC = country.label.toLowerCase();
+      // брой по същата логика като при отваряне (търсене по име) — за да съвпада
+      const offers = ALL_OFFERS.filter(o => {
+        const hay = ((o.title || '') + ' ' + (o.destination || '') + ' ' + (o.description || '')).toLowerCase();
+        return hay.indexOf(nameLC) !== -1;
+      });
+      if (!offers.length) return '';  // скрий държави без оферти
+      const minPrice = Math.min(...offers.map(o => o.price_eur).filter(p => p));
       const cc = ccOfCountry(country.label);
-      const offerImg = offers.length ? ((typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[offers[0].id]) || offers[0].image || offers[0].cover || '') : '';
-      const fallbackFlag = cc ? `https://flagcdn.com/w320/${cc}.png` : '';
-      const img = data.images[countryId] || offerImg || fallbackFlag;
+      // голяма снимка от някоя оферта (с реална снимка)
+      const withImg = offers.find(o => (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) || o.image || o.cover) || offers[0];
+      const img = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[withImg.id]) || withImg.image || withImg.cover || (cc ? `https://flagcdn.com/w320/${cc}.png` : '');
       return `
         <a class="country-card" href="javascript:void(0)" onclick="filterByCountryName('${country.label.replace(/'/g, "\\'")}')">
           <div class="country-card-img-wrap">
-            <img class="country-card-img" src="${(img && img.indexOf('flagcdn') === -1) ? proxify(img) : img}" alt="${country.label}" loading="lazy"
-                 onerror="this.onerror=null;this.src='${fallbackFlag || 'https://flagcdn.com/w320/xx.png'}';this.style.objectFit='contain';this.style.background='#0d1b3e';">
+            <img class="country-card-img" src="${proxify(img)}" alt="${country.label}" loading="lazy" onerror="imgFallback(this)">
           </div>
           <div class="country-card-body">
             <div class="country-flag-name">
-              <span class="country-flag">${flagImg(cc, 22)}</span>
+              <span class="country-flag">${flagImg(cc, 18)}</span>
               <span class="country-name-text">${country.label}</span>
             </div>
             <div class="country-offer-count">${offers.length} оферт${offers.length === 1 ? 'а' : 'и'}</div>
-            ${minPrice ? `<div class="country-price">от ${minPrice.toFixed(0)} €</div>` : ''}
+            ${minPrice && isFinite(minPrice) ? `<div class="country-price">от ${minPrice.toFixed(0)} €</div>` : ''}
           </div>
         </a>
       `;
-    }).join('');
+    }).filter(Boolean);
+    grid.innerHTML = cards.length ? cards.join('') : `<div style="color:rgba(255,255,255,0.5);font-size:0.9rem;padding:1rem 0;grid-column:1/-1;">Няма оферти за този континент.</div>`;
   }
 
   panel.style.display = 'block';
