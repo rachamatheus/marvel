@@ -19,7 +19,7 @@
 
   // ---------- Плаващи бутони (долу вляво, за да не пречат на чата вдясно) ----------
   var bar = document.createElement('div');
-  bar.style.cssText = 'position:fixed;left:18px;bottom:20px;z-index:9990;display:flex;flex-direction:column;gap:8px;align-items:flex-start;';
+  bar.style.cssText = 'position:fixed;right:18px;bottom:20px;z-index:9990;display:flex;flex-direction:column;gap:8px;align-items:flex-end;';
   document.body.appendChild(bar);
 
   function makeChip(label, bg) {
