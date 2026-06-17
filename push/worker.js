@@ -44,7 +44,7 @@ export default {
     if (url.pathname === '/hotel' && req.method === 'GET') {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
-      const ck = 'h3:' + await sha256(target);
+      const ck = 'h4:' + await sha256(target);
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
       const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
       const body = JSON.stringify(parseHotelDetail(html));
@@ -234,7 +234,7 @@ function parseHotelDetail(html) {
   }
   // ---- описание: най-дългият htext блок (не „карта") ----
   var desc = '';
-  var hre = /class="htext"[^>]*>([\s\S]*?)<\/div>/gi, hm;
+  var hre = /class="htext"[^>]*>([\s\S]*?)(?=class="htext"|class="hcat"|resp-tabs|<\/body|$)/gi, hm;
   while ((hm = hre.exec(html))) {
     var t = hm[1].replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<[^>]+>/g, ' ')
       .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim();
