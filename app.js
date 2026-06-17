@@ -451,7 +451,7 @@ function renderFeatured() {
 
   const [main, ...rest] = featured;
   let html = `
-    <a class="featured-card-large" href="oferta.html?id=${main.id}">
+    <a class="featured-card-large" href="oferta.html?id=${main.id}" target="_blank" rel="noopener">
       <img src="${proxify(coverOf(main))}" alt="${main.title}" loading="lazy" onerror="imgFallback(this)">
       <div class="featured-card-overlay">
         <div class="offer-destination">📍 ${main.destination}</div>
@@ -465,7 +465,7 @@ function renderFeatured() {
   `;
   rest.slice(0, 4).forEach(o => {
     html += `
-      <a class="featured-card-sm" href="oferta.html?id=${o.id}">
+      <a class="featured-card-sm" href="oferta.html?id=${o.id}" target="_blank" rel="noopener">
         <img src="${proxify(coverOf(o))}" alt="${o.title}" loading="lazy" onerror="imgFallback(this)">
         <div class="featured-card-overlay">
           <div class="offer-destination">📍 ${o.destination}</div>
@@ -872,7 +872,7 @@ function renderOffers() {
     const dateStr = formatDate(o.next_date);
     const transport = transportLabel(o.transport);
     return `
-      <a class="offer-card animate-in" href="oferta.html?id=${o.id}" style="animation-delay:${Math.min(i * 0.05, 0.4)}s">
+      <a class="offer-card animate-in" href="oferta.html?id=${o.id}" target="_blank" rel="noopener" style="animation-delay:${Math.min(i * 0.05, 0.4)}s">
         <div class="offer-card-img-wrap">
           <img class="offer-card-img" src="${proxify(imgSrc)}" alt="${o.title}" loading="lazy"
                onerror="imgFallback(this)">
