@@ -2,8 +2,10 @@
 (function () {
   function getParam(n){ return new URLSearchParams(location.search).get(n); }
 
+  var PUSH_ENDPOINT = 'https://marveltour-push.marveltour.workers.dev';
   var OFFERS = window.PEAKVIEW_OFFERS || [];
   var offer = null, detail = null;
+  var PVH = { list: null, loading: false, failed: false, det: {} };
   var gImgs = [], gIdx = 0, lbImgs = [], lbIdx = 0;
 
   // ---------- галерия ----------
@@ -40,10 +42,10 @@
     { k: 'excludes', el: 'panelExcludes', label: '❌ Цената не включва' }
   ];
   var curTab = null;
-  function hotelList() { return (window.PV_HOTELS && window.PV_HOTELS[getParam('id')]) || null; }
+  function hotelList() { return PVH.list; }
   function hasContent(s){ return s && s.replace(/<[^>]+>/g,'').trim().length > 2; }
   function tabHasData(k){
-    if (k === 'hotels') return (hotelList() && hotelList().length) || hasContent(detail && detail.hotels);
+    if (k === 'hotels') return hasContent(detail && detail.hotels) || (offer && offer.cat === 'vacation');
     return hasContent(detail && detail[k]);
   }
   function buildTabs() {
@@ -61,27 +63,30 @@
   }
   window.showTab = function (k) { curTab = k; buildTabs(); };
 
-  // ---------- хотели (интерактивни: галерия + цени по дати) ----------
-  function hMinPrice(h) {
-    var min = null;
-    Object.keys(h.dates || {}).forEach(function (d) {
-      (h.dates[d] || []).forEach(function (r) { var p = parseInt(r.price, 10); if (!isNaN(p) && (min === null || p < min)) min = p; });
-    });
-    return min;
+  // ---------- хотели (динамично от Worker-а: списък → детайл с галерия + цени по дати) ----------
+  function loadHotels() {
+    if (PVH.loading || PVH.list) return;
+    PVH.loading = true;
+    fetch(PUSH_ENDPOINT + '/hotels?url=' + encodeURIComponent(offer.detail))
+      .then(function (r) { return r.json(); })
+      .then(function (d) { PVH.list = (d && d.hotels) || []; })
+      .catch(function () { PVH.failed = true; })
+      .finally(function () { PVH.loading = false; if (curTab === 'hotels') buildTabs(); });
   }
   function hotelsHtml() {
-    var hs = hotelList();
-    if (!hs) return detail.hotels || '';   // резервно: статичен списък
-    return '<div class="offer-section-title" style="margin-top:0;">🏨 Хотели по програмата <span style="font-weight:400;color:var(--gray-400);font-size:0.82rem;">(натиснете за детайли и цени)</span></div>' +
-      '<div class="pv-hotels">' + hs.map(function (h, i) {
-        var mp = hMinPrice(h);
-        var cover = h.cover || (h.gallery && h.gallery[0]) || '';
+    if (!PVH.list) {
+      if (!PVH.failed) { loadHotels(); return '<div class="offer-section-title" style="margin-top:0;">🏨 Хотели</div><p style="color:var(--gray-400);">Зареждане на хотелите…</p>'; }
+      return detail.hotels || '';  // резервно при грешка
+    }
+    if (!PVH.list.length) return detail.hotels || '';
+    return '<div class="offer-section-title" style="margin-top:0;">🏨 Хотели по програмата <span style="font-weight:400;color:var(--gray-400);font-size:0.82rem;">(натиснете за галерия и цени по дати)</span></div>' +
+      '<div class="pv-hotels">' + PVH.list.map(function (h, i) {
         return '<div class="pv-hotel" id="pvh-' + i + '">' +
             '<div class="pv-hotel-head" onclick="toggleHotel(' + i + ')">' +
-              (cover ? '<img src="' + cover + '" loading="lazy" onerror="this.style.display=\'none\'">' : '') +
+              (h.cover ? '<img src="' + h.cover + '" loading="lazy" onerror="this.style.display=\'none\'">' : '') +
               '<div class="pv-hotel-info"><div class="pv-hotel-name">' + h.name + '</div>' +
                 '<div class="pv-hotel-loc">' + (h.loc || '') + '</div>' +
-                (mp ? '<div class="pv-hotel-price">от ' + mp + ' лв.</div>' : '') +
+                (h.price ? '<div class="pv-hotel-price">от ' + h.price + ' лв.</div>' : '') +
               '</div>' +
               '<span class="pv-hotel-toggle">Виж повече ▾</span>' +
             '</div>' +
@@ -94,28 +99,34 @@
     var card = document.getElementById('pvh-' + i);
     if (!body) return;
     if (body.style.display === 'block') { body.style.display = 'none'; card.classList.remove('open'); return; }
-    if (!body.dataset.built) { body.innerHTML = hotelBodyHtml(i); body.dataset.built = '1'; }
     body.style.display = 'block'; card.classList.add('open');
+    if (PVH.det[i]) { body.innerHTML = hotelBodyHtml(i); return; }
+    body.innerHTML = '<p style="color:var(--gray-400);padding:10px 0;">Зареждане…</p>';
+    fetch(PUSH_ENDPOINT + '/hotel?url=' + encodeURIComponent(PVH.list[i].url))
+      .then(function (r) { return r.json(); })
+      .then(function (d) { PVH.det[i] = d || { gallery: [], dates: {} }; })
+      .catch(function () { PVH.det[i] = { gallery: [], dates: {} }; })
+      .finally(function () { if (body.style.display === 'block') body.innerHTML = hotelBodyHtml(i); });
   };
   function hotelBodyHtml(i) {
-    var h = hotelList()[i]; if (!h) return '';
-    var thumbs = (h.gallery || []).map(function (u, k) { return '<img src="' + u + '" loading="lazy" onclick="openLightbox(PVHGAL(' + i + '),' + k + ')" onerror="this.style.display=\'none\'">'; }).join('');
-    var dates = Object.keys(h.dates || {});
-    var dsel = dates.length ? ('<div class="pv-hp-head"><label>📅 Дата:</label> <select onchange="hotelDate(' + i + ',this.value)">' + dates.map(function (d) { return '<option value="' + d + '">' + d + '</option>'; }).join('') + '</select></div>') : '';
+    var d = PVH.det[i]; if (!d) return '';
+    var thumbs = (d.gallery || []).map(function (u, k) { return '<img src="' + u + '" loading="lazy" onclick="openLightbox(PVHGAL(' + i + '),' + k + ')" onerror="this.style.display=\'none\'">'; }).join('');
+    var dates = Object.keys(d.dates || {});
+    var dsel = dates.length ? ('<div class="pv-hp-head"><label>📅 Дата:</label> <select onchange="hotelDate(' + i + ',this.value)">' + dates.map(function (x) { return '<option value="' + x + '">' + x + '</option>'; }).join('') + '</select></div>') : '';
     return (thumbs ? '<div class="pv-hgal">' + thumbs + '</div>' : '') +
-      (h.desc ? '<p class="pv-hdesc">' + h.desc + '</p>' : '') +
       dsel +
-      '<div id="pvhp-' + i + '">' + priceTable(h, dates[0]) + '</div>';
+      '<div id="pvhp-' + i + '">' + priceTable(d, dates[0]) + '</div>' +
+      (!dates.length && !thumbs ? '<p style="color:var(--gray-400);">Няма допълнителна информация. Свържете се с нас за този хотел.</p>' : '');
   }
-  window.PVHGAL = function (i) { var h = hotelList()[i]; return (h && h.gallery) || []; };
-  function priceTable(h, d) {
-    var rows = (h.dates && h.dates[d]) || [];
+  window.PVHGAL = function (i) { return (PVH.det[i] && PVH.det[i].gallery) || []; };
+  function priceTable(d, date) {
+    var rows = (d.dates && d.dates[date]) || [];
     if (!rows.length) return '';
     return '<table class="pv-price-table"><thead><tr><th>Настаняване</th><th>Цена</th></tr></thead><tbody>' +
       rows.map(function (r) { return '<tr><td>' + r.room + '</td><td><strong>' + r.price + ' лв.</strong></td></tr>'; }).join('') +
       '</tbody></table>';
   }
-  window.hotelDate = function (i, d) { var t = document.getElementById('pvhp-' + i); if (t) t.innerHTML = priceTable(hotelList()[i], d); };
+  window.hotelDate = function (i, date) { var t = document.getElementById('pvhp-' + i); if (t) t.innerHTML = priceTable(PVH.det[i], date); };
 
   // ---------- рендер ----------
   function render() {
@@ -199,8 +210,6 @@
   function loadScript(src, cb) { var s = document.createElement('script'); s.src = src; s.onload = cb; s.onerror = cb; document.head.appendChild(s); }
   var id = getParam('id');
   if (id) {
-    loadScript('data/pvdetails/' + id + '.js?v=1', function () {
-      loadScript('data/pvhotels/' + id + '.js?v=1', render);
-    });
+    loadScript('data/pvdetails/' + id + '.js?v=1', render); // хотелите се дърпат динамично от Worker-а
   } else { render(); }
 })();

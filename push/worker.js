@@ -27,6 +27,31 @@ export default {
     const url = new URL(req.url);
     const J = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { 'Content-Type': 'application/json', ...cors } });
 
+    // ---- /hotels?url=<programa.php> — списък хотели за оферта (динамично + KV кеш) ----
+    if (url.pathname === '/hotels' && req.method === 'GET') {
+      const target = url.searchParams.get('url') || '';
+      if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
+      const ck = 'hl:' + await sha256(target);
+      if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
+      const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
+      const hotels = parseHotelList(html);
+      const body = JSON.stringify({ hotels });
+      await env.SUBS.put(ck, body, { expirationTtl: 86400 });
+      return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
+    }
+
+    // ---- /hotel?url=<hotel-pochivka.php> — галерия + цени по дати за един хотел ----
+    if (url.pathname === '/hotel' && req.method === 'GET') {
+      const target = url.searchParams.get('url') || '';
+      if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
+      const ck = 'h1:' + await sha256(target);
+      if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
+      const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
+      const body = JSON.stringify(parseHotelDetail(html));
+      await env.SUBS.put(ck, body, { expirationTtl: 86400 });
+      return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
+    }
+
     // ---- /subscribe ----
     if (url.pathname === '/subscribe' && req.method === 'POST') {
       let sub; try { sub = await req.json(); } catch { return J({ error: 'bad json' }, 400); }
@@ -98,6 +123,50 @@ export default {
     return J({ error: 'not found' }, 404);
   },
 };
+
+// ===== PeakView парсване =====
+function isPeakview(u) { try { return new URL(u).hostname === 'iframe.peakview.bg'; } catch { return false; } }
+
+function parseHotelList(html) {
+  var hotels = [];
+  var re = /<h2>\s*<a[^>]*href="(hotel-pochivka\.php\?[^"]+)"[^>]*>([\s\S]*?)<\/a>\s*<\/h2>([\s\S]*?)(?=<h2>\s*<a[^>]*hotel-pochivka|resp-tabs|$)/g;
+  var m;
+  while ((m = re.exec(html))) {
+    var href = m[1].replace(/&amp;/g, '&');
+    var name = m[2].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
+    var rest = m[3];
+    var cov = rest.match(/(\/\/static\.peakview\.bg\/img\/data2?\/\d+\/hoteli\/\d+\/[^"]+\.(?:jpg|jpeg|png))/i);
+    var loc = rest.match(/>\s*([^<]*Турция[^<]*|[^<]*,\s*[^<]+?)<br/);
+    var price = rest.match(/Цена\s*от[\s\S]{0,60}?([\d.]+)\s*лв/);
+    hotels.push({
+      name: name,
+      url: 'https://iframe.peakview.bg/' + href,
+      cover: cov ? ('https:' + cov[1]) : '',
+      loc: loc ? loc[1].trim() : '',
+      price: price ? price[1] : ''
+    });
+  }
+  return hotels;
+}
+
+function parseHotelDetail(html) {
+  // галерия
+  var gallery = [], seen = {};
+  var hid = (html.match(/hoteli\/(\d+)\//) || [])[1] || '\\d+';
+  var gre = new RegExp('(\\/\\/static\\.peakview\\.bg\\/img\\/data2?\\/\\d+\\/hoteli\\/' + hid + '\\/[A-Za-z0-9_]+\\.(?:jpg|jpeg|png))', 'gi');
+  var g;
+  while ((g = gre.exec(html))) { var u = 'https:' + g[1]; if (!seen[u]) { seen[u] = 1; gallery.push(u); } }
+  // цени по дати
+  var dates = {};
+  var pre = /reservation_[a-z]+\.php\?[^"']*?ndate=([0-9.]+)&ncena=([0-9]+)&nvaluta=([A-Z]+)&ntab=([^"'&]+)/g;
+  var p;
+  while ((p = pre.exec(html))) {
+    var d = p[1], price = p[2];
+    var room = decodeURIComponent(p[4].replace(/\+/g, ' ')).replace(/\s+/g, ' ').trim();
+    (dates[d] = dates[d] || []).push({ room: room, price: price });
+  }
+  return { gallery: gallery, dates: dates };
+}
 
 // ===== Помощни =====
 async function sha256(str) {
