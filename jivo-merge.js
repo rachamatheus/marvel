@@ -44,6 +44,7 @@
     if (added) {
       if (typeof renderOffers === 'function') renderOffers();
       if (typeof renderFilters === 'function') renderFilters();
+      if (typeof renderFeatured === 'function') renderFeatured();
       if (typeof updateStatCounter === 'function') updateStatCounter();
     }
   }
@@ -70,6 +71,7 @@
     if (added) {
       if (typeof renderOffers === 'function') renderOffers();
       if (typeof renderFilters === 'function') renderFilters();
+      if (typeof renderFeatured === 'function') renderFeatured();
       if (typeof updateStatCounter === 'function') updateStatCounter();
     }
   }).catch(function () {});

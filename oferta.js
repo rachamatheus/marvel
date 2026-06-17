@@ -607,5 +607,15 @@ function showToast(msg, type = 'success') {
   setTimeout(() => toast.remove(), 4000);
 }
 
-document.addEventListener('DOMContentLoaded', renderOfferPage);
+// Зареди и глобалните ръчни оферти (от админа, Worker /offers), за да работи детайлът им.
+var MT_OFFERS_EP = 'https://marveltour-push.marveltour.workers.dev';
+function _loadGlobalOffersThenRender() {
+  fetch(MT_OFFERS_EP + '/offers').then(r => r.json()).then(arr => {
+    if (Array.isArray(arr)) {
+      const have = {}; ALL_OFFERS.forEach(o => have[String(o.id)] = 1);
+      arr.forEach(o => { if (o && o.id != null && !have[String(o.id)]) ALL_OFFERS.push(o); });
+    }
+  }).catch(() => {}).finally(renderOfferPage);
+}
+document.addEventListener('DOMContentLoaded', _loadGlobalOffersThenRender);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });

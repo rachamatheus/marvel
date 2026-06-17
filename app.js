@@ -27,7 +27,9 @@ function mtOfferExpired(o) {
   if (!parsed.length) return false; // няма дати → не пипаме
   return parsed.every(function (t) { return t < t0; });
 }
-const ALL_OFFERS = [...OFFERS.filter(o => !deletedIds.includes(o.id) && !_customIds.has(o.id)), ...customOffers].filter(o => !mtOfferExpired(o));
+// Клиентският сайт показва САМО добавеното от админа (ръчни глобални оферти + публикувани
+// PeakView, които се сливат от jivo-merge.js). Старият статичен каталог (OFFERS) не се показва.
+const ALL_OFFERS = [...customOffers].filter(o => !mtOfferExpired(o));
 
 // ===== SUPABASE CONFIG =====
 // Replace with your Supabase project URL and anon key after setup
