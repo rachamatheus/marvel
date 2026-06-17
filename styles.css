@@ -1918,6 +1918,14 @@ footer {
   transition: all var(--transition);
 }
 .navbar.scrolled .nav-hamburger span { background: var(--dark); }
+
+/* Пълното хоризонтално меню има много елементи — мине ли под 1200px (напр. прозорец
+   на инсталираното приложение), не се побира и се чупи. Затова минаваме на хамбургер. */
+@media (max-width: 1200px) {
+  .nav-links { display: none !important; }
+  .nav-hamburger { display: flex !important; }
+}
+
 .mobile-menu {
   position: fixed;
   top: 72px;
