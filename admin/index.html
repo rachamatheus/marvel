@@ -40,6 +40,9 @@
       <button class="sidebar-link" onclick="showPage('peakview')" id="nav-peakview">
         <span class="icon">🌍</span> PeakView
       </button>
+      <button class="sidebar-link" onclick="showPage('pvcatalog')" id="nav-pvcatalog">
+        <span class="icon">📦</span> PeakView каталог
+      </button>
       <div class="sidebar-label" style="margin-top:1rem;">Настройки</div>
       <button class="sidebar-link" onclick="showPage('settings')" id="nav-settings">
         <span class="icon">⚙️</span> Настройки
@@ -407,6 +410,33 @@
         </div>
       </div>
 
+      <!-- ===== PEAKVIEW КАТАЛОГ (избор кои оферти да се публикуват) ===== -->
+      <div id="page-pvcatalog" style="display:none;">
+        <div class="admin-card">
+          <div class="admin-card-header"><div class="admin-card-title">📦 PeakView каталог — избор на оферти</div></div>
+          <div class="admin-card-body">
+            <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1rem;">
+              Маркирай кои оферти да се показват в сайта (страница „Оферти на живо"). Можеш да коригираш цената. Накрая натисни <strong>Запази и публикувай</strong>.
+            </p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:1rem;">
+              <input type="text" class="form-input" id="pvSearch" placeholder="Търси…" style="max-width:240px;" oninput="renderPvCatalog()">
+              <select class="form-select" id="pvCatFilter" onchange="renderPvCatalog()" style="max-width:170px;">
+                <option value="">Всички категории</option>
+                <option value="vacation">Почивки</option>
+                <option value="excursion">Екскурзии</option>
+                <option value="exotic">Екзотика</option>
+                <option value="cruise">Круизи</option>
+              </select>
+              <select class="form-select" id="pvCompFilter" onchange="renderPvCatalog()" style="max-width:200px;"><option value="">Всички фирми</option></select>
+              <span id="pvCount" style="font-size:0.82rem;color:var(--gray-500);"></span>
+              <button class="form-submit" style="max-width:220px;margin-left:auto;" onclick="savePvCatalog()">💾 Запази и публикувай</button>
+            </div>
+            <div id="pvSaveResult" style="font-size:0.85rem;margin-bottom:8px;"></div>
+            <div id="pvCatalogList"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>
@@ -543,7 +573,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../sb-init.js?v=128"></script>
 <script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
-<script src="admin.js?v=140"></script>
+<script src="../data/peakview.js?v=1"></script>
+<script src="admin.js?v=141"></script>
 <script>
   // ===== PWA: инсталиране на админ панела като приложение =====
   if ('serviceWorker' in navigator) {

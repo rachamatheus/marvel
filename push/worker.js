@@ -36,6 +36,27 @@ export default {
       return J({ ok: true });
     }
 
+    // ---- /catalog (публикувани PeakView оферти) ----
+    // GET: връща {ids:[...], prices:{id:bgn}, companies:{...}} — четат го всички (публично).
+    // POST (админ): записва избора.
+    if (url.pathname === '/catalog') {
+      if (req.method === 'GET') {
+        const c = await env.SUBS.get('catalog');
+        return new Response(c || '{"ids":[],"prices":{}}',
+          { headers: { 'Content-Type': 'application/json', ...cors } });
+      }
+      if (req.method === 'POST') {
+        if (req.headers.get('x-admin-token') !== env.ADMIN_TOKEN) return J({ error: 'unauthorized' }, 401);
+        let body; try { body = await req.json(); } catch { return J({ error: 'bad json' }, 400); }
+        const clean = {
+          ids: Array.isArray(body.ids) ? body.ids.slice(0, 2000).map(String) : [],
+          prices: (body.prices && typeof body.prices === 'object') ? body.prices : {},
+        };
+        await env.SUBS.put('catalog', JSON.stringify(clean));
+        return J({ ok: true, count: clean.ids.length });
+      }
+    }
+
     // ---- /latest ----
     if (url.pathname === '/latest' && req.method === 'GET') {
       const latest = await env.SUBS.get('latest');

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оферти на живо — Marvel Tour</title>
+  <meta name="description" content="Актуални оферти за почивки, екскурзии и круизи — Marvel Tour.">
+  <link rel="stylesheet" href="styles.css?v=154">
+  <link rel="icon" href="favicon.svg?v=9">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1e3a8a">
+  <style>
+    .cat-bg { position:fixed; inset:0; z-index:-2; background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2000&q=80') center/cover no-repeat fixed; }
+    .cat-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(rgba(248,251,254,0.9),rgba(248,251,254,0.95)); }
+    body { background:transparent; }
+    .cat-wrap { max-width:1280px; margin:96px auto 4rem; padding:0 1rem; }
+    .cat-head { text-align:center; margin-bottom:1.4rem; }
+    .cat-head h1 { font-family:'Playfair Display',serif; color:var(--primary); font-size:clamp(1.8rem,4vw,2.6rem); margin:.4rem 0; }
+    .cat-toolbar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; margin-bottom:1.4rem; }
+    .cat-toolbar input, .cat-toolbar select { padding:11px 14px; border:1px solid #d8dee9; border-radius:12px; font:inherit; font-size:.92rem; background:#fff; }
+    .cat-toolbar input { min-width:240px; }
+    .cat-chips { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:1.6rem; }
+    .cat-chip { border:1px solid #d8dee9; background:#fff; color:#374151; padding:8px 16px; border-radius:999px; font-size:.88rem; font-weight:600; cursor:pointer; transition:all .14s; }
+    .cat-chip.active, .cat-chip:hover { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:1.2rem; }
+    .cat-card { background:#fff; border:1px solid #e8edf3; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(8,20,50,.08); display:flex; flex-direction:column; transition:transform .15s, box-shadow .15s; }
+    .cat-card:hover { transform:translateY(-3px); box-shadow:0 18px 44px rgba(8,20,50,.16); }
+    .cat-card-img { height:180px; background:#eef2f8 center/cover no-repeat; position:relative; }
+    .cat-badge2 { position:absolute; top:10px; left:10px; background:rgba(30,58,138,.92); color:#fff; font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:999px; }
+    .cat-company { position:absolute; bottom:10px; right:10px; background:rgba(255,255,255,.92); color:var(--primary); font-size:.68rem; font-weight:700; padding:3px 9px; border-radius:999px; }
+    .cat-card-body { padding:14px 16px; display:flex; flex-direction:column; gap:8px; flex:1; }
+    .cat-card-body h3 { margin:0; font-size:1rem; line-height:1.3; color:#1f2937; }
+    .cat-meta { font-size:.82rem; color:#6b7280; }
+    .cat-price { margin-top:auto; font-weight:800; color:var(--primary); font-size:1.15rem; }
+    .cat-price span { font-size:.8rem; color:#9ca3af; font-weight:600; }
+    .cat-btn { display:block; text-align:center; margin-top:8px; background:var(--primary); color:#fff; text-decoration:none; padding:10px; border-radius:10px; font-weight:600; font-size:.9rem; }
+    .cat-btn:hover { background:#16307a; }
+    .cat-empty { text-align:center; color:#6b7280; padding:3rem 1rem; grid-column:1/-1; }
+  </style>
+</head>
+<body>
+<div class="cat-bg"></div>
+
+<nav class="navbar scrolled" id="navbar" style="position:fixed;">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.svg?v=11" alt="Marvel Tour" class="nav-logo-img" style="height:64px;width:auto;object-fit:contain;">
+  </a>
+  <button class="nav-hamburger" id="navHamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html#offers">Оферти</a></li>
+    <li><a href="oferti.html">Оферти на живо</a></li>
+    <li><a href="index.html#destinations">Дестинации</a></li>
+    <li><a href="kruizi.html">Круизи</a></li>
+    <li><a href="blog.html">Блог</a></li>
+    <li><a href="contact.html">Контакти</a></li>
+  </ul>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#offers">✈️ Оферти</a>
+  <a href="oferti.html">🔥 Оферти на живо</a>
+  <a href="index.html#destinations">🗺️ Дестинации</a>
+  <a href="kruizi.html">🚢 Круизи</a>
+  <a href="blog.html">📖 Блог</a>
+  <a href="contact.html">📧 Контакти</a>
+</div>
+
+<div class="cat-wrap">
+  <div class="cat-head">
+    <div class="section-badge">🔥 Актуални оферти</div>
+    <h1>Оферти на живо</h1>
+    <p style="color:#4b5563;">Подбрани оферти с реални цени — почивки, екскурзии и круизи.</p>
+  </div>
+  <div class="cat-toolbar">
+    <input type="text" id="catSearch" placeholder="🔍 Търси оферта или дестинация…" oninput="catRender()">
+    <select id="catCompany" onchange="catRender()"><option value="">Всички фирми</option></select>
+  </div>
+  <div class="cat-chips" id="catChips"></div>
+  <div class="cat-grid" id="catGrid"></div>
+</div>
+
+<script src="data/peakview.js?v=1"></script>
+<script>
+  var PUSH_ENDPOINT = 'https://marveltour-push.marveltour.workers.dev';
+  var ALL = window.PEAKVIEW_OFFERS || [];
+  var PUB = { ids: [], prices: {} };
+  var state = { cat: 'all', q: '', company: '' };
+
+  var CATS = [
+    { k:'all', label:'Всички' },
+    { k:'vacation', label:'🏖️ Почивки' },
+    { k:'excursion', label:'🗺️ Екскурзии' },
+    { k:'exotic', label:'🏝️ Екзотика' },
+    { k:'cruise', label:'🚢 Круизи' }
+  ];
+
+  function published() {
+    var set = new Set(PUB.ids);
+    return ALL.filter(function(o){ return set.has(o.id); });
+  }
+
+  function init() {
+    // фирми в падащото меню
+    var sel = document.getElementById('catCompany');
+    var seen = {};
+    published().forEach(function(o){ if(o.company && !seen[o.company]){ seen[o.company]=1; var op=document.createElement('option'); op.value=o.company; op.textContent=o.company; sel.appendChild(op);} });
+    // чипове за категории
+    var chips = document.getElementById('catChips');
+    CATS.forEach(function(c){
+      var b=document.createElement('button'); b.className='cat-chip'+(c.k==='all'?' active':''); b.textContent=c.label;
+      b.onclick=function(){ state.cat=c.k; document.querySelectorAll('.cat-chip').forEach(function(x){x.classList.remove('active');}); b.classList.add('active'); catRender(); };
+      chips.appendChild(b);
+    });
+    catRender();
+  }
+
+  function catRender() {
+    state.q = (document.getElementById('catSearch').value||'').toLowerCase().trim();
+    state.company = document.getElementById('catCompany').value;
+    var list = published().filter(function(o){
+      if (state.cat!=='all' && o.cat!==state.cat) return false;
+      if (state.company && o.company!==state.company) return false;
+      if (state.q && (o.title+' '+o.dest).toLowerCase().indexOf(state.q)===-1) return false;
+      return true;
+    });
+    var grid = document.getElementById('catGrid');
+    if (!list.length) { grid.innerHTML = '<div class="cat-empty">Няма оферти по този филтър.<br>Скоро добавяме още! 🌴</div>'; return; }
+    grid.innerHTML = list.map(function(o){
+      var price = (PUB.prices && PUB.prices[o.id]) ? PUB.prices[o.id] : o.bgn;
+      var img = 'https://wsrv.nl/?url=' + encodeURIComponent(o.cover) + '&w=600&output=webp&q=80';
+      return '<div class="cat-card">' +
+        '<div class="cat-card-img" style="background-image:url(\''+img+'\')">' +
+          '<span class="cat-badge2">'+o.catlbl+'</span>' +
+          (o.company?'<span class="cat-company">'+o.company+'</span>':'') +
+        '</div>' +
+        '<div class="cat-card-body">' +
+          '<h3>'+o.title+'</h3>' +
+          '<div class="cat-meta">'+(o.days?('🗓️ '+o.days+' дни / '+o.nights+' нощувки'):'')+(o.dates?(' · '+o.dates):'')+'</div>' +
+          '<div class="cat-price">'+(price?('от '+price+' лв.'):'')+(o.eur?' <span>/ '+o.eur+' €</span>':'')+'</div>' +
+          '<a class="cat-btn" href="'+o.detail+'" target="_blank" rel="noopener">Виж повече</a>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  // зареди публикуваните и стартирай
+  fetch(PUSH_ENDPOINT + '/catalog').then(function(r){return r.json();})
+    .then(function(d){ PUB = d || PUB; }).catch(function(){})
+    .finally(init);
+</script>
+<script src="lang.js?v=136"></script>
+<script src="pwa.js?v=7"></script>
+</body>
+</html>

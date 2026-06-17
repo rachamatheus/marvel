@@ -83,7 +83,8 @@ function showPage(page) {
     analytics: 'Статистики',
     settings: 'Настройки',
     users: 'Потребители',
-    peakview: 'PeakView — оферти на живо'
+    peakview: 'PeakView — оферти на живо',
+    pvcatalog: 'PeakView каталог'
   };
   // Само админ може да отвори страницата с потребителите.
   if (page === 'users' && !isAdmin()) { page = 'dashboard'; }
@@ -107,6 +108,7 @@ function showPage(page) {
     if (pt) pt.value = localStorage.getItem('mt_push_token') || '';
   }
   if (page === 'users') renderUsers();
+  if (page === 'pvcatalog') initPvCatalog();
   if (page === 'peakview' && !window._pvInit && typeof iFrameResize === 'function') {
     window._pvInit = true;
     try { iFrameResize({ checkOrigin: false, heightCalculationMethod: 'max' }, '#pvFrame'); } catch (e) {}
@@ -1046,6 +1048,84 @@ function sendPush() {
         out.textContent = '❌ Грешка: ' + (res.d.error || 'неуспешно изпращане') + (res.d.status ? ' (' + res.d.status + ')' : '');
       }
     }).catch(function () { out.style.color = '#dc2626'; out.textContent = '❌ Няма връзка с push Worker-а.'; });
+}
+
+// ===== PEAKVIEW КАТАЛОГ (избор кои оферти да се публикуват) =====
+var PV_OFFERS = (typeof window !== 'undefined' && window.PEAKVIEW_OFFERS) ? window.PEAKVIEW_OFFERS : [];
+var pvSel = null;      // Set с публикуваните id-та
+var pvPrice = {};      // override цени {id: bgn}
+var pvLoaded = false;
+
+function initPvCatalog() {
+  if (pvLoaded) { renderPvCatalog(); return; }
+  pvSel = new Set();
+  var list = document.getElementById('pvCatalogList');
+  list.innerHTML = '<p style="color:var(--gray-400);">Зареждане…</p>';
+  if (!PUSH_ENDPOINT) { list.innerHTML = '<p style="color:#dc2626;">Липсва PUSH_ENDPOINT в admin.js.</p>'; return; }
+  fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
+    (d.ids || []).forEach(function (id) { pvSel.add(String(id)); });
+    pvPrice = d.prices || {};
+  }).catch(function () {}).finally(function () {
+    pvLoaded = true;
+    // фирми във филтъра
+    var sel = document.getElementById('pvCompFilter'); var seen = {};
+    PV_OFFERS.forEach(function (o) { if (o.company && !seen[o.company]) { seen[o.company] = 1; var op = document.createElement('option'); op.value = o.company; op.textContent = o.company; sel.appendChild(op); } });
+    renderPvCatalog();
+  });
+}
+
+function renderPvCatalog() {
+  var q = (document.getElementById('pvSearch').value || '').toLowerCase().trim();
+  var cat = document.getElementById('pvCatFilter').value;
+  var comp = document.getElementById('pvCompFilter').value;
+  var list = PV_OFFERS.filter(function (o) {
+    if (cat && o.cat !== cat) return false;
+    if (comp && o.company !== comp) return false;
+    if (q && (o.title + ' ' + o.dest).toLowerCase().indexOf(q) === -1) return false;
+    return true;
+  });
+  document.getElementById('pvCount').textContent = 'Избрани: ' + pvSel.size + ' / ' + PV_OFFERS.length + ' (показани ' + list.length + ')';
+  var html = list.map(function (o) {
+    var checked = pvSel.has(o.id) ? 'checked' : '';
+    var price = (pvPrice[o.id] != null && pvPrice[o.id] !== '') ? pvPrice[o.id] : (o.bgn || '');
+    var img = 'https://wsrv.nl/?url=' + encodeURIComponent(o.cover) + '&w=120&output=webp&q=70';
+    return '<div style="display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--gray-200,#e5e7eb);border-radius:10px;margin-bottom:8px;background:' + (checked ? '#f0fdf4' : '#fff') + ';">' +
+      '<input type="checkbox" ' + checked + ' onchange="pvToggle(\'' + o.id + '\',this.checked)" style="width:20px;height:20px;flex:0 0 auto;cursor:pointer;">' +
+      '<img src="' + img + '" style="width:56px;height:42px;object-fit:cover;border-radius:6px;flex:0 0 auto;" loading="lazy">' +
+      '<div style="min-width:0;flex:1;">' +
+        '<div style="font-weight:600;font-size:0.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escapeHtml(o.title) + '</div>' +
+        '<div style="font-size:0.76rem;color:var(--gray-500);">' + o.catlbl + ' · ' + escapeHtml(o.company) + (o.dates ? ' · ' + o.dates : '') + '</div>' +
+      '</div>' +
+      '<div style="flex:0 0 auto;display:flex;align-items:center;gap:4px;">' +
+        '<input type="number" value="' + price + '" onchange="pvSetPrice(\'' + o.id + '\',this.value)" style="width:80px;padding:6px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.82rem;"> лв.' +
+      '</div>' +
+      '</div>';
+  }).join('');
+  document.getElementById('pvCatalogList').innerHTML = html || '<p style="color:var(--gray-400);">Няма оферти по филтъра.</p>';
+}
+
+function pvToggle(id, on) {
+  if (on) pvSel.add(id); else pvSel.delete(id);
+  document.getElementById('pvCount').textContent = 'Избрани: ' + pvSel.size + ' / ' + PV_OFFERS.length;
+  renderPvCatalog();
+}
+function pvSetPrice(id, val) { pvPrice[id] = val; }
+
+function savePvCatalog() {
+  var token = localStorage.getItem('mt_push_token') || '';
+  var out = document.getElementById('pvSaveResult');
+  if (!token) { out.style.color = '#dc2626'; out.textContent = 'Първо въведи тайния код в Настройки → Изпрати известие (ADMIN_TOKEN).'; return; }
+  var prices = {};
+  pvSel.forEach(function (id) { if (pvPrice[id] != null && pvPrice[id] !== '') prices[id] = pvPrice[id]; });
+  out.style.color = 'var(--gray-600)'; out.textContent = 'Запазване…';
+  fetch(PUSH_ENDPOINT + '/catalog', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+    body: JSON.stringify({ ids: Array.from(pvSel), prices: prices })
+  }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+    .then(function (res) {
+      if (res.ok && res.d.ok) { out.style.color = '#16a34a'; out.textContent = '✅ Публикувани ' + res.d.count + ' оферти. Виж ги на /oferti.html'; }
+      else { out.style.color = '#dc2626'; out.textContent = '❌ Грешка: ' + (res.d.error || 'неуспешно'); }
+    }).catch(function () { out.style.color = '#dc2626'; out.textContent = '❌ Няма връзка с Worker-а.'; });
 }
 
 // ===== ПОТРЕБИТЕЛИ / РАБОТНИЦИ (само админ) =====
