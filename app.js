@@ -16,7 +16,18 @@ const deletedIds = [].concat(
 // Custom offers OVERRIDE base offers with the same id (no double counting) — the
 // total is the distinct sum of base + custom.
 const _customIds = new Set(customOffers.map(o => o.id));
-const ALL_OFFERS = [...OFFERS.filter(o => !deletedIds.includes(o.id) && !_customIds.has(o.id)), ...customOffers];
+// Изтекли оферти (без нито една бъдеща дата) се скриват автоматично навсякъде.
+function mtOfferExpired(o) {
+  var ds = [];
+  if (Array.isArray(o.dates)) ds = ds.concat(o.dates);
+  if (o.next_date) ds.push(o.next_date);
+  if (Array.isArray(o.departures)) o.departures.forEach(function (d) { if (d && d.date) ds.push(d.date); });
+  var t0 = new Date(); t0.setHours(0, 0, 0, 0); t0 = t0.getTime();
+  var parsed = ds.map(function (s) { var t = Date.parse(String(s).slice(0, 10)); return isNaN(t) ? null : t; }).filter(function (x) { return x != null; });
+  if (!parsed.length) return false; // няма дати → не пипаме
+  return parsed.every(function (t) { return t < t0; });
+}
+const ALL_OFFERS = [...OFFERS.filter(o => !deletedIds.includes(o.id) && !_customIds.has(o.id)), ...customOffers].filter(o => !mtOfferExpired(o));
 
 // ===== SUPABASE CONFIG =====
 // Replace with your Supabase project URL and anon key after setup

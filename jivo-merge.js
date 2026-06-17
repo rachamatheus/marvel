@@ -9,6 +9,13 @@
     return m ? (m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0')) : '';
   }
   function eurOf(bgn) { var n = parseFloat(bgn); return n ? Math.round(n / 1.95583) : 0; }
+  // изтекла ли е (всички дати в миналото). Ако няма дати → не я смятаме за изтекла.
+  function pvExpired(datesText) {
+    var t0 = new Date(); t0.setHours(0, 0, 0, 0); t0 = t0.getTime();
+    var re = /(\d{1,2})\.(\d{1,2})\.(\d{4})/g, m, any = false, future = false;
+    while ((m = re.exec(String(datesText || '')))) { any = true; var t = Date.parse(m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0')); if (!isNaN(t) && t >= t0) future = true; }
+    return any && !future;
+  }
 
   function buildOffer(p, prices) {
     var bgn = (prices && prices[p.id] != null && prices[p.id] !== '') ? prices[p.id] : p.bgn;
@@ -32,7 +39,7 @@
     var have = {}; ALL_OFFERS.forEach(function (o) { have[String(o.id)] = 1; });
     var added = 0;
     window.PEAKVIEW_OFFERS.forEach(function (p) {
-      if (idset[String(p.id)] && !have[String(p.id)]) { ALL_OFFERS.push(buildOffer(p, prices)); added++; }
+      if (idset[String(p.id)] && !have[String(p.id)] && !pvExpired(p.dates)) { ALL_OFFERS.push(buildOffer(p, prices)); added++; }
     });
     if (added) {
       if (typeof renderOffers === 'function') renderOffers();
