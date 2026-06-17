@@ -196,12 +196,7 @@ function deleteOffer(id) {
 // ===== LOAD INQUIRIES =====
 function loadInquiries() {
   allInquiries = JSON.parse(localStorage.getItem('mt_inquiries') || '[]');
-
-  if (!allInquiries.length) {
-    allInquiries = generateDemoData();
-    localStorage.setItem('mt_inquiries', JSON.stringify(allInquiries));
-  }
-
+  // Без демо данни — показваме само реалните запитвания (празно = празно).
   updateNewBadge();
 }
 
