@@ -799,6 +799,13 @@ function confirmDeleteOffer(id) {
 }
 
 // ===== OFFER MODAL =====
+function getOfferCategories() {
+  return [].slice.call(document.querySelectorAll('#of_categories .of-cat:checked')).map(function (c) { return c.value; });
+}
+function setOfferCategories(cats) {
+  var set = {}; (cats || []).forEach(function (c) { if (c) set[c] = 1; });
+  document.querySelectorAll('#of_categories .of-cat').forEach(function (c) { c.checked = !!set[c.value]; });
+}
 function openOfferModal(id) {
   currentEditOfferId = id;
   const modal = document.getElementById('offerEditModal');
@@ -810,7 +817,7 @@ function openOfferModal(id) {
     titleEl.textContent = 'Редактирай оферта';
     document.getElementById('of_title').value = offer.title || '';
     document.getElementById('of_refnum').value = offer.refNum || '';
-    document.getElementById('of_category').value = offer.category || 'excursion';
+    setOfferCategories(offer.categories && offer.categories.length ? offer.categories : [offer.category || 'excursion']);
     document.getElementById('of_destination').value = offer.destination || '';
     document.getElementById('of_country').value = offer.country || '';
     document.getElementById('of_transport').value = offer.transport || '';
@@ -832,7 +839,7 @@ function openOfferModal(id) {
     titleEl.textContent = 'Добави нова оферта';
     document.getElementById('of_title').value = '';
     document.getElementById('of_refnum').value = '';
-    document.getElementById('of_category').value = 'excursion';
+    setOfferCategories(['excursion']);
     document.getElementById('of_destination').value = '';
     document.getElementById('of_country').value = '';
     document.getElementById('of_transport').value = '';
@@ -886,7 +893,8 @@ function saveOfferFromModal() {
     id,
     title,
     refNum: document.getElementById('of_refnum').value.trim(),
-    category: document.getElementById('of_category').value,
+    category: (getOfferCategories()[0] || 'excursion'),
+    categories: getOfferCategories(),
     destination: document.getElementById('of_destination').value.trim(),
     country: document.getElementById('of_country').value.trim(),
     transport: document.getElementById('of_transport').value.trim(),

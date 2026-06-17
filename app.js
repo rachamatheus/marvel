@@ -757,8 +757,9 @@ function renderFilters() {
 function getFilteredOffers() {
   let list = [...ALL_OFFERS];
   if (currentCategory !== 'all') {
-    if (currentCategory === 'cruise') list = list.filter(o => (o.tags || []).includes('cruise'));
-    else list = list.filter(o => o.category === currentCategory);
+    const catsOf = o => (o.categories && o.categories.length ? o.categories : [o.category]);
+    if (currentCategory === 'cruise') list = list.filter(o => (o.tags || []).includes('cruise') || catsOf(o).includes('cruise'));
+    else list = list.filter(o => catsOf(o).includes(currentCategory));
   }
   if (currentTag) list = list.filter(o => o.tags.includes(currentTag));
   if (currentCountry) list = list.filter(o => o.country === currentCountry);

@@ -478,13 +478,13 @@
             <input type="text" class="form-input" id="of_refnum" placeholder="напр. П974 или Е235">
           </div>
           <div class="form-group">
-            <label class="form-label">Категория</label>
-            <select class="form-select" id="of_category">
-              <option value="excursion">Екскурзия</option>
-              <option value="vacation">Почивка</option>
-              <option value="exotic">Екзотика</option>
-              <option value="cruise">Круиз</option>
-            </select>
+            <label class="form-label">Категория (може повече от една)</label>
+            <div id="of_categories" style="display:flex;flex-wrap:wrap;gap:14px;padding:8px 0;">
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="of-cat" value="excursion" style="width:17px;height:17px;cursor:pointer;"> 🗺️ Екскурзия</label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="of-cat" value="vacation" style="width:17px;height:17px;cursor:pointer;"> 🏖️ Почивка</label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="of-cat" value="exotic" style="width:17px;height:17px;cursor:pointer;"> 🏝️ Екзотика</label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.9rem;"><input type="checkbox" class="of-cat" value="cruise" style="width:17px;height:17px;cursor:pointer;"> 🚢 Круиз</label>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-label">Дестинация</label>
@@ -587,7 +587,7 @@
 <script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
 <script src="../data/peakview.js?v=2"></script>
 <script src="../dest-util.js?v=1"></script>
-<script src="admin.js?v=161"></script>
+<script src="admin.js?v=162"></script>
 <script>
   // ===== PWA: инсталиране на админ панела като приложение =====
   if ('serviceWorker' in navigator) {
