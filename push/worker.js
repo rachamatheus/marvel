@@ -115,7 +115,7 @@ export default {
     if (url.pathname === '/catalog') {
       if (req.method === 'GET') {
         const c = await env.SUBS.get('catalog');
-        return new Response(c || '{"ids":[],"prices":{}}',
+        return new Response(c || '{"ids":[],"prices":{},"titles":{}}',
           { headers: { 'Content-Type': 'application/json', ...cors } });
       }
       if (req.method === 'POST') {
@@ -123,6 +123,7 @@ export default {
         const clean = {
           ids: Array.isArray(body.ids) ? body.ids.slice(0, 2000).map(String) : [],
           prices: (body.prices && typeof body.prices === 'object') ? body.prices : {},
+          titles: (body.titles && typeof body.titles === 'object') ? body.titles : {},
         };
         await env.SUBS.put('catalog', JSON.stringify(clean));
         return J({ ok: true, count: clean.ids.length });

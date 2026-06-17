@@ -169,6 +169,7 @@
   function render() {
     var id = getParam('id');
     offer = OFFERS.filter(function (o) { return o.id === id; })[0];
+    if (offer && window.__pvTitle) offer = Object.assign({}, offer, { title: window.__pvTitle });
     var root = document.getElementById('offerRoot');
     if (!offer) {
       root.innerHTML = '<div class="offer-page" style="text-align:center;"><h2 style="color:var(--primary);">Офертата не е намерена</h2><a href="oferti.html" class="form-submit" style="display:inline-block;width:auto;padding:12px 28px;text-decoration:none;">← Към офертите на живо</a></div>';
@@ -261,6 +262,11 @@
   function loadScript(src, cb) { var s = document.createElement('script'); s.src = src; s.onload = cb; s.onerror = cb; document.head.appendChild(s); }
   var id = getParam('id');
   if (id) {
-    loadScript('data/pvdetails/' + id + '.js?v=1', render); // хотелите се дърпат динамично от Worker-а
+    // вземи евентуално запазено (override) заглавие от каталога
+    fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.titles && d.titles[id]) window.__pvTitle = d.titles[id];
+    }).catch(function () {}).finally(function () {
+      loadScript('data/pvdetails/' + id + '.js?v=1', render);
+    });
   } else { render(); }
 })();

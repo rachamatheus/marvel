@@ -679,7 +679,7 @@ function purgeExpiredOffers() {
       expired.forEach(function (id) { pvPubCache.ids.delete(String(id)); });
       fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
         var ids = (d.ids || []).map(String).filter(function (x) { return !expired.includes(x); });
-        return fetch(PUSH_ENDPOINT + '/catalog', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: ids, prices: d.prices || {} }) });
+        return fetch(PUSH_ENDPOINT + '/catalog', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: ids, prices: d.prices || {}, titles: d.titles || {} }) });
       }).catch(function () {});
     }
   }
@@ -703,7 +703,7 @@ function buildPvOnlineRows(excludeIds) {
   return PV_OFFERS.filter(function (p) { return pvPubCache.ids.has(String(p.id)) && !skip[String(p.id)] && !pvDatesExpired(p.dates); }).map(function (p) {
     var bgn = (pvPubCache.prices[p.id] != null && pvPubCache.prices[p.id] !== '') ? parseFloat(pvPubCache.prices[p.id]) : (parseFloat(p.bgn) || 0);
     return {
-      id: p.id, pv: true, title: p.title, refNum: '', destination: p.dest || deriveDest(p.title),
+      id: p.id, pv: true, title: (pvPubCache.titles && pvPubCache.titles[p.id]) || p.title, refNum: '', destination: p.dest || deriveDest((pvPubCache.titles && pvPubCache.titles[p.id]) || p.title),
       category: p.cat || 'vacation', country: '',
       price_bgn: bgn, price_eur: bgn ? Math.round(bgn / EUR_RATE) : (parseFloat(p.eur) || 0),
       duration: (p.days ? p.days + ' дни' : '') + (p.nights ? ' / ' + p.nights + ' нощ.' : ''),
@@ -716,7 +716,7 @@ function renderAdminOffers() {
   if (pvPubCache === null && PUSH_ENDPOINT) {
     pvPubCache = { ids: new Set(), prices: {} };
     fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
-      (d.ids || []).forEach(function (i) { pvPubCache.ids.add(String(i)); }); pvPubCache.prices = d.prices || {};
+      (d.ids || []).forEach(function (i) { pvPubCache.ids.add(String(i)); }); pvPubCache.prices = d.prices || {}; pvPubCache.titles = d.titles || {};
     }).catch(function () {}).finally(function () { purgeExpiredOffers(); renderAdminOffers(); });
   }
 
@@ -781,7 +781,7 @@ function pvUnpublish(id) {
   if (!confirm('Да премахна ли тази PeakView оферта от сайта?')) return;
   fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
     var ids = (d.ids || []).map(String).filter(function (x) { return x !== String(id); });
-    return fetch(PUSH_ENDPOINT + '/catalog', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: ids, prices: d.prices || {} }) });
+    return fetch(PUSH_ENDPOINT + '/catalog', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: ids, prices: d.prices || {}, titles: d.titles || {} }) });
   }).then(function () {
     if (pvPubCache) pvPubCache.ids.delete(String(id));
     renderAdminOffers();
@@ -920,7 +920,7 @@ function saveOfferFromModal() {
     fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
       var ids = (d.ids || []).map(String).filter(function (x) { return x !== String(id); });
       pvPubCache.ids.delete(String(id));
-      return fetch(PUSH_ENDPOINT + '/catalog', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: ids, prices: d.prices || {} }) });
+      return fetch(PUSH_ENDPOINT + '/catalog', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: ids, prices: d.prices || {}, titles: d.titles || {} }) });
     }).catch(function () {});
   }
   closeOfferModal();
@@ -1304,6 +1304,7 @@ function sendPush() {
 var PV_OFFERS = (typeof window !== 'undefined' && window.PEAKVIEW_OFFERS) ? window.PEAKVIEW_OFFERS : [];
 var pvSel = null;      // Set с публикуваните id-та
 var pvPrice = {};      // override цени {id: bgn}
+var pvTitles = {};     // override заглавия {id: запазено име}
 var pvLoaded = false;
 var pvComps = new Set(); // избрани оператори (показват се само техните оферти)
 
@@ -1315,7 +1316,7 @@ function initPvCatalog() {
   if (!PUSH_ENDPOINT) { list.innerHTML = '<p style="color:#dc2626;">Липсва PUSH_ENDPOINT в admin.js.</p>'; return; }
   fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
     (d.ids || []).forEach(function (id) { pvSel.add(String(id)); });
-    pvPrice = d.prices || {};
+    pvPrice = d.prices || {}; pvTitles = d.titles || {};
   }).catch(function () {}).finally(function () {
     pvLoaded = true;
     // чекбокс-меню с операторите
@@ -1449,7 +1450,7 @@ function savePvCatalog() {
   out.style.color = 'var(--gray-600)'; out.textContent = 'Запазване…';
   fetch(PUSH_ENDPOINT + '/catalog', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ids: Array.from(pvSel), prices: prices })
+    body: JSON.stringify({ ids: Array.from(pvSel), prices: prices, titles: pvTitles })
   }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
     .then(function (res) {
       if (res.ok && res.d.ok) { out.style.color = '#16a34a'; out.textContent = '✅ Публикувани ' + res.d.count + ' оферти. Виж ги на /oferti.html'; }

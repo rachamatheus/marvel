@@ -18,12 +18,13 @@
     return any && !future;
   }
 
-  function buildOffer(p, prices) {
+  function buildOffer(p, prices, titles) {
     var bgn = (prices && prices[p.id] != null && prices[p.id] !== '') ? prices[p.id] : p.bgn;
     var nbgn = parseFloat(bgn) || 0;
+    var title = (titles && titles[p.id]) ? titles[p.id] : p.title;
     return {
       id: p.id, pv: true,
-      title: p.title, destination: p.dest || deriveDest(p.title), country: '',
+      title: title, destination: p.dest || deriveDest(title), country: '',
       category: p.cat || 'vacation',
       tags: (p.cat === 'cruise') ? ['cruise'] : [],
       duration: (p.days ? p.days + ' дни' : '') + (p.nights ? ' / ' + p.nights + ' нощувки' : ''),
@@ -34,13 +35,13 @@
     };
   }
 
-  function merge(ids, prices) {
+  function merge(ids, prices, titles) {
     if (!window.PEAKVIEW_OFFERS || typeof ALL_OFFERS === 'undefined') return;
     var idset = {}; ids.forEach(function (i) { idset[String(i)] = 1; });
     var have = {}; ALL_OFFERS.forEach(function (o) { have[String(o.id)] = 1; });
     var added = 0;
     window.PEAKVIEW_OFFERS.forEach(function (p) {
-      if (idset[String(p.id)] && !have[String(p.id)] && !pvExpired(p.dates)) { ALL_OFFERS.push(buildOffer(p, prices)); added++; }
+      if (idset[String(p.id)] && !have[String(p.id)] && !pvExpired(p.dates)) { ALL_OFFERS.push(buildOffer(p, prices, titles)); added++; }
     });
     if (added) {
       if (typeof renderOffers === 'function') renderOffers();
@@ -60,7 +61,7 @@
   fetch(EP + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
     var ids = (d && d.ids) || [];
     if (!ids.length) return;
-    loadData(function () { merge(ids, (d && d.prices) || {}); });
+    loadData(function () { merge(ids, (d && d.prices) || {}, (d && d.titles) || {}); });
   }).catch(function () {});
 
   // Глобални ръчни оферти (от админ редактора) → в основната мрежа „Оферти".
