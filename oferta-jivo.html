@@ -53,6 +53,9 @@
     .pv-price-table th { background:rgba(26,58,107,0.06); color:var(--primary); text-align:left; padding:8px 10px; border:1px solid var(--gray-200,#e5e7eb); }
     .pv-price-table td { padding:8px 10px; border:1px solid var(--gray-200,#e5e7eb); color:#1f2430; }
     .pv-price-table tr:nth-child(even) td { background:rgba(0,0,0,0.02); }
+    .pv-price-row { cursor:pointer; }
+    .pv-price-row:hover td { background:rgba(201,168,76,0.16); }
+    .pv-price-row.selected td { background:#dcfce7 !important; color:#08351c; font-weight:700; }
   </style>
 </head>
 <body>
@@ -111,6 +114,7 @@
 
   <div class="inquiry-form" id="inquirySection" style="margin-top:2rem;">
     <h3>📬 Изпратете запитване</h3>
+    <div id="inqSelected" style="display:none;background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:0.9rem;color:#08351c;"></div>
     <div id="inquiryFormContent">
       <div class="form-row">
         <div class="form-group"><label class="form-label">Вашето име *</label><input type="text" class="form-input" id="inqName" placeholder="Иван Иванов"></div>
@@ -149,7 +153,7 @@
 <div class="toast-container" id="toastContainer"></div>
 
 <script src="data/peakview.js?v=1"></script>
-<script src="oferta-jivo.js?v=1"></script>
+<script src="oferta-jivo.js?v=2"></script>
 <script src="lang.js?v=136"></script>
 <script src="pwa.js?v=8"></script>
 <script src="auth.js?v=1"></script>

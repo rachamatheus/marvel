@@ -165,7 +165,16 @@ function parseHotelDetail(html) {
     var room = decodeURIComponent(p[4].replace(/\+/g, ' ')).replace(/\s+/g, ' ').trim();
     (dates[d] = dates[d] || []).push({ room: room, price: price });
   }
-  return { gallery: gallery, dates: dates };
+  // описание (първият htext блок)
+  var desc = '';
+  var dm = html.match(/class="htext"[^>]*>([\s\S]*?)<\/div>/);
+  if (dm) {
+    desc = dm[1].replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+    if (/^\s*карта\s*:?/i.test(desc)) desc = '';
+    desc = desc.slice(0, 1600);
+  }
+  return { gallery: gallery, dates: dates, desc: desc };
 }
 
 // ===== Помощни =====
