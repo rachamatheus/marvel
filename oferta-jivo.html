@@ -32,7 +32,27 @@
     .offer-tab-btn:hover { color:var(--primary); background:rgba(26,58,107,0.05); }
     .offer-tab-btn.active { color:var(--primary); border-bottom-color:var(--gold,#C9A84C); }
     /* хотелски карти в таб „Хотели" */
-    .pv-hotels { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem; }
+    .pv-hotels { display:flex; flex-direction:column; gap:12px; }
+    .pv-hotel { border:1px solid var(--gray-200,#e5e7eb); border-radius:14px; overflow:hidden; background:#fff; }
+    .pv-hotel.open { box-shadow:0 10px 30px rgba(8,20,50,.12); }
+    .pv-hotel-head { display:flex; align-items:center; gap:14px; padding:10px 14px; cursor:pointer; }
+    .pv-hotel-head:hover { background:rgba(26,58,107,0.04); }
+    .pv-hotel-head img { width:90px; height:66px; object-fit:cover; border-radius:10px; flex:0 0 auto; }
+    .pv-hotel-info { flex:1; min-width:0; }
+    .pv-hotel-name { font-weight:700; color:var(--primary); font-size:1rem; }
+    .pv-hotel-loc { font-size:0.84rem; color:var(--gray-500,#6b7280); }
+    .pv-hotel-price { font-weight:800; color:#9a7b1f; font-size:0.95rem; margin-top:2px; }
+    .pv-hotel-toggle { flex:0 0 auto; font-size:0.84rem; font-weight:700; color:var(--primary); }
+    .pv-hotel-body { padding:0 14px 16px; border-top:1px solid var(--gray-100,#f3f4f6); }
+    .pv-hgal { display:flex; gap:8px; overflow-x:auto; padding:12px 0; }
+    .pv-hgal img { width:120px; height:84px; object-fit:cover; border-radius:8px; cursor:pointer; flex:0 0 auto; }
+    .pv-hdesc { font-size:0.9rem; color:#374151; line-height:1.6; margin:0 0 12px; }
+    .pv-hp-head { display:flex; align-items:center; gap:10px; margin:8px 0; font-weight:700; color:var(--primary); }
+    .pv-hp-head select { font-family:inherit; padding:6px 10px; border:1.5px solid var(--gray-300,#d1d5db); border-radius:8px; font-size:0.9rem; cursor:pointer; }
+    .pv-price-table { width:100%; border-collapse:collapse; font-size:0.9rem; }
+    .pv-price-table th { background:rgba(26,58,107,0.06); color:var(--primary); text-align:left; padding:8px 10px; border:1px solid var(--gray-200,#e5e7eb); }
+    .pv-price-table td { padding:8px 10px; border:1px solid var(--gray-200,#e5e7eb); color:#1f2430; }
+    .pv-price-table tr:nth-child(even) td { background:rgba(0,0,0,0.02); }
   </style>
 </head>
 <body>
