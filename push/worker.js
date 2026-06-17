@@ -44,7 +44,7 @@ export default {
     if (url.pathname === '/hotel' && req.method === 'GET') {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
-      const ck = 'h4:' + await sha256(target);
+      const ck = 'h5:' + await sha256(target);
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
       const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
       const body = JSON.stringify(parseHotelDetail(html));
@@ -232,16 +232,16 @@ function parseHotelDetail(html) {
     var room = decodeURIComponent(p[4].replace(/\+/g, ' ')).replace(/\s+/g, ' ').trim();
     (dates[d] = dates[d] || []).push({ room: room, price: price });
   }
-  // ---- описание: най-дългият htext блок (не „карта") ----
-  var desc = '';
+  // ---- описание: събираме ВСИЧКИ htext блока (Местоположение/Хотел/Настаняване…), не само един ----
+  var parts = [], pseen = {};
   var hre = /class="htext"[^>]*>([\s\S]*?)(?=class="htext"|class="hcat"|resp-tabs|<\/body|$)/gi, hm;
   while ((hm = hre.exec(html))) {
     var t = hm[1].replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<[^>]+>/g, ' ')
       .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim();
-    if (/^\s*карта\s*:?/i.test(t)) continue;
-    if (t.length > desc.length) desc = t;
+    if (!t || /^\s*карта\s*:?/i.test(t) || pseen[t]) continue;
+    pseen[t] = 1; parts.push(t);
   }
-  desc = desc.slice(0, 2200);
+  var desc = parts.join('<br><br>').slice(0, 4000);
   return { gallery: gallery, dates: dates, desc: desc };
 }
 
