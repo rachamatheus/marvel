@@ -34,7 +34,11 @@
     window.PEAKVIEW_OFFERS.forEach(function (p) {
       if (idset[String(p.id)] && !have[String(p.id)]) { ALL_OFFERS.push(buildOffer(p, prices)); added++; }
     });
-    if (added && typeof renderOffers === 'function') renderOffers();
+    if (added) {
+      if (typeof renderOffers === 'function') renderOffers();
+      if (typeof renderFilters === 'function') renderFilters();
+      if (typeof updateStatCounter === 'function') updateStatCounter();
+    }
   }
 
   function loadData(cb) {
