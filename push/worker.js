@@ -199,13 +199,21 @@ function parseHotelList(html) {
 }
 
 function parseHotelDetail(html) {
-  // ---- галерия: първо снимки на хотела (hoteli/<hid>), после на хотела изобщо, накрая програмната снимка ----
+  // ---- галерия: хотелски снимки от ЛЮБ хост (PeakView static, emerald.bg, solvex.bg и др.) ----
   var gallery = [], seen = {};
-  function addImgs(re) { var g; while ((g = re.exec(html))) { var u = 'https:' + g[1]; if (!seen[u]) { seen[u] = 1; gallery.push(u); } } }
-  var hid = (html.match(/hoteli\/(\d+)\//) || [])[1];
-  if (hid) addImgs(new RegExp('(\\/\\/static\\.peakview\\.bg\\/img\\/data2?\\/\\d+\\/hoteli\\/' + hid + '\\/[A-Za-z0-9_]+\\.(?:jpg|jpeg|png))', 'gi'));
-  if (!gallery.length) addImgs(/(\/\/static\.peakview\.bg\/img\/data2?\/\d+\/hoteli\/\d+\/[A-Za-z0-9_]+\.(?:jpg|jpeg|png))/gi);
-  if (!gallery.length) addImgs(/(\/\/static\.peakview\.bg\/img\/data2?\/\d+\/programi\/\d+\/[A-Za-z0-9_]+\.(?:jpg|jpeg|png))/gi);
+  function pushU(u) {
+    if (u.indexOf('//') === 0) u = 'https:' + u;
+    u = u.replace(/^http:\/\//i, 'https://').replace(/ /g, '%20');
+    if (seen[u]) return; seen[u] = 1; gallery.push(u);
+  }
+  // изключи лога/икони/служебни картинки
+  var BAD = /(logo|bialfon|pv_bial|sprite|icon|favicon|flag|blank|loader|spinner|placeholder|noimage|wd_)/i;
+  // допусни само „хотелски" пътища
+  var GOODPATH = /(hoteli|\/hotel\/|\/hotels\/|\/images\/|programi|\/files\/)/i;
+  var ire = /(?:src|data-original|data-src)\s*=\s*["'](https?:\/\/[^"']+?\.(?:jpe?g|png|webp)|\/\/[^"']+?\.(?:jpe?g|png|webp))["']/gi, im;
+  while ((im = ire.exec(html))) { var uu = im[1]; if (BAD.test(uu) || !GOODPATH.test(uu)) continue; pushU(uu); }
+  // ако нищо — поне програмната снимка
+  if (!gallery.length) { var pg = /(\/\/static\.peakview\.bg\/img\/data2?\/\d+\/programi\/\d+\/[A-Za-z0-9_]+\.(?:jpg|jpeg|png))/gi, pm; while ((pm = pg.exec(html))) pushU(pm[1]); }
   // ---- цени по дати (само ако резервационните връзки носят ndate/ncena/ntab) ----
   var dates = {};
   var pre = /reservation_[a-z]+\.php\?[^"']*?ndate=([0-9.]+)&ncena=([0-9]+)&nvaluta=([A-Z]+)&ntab=([^"'&]+)/g;
