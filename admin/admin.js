@@ -612,46 +612,94 @@ function populateCountryFilter() {
   });
 }
 
+// Публикуваните PeakView оферти (глобално в /catalog) — кеширани веднъж за таблицата.
+var pvPubCache = null;
+function pvDateNext(txt) { var m = String(txt || '').match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/); return m ? (m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0')) : ''; }
+function buildPvOnlineRows() {
+  if (!pvPubCache || !PV_OFFERS.length) return [];
+  var nativeIds = {}; allOffers.forEach(function (o) { nativeIds[String(o.id)] = 1; });
+  return PV_OFFERS.filter(function (p) { return pvPubCache.ids.has(String(p.id)) && !nativeIds[String(p.id)]; }).map(function (p) {
+    var bgn = (pvPubCache.prices[p.id] != null && pvPubCache.prices[p.id] !== '') ? parseFloat(pvPubCache.prices[p.id]) : (parseFloat(p.bgn) || 0);
+    return {
+      id: p.id, pv: true, title: p.title, refNum: '', destination: p.dest || '',
+      category: p.cat || 'vacation', country: '',
+      price_bgn: bgn, price_eur: bgn ? Math.round(bgn / EUR_RATE) : (parseFloat(p.eur) || 0),
+      duration: (p.days ? p.days + ' дни' : '') + (p.nights ? ' / ' + p.nights + ' нощ.' : ''),
+      dates: [], next_date: pvDateNext(p.dates)
+    };
+  });
+}
 function renderAdminOffers() {
+  // зареди публикуваните PeakView веднъж, после пре-рендерирай
+  if (pvPubCache === null && PUSH_ENDPOINT) {
+    pvPubCache = { ids: new Set(), prices: {} };
+    fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
+      (d.ids || []).forEach(function (i) { pvPubCache.ids.add(String(i)); }); pvPubCache.prices = d.prices || {};
+    }).catch(function () {}).finally(function () { renderAdminOffers(); });
+  }
+
   const search = (document.getElementById('offerSearch')?.value || '').toLowerCase();
   const country = document.getElementById('offerCountryFilter')?.value || '';
   const views = getViewCounts();
+  const customIds = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]').map(c => String(c.id));
 
-  let list = allOffers.filter(o => {
+  // онлайн = нативните (data/offers.js + custom) + публикуваните PeakView
+  let combined = allOffers.concat(buildPvOnlineRows());
+  let list = combined.filter(o => {
     const matchSearch = !search || o.title.toLowerCase().includes(search) || (o.destination && o.destination.toLowerCase().includes(search));
     const matchCountry = !country || o.country === country;
     return matchSearch && matchCountry;
   });
 
+  const cnt = document.getElementById('offersCount2');
+  if (cnt) cnt.textContent = list.length + ' онлайн оферти';
+
   document.getElementById('offersAdminBody').innerHTML = list.map(o => {
     const inqCount = allInquiries.filter(i => i.offer_id === o.id).length;
-    const isCustom = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]').some(c => c.id === o.id);
+    const isCustom = customIds.indexOf(String(o.id)) !== -1;
+    const pin = pvParse(o);
+    const opCell = pin.spo ? ('<strong style="color:#7c2d12;">🏢 ' + escapeHtml(pin.operator) + '</strong><div style="color:var(--gray-400);font-size:0.74rem;">ID: ' + pin.spo + '</div>') : '—';
+    const actions = o.pv
+      ? `<button onclick="pvPreviewAdmin('${o.id}')" style="margin-right:6px;padding:5px 12px;background:var(--primary);color:white;border:none;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:inherit;font-weight:600;">👁 Преглед</button>
+         <button onclick="pvUnpublish('${o.id}')" style="padding:5px 12px;background:#fef2f2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:inherit;font-weight:600;">Премахни</button>`
+      : `<button onclick="openOfferModal('${o.id}')" style="margin-right:6px;padding:5px 12px;background:var(--primary);color:white;border:none;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:inherit;font-weight:600;">Редактирай</button>
+         <button onclick="confirmDeleteOffer('${o.id}')" style="padding:5px 12px;background:#fef2f2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:inherit;font-weight:600;">Изтрий</button>`;
     return `
       <tr>
         <td class="td-hide-sm" data-label="ID" style="color:var(--gray-400);font-size:0.8rem;">${o.id}</td>
         <td data-label="Номер" style="font-weight:700;color:var(--primary);font-size:0.82rem;white-space:nowrap;">${o.refNum || '—'}</td>
         <td data-label="Оферта" style="max-width:220px;">
           <div style="font-weight:600;font-size:0.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${o.title}</div>
-          ${isCustom ? '<span style="font-size:0.7rem;color:#7c3aed;background:#f5f3ff;padding:2px 6px;border-radius:4px;">custom</span>' : ''}
+          ${o.pv ? '<span style="font-size:0.7rem;color:#9a7b1f;background:#fff7ed;padding:2px 6px;border-radius:4px;">PeakView</span>' : (isCustom ? '<span style="font-size:0.7rem;color:#7c3aed;background:#f5f3ff;padding:2px 6px;border-radius:4px;">custom</span>' : '')}
         </td>
         <td data-label="Категория"><span class="cat-badge ${o.category || 'other'}">${ {vacation:'🏖️ Почивка',excursion:'🗺️ Екскурзия',exotic:'🏝️ Екзотика',cruise:'🚢 Круиз'}[o.category] || o.category || '—' }</span></td>
+        <td data-label="Оператор / ID" style="font-size:0.8rem;">${opCell}</td>
         <td data-label="Дестинация">${o.destination || '—'}</td>
         <td data-label="Цена от" style="font-weight:700;color:var(--primary);white-space:nowrap;">${o.price_bgn ? o.price_bgn.toFixed(0) + ' лв.' : '—'}<span style="font-weight:600;color:var(--gray-400);font-size:0.78rem;"> ${o.price_eur ? o.price_eur.toFixed(0) + ' €' : ''}</span></td>
         <td class="td-hide-sm" data-label="Продълж.">${o.duration || '—'}</td>
-        <td data-label="Следваща дата" style="white-space:nowrap;">${nextDateOf(o) || '—'}${remainingDatesBadge(o)}</td>
+        <td data-label="Следваща дата" style="white-space:nowrap;">${nextDateOf(o) || '—'}${o.pv ? '' : remainingDatesBadge(o)}</td>
         <td class="td-hide-sm" data-label="Прегледи">${views[o.id] || 0}</td>
         <td data-label="Запитвания">
           <span style="background:${inqCount > 0 ? 'rgba(59,130,246,0.1)' : 'var(--gray-100)'};color:${inqCount > 0 ? '#1d4ed8' : 'var(--gray-400)'};padding:3px 10px;border-radius:100px;font-size:0.75rem;font-weight:700;">
             ${inqCount}
           </span>
         </td>
-        <td class="td-actions" data-label="Действия" style="white-space:nowrap;">
-          <button onclick="openOfferModal('${o.id}')" style="margin-right:6px;padding:5px 12px;background:var(--primary);color:white;border:none;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:inherit;font-weight:600;">Редактирай</button>
-          <button onclick="confirmDeleteOffer('${o.id}')" style="padding:5px 12px;background:#fef2f2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:6px;font-size:0.78rem;cursor:pointer;font-family:inherit;font-weight:600;">Изтрий</button>
-        </td>
+        <td class="td-actions" data-label="Действия" style="white-space:nowrap;">${actions}</td>
       </tr>
     `;
   }).join('');
+}
+function pvPreviewAdmin(id) { pvPreview(id); }
+function pvUnpublish(id) {
+  if (!confirm('Да премахна ли тази PeakView оферта от сайта?')) return;
+  fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
+    var ids = (d.ids || []).map(String).filter(function (x) { return x !== String(id); });
+    return fetch(PUSH_ENDPOINT + '/catalog', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: ids, prices: d.prices || {} }) });
+  }).then(function () {
+    if (pvPubCache) pvPubCache.ids.delete(String(id));
+    renderAdminOffers();
+    showToast('Офертата е премахната от сайта.', 'success');
+  }).catch(function () { showToast('Грешка при премахване.', 'error'); });
 }
 
 function confirmDeleteOffer(id) {
