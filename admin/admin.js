@@ -1028,8 +1028,8 @@ function sendPush() {
   var out = document.getElementById('pushResult');
   if (!PUSH_ENDPOINT) { out.style.color = '#dc2626'; out.textContent = 'Липсва адрес на push Worker-а (PUSH_ENDPOINT в admin.js).'; return; }
   if (!token) { out.style.color = '#dc2626'; out.textContent = 'Въведете тайния код (ADMIN_TOKEN).'; return; }
-  if (!title && !body) { out.style.color = '#dc2626'; out.textContent = 'Въведете заглавие или текст.'; return; }
-  localStorage.setItem('mt_push_token', token);
+  localStorage.setItem('mt_push_token', token); // запази кода веднага (важи и за каталога)
+  if (!title && !body) { out.style.color = '#dc2626'; out.textContent = 'Кодът е запазен. За известие въведете заглавие или текст.'; return; }
   out.style.color = 'var(--gray-600)'; out.textContent = 'Изпращане…';
   fetch(PUSH_ENDPOINT + '/send', {
     method: 'POST',

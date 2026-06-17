@@ -351,7 +351,8 @@
             </p>
             <div class="form-group" style="margin-bottom:12px;">
               <label class="form-label">Таен код (ADMIN_TOKEN)</label>
-              <input type="password" class="form-input" id="pushToken" placeholder="кодът, зададен в Worker-а" autocomplete="off">
+              <input type="password" class="form-input" id="pushToken" placeholder="кодът, зададен в Worker-а" autocomplete="off" oninput="localStorage.setItem('mt_push_token', this.value.trim())">
+              <div style="font-size:0.78rem;color:var(--gray-500);margin-top:4px;">Запазва се автоматично и важи и за „PeakView каталог".</div>
             </div>
             <div class="form-group" style="margin-bottom:12px;">
               <label class="form-label">Заглавие</label>
@@ -574,7 +575,7 @@
 <script src="../sb-init.js?v=128"></script>
 <script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
 <script src="../data/peakview.js?v=1"></script>
-<script src="admin.js?v=141"></script>
+<script src="admin.js?v=142"></script>
 <script>
   // ===== PWA: инсталиране на админ панела като приложение =====
   if ('serviceWorker' in navigator) {
