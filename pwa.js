@@ -34,7 +34,12 @@
 
   // ---------- Инсталиране (Фаза 1) ----------
   var deferredPrompt = null;
-  var standalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
+  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)
+    || window.navigator.standalone === true; // iOS
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  // Бутонът е ВИНАГИ видим, ако приложението още не е инсталирано.
+  if (!standalone) installBtn.style.display = 'inline-block';
 
   window.addEventListener('beforeinstallprompt', function (e) {
     e.preventDefault();
@@ -50,8 +55,10 @@
     if (deferredPrompt) {
       deferredPrompt.prompt();
       deferredPrompt.userChoice.finally(function () { deferredPrompt = null; installBtn.style.display = 'none'; });
+    } else if (isIOS) {
+      alert('За да инсталирате приложението на iPhone:\n\n1. Натиснете бутона „Сподели" (квадратчето със стрелка нагоре) долу в Safari.\n2. Превъртете и изберете „Към началния екран" / „Add to Home Screen".\n3. Натиснете „Добави".\n\nИконата ще се появи на началния екран.');
     } else {
-      alert('За да инсталирате приложението:\n\n• Chrome/Edge (Android/PC): меню ⋮ → „Инсталирай приложението".\n• iPhone (Safari): Сподели → „Към началния екран".');
+      alert('За да инсталирате приложението:\n\n• Android (Chrome): меню ⋮ горе вдясно → „Инсталирай приложението" / „Добави към началния екран".\n• Компютър (Chrome/Edge): иконата ⊕ в десния край на адресната лента, или меню ⋮ → „Инсталирай…".');
     }
   });
 
