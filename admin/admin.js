@@ -178,11 +178,25 @@ function saveOffer(data) {
 }
 
 // ===== ГЛОБАЛНИ РЪЧНИ ОФЕРТИ (Worker /offers) =====
+// Обединява локалните с глобалните (локалните печелят по id) — така стар таб не може да трие чужди оферти.
 function pushGlobalOffers() {
   if (!PUSH_ENDPOINT) return;
-  var arr = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
-  fetch(PUSH_ENDPOINT + '/offers', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(arr) })
-    .then(function (r) { return r.json(); }).then(function (d) { if (d && d.ok) showToast('Запазено глобално (' + d.count + ' оферти).', 'success'); }).catch(function () {});
+  var local = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
+  fetch(PUSH_ENDPOINT + '/offers').then(function (r) { return r.json(); }).then(function (remote) {
+    var map = {}; (Array.isArray(remote) ? remote : []).forEach(function (o) { if (o && o.id != null) map[String(o.id)] = o; });
+    local.forEach(function (o) { if (o && o.id != null) map[String(o.id)] = o; });
+    var merged = Object.values(map);
+    localStorage.setItem('mt_custom_offers', JSON.stringify(merged));
+    return fetch(PUSH_ENDPOINT + '/offers', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(merged) });
+  }).then(function (r) { return r.json(); }).then(function (d) { if (d && d.ok) showToast('Запазено глобално (' + d.count + ' оферти).', 'success'); }).catch(function () {});
+}
+// Премахва конкретна оферта глобално (за изтриване).
+function _removeGlobalOffer(id) {
+  if (!PUSH_ENDPOINT) return;
+  fetch(PUSH_ENDPOINT + '/offers').then(function (r) { return r.json(); }).then(function (remote) {
+    var arr = (Array.isArray(remote) ? remote : []).filter(function (o) { return String(o.id) !== String(id); });
+    return fetch(PUSH_ENDPOINT + '/offers', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(arr) });
+  }).catch(function () {});
 }
 function pullGlobalOffers(cb) {
   if (!PUSH_ENDPOINT) { if (cb) cb(); return; }
@@ -207,7 +221,7 @@ function deleteOffer(id) {
     }
   }
   loadOffers();
-  pushGlobalOffers();
+  _removeGlobalOffer(id);
 }
 
 // ===== LOAD INQUIRIES =====
