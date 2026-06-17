@@ -1160,6 +1160,7 @@ function renderPvCatalog() {
       '</div>' +
       '<div style="flex:0 0 auto;display:flex;align-items:center;gap:10px;">' +
         '<button type="button" onclick="pvPreview(\'' + o.id + '\')" style="font-size:0.86rem;font-weight:700;color:var(--primary);background:#fff;cursor:pointer;border:1.5px solid var(--gray-200,#e5e7eb);border-radius:8px;padding:9px 14px;white-space:nowrap;font-family:inherit;">👁 Отвори</button>' +
+        '<button type="button" id="pvadd_' + o.id + '" onclick="pvAdd(\'' + o.id + '\')" style="font-size:0.86rem;font-weight:700;cursor:pointer;border-radius:8px;padding:9px 14px;white-space:nowrap;font-family:inherit;border:1.5px solid ' + (checked ? '#16a34a' : 'var(--primary)') + ';background:' + (checked ? '#16a34a' : 'var(--primary)') + ';color:#fff;">' + (checked ? '✓ Добавена' : '➕ Добави') + '</button>' +
         '<input type="number" id="pvbgn_' + o.id + '" value="' + price + '" oninput="pvBgnInput(\'' + o.id + '\')" style="width:84px;padding:8px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.88rem;"> лв.' +
         '<input type="number" id="pveur_' + o.id + '" value="' + (price ? Math.round(price / 1.95583) : '') + '" oninput="pvEurInput(\'' + o.id + '\')" style="width:78px;padding:8px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.88rem;"> €' +
       '</div>' +
@@ -1198,6 +1199,12 @@ function closePvPreview() {
   document.body.style.overflow = '';
 }
 
+// бутон „Добави/Добавена" — добавя/маха офертата в клиентския сайт (глобално) веднага
+function pvAdd(id) {
+  if (pvSel.has(id)) pvSel.delete(id); else pvSel.add(id);
+  renderPvCatalog();
+  savePvCatalog();
+}
 function pvToggle(id, on) {
   if (on) pvSel.add(id); else pvSel.delete(id);
   document.getElementById('pvCount').textContent = 'Избрани: ' + pvSel.size + ' / ' + PV_OFFERS.length;

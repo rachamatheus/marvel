@@ -871,13 +871,15 @@ function renderOffers() {
     const imgSrc = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) || (o.image && o.image.startsWith('http') ? o.image : PLACEHOLDER_IMG);
     const dateStr = formatDate(o.next_date);
     const transport = transportLabel(o.transport);
+    const _href = o.pv ? `oferta-jivo.html?id=${encodeURIComponent(o.id)}` : `oferta.html?id=${o.id}`;
+    const _img = o.pv ? (o.image || imgSrc) : imgSrc;
     return `
-      <a class="offer-card animate-in" href="oferta.html?id=${o.id}" target="_blank" rel="noopener" style="animation-delay:${Math.min(i * 0.05, 0.4)}s">
+      <a class="offer-card animate-in" href="${_href}" target="_blank" rel="noopener" style="animation-delay:${Math.min(i * 0.05, 0.4)}s">
         <div class="offer-card-img-wrap">
-          <img class="offer-card-img" src="${proxify(imgSrc)}" alt="${o.title}" loading="lazy"
+          <img class="offer-card-img" src="${o.pv ? _img : proxify(_img)}" alt="${o.title}" loading="lazy"
                onerror="imgFallback(this)">
           <span class="offer-badge ${typeCls}">${typeLabel}</span>
-          <button type="button" class="offer-fav ${isFav ? 'active' : ''}" onclick="event.preventDefault();event.stopPropagation();toggleFav(event, ${o.id})" title="Любими">${isFav ? '❤️' : '🤍'}</button>
+          ${o.pv ? '' : `<button type="button" class="offer-fav ${isFav ? 'active' : ''}" onclick="event.preventDefault();event.stopPropagation();toggleFav(event, ${o.id})" title="Любими">${isFav ? '❤️' : '🤍'}</button>`}
         </div>
         <div class="offer-card-body">
           <div class="offer-destination">📍 ${o.destination}</div>

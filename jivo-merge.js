@@ -1,0 +1,52 @@
+/* Слива публикуваните PeakView оферти (избрани от админ каталога, пазени глобално в
+   Worker KV /catalog) в основната секция „Оферти" на началната страница.
+   Зарежда data/peakview.js само ако има публикувани оферти. */
+(function () {
+  var EP = 'https://marveltour-push.marveltour.workers.dev';
+
+  function isoFromPv(datesText) {
+    var m = String(datesText || '').match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+    return m ? (m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0')) : '';
+  }
+  function eurOf(bgn) { var n = parseFloat(bgn); return n ? Math.round(n / 1.95583) : 0; }
+
+  function buildOffer(p, prices) {
+    var bgn = (prices && prices[p.id] != null && prices[p.id] !== '') ? prices[p.id] : p.bgn;
+    var nbgn = parseFloat(bgn) || 0;
+    return {
+      id: p.id, pv: true,
+      title: p.title, destination: p.dest || '', country: '',
+      category: p.cat || 'vacation',
+      tags: (p.cat === 'cruise') ? ['cruise'] : [],
+      duration: (p.days ? p.days + ' дни' : '') + (p.nights ? ' / ' + p.nights + ' нощувки' : ''),
+      days: parseInt(p.days) || 0, nights: parseInt(p.nights) || 0,
+      price_bgn: nbgn || '', price_eur: nbgn ? eurOf(nbgn) : (parseFloat(p.eur) || ''),
+      dates: [], next_date: isoFromPv(p.dates), transport: '',
+      description: '', image: p.cover, cover: p.cover, featured: false
+    };
+  }
+
+  function merge(ids, prices) {
+    if (!window.PEAKVIEW_OFFERS || typeof ALL_OFFERS === 'undefined') return;
+    var idset = {}; ids.forEach(function (i) { idset[String(i)] = 1; });
+    var have = {}; ALL_OFFERS.forEach(function (o) { have[String(o.id)] = 1; });
+    var added = 0;
+    window.PEAKVIEW_OFFERS.forEach(function (p) {
+      if (idset[String(p.id)] && !have[String(p.id)]) { ALL_OFFERS.push(buildOffer(p, prices)); added++; }
+    });
+    if (added && typeof renderOffers === 'function') renderOffers();
+  }
+
+  function loadData(cb) {
+    if (window.PEAKVIEW_OFFERS) return cb();
+    var s = document.createElement('script');
+    s.src = 'data/peakview.js?v=2'; s.onload = cb; s.onerror = cb;
+    document.head.appendChild(s);
+  }
+
+  fetch(EP + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
+    var ids = (d && d.ids) || [];
+    if (!ids.length) return;
+    loadData(function () { merge(ids, (d && d.prices) || {}); });
+  }).catch(function () {});
+})();
