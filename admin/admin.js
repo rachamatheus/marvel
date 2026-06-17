@@ -1136,7 +1136,7 @@ function renderPvCatalog() {
   // показваме оферти само ако е маркиран поне един оператор
   if (!pvComps.size) {
     document.getElementById('pvCount').textContent = 'Избрани за публикуване: ' + (pvSel ? pvSel.size : 0);
-    document.getElementById('pvCatalogList').innerHTML = '<div style="text-align:center;color:var(--gray-400);padding:2.4rem 1rem;border:1.5px dashed var(--gray-200,#e5e7eb);border-radius:12px;">🏢 Изберете една или повече <strong>фирми</strong> отгоре, за да видите техните оферти.</div>';
+    document.getElementById('pvCatalogList').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;text-align:center;color:var(--gray-400);min-height:62vh;border:1.5px dashed var(--gray-200,#e5e7eb);border-radius:12px;">🏢 Изберете една или повече <strong>&nbsp;фирми&nbsp;</strong> отгоре, за да видите техните оферти.</div>';
     return;
   }
 
