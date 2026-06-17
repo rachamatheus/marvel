@@ -690,7 +690,7 @@ function renderAdminOffers() {
   const cnt = document.getElementById('offersCount2');
   if (cnt) cnt.textContent = list.length + ' онлайн оферти';
 
-  document.getElementById('offersAdminBody').innerHTML = list.map(o => {
+  document.getElementById('offersAdminBody').innerHTML = list.map((o, _i) => {
     const inqCount = allInquiries.filter(i => i.offer_id === o.id).length;
     const isCustom = customIds.indexOf(String(o.id)) !== -1;
     const pin = pvParse(o);
@@ -704,7 +704,7 @@ function renderAdminOffers() {
         : `<button onclick="confirmDeleteOffer('${o.id}')" style="${_bp}margin-right:0;background:#fef2f2;color:#dc2626;border:1.5px solid #fca5a5;">Премахни</button>`);
     return `
       <tr>
-        <td class="td-hide-sm" data-label="ID" style="color:var(--gray-400);font-size:0.8rem;">${o.id}</td>
+        <td data-label="№" style="color:var(--gray-500);font-size:0.82rem;font-weight:700;">${_i + 1}</td>
         <td data-label="Номер" style="font-weight:700;color:var(--primary);font-size:0.82rem;white-space:nowrap;">${o.refNum || '—'}</td>
         <td data-label="Оферта" style="max-width:220px;">
           <div style="font-weight:600;font-size:0.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${o.title}</div>
