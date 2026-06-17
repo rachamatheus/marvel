@@ -1930,6 +1930,10 @@ footer {
   position: fixed;
   top: 72px;
   left: 0; right: 0;
+  max-height: calc(100vh - 72px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   background: rgba(15,25,35,0.98);
   backdrop-filter: blur(20px);
   z-index: 999;
