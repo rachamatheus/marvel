@@ -11,7 +11,7 @@ VAPID_PUBLIC_KEY = "BC3abPw_LVHivGqPREggE31IpbWBGEFwABs-748-xN5H5nN6iGfloWBTlS-K
 #   npx wrangler kv namespace create SUBS
 [[kv_namespaces]]
 binding = "SUBS"
-id = ""                 # ← постави id-то, което wrangler ти върна
+id = "970281f5029c47be9e94231eae0c5bf0"
 
 # Secrets (НЕ тук — задават се с команда):
 #   npx wrangler secret put VAPID_PRIVATE_KEY   (приватният VAPID ключ)

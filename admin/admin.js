@@ -1016,7 +1016,7 @@ function changePassword() {
 
 // ===== PUSH ИЗВЕСТИЯ =====
 // Попълни адреса на push Worker-а след деплой (същия като в pwa.js/sw.js):
-var PUSH_ENDPOINT = '';   // напр. 'https://marveltour-push.ТВОЙ.workers.dev'
+var PUSH_ENDPOINT = 'https://marveltour-push.marveltour.workers.dev';   // напр. 'https://marveltour-push.ТВОЙ.workers.dev'
 
 function sendPush() {
   var token = (document.getElementById('pushToken').value || '').trim();
