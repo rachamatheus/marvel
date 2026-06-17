@@ -1439,9 +1439,19 @@ function closePvPreview() {
 
 // бутон „Добави/Добавена" — добавя/маха офертата в клиентския сайт (глобално) веднага
 function pvAdd(id) {
-  if (pvSel.has(id)) pvSel.delete(id); else pvSel.add(id);
+  var adding = !pvSel.has(id);
+  if (adding) pvSel.add(id); else pvSel.delete(id);
   renderPvCatalog();
   savePvCatalog();
+  // при добавяне — прегрей/провери цялата информация от PeakView (детайл + хотели), за да не липсва нищо
+  if (adding) {
+    var off = PV_OFFERS.find(function (o) { return String(o.id) === String(id); });
+    if (off && off.detail && PUSH_ENDPOINT) {
+      var u = encodeURIComponent(off.detail);
+      fetch(PUSH_ENDPOINT + '/detail?fresh=1&url=' + u).catch(function () {});
+      fetch(PUSH_ENDPOINT + '/hotels?fresh=1&url=' + u).catch(function () {});
+    }
+  }
 }
 function pvToggle(id, on) {
   if (on) pvSel.add(id); else pvSel.delete(id);

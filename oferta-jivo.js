@@ -39,7 +39,8 @@
     { k: 'program', el: 'panelProgram', label: '📋 Програма' },
     { k: 'hotels', el: 'panelHotels', label: '🏨 Хотели' },
     { k: 'includes', el: 'panelIncludes', label: '✅ Цената включва' },
-    { k: 'excludes', el: 'panelExcludes', label: '❌ Цената не включва' }
+    { k: 'excludes', el: 'panelExcludes', label: '❌ Цената не включва' },
+    { k: 'extra', el: 'panelExtra', label: 'ℹ️ Допълнителна информация' }
   ];
   var curTab = null;
   function hotelList() { return PVH.list; }

@@ -249,19 +249,20 @@ function parseHotelDetail(html) {
 function parseProgramDetail(html, target) {
   const toid = (target.match(/toid=(\d+)/) || [])[1] || '\\d+';
   const spo = (target.match(/spo_id=(\d+)/) || [])[1] || '\\d+';
-  // галерия
+  // галерия (програмни снимки от ЛЮБ хост — не само static.peakview)
   const gallery = [], seen = {};
   const gre = new RegExp('(\\/\\/static\\.peakview\\.bg\\/img\\/data\\/' + toid + '\\/programi\\/' + spo + '\\/[A-Za-z0-9_]+\\.(?:jpg|jpeg|png))', 'gi');
   let g; while ((g = gre.exec(html))) { const u = 'https:' + g[1]; if (!seen[u]) { seen[u] = 1; gallery.push(u); } }
-  // панели от resp-tabs-container
+  // панели от resp-tabs-container — взимаме ВСИЧКИ (нищо не пропускаме)
   const ci = (html.match(/resp-tabs-container[^>]*>([\s\S]*)/) || [])[1] || '';
-  const panels = topDivs(ci);
+  const panels = topDivs(ci).map(cleanHtml);
   return {
     gallery: gallery,
-    hotels: cleanHtml(panels[0] || ''),
-    program: cleanHtml(panels[1] || ''),
-    includes: cleanHtml(panels[2] || ''),
-    excludes: cleanHtml(panels[3] || '')
+    hotels: panels[0] || '',
+    program: panels[1] || '',
+    includes: panels[2] || '',
+    excludes: panels[3] || '',
+    extra: panels.slice(4).filter(Boolean).join('<br><br>')   // „Допълнителна информация" и всичко след 4-те
   };
 }
 // top-level <div> деца (по дълбочина)
