@@ -172,7 +172,7 @@
     grid.innerHTML = list.map(function(o){
       var price = (PUB.prices && PUB.prices[o.id]) ? PUB.prices[o.id] : o.bgn;
       var typeCls = o.cat==='vacation'?'vacation':o.cat==='excursion'?'excursion':'';
-      return '<a class="offer-card" href="javascript:void(0)" onclick="openOffer(\''+o.id+'\')">' +
+      return '<a class="offer-card" href="oferta-jivo.html?id='+encodeURIComponent(o.id)+'">' +
         '<div class="offer-card-img-wrap">' +
           '<img class="offer-card-img" src="'+o.cover+'" alt="'+o.title+'" loading="lazy" onerror="this.style.opacity=0">' +
           '<span class="offer-badge '+typeCls+'">'+o.catlbl+'</span>' +
