@@ -538,6 +538,11 @@
             <textarea class="form-input" id="of_description" rows="4" placeholder="Описание на офертата..." style="resize:vertical;"></textarea>
           </div>
           <div class="form-group" style="grid-column:span 2;">
+            <label class="form-label">Снимки на офертата (качи от компютъра)</label>
+            <input type="file" id="of_imgfile" accept="image/*" multiple onchange="uploadOfferImages(this)" style="font-size:0.85rem;">
+            <div id="of_gallery_list" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"></div>
+          </div>
+          <div class="form-group" style="grid-column:span 2;">
             <label class="form-label">Хотели в офертата</label>
             <div id="of_hotels_list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;"></div>
             <div style="border:1px dashed var(--gray-200);border-radius:10px;padding:12px;background:rgba(0,0,0,0.015);">
@@ -550,8 +555,10 @@
                 <input type="number" class="form-input" id="oh_bgn" step="0.01" min="0" placeholder="Цена лв." oninput="syncHotelPrice('bgn')">
                 <input type="number" class="form-input" id="oh_eur" step="0.01" min="0" placeholder="Цена €" oninput="syncHotelPrice('eur')">
               </div>
-              <div style="display:flex;gap:8px;margin-top:8px;">
-                <input type="text" class="form-input" id="oh_img" placeholder="URL на снимка (https://...)" style="flex:1;">
+              <textarea class="form-input" id="oh_desc" rows="2" placeholder="Описание на хотела (по желание)" style="margin-top:8px;width:100%;resize:vertical;"></textarea>
+              <div style="display:flex;gap:8px;margin-top:8px;align-items:center;flex-wrap:wrap;">
+                <input type="text" class="form-input" id="oh_img" placeholder="URL на снимка (https://...)" style="flex:1;min-width:160px;">
+                <label style="font-size:0.8rem;color:var(--gray-600);cursor:pointer;white-space:nowrap;">📷 или качи: <input type="file" id="oh_imgfile" accept="image/*" onchange="uploadHotelImage(this)" style="font-size:0.78rem;"></label>
                 <button type="button" onclick="addOfferHotel()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-family:inherit;font-weight:600;cursor:pointer;white-space:nowrap;">+ Добави</button>
               </div>
             </div>
@@ -578,7 +585,7 @@
 <script src="../sb-init.js?v=128"></script>
 <script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
 <script src="../data/peakview.js?v=2"></script>
-<script src="admin.js?v=152"></script>
+<script src="admin.js?v=153"></script>
 <script>
   // ===== PWA: инсталиране на админ панела като приложение =====
   if ('serviceWorker' in navigator) {

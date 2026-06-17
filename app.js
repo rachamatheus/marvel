@@ -879,7 +879,7 @@ function renderOffers() {
     const cat = o.category || '';
     const typeLabel = cat.includes('vacation') ? 'Почивка' : cat.includes('excursion') ? 'Екскурзия' : cat.includes('weekend') ? 'Уикенд' : 'Оферта';
     const typeCls = cat.includes('vacation') ? 'vacation' : cat.includes('excursion') ? 'excursion' : '';
-    const imgSrc = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) || (o.image && o.image.startsWith('http') ? o.image : PLACEHOLDER_IMG);
+    const imgSrc = (typeof OFFER_IMAGES !== 'undefined' && OFFER_IMAGES[o.id]) || (o.image && (o.image.startsWith('http') || o.image.startsWith('data:')) ? o.image : PLACEHOLDER_IMG);
     const dateStr = formatDate(o.next_date);
     const transport = transportLabel(o.transport);
     const _href = o.pv ? `oferta-jivo.html?id=${encodeURIComponent(o.id)}` : `oferta.html?id=${o.id}`;

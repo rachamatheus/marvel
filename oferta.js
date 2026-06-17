@@ -347,7 +347,7 @@ function renderHotelDetail(h) {
     : '';
   const thumbs = imgs.slice(1, 13).map((u, i) =>
     `<img src="${proxify(u)}" alt="${h.name} ${i + 2}" loading="lazy" onclick="openHotelGalleryAt(${i + 1})" onerror="hotelImgError(this)" style="width:190px;height:134px;object-fit:cover;border-radius:10px;cursor:pointer;flex:0 0 auto;">`).join('');
-  const desc = info && info.desc ? info.desc : '';
+  const desc = (info && info.desc) ? info.desc : (h.desc || '');
   box.innerHTML =
     `<div style="font-weight:800;color:var(--primary);font-size:1.2rem;margin-bottom:2px;">${h.name}<span style="color:var(--gold);">${stars}</span></div>` +
     `<div style="color:var(--gray-600);font-size:0.9rem;margin-bottom:12px;">${h.board || ''}${info && info.location ? ' · 📍 ' + info.location : ''}</div>` +

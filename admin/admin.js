@@ -686,6 +686,7 @@ function openOfferModal(id) {
     document.getElementById('of_duration').value = offer.duration || '';
     editorDates = Array.isArray(offer.dates) ? offer.dates.slice() : [];
     editorHotels = Array.isArray(offer.hotels) ? offer.hotels.map(h => ({ ...h })) : [];
+    editorImages = Array.isArray(offer.gallery) && offer.gallery.length ? offer.gallery.slice() : (offer.image ? [offer.image] : []);
     const vc = getViewCounts()[offer.id] || 0;
     const vb = document.getElementById('of_views_badge');
     if (vb) { vb.style.display = ''; vb.textContent = `👁️ ${vc} прегледа`; }
@@ -707,6 +708,7 @@ function openOfferModal(id) {
     document.getElementById('of_duration').value = '';
     editorDates = [];
     editorHotels = [];
+    editorImages = [];
     const vb = document.getElementById('of_views_badge');
     if (vb) vb.style.display = 'none';
     document.getElementById('of_tags').value = '';
@@ -716,6 +718,7 @@ function openOfferModal(id) {
 
   renderOfferDates();
   renderOfferHotels();
+  renderOfferGallery();
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -761,7 +764,9 @@ function saveOfferFromModal() {
     description: document.getElementById('of_description').value.trim(),
     featured: document.getElementById('of_featured').checked,
     dates: editorDates.slice().sort(),
-    hotels: editorHotels.slice()
+    hotels: editorHotels.slice(),
+    gallery: editorImages.slice(),
+    image: editorImages[0] || original.image || ''
   };
 
   saveOffer(data);
@@ -858,7 +863,7 @@ function renderOfferHotels() {
       <img src="${h.image || OF_HOTEL_PLACEHOLDER}" onerror="this.src='${OF_HOTEL_PLACEHOLDER}'" style="width:56px;height:42px;object-fit:cover;border-radius:6px;flex-shrink:0;background:var(--gray-100);">
       <div style="flex:1;min-width:0;">
         <div style="font-weight:600;font-size:0.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${h.name}</div>
-        <div style="font-size:0.74rem;color:var(--gray-400);">${h.board || '—'}</div>
+        <div style="font-size:0.74rem;color:var(--gray-400);">${h.board || '—'}${h.desc ? ' · 📝' : ''}</div>
       </div>
       <div style="font-weight:700;color:var(--primary);font-size:0.82rem;text-align:right;white-space:nowrap;">${h.price_bgn ? h.price_bgn + ' лв.' : '—'}<div style="font-weight:600;color:var(--gray-400);">${h.price_eur ? h.price_eur + ' €' : ''}</div></div>
       <button type="button" onclick="removeOfferHotel(${i})" title="Премахни хотел" style="border:none;background:#fee2e2;color:#b91c1c;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:1.05rem;line-height:1;flex-shrink:0;">×</button>
@@ -876,15 +881,60 @@ function addOfferHotel() {
     board: document.getElementById('oh_board').value.trim() || '—',
     price_bgn: bgn,
     price_eur: eur,
+    desc: document.getElementById('oh_desc').value.trim(),
     image: document.getElementById('oh_img').value.trim()
   });
-  ['oh_name', 'oh_board', 'oh_bgn', 'oh_eur', 'oh_img'].forEach(id => document.getElementById(id).value = '');
+  ['oh_name', 'oh_board', 'oh_bgn', 'oh_eur', 'oh_img', 'oh_desc'].forEach(id => { var el = document.getElementById(id); if (el) el.value = ''; });
   renderOfferHotels();
   document.getElementById('oh_name').focus();
 }
 function removeOfferHotel(i) {
   editorHotels.splice(i, 1);
   renderOfferHotels();
+}
+
+// ===== КАЧВАНЕ НА СНИМКИ (сваляни от компютъра → смалени data URL) =====
+let editorImages = [];
+// Смалява изображение до макс. ~1000px и го връща като JPEG data URL (за да не тежи в паметта).
+function _fileToDataURL(file, cb) {
+  const fr = new FileReader();
+  fr.onload = function () {
+    const img = new Image();
+    img.onload = function () {
+      const MAX = 1000;
+      let w = img.width, h = img.height;
+      if (w > MAX || h > MAX) { const k = Math.min(MAX / w, MAX / h); w = Math.round(w * k); h = Math.round(h * k); }
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      try { cb(c.toDataURL('image/jpeg', 0.78)); } catch (e) { cb(fr.result); }
+    };
+    img.onerror = function () { cb(fr.result); };
+    img.src = fr.result;
+  };
+  fr.readAsDataURL(file);
+}
+function uploadOfferImages(input) {
+  const files = Array.from(input.files || []);
+  let pending = files.length;
+  if (!pending) return;
+  files.forEach(function (f) {
+    _fileToDataURL(f, function (url) { editorImages.push(url); if (--pending === 0) { renderOfferGallery(); input.value = ''; } });
+  });
+}
+function renderOfferGallery() {
+  const wrap = document.getElementById('of_gallery_list');
+  if (!wrap) return;
+  wrap.innerHTML = editorImages.map(function (u, i) {
+    return '<div style="position:relative;width:84px;height:64px;">' +
+      '<img src="' + u + '" style="width:84px;height:64px;object-fit:cover;border-radius:8px;border:1px solid var(--gray-200);">' +
+      '<button type="button" onclick="removeOfferImage(' + i + ')" title="Премахни" style="position:absolute;top:-7px;right:-7px;width:22px;height:22px;border-radius:50%;border:none;background:#dc2626;color:#fff;cursor:pointer;font-size:0.9rem;line-height:1;">×</button>' +
+      '</div>';
+  }).join('') || '<span style="color:var(--gray-400);font-size:0.82rem;">Няма качени снимки</span>';
+}
+function removeOfferImage(i) { editorImages.splice(i, 1); renderOfferGallery(); }
+function uploadHotelImage(input) {
+  const f = (input.files || [])[0]; if (!f) return;
+  _fileToDataURL(f, function (url) { document.getElementById('oh_img').value = url; showToast('Снимката на хотела е добавена — натиснете „+ Добави".', 'success'); });
 }
 
 // ===== ANALYTICS =====
