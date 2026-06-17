@@ -1,7 +1,7 @@
 /* Marvel Tour — service worker за публичното приложение (PWA).
  * Фаза 1: офлайн кеш на основните файлове.
  * Фаза 2: получаване и показване на push нотификации. */
-var CACHE = 'mt-app-v8';
+var CACHE = 'mt-app-v9';
 // Push Worker endpoint — попълни СЪЩИЯ адрес като в pwa.js (за payload-less известия).
 var PUSH_ENDPOINT = 'https://marveltour-push.marveltour.workers.dev';
 var CORE = [
@@ -10,7 +10,7 @@ var CORE = [
   './app.js?v=157',
   './lang.js?v=136',
   './data/offers.js?v=137',
-  './logo.svg?v=9',
+  './logo.svg?v=10',
   './favicon.svg?v=9',
   './manifest.webmanifest'
 ];
@@ -55,7 +55,7 @@ self.addEventListener('push', function (e) {
     data = data || {};
     return self.registration.showNotification(data.title || 'Marvel Tour', {
       body: data.body || 'Имаме нещо ново за вас!',
-      icon: 'logo.svg?v=9',
+      icon: 'logo.svg?v=10',
       badge: 'favicon.svg?v=9',
       data: { url: data.url || './index.html' },
       tag: data.tag || ('mt-' + (data.ts || ''))
