@@ -192,6 +192,20 @@
 
     buildTabs();
 
+    // ако няма локален детайл (нови оферти) — дърпай динамично от Worker-а
+    if (!detail.program && !detail.includes && !detail.excludes && !(detail.gallery && detail.gallery.length) && offer.detail) {
+      fetch(PUSH_ENDPOINT + '/detail?url=' + encodeURIComponent(offer.detail))
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (!d) return;
+          detail = d; if (window.PV_DETAIL) window.PV_DETAIL[id] = d;
+          var gimgs = (d.gallery && d.gallery.length) ? d.gallery.slice() : [offer.cover];
+          if (gimgs.indexOf(offer.cover) === -1) gimgs.unshift(offer.cover);
+          setupGallery(gimgs);
+          buildTabs();
+        }).catch(function () {});
+    }
+
     // дати
     var dates = (offer.dates || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
     document.getElementById('offerDates').innerHTML = dates.length

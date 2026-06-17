@@ -52,6 +52,18 @@ export default {
       return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
     }
 
+    // ---- /detail?url=<programa.php> — галерия + 4-те панела (програма/хотели/вкл./изкл.), динамично ----
+    if (url.pathname === '/detail' && req.method === 'GET') {
+      const target = url.searchParams.get('url') || '';
+      if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
+      const ck = 'd1:' + await sha256(target);
+      if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
+      const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
+      const body = JSON.stringify(parseProgramDetail(html, target));
+      await env.SUBS.put(ck, body, { expirationTtl: 86400 });
+      return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
+    }
+
     // ---- /subscribe ----
     if (url.pathname === '/subscribe' && req.method === 'POST') {
       let sub; try { sub = await req.json(); } catch { return J({ error: 'bad json' }, 400); }
@@ -175,6 +187,56 @@ function parseHotelDetail(html) {
     desc = desc.slice(0, 1600);
   }
   return { gallery: gallery, dates: dates, desc: desc };
+}
+
+// --- програма/детайл (gallery + 4 resp-tabs панела), аналог на _scrape_pv_details.pl ---
+function parseProgramDetail(html, target) {
+  const toid = (target.match(/toid=(\d+)/) || [])[1] || '\\d+';
+  const spo = (target.match(/spo_id=(\d+)/) || [])[1] || '\\d+';
+  // галерия
+  const gallery = [], seen = {};
+  const gre = new RegExp('(\\/\\/static\\.peakview\\.bg\\/img\\/data\\/' + toid + '\\/programi\\/' + spo + '\\/[A-Za-z0-9_]+\\.(?:jpg|jpeg|png))', 'gi');
+  let g; while ((g = gre.exec(html))) { const u = 'https:' + g[1]; if (!seen[u]) { seen[u] = 1; gallery.push(u); } }
+  // панели от resp-tabs-container
+  const ci = (html.match(/resp-tabs-container[^>]*>([\s\S]*)/) || [])[1] || '';
+  const panels = topDivs(ci);
+  return {
+    gallery: gallery,
+    hotels: cleanHtml(panels[0] || ''),
+    program: cleanHtml(panels[1] || ''),
+    includes: cleanHtml(panels[2] || ''),
+    excludes: cleanHtml(panels[3] || '')
+  };
+}
+// top-level <div> деца (по дълбочина)
+function topDivs(html) {
+  const out = []; let depth = 0, start = -1;
+  const re = /<(\/?)div\b[^>]*>/gi; let m;
+  while ((m = re.exec(html))) {
+    const closing = m[1], pos0 = m.index, pos1 = re.lastIndex;
+    if (!closing) { if (depth === 0) start = pos1; depth++; }
+    else { depth--; if (depth === 0 && start >= 0) { out.push(html.slice(start, pos0)); start = -1; } }
+  }
+  return out;
+}
+function imgFix(attrs) {
+  const m = attrs.match(/(?:data-original|src)="([^"]+)"/);
+  if (!m) return '';
+  let src = m[1]; if (src.startsWith('//')) src = 'https:' + src;
+  if (!/^https?:/.test(src)) return '';
+  return '<img src="' + src + '" loading="lazy">';
+}
+function cleanHtml(h) {
+  h = h || '';
+  h = h.replace(/<script\b[\s\S]*?<\/script>/gi, '').replace(/<style\b[\s\S]*?<\/style>/gi, '').replace(/<form\b[\s\S]*?<\/form>/gi, '');
+  h = h.replace(/<(input|select|textarea|button)\b[^>]*>[\s\S]*?<\/\1>/gi, '');
+  h = h.replace(/<(input|img|br|hr)\b([^>]*)\/?>/gi, (mm, t, a) => t === 'img' ? imgFix(a) : (t === 'br' ? '<br>' : ''));
+  h = h.replace(/\son\w+="[^"]*"/gi, '').replace(/\shref="[^"]*"/gi, '');
+  h = h.replace(/<a\b[^>]*>/gi, '<span>').replace(/<\/a>/gi, '</span>');
+  h = h.replace(/\sclass="[^"]*"/gi, '').replace(/\sstyle="[^"]*"/gi, '');
+  h = h.replace(/<div\b[^>]*>/gi, '<div>');
+  h = h.replace(/(\s*<br>\s*){3,}/g, '<br><br>').replace(/\s+/g, ' ').replace(/<div>\s*<\/div>/g, '');
+  return h.trim();
 }
 
 // ===== Помощни =====

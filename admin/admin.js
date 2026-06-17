@@ -1133,7 +1133,8 @@ function renderPvCatalog() {
         '<div style="font-weight:600;font-size:0.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + escapeHtml(o.title) + '</div>' +
         '<div style="font-size:0.76rem;color:var(--gray-500);">' + o.catlbl + ' · <strong style="color:#7c2d12;">🏢 ' + escapeHtml(pvParse(o).operator) + '</strong> · ID: ' + pvParse(o).spo + (o.dates ? ' · ' + o.dates : '') + '</div>' +
       '</div>' +
-      '<div style="flex:0 0 auto;display:flex;align-items:center;gap:4px;">' +
+      '<div style="flex:0 0 auto;display:flex;align-items:center;gap:8px;">' +
+        '<a href="../oferta-jivo.html?id=' + encodeURIComponent(o.id) + '" target="_blank" rel="noopener" style="font-size:0.8rem;font-weight:700;color:var(--primary);text-decoration:none;border:1.5px solid var(--gray-200,#e5e7eb);border-radius:8px;padding:6px 10px;white-space:nowrap;">👁 Отвори</a>' +
         '<input type="number" value="' + price + '" onchange="pvSetPrice(\'' + o.id + '\',this.value)" style="width:80px;padding:6px;border:1px solid var(--gray-200);border-radius:6px;font-size:0.82rem;"> лв.' +
       '</div>' +
       '</div>';
