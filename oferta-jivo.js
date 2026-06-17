@@ -83,7 +83,7 @@
       '<div class="pv-hotels">' + PVH.list.map(function (h, i) {
         return '<div class="pv-hotel" id="pvh-' + i + '">' +
             '<div class="pv-hotel-head" onclick="toggleHotel(' + i + ')">' +
-              (h.cover ? '<img src="' + h.cover + '" loading="lazy" onerror="this.style.display=\'none\'">' : '') +
+              '<img src="' + (h.cover || (offer && offer.cover) || '') + '" loading="lazy" onerror="this.onerror=null;this.src=\'' + ((offer && offer.cover) || '') + '\'">' +
               '<div class="pv-hotel-info"><div class="pv-hotel-name">' + h.name + '</div>' +
                 '<div class="pv-hotel-loc">' + (h.loc || '') + '</div>' +
                 (h.price ? '<div class="pv-hotel-price">от ' + money(h.price) + '</div>' : '') +

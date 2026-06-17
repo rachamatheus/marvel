@@ -199,13 +199,14 @@ function parseHotelList(html) {
 }
 
 function parseHotelDetail(html) {
-  // галерия
+  // ---- галерия: първо снимки на хотела (hoteli/<hid>), после на хотела изобщо, накрая програмната снимка ----
   var gallery = [], seen = {};
-  var hid = (html.match(/hoteli\/(\d+)\//) || [])[1] || '\\d+';
-  var gre = new RegExp('(\\/\\/static\\.peakview\\.bg\\/img\\/data2?\\/\\d+\\/hoteli\\/' + hid + '\\/[A-Za-z0-9_]+\\.(?:jpg|jpeg|png))', 'gi');
-  var g;
-  while ((g = gre.exec(html))) { var u = 'https:' + g[1]; if (!seen[u]) { seen[u] = 1; gallery.push(u); } }
-  // цени по дати
+  function addImgs(re) { var g; while ((g = re.exec(html))) { var u = 'https:' + g[1]; if (!seen[u]) { seen[u] = 1; gallery.push(u); } } }
+  var hid = (html.match(/hoteli\/(\d+)\//) || [])[1];
+  if (hid) addImgs(new RegExp('(\\/\\/static\\.peakview\\.bg\\/img\\/data2?\\/\\d+\\/hoteli\\/' + hid + '\\/[A-Za-z0-9_]+\\.(?:jpg|jpeg|png))', 'gi'));
+  if (!gallery.length) addImgs(/(\/\/static\.peakview\.bg\/img\/data2?\/\d+\/hoteli\/\d+\/[A-Za-z0-9_]+\.(?:jpg|jpeg|png))/gi);
+  if (!gallery.length) addImgs(/(\/\/static\.peakview\.bg\/img\/data2?\/\d+\/programi\/\d+\/[A-Za-z0-9_]+\.(?:jpg|jpeg|png))/gi);
+  // ---- цени по дати (само ако резервационните връзки носят ndate/ncena/ntab) ----
   var dates = {};
   var pre = /reservation_[a-z]+\.php\?[^"']*?ndate=([0-9.]+)&ncena=([0-9]+)&nvaluta=([A-Z]+)&ntab=([^"'&]+)/g;
   var p;
@@ -214,15 +215,16 @@ function parseHotelDetail(html) {
     var room = decodeURIComponent(p[4].replace(/\+/g, ' ')).replace(/\s+/g, ' ').trim();
     (dates[d] = dates[d] || []).push({ room: room, price: price });
   }
-  // описание (първият htext блок)
+  // ---- описание: най-дългият htext блок (не „карта") ----
   var desc = '';
-  var dm = html.match(/class="htext"[^>]*>([\s\S]*?)<\/div>/);
-  if (dm) {
-    desc = dm[1].replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<[^>]+>/g, ' ')
-      .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
-    if (/^\s*карта\s*:?/i.test(desc)) desc = '';
-    desc = desc.slice(0, 1600);
+  var hre = /class="htext"[^>]*>([\s\S]*?)<\/div>/gi, hm;
+  while ((hm = hre.exec(html))) {
+    var t = hm[1].replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim();
+    if (/^\s*карта\s*:?/i.test(t)) continue;
+    if (t.length > desc.length) desc = t;
   }
+  desc = desc.slice(0, 2200);
   return { gallery: gallery, dates: dates, desc: desc };
 }
 
