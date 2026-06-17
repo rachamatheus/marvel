@@ -29,7 +29,7 @@
     bar.appendChild(b);
     return b;
   }
-  var installBtn = makeChip('📲 Инсталирай приложението', 'linear-gradient(135deg,#1e3a8a,#2563eb)');
+  var installBtn = makeChip('📲 Приложение', 'linear-gradient(135deg,#1e3a8a,#2563eb)');
   var notifyBtn = makeChip('🔔 Получавай оферти', '#c9a84c');
 
   // ---------- Инсталиране (Фаза 1) ----------

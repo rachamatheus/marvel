@@ -7,8 +7,8 @@
   // ===== НАСТРОЙКА =====
   var PHONE = '359878904104'; // 0878 904 104 в международен формат
   var WA_TEXT = 'Здравейте! Имам въпрос относно оферта от сайта на Marvel Tour.';
-  var INSTAGRAM_URL = 'https://instagram.com';   // ← смени с реалния профил
-  var FACEBOOK_URL  = 'https://facebook.com';     // ← смени с реалната страница
+  var INSTAGRAM_URL = 'https://www.instagram.com/marvel_tour/';
+  var FACEBOOK_URL  = 'https://www.facebook.com/p/MARVEL-TOUR-100064228083046/?locale=bg_BG';
 
   var WA_URL = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(WA_TEXT);
 
