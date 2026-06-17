@@ -21,7 +21,7 @@
   '.mt-wa{background:#25D366;}' +
   '.mt-ig{background:radial-gradient(circle at 30% 110%,#fed576,#f47133 25%,#bc3081 50%,#4c63d2 90%);}' +
   '.mt-fb{background:#1877F2;}' +
-  '@media(max-width:560px){.mt-social{right:16px;bottom:16px;gap:10px;}.mt-bubble{width:48px;height:48px;}.mt-bubble svg{width:24px;height:24px;}}';
+  '@media(max-width:560px){.mt-social{right:16px;bottom:16px;gap:10px;flex-direction:row;}.mt-bubble{width:48px;height:48px;}.mt-bubble svg{width:24px;height:24px;}}';
   var style = document.createElement('style');
   style.textContent = css;
   document.head.appendChild(style);
