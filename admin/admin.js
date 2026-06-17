@@ -54,7 +54,7 @@ let destChart = null;
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', async () => {
   loadOffers();
-  pullGlobalOffers(function () { try { renderAdminOffers(); } catch (e) {} });
+  pullGlobalOffers(function () { try { purgeExpiredOffers(); renderAdminOffers(); } catch (e) {} });
   await syncFromSupabase();
   loadInquiries();
   populateCountryFilter();
@@ -646,6 +646,44 @@ function populateCountryFilter() {
 // Публикуваните PeakView оферти (глобално в /catalog) — кеширани веднъж за таблицата.
 var pvPubCache = null;
 var _adminRows = [];
+// изтекла оферта (всички дати в миналото). Без дати → не е изтекла.
+function mtExpired(o) {
+  var ds = []; if (Array.isArray(o.dates)) ds = ds.concat(o.dates); if (o.next_date) ds.push(o.next_date);
+  if (Array.isArray(o.departures)) o.departures.forEach(function (d) { if (d && d.date) ds.push(d.date); });
+  var t0 = new Date(); t0.setHours(0, 0, 0, 0); t0 = t0.getTime();
+  var p = ds.map(function (s) { var t = Date.parse(String(s).slice(0, 10)); return isNaN(t) ? null : t; }).filter(function (x) { return x != null; });
+  if (!p.length) return false; return p.every(function (t) { return t < t0; });
+}
+function pvDatesExpired(txt) {
+  var t0 = new Date(); t0.setHours(0, 0, 0, 0); t0 = t0.getTime();
+  var re = /(\d{1,2})\.(\d{1,2})\.(\d{4})/g, m, any = false, future = false;
+  while ((m = re.exec(String(txt || '')))) { any = true; var t = Date.parse(m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0')); if (!isNaN(t) && t >= t0) future = true; }
+  return any && !future;
+}
+// Авто-чистене: маха изтеклите оферти глобално (от /offers и от /catalog).
+function purgeExpiredOffers() {
+  if (!PUSH_ENDPOINT) return;
+  // 1) глобални ръчни оферти
+  var local = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
+  var keep = local.filter(function (o) { return !mtExpired(o); });
+  if (keep.length !== local.length) {
+    localStorage.setItem('mt_custom_offers', JSON.stringify(keep));
+    fetch(PUSH_ENDPOINT + '/offers', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(keep) }).catch(function () {});
+    loadOffers();
+  }
+  // 2) публикувани PeakView
+  if (pvPubCache && PV_OFFERS.length) {
+    var pvById = {}; PV_OFFERS.forEach(function (p) { pvById[String(p.id)] = p; });
+    var expired = [].concat(Array.from(pvPubCache.ids)).filter(function (id) { var p = pvById[String(id)]; return p && pvDatesExpired(p.dates); });
+    if (expired.length) {
+      expired.forEach(function (id) { pvPubCache.ids.delete(String(id)); });
+      fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
+        var ids = (d.ids || []).map(String).filter(function (x) { return !expired.includes(x); });
+        return fetch(PUSH_ENDPOINT + '/catalog', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ids: ids, prices: d.prices || {} }) });
+      }).catch(function () {});
+    }
+  }
+}
 // смислена дестинация от заглавието, ако липсва
 function deriveDest(title) {
   var t = String(title || '');
@@ -665,7 +703,7 @@ function pvDateNext(txt) { var m = String(txt || '').match(/(\d{1,2})\.(\d{1,2})
 function buildPvOnlineRows(excludeIds) {
   if (!pvPubCache || !PV_OFFERS.length) return [];
   var skip = {}; (excludeIds || []).forEach(function (i) { skip[String(i)] = 1; });
-  return PV_OFFERS.filter(function (p) { return pvPubCache.ids.has(String(p.id)) && !skip[String(p.id)]; }).map(function (p) {
+  return PV_OFFERS.filter(function (p) { return pvPubCache.ids.has(String(p.id)) && !skip[String(p.id)] && !pvDatesExpired(p.dates); }).map(function (p) {
     var bgn = (pvPubCache.prices[p.id] != null && pvPubCache.prices[p.id] !== '') ? parseFloat(pvPubCache.prices[p.id]) : (parseFloat(p.bgn) || 0);
     return {
       id: p.id, pv: true, title: p.title, refNum: '', destination: p.dest || deriveDest(p.title),
@@ -682,7 +720,7 @@ function renderAdminOffers() {
     pvPubCache = { ids: new Set(), prices: {} };
     fetch(PUSH_ENDPOINT + '/catalog').then(function (r) { return r.json(); }).then(function (d) {
       (d.ids || []).forEach(function (i) { pvPubCache.ids.add(String(i)); }); pvPubCache.prices = d.prices || {};
-    }).catch(function () {}).finally(function () { renderAdminOffers(); });
+    }).catch(function () {}).finally(function () { purgeExpiredOffers(); renderAdminOffers(); });
   }
 
   const search = (document.getElementById('offerSearch')?.value || '').toLowerCase();
@@ -693,7 +731,7 @@ function renderAdminOffers() {
 
   // показваме САМО това, което е добавено: ръчни (глобални) оферти + публикувани PeakView.
   // Старият статичен каталог (data/offers.js) не се изрежда тук.
-  let combined = customList.concat(buildPvOnlineRows(customIds));
+  let combined = customList.filter(o => !mtExpired(o)).concat(buildPvOnlineRows(customIds));
   let list = combined.filter(o => {
     const matchSearch = !search || o.title.toLowerCase().includes(search) || (o.destination && o.destination.toLowerCase().includes(search));
     const matchCountry = !country || o.country === country;
