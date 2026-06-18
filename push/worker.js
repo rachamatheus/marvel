@@ -33,7 +33,7 @@ export default {
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
       const ck = 'hl3:' + await sha256(target);
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
-      const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
+      const html = await (await fetch(target, { headers: PV_FETCH_HEADERS })).text();
       const hotels = parseHotelList(html);
       const body = JSON.stringify({ hotels });
       if (html.length > 8000) await env.SUBS.put(ck, body, { expirationTtl: 86400 }); // не кешираме блокирани/празни страници
@@ -46,7 +46,7 @@ export default {
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
       const ck = 'h5:' + await sha256(target);
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
-      const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
+      const html = await (await fetch(target, { headers: PV_FETCH_HEADERS })).text();
       const body = JSON.stringify(parseHotelDetail(html));
       if (html.length > 8000) await env.SUBS.put(ck, body, { expirationTtl: 86400 });
       return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
@@ -58,7 +58,7 @@ export default {
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
       const ck = 'd3:' + await sha256(target);
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
-      const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
+      const html = await (await fetch(target, { headers: PV_FETCH_HEADERS })).text();
       const body = JSON.stringify(parseProgramDetail(html, target));
       if (html.length > 8000) await env.SUBS.put(ck, body, { expirationTtl: 86400 });
       return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
@@ -174,6 +174,14 @@ export default {
 };
 
 // ===== PeakView парсване =====
+// Реалистични браузър-хедъри (PeakView е зад Cloudflare bot-защита; минималният UA се блокира)
+const PV_FETCH_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+  'Accept-Language': 'bg-BG,bg;q=0.9,en-US;q=0.8,en;q=0.7',
+  'Referer': 'https://iframe.peakview.bg/',
+  'Upgrade-Insecure-Requests': '1',
+};
 function isPeakview(u) { try { return new URL(u).hostname === 'iframe.peakview.bg'; } catch { return false; } }
 
 // общи филтри/нормализация за изображения (хотелски снимки от ЛЮБ хост)
