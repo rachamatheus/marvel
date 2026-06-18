@@ -32,11 +32,12 @@ export default {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
       const ck = 'hl3:' + await sha256(target);
-      if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
+      const cached = await env.SUBS.get(ck);
+      if (cached && !url.searchParams.get('fresh')) return new Response(cached, { headers: { 'Content-Type': 'application/json', ...cors } });
       const html = await (await fetch(target, { headers: PV_FETCH_HEADERS })).text();
-      const hotels = parseHotelList(html);
-      const body = JSON.stringify({ hotels });
-      if (html.length > 8000) await env.SUBS.put(ck, body, { expirationTtl: 86400 }); // не кешираме блокирани/празни страници
+      if (html.length < 8000) return new Response(cached || JSON.stringify({ hotels: [] }), { headers: { 'Content-Type': 'application/json', ...cors } }); // блок → връщаме стария кеш, не презаписваме
+      const body = JSON.stringify({ hotels: parseHotelList(html) });
+      if (body !== cached) await env.SUBS.put(ck, body, { expirationTtl: 604800 }); // запис само при промяна (пести KV квота)
       return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
     }
 
@@ -45,10 +46,12 @@ export default {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
       const ck = 'h6:' + await sha256(target);
-      if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
+      const cached = await env.SUBS.get(ck);
+      if (cached && !url.searchParams.get('fresh')) return new Response(cached, { headers: { 'Content-Type': 'application/json', ...cors } });
       const html = await (await fetch(target, { headers: PV_FETCH_HEADERS })).text();
+      if (html.length < 8000) return new Response(cached || JSON.stringify({ gallery: [], dates: {}, desc: '' }), { headers: { 'Content-Type': 'application/json', ...cors } });
       const body = JSON.stringify(parseHotelDetail(html));
-      if (html.length > 8000) await env.SUBS.put(ck, body, { expirationTtl: 86400 });
+      if (body !== cached) await env.SUBS.put(ck, body, { expirationTtl: 604800 });
       return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
     }
 
@@ -57,10 +60,12 @@ export default {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
       const ck = 'd3:' + await sha256(target);
-      if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
+      const cached = await env.SUBS.get(ck);
+      if (cached && !url.searchParams.get('fresh')) return new Response(cached, { headers: { 'Content-Type': 'application/json', ...cors } });
       const html = await (await fetch(target, { headers: PV_FETCH_HEADERS })).text();
+      if (html.length < 8000) return new Response(cached || JSON.stringify({ gallery: [], hotels: '', program: '', includes: '', excludes: '', extra: '' }), { headers: { 'Content-Type': 'application/json', ...cors } });
       const body = JSON.stringify(parseProgramDetail(html, target));
-      if (html.length > 8000) await env.SUBS.put(ck, body, { expirationTtl: 86400 });
+      if (body !== cached) await env.SUBS.put(ck, body, { expirationTtl: 604800 });
       return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
     }
 
