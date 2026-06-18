@@ -1388,8 +1388,8 @@ function renderPvCatalog() {
     var checked = pvSel.has(o.id) ? 'checked' : '';
     var price = (pvPrice[o.id] != null && pvPrice[o.id] !== '') ? pvPrice[o.id] : (o.bgn || '');
     var img = o.cover;
-    return '<div style="display:flex;align-items:center;gap:16px;padding:14px 16px;border:1px solid var(--gray-200,#e5e7eb);border-radius:12px;margin-bottom:10px;background:' + (checked ? '#f0fdf4' : '#fff') + ';">' +
-      '<input type="checkbox" ' + checked + ' onchange="pvToggle(\'' + o.id + '\',this.checked)" style="width:22px;height:22px;flex:0 0 auto;cursor:pointer;">' +
+    var isAdded = !!checked;
+    return '<div style="display:flex;align-items:center;gap:16px;padding:14px 16px;border:1px solid ' + (isAdded ? '#bbf7d0' : 'var(--gray-200,#e5e7eb)') + ';border-radius:12px;margin-bottom:10px;background:' + (isAdded ? '#f0fdf4' : '#f3f4f6') + ';opacity:' + (isAdded ? '1' : '0.92') + ';">' +
       '<img src="' + img + '" style="width:88px;height:66px;object-fit:cover;border-radius:8px;flex:0 0 auto;" loading="lazy">' +
       '<div style="min-width:0;flex:1;">' +
         '<div style="font-weight:700;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;">' + escapeHtml(o.title) + '</div>' +
