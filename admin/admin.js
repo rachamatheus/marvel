@@ -1459,18 +1459,23 @@ function pvToggle(id, on) {
   renderPvCatalog();
 }
 function pvSetPrice(id, val) { pvPrice[id] = val; }
+// авто-запис при промяна на цена (дебоунс, за да не пести KV записи)
+var _pvSaveT = null;
+function pvSaveSoon() { clearTimeout(_pvSaveT); _pvSaveT = setTimeout(savePvCatalog, 1200); }
 // двойно поле лв./€ с авто-конверсия (1 € = 1.95583 лв.)
 function pvBgnInput(id) {
   var bgn = parseFloat(document.getElementById('pvbgn_' + id).value);
   var eurEl = document.getElementById('pveur_' + id);
   if (!isNaN(bgn)) { eurEl.value = Math.round(bgn / 1.95583); pvPrice[id] = String(bgn); }
   else { eurEl.value = ''; pvPrice[id] = ''; }
+  pvSaveSoon();
 }
 function pvEurInput(id) {
   var eur = parseFloat(document.getElementById('pveur_' + id).value);
   var bgnEl = document.getElementById('pvbgn_' + id);
   if (!isNaN(eur)) { var bgn = Math.round(eur * 1.95583); bgnEl.value = bgn; pvPrice[id] = String(bgn); }
   else { bgnEl.value = ''; pvPrice[id] = ''; }
+  pvSaveSoon();
 }
 
 function savePvCatalog() {

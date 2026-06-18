@@ -418,7 +418,7 @@
           <div class="admin-card-header"><div class="admin-card-title">📦 PeakView каталог — избор на оферти</div></div>
           <div class="admin-card-body">
             <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1rem;">
-              Маркирай кои оферти да се показват в сайта (страница „Оферти на живо"). Можеш да коригираш цената. Накрая натисни <strong>Запази и публикувай</strong>.
+              Натисни <strong>➕ Добави</strong> на оферта, за да се покаже в сайта (записва се веднага). Промяната на цената също се запазва автоматично.
             </p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:1rem;">
               <input type="text" class="form-input" id="pvSearch" placeholder="Търси…" style="max-width:240px;" oninput="renderPvCatalog()">
@@ -433,8 +433,7 @@
                 <button type="button" class="form-select" id="pvCompBtn" onclick="togglePvComp(event)" style="max-width:260px;min-width:200px;text-align:left;cursor:pointer;">🏢 Изберете фирми ▾</button>
                 <div id="pvCompMenu" style="display:none;position:absolute;top:calc(100% + 4px);left:0;z-index:80;background:#fff;border:1px solid var(--gray-200,#e5e7eb);border-radius:10px;box-shadow:0 12px 34px rgba(8,20,50,.18);width:300px;max-height:360px;overflow:auto;padding:8px;"></div>
               </div>
-              <span id="pvCount" style="font-size:0.82rem;color:var(--gray-500);"></span>
-              <button class="form-submit" style="max-width:220px;margin-left:auto;" onclick="savePvCatalog()">💾 Запази и публикувай</button>
+              <span id="pvCount" style="font-size:0.82rem;color:var(--gray-500);margin-left:auto;"></span>
             </div>
             <div id="pvSaveResult" style="font-size:0.85rem;margin-bottom:8px;"></div>
             <div id="pvCatalogList" style="min-height:62vh;"></div>
@@ -588,7 +587,7 @@
 <script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
 <script src="../data/peakview.js?v=2"></script>
 <script src="../dest-util.js?v=5"></script>
-<script src="admin.js?v=168"></script>
+<script src="admin.js?v=169"></script>
 <script>
   // ===== PWA: инсталиране на админ панела като приложение =====
   if ('serviceWorker' in navigator) {
