@@ -36,7 +36,7 @@ export default {
       const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
       const hotels = parseHotelList(html);
       const body = JSON.stringify({ hotels });
-      await env.SUBS.put(ck, body, { expirationTtl: 86400 });
+      if (html.length > 8000) await env.SUBS.put(ck, body, { expirationTtl: 86400 }); // не кешираме блокирани/празни страници
       return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
     }
 
@@ -48,7 +48,7 @@ export default {
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
       const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
       const body = JSON.stringify(parseHotelDetail(html));
-      await env.SUBS.put(ck, body, { expirationTtl: 86400 });
+      if (html.length > 8000) await env.SUBS.put(ck, body, { expirationTtl: 86400 });
       return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
     }
 
@@ -60,7 +60,7 @@ export default {
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
       const html = await (await fetch(target, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
       const body = JSON.stringify(parseProgramDetail(html, target));
-      await env.SUBS.put(ck, body, { expirationTtl: 86400 });
+      if (html.length > 8000) await env.SUBS.put(ck, body, { expirationTtl: 86400 });
       return new Response(body, { headers: { 'Content-Type': 'application/json', ...cors } });
     }
 
