@@ -44,7 +44,7 @@ export default {
     if (url.pathname === '/hotel' && req.method === 'GET') {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
-      const ck = 'h5:' + await sha256(target);
+      const ck = 'h6:' + await sha256(target);
       if (!url.searchParams.get('fresh')) { const c = await env.SUBS.get(ck); if (c) return new Response(c, { headers: { 'Content-Type': 'application/json', ...cors } }); }
       const html = await (await fetch(target, { headers: PV_FETCH_HEADERS })).text();
       const body = JSON.stringify(parseHotelDetail(html));
