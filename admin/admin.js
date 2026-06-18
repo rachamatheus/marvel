@@ -208,14 +208,14 @@ function pullGlobalOffers(cb) {
 function deleteOffer(id) {
   // Remove from custom offers if present
   let customOffers = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
-  const wasCustom = customOffers.some(o => o.id === id);
-  customOffers = customOffers.filter(o => o.id !== id);
+  const wasCustom = customOffers.some(o => String(o.id) === String(id));
+  customOffers = customOffers.filter(o => String(o.id) !== String(id));
   localStorage.setItem('mt_custom_offers', JSON.stringify(customOffers));
 
   // If it was a base offer, mark as deleted
   if (!wasCustom) {
     const deletedIds = JSON.parse(localStorage.getItem('mt_deleted_offer_ids') || '[]');
-    if (!deletedIds.includes(id)) {
+    if (!deletedIds.map(String).includes(String(id))) {
       deletedIds.push(id);
       localStorage.setItem('mt_deleted_offer_ids', JSON.stringify(deletedIds));
     }
