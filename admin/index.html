@@ -37,12 +37,6 @@
       <button class="sidebar-link" onclick="showPage('analytics')" id="nav-analytics">
         <span class="icon">📈</span> Статистики
       </button>
-      <button class="sidebar-link" onclick="showPage('peakview')" id="nav-peakview">
-        <span class="icon">🌍</span> PeakView
-      </button>
-      <button class="sidebar-link" onclick="showPage('pvcatalog')" id="nav-pvcatalog">
-        <span class="icon">📦</span> PeakView каталог
-      </button>
       <div class="sidebar-label" style="margin-top:1rem;">Настройки</div>
       <button class="sidebar-link" onclick="showPage('settings')" id="nav-settings">
         <span class="icon">⚙️</span> Настройки
@@ -400,47 +394,6 @@
       </div>
 
       <!-- ===== PEAKVIEW PAGE ===== -->
-      <div id="page-peakview" style="display:none;">
-        <div class="admin-card">
-          <div class="admin-card-header">
-            <div class="admin-card-title">🌍 PeakView — оферти на живо</div>
-            <a href="https://www.peakview.bg/" target="_blank" rel="noopener" style="font-size:0.8rem;color:var(--primary);text-decoration:none;font-weight:600;">Отвори PeakView ↗</a>
-          </div>
-          <div class="admin-card-body">
-            <iframe id="pvFrame" width="100%" src="https://iframe.peakview.bg/?cl=999&ifr_id=38117" scrolling="no" frameborder="0" style="border:0;width:100%;min-height:600px;" onload="window.scroll(0,0);"></iframe>
-          </div>
-        </div>
-      </div>
-
-      <!-- ===== PEAKVIEW КАТАЛОГ (избор кои оферти да се публикуват) ===== -->
-      <div id="page-pvcatalog" style="display:none;">
-        <div class="admin-card">
-          <div class="admin-card-header"><div class="admin-card-title">📦 PeakView каталог — избор на оферти</div></div>
-          <div class="admin-card-body">
-            <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1rem;">
-              Натисни <strong>➕ Добави</strong> на оферта, за да се покаже в сайта (записва се веднага). Промяната на цената също се запазва автоматично.
-            </p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:1rem;">
-              <input type="text" class="form-input" id="pvSearch" placeholder="Търси…" style="max-width:240px;" oninput="renderPvCatalog()">
-              <select class="form-select" id="pvCatFilter" onchange="renderPvCatalog()" style="max-width:170px;">
-                <option value="">Всички категории</option>
-                <option value="vacation">Почивки</option>
-                <option value="excursion">Екскурзии</option>
-                <option value="exotic">Екзотика</option>
-                <option value="cruise">Круизи</option>
-              </select>
-              <div id="pvCompWrap" style="position:relative;">
-                <button type="button" class="form-select" id="pvCompBtn" onclick="togglePvComp(event)" style="max-width:260px;min-width:200px;text-align:left;cursor:pointer;">🏢 Изберете фирми ▾</button>
-                <div id="pvCompMenu" style="display:none;position:absolute;top:calc(100% + 4px);left:0;z-index:80;background:#fff;border:1px solid var(--gray-200,#e5e7eb);border-radius:10px;box-shadow:0 12px 34px rgba(8,20,50,.18);width:300px;max-height:360px;overflow:auto;padding:8px;"></div>
-              </div>
-              <span id="pvCount" style="font-size:0.82rem;color:var(--gray-500);margin-left:auto;"></span>
-            </div>
-            <div id="pvSaveResult" style="font-size:0.85rem;margin-bottom:8px;"></div>
-            <div id="pvCatalogList" style="min-height:62vh;"></div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </main>
 </div>
@@ -584,10 +537,8 @@
 <script src="../data/images.js?v=128"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../sb-init.js?v=128"></script>
-<script src="https://iframe.peakview.bg/js/iframeResizer.min.js"></script>
-<script src="../data/peakview.js?v=3"></script>
 <script src="../dest-util.js?v=5"></script>
-<script src="admin.js?v=169"></script>
+<script src="admin.js?v=170"></script>
 <script>
   // ===== PWA: инсталиране на админ панела като приложение =====
   if ('serviceWorker' in navigator) {

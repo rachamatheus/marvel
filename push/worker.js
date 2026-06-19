@@ -27,8 +27,13 @@ export default {
     const url = new URL(req.url);
     const J = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { 'Content-Type': 'application/json', ...cors } });
 
-    // ---- /hotels?url=<programa.php> — списък хотели за оферта (динамично + KV кеш) ----
-    if (url.pathname === '/hotels' && req.method === 'GET') {
+    // ---- PeakView извличането е ИЗКЛЮЧЕНО (без трафик към тях) ----
+    if (url.pathname === '/hotels' && req.method === 'GET') return J({ hotels: [] });
+    if (url.pathname === '/hotel' && req.method === 'GET') return J({ gallery: [], dates: {}, desc: '' });
+    if (url.pathname === '/detail' && req.method === 'GET') return J({ gallery: [], hotels: '', program: '', includes: '', excludes: '', extra: '' });
+
+    // ---- (стар код, неактивен) /hotels?url=<programa.php> ----
+    if (false && url.pathname === '/hotels' && req.method === 'GET') {
       const target = url.searchParams.get('url') || '';
       if (!isPeakview(target)) return J({ error: 'bad url' }, 400);
       const ck = 'hl3:' + await sha256(target);
