@@ -1099,7 +1099,24 @@ const EKSKURZII_GROUPS = [
     ['Мароко', 'ma'], ['Намибия', 'na'], ['Сейшели', 'sc'], ['ЮАР / Южна Африка', 'za']
   ]]
 ];
-const FIXED_DD_GROUPS = { vacation: POCHIVKI_GROUPS, excursion: EKSKURZII_GROUPS };
+const EKZOTIKA_GROUPS = [
+  ['ЕВРОПА', [
+    ['Армения', 'am'], ['Грузия', 'ge'], ['Испания', 'es']
+  ]],
+  ['АЗИЯ', [
+    ['Индия', 'in'], ['Индонезия', 'id'], ['Китай', 'cn'], ['Малдиви', 'mv'],
+    ['Тайланд', 'th'], ['Шри Ланка', 'lk'], ['Япония', 'jp']
+  ]],
+  ['АМЕРИКА', [
+    ['Аржентина', 'ar'], ['Бахамски острови', 'bs'], ['Бразилия', 'br'],
+    ['Доминикана', 'do'], ['Колумбия', 'co']
+  ]],
+  ['АФРИКА', [
+    ['Египет', 'eg'], ['Занзибар', 'tz'], ['Кения', 'ke'], ['Мавриций', 'mu'],
+    ['Мадагаскар', 'mg'], ['Сейшели', 'sc']
+  ]]
+];
+const FIXED_DD_GROUPS = { vacation: POCHIVKI_GROUPS, excursion: EKSKURZII_GROUPS, exotic: EKZOTIKA_GROUPS };
 function buildCategoryMenus() {
   [
     ['vacation', 'ddPochivki', 'почивки', '🏖️'],
