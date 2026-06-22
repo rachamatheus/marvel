@@ -83,7 +83,6 @@
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="#offers">Оферти</a></li>
     <li class="nav-dd">
       <button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddPochivki')">🏖️ Почивки ▾</button>
       <div class="nav-dd-menu" id="ddPochivki"></div>
@@ -96,7 +95,6 @@
       <button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddEkzotika')">🏝️ Екзотика ▾</button>
       <div class="nav-dd-menu" id="ddEkzotika"></div>
     </li>
-    <li><a href="#destinations">Дестинации</a></li>
     <li><a href="kruizi.html">Круизи</a></li>
     <li><a href="blog.html">Блог</a></li>
     <li><a href="#why-us">За нас</a></li>
@@ -109,11 +107,9 @@
   </button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#offers" onclick="toggleMobileMenu()">✈️ Оферти</a>
   <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('vacation',null)">🏖️ Почивки</a>
   <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('excursion',null)">🗺️ Екскурзии</a>
   <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('exotic',null)">🏝️ Екзотика</a>
-  <a href="#destinations" onclick="toggleMobileMenu()">🗺️ Дестинации</a>
   <a href="kruizi.html">🚢 Круизи</a>
   <a href="blog.html">📖 Блог</a>
   <a href="#why-us" onclick="toggleMobileMenu()">💎 За нас</a>
@@ -133,17 +129,17 @@
       Открийте света с<br><span>Marvel Tour</span>
     </h1>
     <p class="hero-subtitle">Екскурзии, почивки и незабравими приключения.<br>Намерете перфектната оферта за вас.</p>
-    <div class="hero-search">
+    <div class="hero-search" style="display:none;">
       <svg width="18" height="18" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input type="text" id="heroSearch" placeholder="Търсете дестинация, оферта..." autocomplete="off">
       <button class="hero-search-btn" onclick="doHeroSearch()">Търси</button>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat-item">
+      <div class="hero-stat-item" style="display:none;">
         <span class="hero-stat-num" id="stat-total">0</span>
         <span class="hero-stat-label">Активни оферти</span>
       </div>
-      <div class="hero-stat-item">
+      <div class="hero-stat-item" style="display:none;">
         <span class="hero-stat-num" id="stat-destinations">0</span>
         <span class="hero-stat-label">Дестинации</span>
       </div>
@@ -153,13 +149,13 @@
       </div>
     </div>
   </div>
-  <div class="hero-scroll" onclick="document.getElementById('offers').scrollIntoView({behavior:'smooth'})">
+  <div class="hero-scroll" onclick="document.getElementById('why-us').scrollIntoView({behavior:'smooth'})">
     <div class="hero-scroll-dot"></div>
   </div>
 </section>
 
-<!-- FEATURED -->
-<section class="section" id="featured" style="padding:3rem 2rem 0">
+<!-- FEATURED (скрита: без оферти) -->
+<section class="section" id="featured" style="padding:3rem 2rem 0;display:none;">
   <div style="max-width:1300px;margin:0 auto;">
     <div class="section-header">
       <div class="section-badge">🔥 Топ избори</div>
@@ -170,34 +166,8 @@
   </div>
 </section>
 
-<!-- CAMPAIGN BUTTONS -->
-<section class="section" style="padding-top:0;margin-top:-2.5rem;">
-  <div style="max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;">
-    <a href="promo.html?c=ranni-zapisvaniya" class="promo-banner" style="background:linear-gradient(135deg,rgba(8,30,70,0.55),rgba(8,30,70,0.55)),url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80');">
-      <span class="promo-banner-tag">🌅 Кампания</span>
-      <span class="promo-banner-title">Ранни записвания</span>
-      <span class="promo-banner-sub">Най-добрите цени за лято 2026 →</span>
-    </a>
-    <a href="promo.html?c=lyato-gartsia" class="promo-banner" style="background:linear-gradient(135deg,rgba(8,30,70,0.5),rgba(8,30,70,0.5)),url('https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=900&q=80');">
-      <span class="promo-banner-tag">🇬🇷 Кампания</span>
-      <span class="promo-banner-title">Лято 2026 Гърция</span>
-      <span class="promo-banner-sub">Острови, плажове и история →</span>
-    </a>
-    <a href="promo.html?c=uikend" class="promo-banner" style="background:linear-gradient(135deg,rgba(8,30,70,0.5),rgba(8,30,70,0.5)),url('https://images.unsplash.com/photo-1528181304800-259b08848526?w=900&q=80');">
-      <span class="promo-banner-tag">🧳 Кампания</span>
-      <span class="promo-banner-title">Уикенд</span>
-      <span class="promo-banner-sub">Кратки бягства за уикенда →</span>
-    </a>
-    <a href="promo.html?c=avtorski" class="promo-banner" style="background:linear-gradient(135deg,rgba(8,30,70,0.5),rgba(8,30,70,0.5)),url('https://images.unsplash.com/photo-1505881502353-a1986add3762?w=900&q=80');">
-      <span class="promo-banner-tag">✍️ Кампания</span>
-      <span class="promo-banner-title">Авторски програми</span>
-      <span class="promo-banner-sub">Специално подбрани пътешествия →</span>
-    </a>
-  </div>
-</section>
-
-<!-- DESTINATIONS — CONTINENT MAP -->
-<section class="section continent-section" id="destinations">
+<!-- DESTINATIONS — CONTINENT MAP (скрита: офертите идват само от менютата/frame) -->
+<section class="section continent-section" id="destinations" style="display:none;">
   <div style="max-width:1900px;margin:0 auto;">
     <div class="section-header">
       <h2 class="section-title">Изберете своя континент</h2>
@@ -384,8 +354,8 @@
   </div>
 </section>
 
-<!-- ALL OFFERS -->
-<section class="section" id="offers">
+<!-- ALL OFFERS (скрита: офертите идват само от менютата/frame) -->
+<section class="section" id="offers" style="display:none;">
   <div style="max-width:1720px;margin:0 auto;">
     <div class="section-header">
       <div class="section-badge">✈️ Всички оферти</div>
@@ -521,13 +491,12 @@
         </div>
       </div>
       <div>
-        <div class="footer-heading">Оферти</div>
+        <div class="footer-heading">Дестинации</div>
         <ul class="footer-links">
-          <li><a href="#" onclick="filterByTag('lyato-gartsia')">Лято 2026 Гърция</a></li>
-          <li><a href="#" onclick="filterByTag('ranni-zapisvaniya')">Ранни записвания</a></li>
-          <li><a href="#" onclick="filterByTag('uikend')">Уикенд оферти</a></li>
-          <li><a href="#" onclick="filterByCategory('vacation')">Почивки</a></li>
-          <li><a href="#" onclick="filterByCategory('excursion')">Екскурзии</a></li>
+          <li><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});toggleNavDD('ddPochivki');return false;">🏖️ Почивки</a></li>
+          <li><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});toggleNavDD('ddEkskurzii');return false;">🗺️ Екскурзии</a></li>
+          <li><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});toggleNavDD('ddEkzotika');return false;">🏝️ Екзотика</a></li>
+          <li><a href="kruizi.html">🚢 Круизи</a></li>
         </ul>
       </div>
       <div>
