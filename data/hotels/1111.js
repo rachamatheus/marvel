@@ -1,2 +1,0 @@
-// AUTO hotels for pochivka 1111
-HOTEL_INFO["https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAwNzc4NjQmSW1hZ2VJRD0yODMw&PID=B01"]={images:["https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAwNzc4NjQmSW1hZ2VJRD0yODMw&PID=B01"],stars:4,location:"Амалфи , Италия",desc:"<p><strong>Разположение:</strong>Via Madonna di Roselle, 54, Piano di Sorrento </p>"};

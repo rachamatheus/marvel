@@ -383,7 +383,6 @@ const HOTEL_IMAGES = {
   'Grand Park Lara': 'http://aquatour.bg/img/OBEKTI/BIG_gpl_16577980945843.jpg',
   'Greenwood Suites Resort': 'http://aquatour.bg/img/OBEKTI/BIG_IMG_16578841996589.jpg',
   'Ramada Resort Lara': 'http://aquatour.bg/img/OBEKTI/BIG_IMG_17289864195766.jpg',
-  'Sea Life Family Resort Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/749/BIG_IMG_1700729179749.jpg',
   'Sensitive Premium Resort & Spa': 'https://xml.emerald.bg/web/files/hotels/Hotel/2354/images/1491903189_Belek_Hotels_Sensitive_Premium_Resort_General_View_3.jpg',
   'Design Plus Seya Beach': 'https://xml.emerald.bg/web/files/hotels/Hotel/915/images/designplusseyabeach%20(24).jpg',
   'Maya World Park Belek': 'https://xml.emerald.bg/web/files/hotels/Hotel/2543/images/general2.jpg',
@@ -401,12 +400,9 @@ const HOTEL_IMAGES = {
   'Club Side Coast': 'http://aquatour.bg/img/OBEKTI/BIG_CLUB%20SIDE%20COAST1_16129635054272.jpg',
   'Grand Park Lara Hotel': 'http://aquatour.bg/img/OBEKTI/BIG_gpl_16577980945843.jpg',
   'Soleil Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/2416/images/BIG_Soleil_2_pool_138607478862291.jpg',
-  'Tuntas Family Suites Kusadasi': 'https://static.peakview.bg/img/data2/94/hoteli/2678/BIG_IMG_17069490272678.jpg',
   // ── Гърция (доп.) ──
   'Korali Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/4473/images/618aa3f907ed0365755594.jpg',
   'Regina Mare': 'https://xml.emerald.bg/web/files/hotels/Hotel/2213/images/618b7f697f966936738936.jpg',
-  'Kassandra Bay Village': 'https://static.peakview.bg/img/data2/116/hoteli/5/BIG_Kassandra%20Bay%20VIllage_15796022065.jpeg',
-  'Calypso': 'https://static.peakview.bg/img/data2/116/hoteli/4/BIG_Calypso-Hanioti-Hotel24_15796019934.jpg',
   'Happy Days Studios & Apartments': 'https://www.solvex.bg/img/OBEKTI/6640/BIG_hotel._17739102496640.jpeg',
   'Kri Kri Village Holiday Apartments': 'https://www.solvex.bg/img/OBEKTI/6641/BIG_hotel_17739229216641.jpg',
   'Agrabella Hotel Adults Only': 'https://store.abax.bg/book.abax.bg/img_tour/3145/hotel/8197/gallery/4LXCVFSW.jpg',
@@ -415,31 +411,10 @@ const HOTEL_IMAGES = {
   'Kaftans City Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/1417/images/67ff6fde393ab757418517.jpg',
   'Olimpus Beach Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/1955/images/67d3f1cd29184205901635.jpg',
   // ── Дубай / Тунис (доп.) ──
-  'Ibis One Central': 'https://static.peakview.bg/img/data2/63/hoteli/7/BIG_IMG_15205857907.jpg',
   'Iberostar Averroes': 'https://store.abax.bg/book.abax.bg/img_tour/3073/hotel/446/gallery/B93N7V2X.jpg',
   'Samira Club': 'https://store.abax.bg/book.abax.bg/img_tour/3073/hotel/481/gallery/GB9WUCN6.jpg',
 
   // ── Гърция: Крит ──
-  'Happiness Apartments': 'https://static.peakview.bg/img/data2/94/hoteli/3122/BIG_IMG_17308180393122.jpg',
-  'Irida Apartments': 'https://static.peakview.bg/img/data2/94/hoteli/7962/BIG_IMG_17689936007962.jpg',
-  'Kasapakis Hotel & Apartments': 'https://static.peakview.bg/img/data2/94/hoteli/3138/BIG_IMG_17308882623138.jpg',
-  'Litsa-Efi': 'https://static.peakview.bg/img/data2/94/hoteli/3144/BIG_IMG_17308883833144.jpg',
-  'Ilios': 'https://static.peakview.bg/img/data2/94/hoteli/3133/BIG_IMG_17308881893133.jpg',
-  'Kassavetis Center Hotel Studios & Apartments': 'https://static.peakview.bg/img/data2/94/hoteli/3139/BIG_IMG_17308882803139.jpg',
-  'Brascos Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3090/BIG_IMG_17308167293090.jpg',
-  'Malia Holidays Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/7011/BIG_IMG_17636496857011.jpg',
-  'Eleni Palace': 'https://static.peakview.bg/img/data2/94/hoteli/3106/BIG_IMG_17308172893106.jpg',
-  'Marirena Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3152/BIG_IMG_17308246203152.jpg',
-  'Sundance Apartments & Suites': 'https://static.peakview.bg/img/data2/94/hoteli/3183/BIG_IMG_17308891673183.jpg',
-  'Lino Mare Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/7009/BIG_IMG_17539556057009.jpg',
-  'Koutrakis Suites': 'https://static.peakview.bg/img/data2/94/hoteli/7963/BIG_IMG_17689947797963.jpg',
-  'Panormo Beach Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3168/BIG_IMG_17308253933168.jpg',
-  'Erato Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/7005/BIG_IMG_17636490607005.jpg',
-  'Philoxenia Hotel & Spa': 'https://static.peakview.bg/img/data2/94/hoteli/3169/BIG_IMG_17308888623169.jpg',
-  'Thalia Deco City & Beach Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3186/BIG_IMG_17308892393186.jpg',
-  'Dimitra Hotel & Apts': 'https://static.peakview.bg/img/data2/94/hoteli/3103/BIG_IMG_17308876763103.jpg',
-  'Marilisa Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3151/BIG_IMG_17308246103151.jpg',
-  'Almare Beach': 'https://static.peakview.bg/img/data2/94/hoteli/3076/BIG_IMG_17308157323076.jpg',
 
   // ── Гърция: Халкидики (Касандра) ──
   'Olympic Kosma': 'https://xml.emerald.bg/web/files/hotels/Hotel/1959/images/661944262e858467309642.jpg',
@@ -455,17 +430,6 @@ const HOTEL_IMAGES = {
   'Elinotel Apolamare': 'https://xml.emerald.bg/web/files/hotels/Hotel/956/images/661961c43472a655301864.jpg',
 
   // ── Гърция: Халкидики (Ситония) ──
-  'Porfi Beach': 'https://static.peakview.bg/img/data2/116/hoteli/127/BIG_283974045_1732614824127.jpg',
-  "Martha's House": 'https://static.peakview.bg/img/data2/116/hoteli/129/BIG_Martha%27s%20House_1740567253129.jpg',
-  'Olympic Bibis': 'https://static.peakview.bg/img/data2/116/hoteli/15/BIG_Olympic%20Bibis%202_157960399815.jpeg',
-  'Olympion Beach Hotel': 'https://static.peakview.bg/img/data2/116/hoteli/100/BIG_olympionbeach9_1677751058100.jpg',
-  'Lily Ann Village': 'https://static.peakview.bg/img/data2/116/hoteli/60/BIG_LilyAnnVillage4_160388264060.jpg',
-  'Porto Matina Hotel': 'https://static.peakview.bg/img/data2/116/hoteli/10/BIG_Porto%20Matina_157960333710.jpeg',
-  'Simeon': 'https://static.peakview.bg/img/data2/116/hoteli/19/BIG_Simeon%20_157960456219.jpg',
-  'Philoxenia Hotel': 'https://static.peakview.bg/img/data2/116/hoteli/18/BIG_Philoxenia%203_157960437518.jpeg',
-  'Elinotel Sermilia': 'https://static.peakview.bg/img/data2/116/hoteli/109/BIG_sgrelin_0_1699537477109.jpg',
-  'Village Mare': 'https://static.peakview.bg/img/data2/116/hoteli/21/BIG_Village%20Mare%201_157960986721.jpg',
-  'Blue Dolphin Hotel': 'https://static.peakview.bg/img/data2/116/hoteli/13/BIG_Blue%20Dolphin10_164441077913.jpg',
 
   // ── Тунис ──
   'Residence Mahmoud': 'https://xml.emerald.bg/web/files/hotels/Hotel/3908/images/7.jpg',
@@ -492,9 +456,6 @@ const HOTEL_IMAGES = {
   'Varres': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA0NDI3MzkmSW1hZ2VJRD03NzI5&PID=B01',
   'Strada Marina': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAxMzEzNDUmSW1hZ2VJRD03NTE4&PID=B01',
   'Majestic Hotel & Spa': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAwMDEwNDAmSW1hZ2VJRD03Mzg1&PID=B01',
-  'Olympion Beach': 'https://static.peakview.bg/img/data2/116/hoteli/100/BIG_olympionbeach9_1677751058100.jpg',
-  'Marthas Haus': 'https://static.peakview.bg/img/data2/116/hoteli/129/BIG_Martha%27s%20House_1740567253129.jpg',
-  'Ilios Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3133/BIG_IMG_17308881893133.jpg',
 
   // ── Тунис: Джерба ──
   'Venice Beach Hotel': 'https://xml.emerald.bg/web/files/hotels/Hotel/3873/images/601d3fb4c3076926273048.jpg',
@@ -504,18 +465,8 @@ const HOTEL_IMAGES = {
   'Iberostar Selection Eolia': 'https://xml.emerald.bg/web/files/hotels/Hotel/5661/images/66bf4d63c9ba1726207501.jpg',
 
   // ── Малдиви ──
-  'Kuredu Island Resort & Spa': 'https://static.peakview.bg/img/data2/63/hoteli/208/BIG_IMG_1666856906208.jpg',
-  'Kuramathi Maldives': 'https://static.peakview.bg/img/data2/63/hoteli/256/BIG_IMG_1720599087256.jpg',
-  'Cora Cora': 'https://static.peakview.bg/img/data2/63/hoteli/316/BIG_IMG_1770732778316.jpg',
-  'Lily Beach Resort and Spa': 'https://static.peakview.bg/img/data2/63/hoteli/319/BIG_IMG_1770734051319.jpg',
-  'Siyam World Maldives': 'https://static.peakview.bg/img/data2/63/hoteli/262/BIG_IMG_1728547053262.png',
 
   // ── Тайланд: Пукет ──
-  'The Palms Kamala Beach': 'https://static.peakview.bg/img/data2/94/hoteli/8062/BIG_IMG_17761584948062.jpg',
-  'Cocoon APK Resort & Spa': 'https://static.peakview.bg/img/data2/94/hoteli/8018/BIG_IMG_17761576538018.jpg',
-  'Phunawa Resort': 'https://static.peakview.bg/img/data2/94/hoteli/8045/BIG_IMG_17761582198045.jpg',
-  'Centara Kata Resort': 'https://static.peakview.bg/img/data2/94/hoteli/5717/BIG_IMG_17308169425717.jpg',
-  'Katathani Phuket Beach Resort': 'https://static.peakview.bg/img/data2/94/hoteli/727/BIG_IMG_1689851925727.jpg',
 
   // ── Мароко: Маракеш ──
   'Hotel Gomassine': 'https://store.abax.bg/book.abax.bg/img_tour/3283/hotel/10051/gallery/JBYCPU3V.jpg',
@@ -526,7 +477,6 @@ const HOTEL_IMAGES = {
   'Las Palmeras': 'https://store.abax.bg/book.abax.bg/img_tour/3131/hotel/9823/gallery/ZU9863RP.jpg',
   'Natura Park Superior': 'https://store.abax.bg/book.abax.bg/img_tour/3228/hotel/8222/gallery/F4QACNL8.jpg',
   'Natura Park': 'https://store.abax.bg/book.abax.bg/img_tour/3228/hotel/8222/gallery/F4QACNL8.jpg',
-  'Htop Olympic': 'https://static.peakview.bg/img/data2/94/hoteli/7991/BIG_IMG_17763472257991.jpg',
   'Gran Hotel Bali': 'https://store.abax.bg/book.abax.bg/img_tour/3094/hotel/628/gallery/N4CSM5AB.jpg',
   'Mix Peymar': 'https://xml.emerald.bg/web/files/hotels/Hotel/5711/images/66aa50f60456d039767801.jpg',
   'Globales Acuario': 'https://xml.emerald.bg/web/files/hotels/Hotel/5766/images/66feb0763e0db183442092.jpg',
@@ -560,7 +510,6 @@ const HOTEL_IMAGES = {
   'Hotel Vittoria': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDAxNDQ0MzYmSW1hZ2VJRD00MzEz&PID=B01',
 
   // ── Албания / Прага ──
-  'Sunrise Premium 5★ / Grand Blue Fafa 5★': 'https://static.peakview.bg/img/data2/116/hoteli/116/BIG_sunrise%20premium3_1704893407116.jpg',
   'Olympik Hotel, Прага': 'https://store.abax.bg/book.abax.bg/img_tour/3091/hotel/7649/gallery/USV2JT4B.jpg',
   'Hotelli Aakenus': 'http://planet-media.s3.amazonaws.com/images/Hotel-Aakenus-exteriors-3-1140x522.jpg',
   // ── Проверка на хотелски снимки (реални от marveltour) ──
@@ -572,12 +521,6 @@ const HOTEL_IMAGES = {
   'Malahini Kuda Bandos': 'https://www.marveltourbg.com/img/OBEKTI/363332171_1780492747166.jpg',
   'Kurumba Maldives': 'https://www.marveltourbg.com/img/OBEKTI/1_1757663262141.jpg',
   // ── Крит (реални снимки) ──
-  'Annabelle Beach Resort': 'https://static.peakview.bg/img/data2/94/hoteli/3079/BIG_IMG_17308158983079.jpg',
-  'Creta Maris Beach Resort': 'https://static.peakview.bg/img/data2/94/hoteli/3096/BIG_IMG_17308170953096.jpg',
-  'Grecotel Amirandes': 'https://static.peakview.bg/img/data2/94/hoteli/3118/BIG_IMG_17308879103118.jpg',
-  'Semiramis Village': 'https://static.peakview.bg/img/data2/94/hoteli/3174/BIG_IMG_17308259963174.jpg',
-  'Semiramis Village Hotel': 'https://static.peakview.bg/img/data2/94/hoteli/3174/BIG_IMG_17308259963174.jpg',
-  'Royal Imperial Belvedere': 'https://static.peakview.bg/img/data2/94/hoteli/3172/BIG_IMG_17308890313172.jpg',
   // ── Родос (реални снимки) ──
   'International': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA2NzE1NDgmSW1hZ2VJRD0wODE2&PID=B01',
   'Atlantis Boutique City Hotel': 'https://api.internationaltravelgroup.net/hotels/image.php?ImageKey=L2hvdGVscy92aWV3aW1hZ2UucGhwP2lkPTEwMDA4NzI2NzMmSW1hZ2VJRD00Njk5&PID=B01',
@@ -588,16 +531,6 @@ const HOTEL_IMAGES = {
   'Palm Beach Resort': 'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/9441/gallery/HTGSZC42.jpg',
   'Nosy Be Hotel and Spa': 'https://store.abax.bg/book.abax.bg/img_tour/3217/hotel/9294/gallery/NT2DPS5E.jpg',
   // ── Мавриций (реални снимки) ──
-  'Canonnier Beachcomber Golf Resort & Spa': 'https://static.peakview.bg/img/data2/63/hoteli/273/BIG_IMG_1738755492273.jpg',
-  'La Pirogue': 'https://static.peakview.bg/img/data2/63/hoteli/229/BIG_IMG_1696420424229.jpg',
-  'Sugar Beach': 'https://static.peakview.bg/img/data2/63/hoteli/275/BIG_IMG_1738756522275.jpg',
-  'Heritage Le Telfair Resort': 'https://static.peakview.bg/img/data2/63/hoteli/276/BIG_IMG_1738756600276.jpg',
-  'LUX* Belle Mare': 'https://static.peakview.bg/img/data2/63/hoteli/277/BIG_IMG_1738759688277.jpg',
-  'LUX* Le Morne': 'https://static.peakview.bg/img/data2/63/hoteli/293/BIG_IMG_1744724383293.jpg',
-  'The St. Regis Le Morne Resort': 'https://static.peakview.bg/img/data2/63/hoteli/311/BIG_IMG_1761827342311.jpg',
-  'Seasense Boutique Hotel': 'https://static.peakview.bg/img/data2/63/hoteli/166/BIG_IMG_1652077226166.jpg',
-  'Seasense Boutique': 'https://static.peakview.bg/img/data2/63/hoteli/166/BIG_IMG_1652077226166.jpg',
-  'Maritim Resort & Spa': 'https://static.peakview.bg/img/data2/63/hoteli/233/BIG_IMG_1696490852233.jpg',
   'TARISA RESORT & SPA': 'https://xml.emerald.bg/web/files/hotels/Hotel/4166/images/66bb80a00e357769524430.jpg',
   'BE COSY APART HOTEL': 'https://xml.emerald.bg/web/files/hotels/Hotel/5745/images/66ba049d53321242750719.jpg',
   'VERANDA Tamarin Hotel & Spa': 'https://xml.emerald.bg/web/files/hotels/Hotel/4223/images/609a49f557881299603141.jpg',
@@ -629,7 +562,6 @@ const HOTEL_IMAGES = {
   'Xanadu Makadi Bay Lux': 'https://store.abax.bg/book.abax.bg/img_tour/3296/hotel/8376/gallery/BUZNYEWV.jpg',
   // ── Гръцки бийч (реални снимки) ──
   'Aegean Melathron Thalasso Spa': 'https://xml.emerald.bg/web/files/hotels/Hotel/61/images/66195baa46936493973452.jpg',
-  'Majestic SPA': 'https://static.peakview.bg/img/data2/116/hoteli/75/BIG_majestic2_163912691975.jpg',
   'Cronwell Platamon Resort': 'http://www.welcometravelbg.eu/img/OBEKTI/BIG_IMG_1401349879446.jpg',
   'Azure Mare Hotel': 'https://store.abax.bg/book.abax.bg/img_tour/3145/hotel/10104/gallery/9E1UPBLC.jpg',
   'Blue Sea Beach Affiliated by Meliá': 'https://store.abax.bg/book.abax.bg/img_tour/3145/hotel/10107/gallery/Q2KMWXVL.jpg',
