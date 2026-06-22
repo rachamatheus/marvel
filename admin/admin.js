@@ -151,17 +151,11 @@ function showPage(page) {
 }
 
 // ===== LOAD OFFERS =====
+// Показваме САМО добавените оферти (глобални/ръчни). Старият статичен каталог
+// (OFFERS от data/offers.js) вече не се включва — иначе „Активни оферти" брои 166 призрачни.
 function loadOffers() {
   const customOffers = JSON.parse(localStorage.getItem('mt_custom_offers') || '[]');
-  const deletedIds = JSON.parse(localStorage.getItem('mt_deleted_offer_ids') || '[]');
-
-  // Start with base OFFERS filtered by deleted
-  const baseFiltered = OFFERS.filter(o => !deletedIds.includes(o.id));
-
-  // Merge: custom offers override base by id
-  const customIds = customOffers.map(o => o.id);
-  const merged = baseFiltered.filter(o => !customIds.includes(o.id));
-  allOffers = [...merged, ...customOffers];
+  allOffers = [...customOffers];
 }
 
 function saveOffer(data) {
