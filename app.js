@@ -1071,6 +1071,35 @@ const POCHIVKI_GROUPS = [
     ['Сейшели', 'sc'], ['Тунис', 'tn']
   ]]
 ];
+const EKSKURZII_GROUPS = [
+  ['ЕВРОПА', [
+    ['Австрия', 'at'], ['Азербайджан', 'az'], ['Армения', 'am'], ['Белгия', 'be'],
+    ['Босна и Херцеговина', 'ba'], ['Великобритания', 'gb'], ['Германия', 'de'], ['Грузия', 'ge'],
+    ['Гърция', 'gr'], ['Дания', 'dk'], ['Естония', 'ee'], ['Ирландия', 'ie'],
+    ['Исландия', 'is'], ['Испания', 'es'], ['Италия', 'it'], ['Кипър', 'cy'],
+    ['Малта', 'mt'], ['Полша', 'pl'], ['Португалия', 'pt'], ['Румъния', 'ro'],
+    ['Словения', 'si'], ['Сърбия', 'rs'], ['Турция', 'tr'], ['Унгария', 'hu'],
+    ['Франция', 'fr'], ['Хърватия', 'hr'], ['Черна Гора', 'me'], ['Швейцария', 'ch'],
+    ['Швеция', 'se']
+  ]],
+  ['АЗИЯ', [
+    ['Виетнам', 'vn'], ['Дубай-ОАЕ', 'ae'], ['Индия', 'in'], ['Индонезия', 'id'],
+    ['Камбоджа', 'kh'], ['Катар', 'qa'], ['Китай', 'cn'], ['Сингапур', 'sg'],
+    ['Тайланд', 'th'], ['Шри Ланка', 'lk'], ['Южна Корея', 'kr'], ['Япония', 'jp']
+  ]],
+  ['АВСТРАЛИЯ', [
+    ['Австралия', 'au']
+  ]],
+  ['АМЕРИКА', [
+    ['Бахамски острови', 'bs'], ['Канада', 'ca'], ['САЩ', 'us'], ['Аржентина', 'ar'],
+    ['Бразилия', 'br'], ['Колумбия', 'co'], ['Перу', 'pe']
+  ]],
+  ['АФРИКА', [
+    ['Египет', 'eg'], ['Етиопия', 'et'], ['Занзибар', 'tz'], ['Кения', 'ke'],
+    ['Мароко', 'ma'], ['Намибия', 'na'], ['Сейшели', 'sc'], ['ЮАР / Южна Африка', 'za']
+  ]]
+];
+const FIXED_DD_GROUPS = { vacation: POCHIVKI_GROUPS, excursion: EKSKURZII_GROUPS };
 function buildCategoryMenus() {
   [
     ['vacation', 'ddPochivki', 'почивки', '🏖️'],
@@ -1079,14 +1108,14 @@ function buildCategoryMenus() {
   ].forEach(([cat, id, word, icon]) => {
     const menu = document.getElementById(id);
     if (!menu) return;
-    // „Почивки" → фиксиран списък държави с флагове (фрейм/филтър се добавя по-късно)
-    if (cat === 'vacation') {
+    // „Почивки" / „Екскурзии" → фиксиран списък държави с флагове (фрейм/филтър се добавя по-късно)
+    if (FIXED_DD_GROUPS[cat]) {
       let html = `<div class="nav-dd-head">${icon} Изберете дестинация</div>`;
-      html += `<a class="nav-dd-all" onclick="filterCatCountryName('vacation', null)">🌍 Всички ${word}</a>`;
-      POCHIVKI_GROUPS.forEach(([cont, list]) => {
+      html += `<a class="nav-dd-all" onclick="filterCatCountryName('${cat}', null)">🌍 Всички ${word}</a>`;
+      FIXED_DD_GROUPS[cat].forEach(([cont, list]) => {
         html += `<div class="nav-dd-head" style="padding-top:12px;">${cont}</div>`;
         html += `<div class="nav-dd-grid">` + list.map(([name, cc]) =>
-          `<a onclick="filterCatCountryName('vacation','${name.replace(/'/g, "\\'")}')"><span class="nav-dd-name">${flagImg(cc, 16)}<span class="nav-dd-lbl">${name}</span></span></a>`).join('') + `</div>`;
+          `<a onclick="filterCatCountryName('${cat}','${name.replace(/'/g, "\\'")}')"><span class="nav-dd-name">${flagImg(cc, 16)}<span class="nav-dd-lbl">${name}</span></span></a>`).join('') + `</div>`;
       });
       menu.innerHTML = html;
       return;
