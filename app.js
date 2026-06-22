@@ -1068,7 +1068,7 @@ const POCHIVKI_GROUPS = [
   ]],
   ['АФРИКА', [
     ['Египет', 'eg'], ['Мавриций', 'mu'], ['Мадагаскар', 'mg'], ['Мароко', 'ma'],
-    ['Сейшели', 'sc'], ['Тунис', 'tn']
+    ['Сейшели', 'sc'], ['Тунис', 'tn', 38188]
   ]]
 ];
 const EKSKURZII_GROUPS = [
@@ -1131,8 +1131,13 @@ function buildCategoryMenus() {
       html += `<a class="nav-dd-all" onclick="filterCatCountryName('${cat}', null)">🌍 Всички ${word}</a>`;
       FIXED_DD_GROUPS[cat].forEach(([cont, list]) => {
         html += `<div class="nav-dd-head" style="padding-top:12px;">${cont}</div>`;
-        html += `<div class="nav-dd-grid">` + list.map(([name, cc]) =>
-          `<a onclick="filterCatCountryName('${cat}','${name.replace(/'/g, "\\'")}')"><span class="nav-dd-name">${flagImg(cc, 16)}<span class="nav-dd-lbl">${name}</span></span></a>`).join('') + `</div>`;
+        html += `<div class="nav-dd-grid">` + list.map(([name, cc, ifr]) => {
+          const esc = name.replace(/'/g, "\\'");
+          const onclick = ifr
+            ? `openDestFrame('${esc}','${ifr}','${cc}')`
+            : `filterCatCountryName('${cat}','${esc}')`;
+          return `<a onclick="${onclick}"><span class="nav-dd-name">${flagImg(cc, 16)}<span class="nav-dd-lbl">${name}</span></span></a>`;
+        }).join('') + `</div>`;
       });
       menu.innerHTML = html;
       return;
@@ -1155,6 +1160,12 @@ function buildCategoryMenus() {
     menu.innerHTML = html;
   });
 }
+// ===== PeakView дестинационен iframe — отваря отделна страница (нормална навигация, „Назад" работи) =====
+function openDestFrame(name, ifrId, cc) {
+  closeAllNavDD();
+  location.href = 'destinacia.html?d=' + encodeURIComponent(name) + '&f=' + encodeURIComponent(ifrId) + '&cc=' + encodeURIComponent(cc || '');
+}
+
 function toggleNavDD(id) {
   const m = document.getElementById(id);
   if (!m) return;
