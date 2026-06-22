@@ -29,7 +29,30 @@ function mtOfferExpired(o) {
 }
 // Клиентският сайт показва САМО добавеното от админа (ръчни глобални оферти + публикувани
 // PeakView, които се сливат от jivo-merge.js). Старият статичен каталог (OFFERS) не се показва.
-const ALL_OFFERS = [...customOffers].filter(o => !mtOfferExpired(o));
+let ALL_OFFERS = [...customOffers].filter(o => !mtOfferExpired(o));
+
+// Сървърът (Worker /offers) е авторитетът. Синхронизираме при всяко зареждане, за да
+// не остават „заседнали" стари оферти в localStorage на устройството (вкл. телефони).
+const MT_OFFERS_ENDPOINT = 'https://marveltour-push.marveltour.workers.dev/offers';
+function mtSyncOffersFromServer() {
+  fetch(MT_OFFERS_ENDPOINT, { cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (remote) {
+      if (!Array.isArray(remote)) return;
+      var local = JSON.stringify(JSON.parse(localStorage.getItem('mt_custom_offers') || '[]'));
+      var server = JSON.stringify(remote);
+      if (local === server) return; // нищо ново
+      localStorage.setItem('mt_custom_offers', server); // сървърът е истината
+      ALL_OFFERS = remote.filter(function (o) { return !mtOfferExpired(o); });
+      try {
+        if (typeof renderOffers === 'function') renderOffers();
+        if (typeof renderFeatured === 'function') renderFeatured();
+        if (typeof buildCategoryMenus === 'function') buildCategoryMenus();
+        if (typeof initContinentMap === 'function') initContinentMap();
+      } catch (e) {}
+    })
+    .catch(function () {});
+}
 
 // ===== SUPABASE CONFIG =====
 // Replace with your Supabase project URL and anon key after setup
@@ -352,6 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFilters();
   renderOffers();
   buildCategoryMenus();
+  mtSyncOffersFromServer(); // изтегли авторитетния списък от сървъра (чисти заседнали оферти)
   // Apply ?cat / ?country from URL (links from inner pages' Почивки/Екскурзии)
   try {
     const _p = new URLSearchParams(location.search);
