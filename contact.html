@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Контакти — Marvel Tour</title>
   <meta name="description" content="Свържете се с Marvel Tour — туроператор от Пловдив. Форма за контакт, телефон, имейл и локация.">
-  <link rel="stylesheet" href="styles.css?v=154">
+  <link rel="stylesheet" href="styles.css?v=155">
   <link rel="icon" href="favicon.svg?v=9">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1e3a8a">
@@ -57,9 +57,9 @@
   </a>
   <ul class="nav-links">
     <li><a href="index.html#offers">Оферти</a></li>
-    <li><a href="index.html?cat=vacation#offers">🏖️ Почивки</a></li>
-    <li><a href="index.html?cat=excursion#offers">🗺️ Екскурзии</a></li>
-    <li><a href="index.html?cat=exotic#offers">🏝️ Екзотика</a></li>
+    <li class="nav-dd"><button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddPochivki')">🏖️ Почивки ▾</button><div class="nav-dd-menu" id="ddPochivki"></div></li>
+    <li class="nav-dd"><button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddEkskurzii')">🗺️ Екскурзии ▾</button><div class="nav-dd-menu" id="ddEkskurzii"></div></li>
+    <li class="nav-dd"><button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddEkzotika')">🏝️ Екзотика ▾</button><div class="nav-dd-menu" id="ddEkzotika"></div></li>
     <li><a href="index.html#destinations">Дестинации</a></li>
     <li><a href="kruizi.html">Круизи</a></li>
     <li><a href="blog.html">Блог</a></li>
@@ -173,5 +173,6 @@ async function submitContactForm(){
 <script src="chat.js?v=9"></script>
 <script src="pwa.js?v=8"></script>
 <script src="auth.js?v=1"></script>
+<script src="navdd.js?v=1"></script>
 </body>
 </html>

@@ -2585,3 +2585,34 @@ footer {
 .navbar.scrolled .nav-links a:hover { color:var(--gold); }
 .navbar.scrolled .nav-customer-btn { color:#fff; }
 .navbar.scrolled .nav-logo-img { filter:drop-shadow(0 1px 5px rgba(0,0,0,0.5)); }
+
+/* ===== Падащо меню за дестинации (Почивки/Екскурзии/Екзотика) — споделено ===== */
+.nav-dd { position:relative; }
+.nav-dd-btn { font-family:inherit; font-size:0.9rem; font-weight:600; color:rgba(255,255,255,0.94); background:none; border:none; cursor:pointer; padding:0; text-shadow:0 1px 4px rgba(0,0,0,0.45); transition:color .15s; }
+.nav-dd-btn:hover { color:var(--gold); }
+/* На бяла (scrolled) navbar — тъмен текст вместо бял */
+.navbar.scrolled .nav-dd-btn { color:var(--primary); text-shadow:none; }
+.navbar.scrolled .nav-dd-btn:hover { color:var(--gold); }
+.nav-dd-menu {
+  position:absolute; top:calc(100% + 16px); left:50%; transform:translateX(-50%) translateY(-8px) scale(.98);
+  width:380px; max-width:92vw; max-height:78vh; overflow-y:auto; overflow-x:hidden;
+  background:#fff; border:1px solid rgba(26,58,107,0.10); border-radius:16px;
+  box-shadow:0 24px 60px rgba(8,20,50,0.28); padding:14px; z-index:1200;
+  opacity:0; visibility:hidden; transition:opacity .18s ease, transform .18s ease;
+}
+.nav-dd-menu.open { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0) scale(1); }
+.nav-dd-menu::before { content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%) rotate(45deg); width:16px; height:16px; background:#fff; border-left:1px solid rgba(26,58,107,0.10); border-top:1px solid rgba(26,58,107,0.10); border-radius:3px; }
+.nav-dd-head { font-size:0.72rem; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; color:var(--gray-400,#9ca3af); padding:2px 6px 10px; }
+.nav-dd-all { display:flex !important; justify-content:space-between; align-items:center; gap:12px; padding:11px 14px !important; margin-bottom:10px; border-radius:12px; font-weight:700 !important; color:#fff !important; background:linear-gradient(135deg,var(--primary),#2c5aa0); text-decoration:none; cursor:pointer; box-shadow:0 6px 16px rgba(26,58,107,0.28); }
+.nav-dd-all:hover { filter:brightness(1.08); }
+.nav-dd-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:4px; }
+.nav-dd-menu a { display:flex; justify-content:space-between; align-items:center; gap:8px; min-width:0; padding:9px 12px; border-radius:10px; color:var(--gray-700,#374151); text-decoration:none; font-size:0.86rem; font-weight:500; cursor:pointer; transition:background .12s, color .12s; }
+.nav-dd-grid a:hover { background:rgba(201,168,76,0.16); color:var(--primary); }
+.nav-dd-name { min-width:0; display:flex; align-items:center; gap:7px; overflow:hidden; }
+.nav-dd-lbl { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+/* Текстът в менюто да си остане тъмен дори при scrolled navbar (да не наследява бяло) */
+.navbar .nav-dd-menu a, .navbar.scrolled .nav-dd-menu a { color:var(--gray-700,#374151) !important; text-shadow:none !important; }
+.navbar .nav-dd-menu .nav-dd-grid a:hover { color:var(--primary) !important; }
+.navbar .nav-dd-all, .navbar.scrolled .nav-dd-all { color:#fff !important; text-shadow:none !important; }
+.navbar .nav-dd-head { color:var(--gray-400,#9ca3af) !important; }
+@media(max-width:900px){ .nav-dd { display:none; } }
