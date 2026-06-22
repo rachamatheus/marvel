@@ -2,109 +2,11 @@
 <html lang="bg">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>Хотели в Гърция — Marvel Tour</title>
-  <meta name="description" content="Marvel Tour — оферти на живо с реални цени и наличности в реално време.">
-  <link rel="stylesheet" href="styles.css?v=154">
-  <link rel="icon" href="favicon.svg?v=9">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1e3a8a">
-  <link rel="apple-touch-icon" href="icons/apple-touch-180.png">
-  <style>
-    .exotic-bg { position:fixed; inset:0; z-index:-2; background:url('https://images.unsplash.com/photo-1519046904884-53103b34b206?w=2000&q=80') center center / cover no-repeat fixed; }
-    .exotic-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(rgba(245,248,252,0.82), rgba(245,248,252,0.9)); }
-    body { background:transparent; }
-    .jivo-page { max-width:1200px; margin:96px auto 4rem; padding:0 1rem; }
-    .jivo-head { text-align:center; margin-bottom:1.4rem; }
-    .jivo-head .section-badge { background:rgba(201,168,76,0.18); color:#9a7b1f; }
-    .jivo-head h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.6rem); color:var(--primary); margin:0.5rem 0 0.4rem; }
-    .jivo-head p { color:var(--gray-600,#4b5563); font-size:1.02rem; }
-    .jivo-frame-wrap { position:relative; background:#fff; border-radius:18px; box-shadow:0 18px 55px rgba(8,20,50,0.18); padding:10px; overflow:hidden; }
-    #jivoFrame { width:100%; border:0; display:block; min-height:600px; border-radius:10px; }
-    /* Cover the "Powered by …" strip at the bottom of the embedded iframe */
-    .jivo-cover { position:absolute; left:10px; right:10px; bottom:10px; height:40px; background:#fff; border-radius:0 0 10px 10px; pointer-events:none; }
-  </style>
+  <meta http-equiv="refresh" content="0; url=index.html">
+  <title>Marvel Tour</title>
+  <script>location.replace('index.html');</script>
 </head>
 <body>
-<div class="exotic-bg"></div>
-
-<!-- NAVBAR -->
-<nav class="navbar scrolled" id="navbar" style="position:fixed;">
-  <a href="index.html" class="nav-logo">
-    <img src="logo.svg?v=11" alt="Marvel Tour" class="nav-logo-img" style="height:64px;width:auto;object-fit:contain;" onerror="this.style.display='none';document.getElementById('nlf').style.display='flex'">
-    <div id="nlf" style="display:none;align-items:center;gap:10px;">
-      <div class="nav-logo-icon">✈️</div>
-      <div><div class="nav-logo-text" style="color:var(--primary);">Marvel Tour</div></div>
-    </div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html#offers">Оферти</a></li>
-    <li><a href="index.html?cat=vacation#offers">🏖️ Почивки</a></li>
-    <li><a href="index.html?cat=excursion#offers">🗺️ Екскурзии</a></li>
-    <li><a href="index.html?cat=exotic#offers">🏝️ Екзотика</a></li>
-    <li><a href="jivo.html?dest=garcia">Хотели в Гърция</a></li>
-    <li><a href="jivo.html?dest=turcia">Хотели в Турция</a></li>
-    <li><a href="jivo.html?dest=yacht">Яхтен туризъм</a></li>
-    <li><a href="index.html#destinations">Дестинации</a></li>
-    <li><a href="kruizi.html">Круизи</a></li>
-    <li><a href="blog.html">Блог</a></li>
-    <li><a href="index.html#why-us">За нас</a></li>
-    <li><a href="index.html#reviews">Отзиви</a></li>
-    <li><a href="contact.html">Контакти</a></li>
-  </ul>
-  <button class="nav-hamburger" id="navHamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="index.html#offers">✈️ Оферти</a>
-  <a href="index.html?cat=vacation#offers">🏖️ Почивки</a>
-  <a href="index.html?cat=excursion#offers">🗺️ Екскурзии</a>
-  <a href="index.html?cat=exotic#offers">🏝️ Екзотика</a>
-  <a href="jivo.html?dest=garcia">Хотели в Гърция</a>
-  <a href="jivo.html?dest=turcia">Хотели в Турция</a>
-  <a href="jivo.html?dest=yacht">Яхтен туризъм</a>
-  <a href="index.html#destinations">🗺️ Дестинации</a>
-  <a href="kruizi.html">🚢 Круизи</a>
-  <a href="blog.html">📖 Блог</a>
-  <a href="index.html#why-us">💎 За нас</a>
-  <a href="index.html#reviews">⭐ Отзиви</a>
-  <a href="contact.html">📧 Контакти</a>
-</div>
-
-<div class="jivo-page">
-  <div class="jivo-head">
-    <div class="section-badge" id="jivoBadge">🇬🇷 На живо</div>
-    <h1 id="jivoTitle">Хотели в Гърция</h1>
-    <p>Реални цени и наличности в реално време — директно от платформата.</p>
-  </div>
-  <div class="jivo-frame-wrap">
-    <iframe id="jivoFrame" scrolling="no" frameborder="0" onload="window.scroll(0,0);"></iframe>
-    <div class="jivo-cover"></div>
-  </div>
-</div>
-
-<script>
-  var JIVO_DESTS = {
-    garcia: { src:'https://iframe.peakview.bg/garcia/?cl=999', title:'Хотели в Гърция', flag:'🇬🇷', resizer:'https://iframe.peakview.bg/js/iframeResizer.min.js' },
-    turcia: { src:'https://iframe.peakview.bg/turcia/?cl=999', title:'Хотели в Турция', flag:'🇹🇷', resizer:'https://iframe.peakview.bg/js/iframeResizer.min.js' },
-    yacht:  { src:'https://evertour.art.bg/iframe/yahten-turizam?&cl=999', title:'Яхтен туризъм', flag:'⛵', resizer:'https://evertour.art.bg/js/iframeResizer.min.js' }
-  };
-  var _dk = new URLSearchParams(location.search).get('dest');
-  var _d = JIVO_DESTS[_dk] || JIVO_DESTS.garcia;
-  document.getElementById('jivoFrame').src = _d.src;
-  document.getElementById('jivoTitle').textContent = _d.title;
-  document.getElementById('jivoBadge').textContent = _d.flag + ' На живо';
-  document.title = _d.title + ' — Marvel Tour';
-  var _rs = document.createElement('script');
-  _rs.src = _d.resizer;
-  _rs.onload = function () { try { iFrameResize({ checkOrigin:false }, '#jivoFrame'); } catch (e) {} };
-  document.body.appendChild(_rs);
-</script>
-<script src="lang.js?v=136"></script>
-<script src="chat.js?v=9"></script>
-<script src="pwa.js?v=8"></script>
-<script src="auth.js?v=1"></script>
+  <p>Пренасочване към <a href="index.html">Marvel Tour</a>…</p>
 </body>
 </html>
