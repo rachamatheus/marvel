@@ -1050,6 +1050,27 @@ const COUNTRY_ISO = {
   uk:'gb', usa:'us', vietnam:'vn'
 };
 // Populate the Почивки / Екскурзии / Екзотика nav dropdowns with destinations
+// Фиксиран списък държави за „Почивки" — групиран по континент, с цветни флаг-картинки.
+// (ISO кодовете са изрични, за да се виждат флаговете, а не букви.)
+const POCHIVKI_GROUPS = [
+  ['ЕВРОПА', [
+    ['Австрия', 'at'], ['Албания', 'al'], ['Армения', 'am'], ['България', 'bg'],
+    ['Грузия', 'ge'], ['Гърция', 'gr'], ['Испания', 'es'], ['Италия', 'it'],
+    ['Малта', 'mt'], ['Португалия', 'pt'], ['Турция', 'tr'], ['Финландия', 'fi'],
+    ['Франция', 'fr'], ['Чехия', 'cz']
+  ]],
+  ['АЗИЯ', [
+    ['Виетнам', 'vn'], ['Дубай-ОАЕ', 'ae'], ['Йордания', 'jo'], ['Малдиви', 'mv'],
+    ['Тайланд', 'th'], ['Шри Ланка', 'lk']
+  ]],
+  ['АМЕРИКА', [
+    ['Доминикана', 'do'], ['САЩ', 'us']
+  ]],
+  ['АФРИКА', [
+    ['Египет', 'eg'], ['Мавриций', 'mu'], ['Мадагаскар', 'mg'], ['Мароко', 'ma'],
+    ['Сейшели', 'sc'], ['Тунис', 'tn']
+  ]]
+];
 function buildCategoryMenus() {
   [
     ['vacation', 'ddPochivki', 'почивки', '🏖️'],
@@ -1058,6 +1079,18 @@ function buildCategoryMenus() {
   ].forEach(([cat, id, word, icon]) => {
     const menu = document.getElementById(id);
     if (!menu) return;
+    // „Почивки" → фиксиран списък държави с флагове (фрейм/филтър се добавя по-късно)
+    if (cat === 'vacation') {
+      let html = `<div class="nav-dd-head">${icon} Изберете дестинация</div>`;
+      html += `<a class="nav-dd-all" onclick="filterCatCountryName('vacation', null)">🌍 Всички ${word}</a>`;
+      POCHIVKI_GROUPS.forEach(([cont, list]) => {
+        html += `<div class="nav-dd-head" style="padding-top:12px;">${cont}</div>`;
+        html += `<div class="nav-dd-grid">` + list.map(([name, cc]) =>
+          `<a onclick="filterCatCountryName('vacation','${name.replace(/'/g, "\\'")}')"><span class="nav-dd-name">${flagImg(cc, 16)}<span class="nav-dd-lbl">${name}</span></span></a>`).join('') + `</div>`;
+      });
+      menu.innerHTML = html;
+      return;
+    }
     // брои по реална дестинация (Бг държава), а не по англ. ключ — уеднаквено и без дубли
     const counts = {};
     ALL_OFFERS.forEach(o => {
