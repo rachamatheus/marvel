@@ -1078,7 +1078,7 @@ const COUNTRY_ISO = {
 // (ISO кодовете са изрични, за да се виждат флаговете, а не букви.)
 const POCHIVKI_GROUPS = [
   ['ЕВРОПА', [
-    ['Австрия', 'at'], ['Албания', 'al'], ['Армения', 'am'], ['България', 'bg'],
+    ['Австрия', 'at', 'oferti-demo.html'], ['Албания', 'al'], ['Армения', 'am'], ['България', 'bg'],
     ['Грузия', 'ge'], ['Гърция', 'gr'], ['Испания', 'es'], ['Италия', 'it'],
     ['Малта', 'mt'], ['Португалия', 'pt'], ['Турция', 'tr'], ['Финландия', 'fi'],
     ['Франция', 'fr'], ['Чехия', 'cz']
@@ -1157,9 +1157,11 @@ function buildCategoryMenus() {
         html += `<div class="nav-dd-head" style="padding-top:12px;">${cont}</div>`;
         html += `<div class="nav-dd-grid">` + list.map(([name, cc, ifr]) => {
           const esc = name.replace(/'/g, "\\'");
-          const onclick = ifr
+          const onclick = (typeof ifr === 'number')
             ? `openDestFrame('${esc}','${ifr}','${cc}')`
-            : `filterCatCountryName('${cat}','${esc}')`;
+            : (typeof ifr === 'string')
+              ? `openDestPage('${ifr}','${esc}','${cc}')`
+              : `filterCatCountryName('${cat}','${esc}')`;
           return `<a onclick="${onclick}"><span class="nav-dd-name">${flagImg(cc, 16)}<span class="nav-dd-lbl">${name}</span></span></a>`;
         }).join('') + `</div>`;
       });
@@ -1188,6 +1190,10 @@ function buildCategoryMenus() {
 function openDestFrame(name, ifrId, cc) {
   closeAllNavDD();
   location.href = 'destinacia.html?d=' + encodeURIComponent(name) + '&f=' + encodeURIComponent(ifrId) + '&cc=' + encodeURIComponent(cc || '');
+}
+function openDestPage(page, name, cc) {
+  closeAllNavDD();
+  location.href = page + '?d=' + encodeURIComponent(name) + '&cc=' + encodeURIComponent(cc || '');
 }
 
 function toggleNavDD(id) {

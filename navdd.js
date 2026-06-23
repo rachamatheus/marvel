@@ -5,7 +5,7 @@
 (function () {
   var POCHIVKI = [
     ['ЕВРОПА', [
-      ['Австрия', 'at'], ['Албания', 'al'], ['Армения', 'am'], ['България', 'bg'],
+      ['Австрия', 'at', 'oferti-demo.html'], ['Албания', 'al'], ['Армения', 'am'], ['България', 'bg'],
       ['Грузия', 'ge'], ['Гърция', 'gr'], ['Испания', 'es'], ['Италия', 'it'],
       ['Малта', 'mt'], ['Португалия', 'pt'], ['Турция', 'tr'], ['Финландия', 'fi'],
       ['Франция', 'fr'], ['Чехия', 'cz']
@@ -97,6 +97,11 @@
     if (name) u += '&country=' + encodeURIComponent(name);
     location.href = u + '#offers';
   };
+  // Държава, която сочи към наша страница (демо/дизайн), а не PeakView frame.
+  window.openDestPage = function (page, name, cc) {
+    closeAll();
+    location.href = page + '?d=' + encodeURIComponent(name) + '&cc=' + encodeURIComponent(cc || '');
+  };
 
   function build() {
     [['vacation', 'ddPochivki', 'почивки', '🏖️'], ['excursion', 'ddEkskurzii', 'екскурзии', '🗺️'], ['exotic', 'ddEkzotika', 'екзотика', '🏝️']].forEach(function (t) {
@@ -111,7 +116,10 @@
         html += '<div class="nav-dd-grid">' + list.map(function (it) {
           var name = it[0], cc = it[1], ifr = it[2];
           var esc = name.replace(/'/g, "\\'");
-          var oc = ifr ? "openDestFrame('" + esc + "','" + ifr + "','" + cc + "')" : "mtNavFilter('" + cat + "','" + esc + "')";
+          var oc;
+          if (typeof ifr === 'number') oc = "openDestFrame('" + esc + "','" + ifr + "','" + cc + "')";
+          else if (typeof ifr === 'string') oc = "openDestPage('" + ifr + "','" + esc + "','" + cc + "')";
+          else oc = "mtNavFilter('" + cat + "','" + esc + "')";
           return '<a onclick="' + oc + '"><span class="nav-dd-name">' + flag(cc, 16) + '<span class="nav-dd-lbl">' + name + '</span></span></a>';
         }).join('') + '</div>';
       });

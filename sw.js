@@ -1,13 +1,13 @@
 /* Marvel Tour — service worker за публичното приложение (PWA).
  * Фаза 1: офлайн кеш на основните файлове.
  * Фаза 2: получаване и показване на push нотификации. */
-var CACHE = 'mt-app-v17';
+var CACHE = 'mt-app-v18';
 // Push Worker endpoint — попълни СЪЩИЯ адрес като в pwa.js (за payload-less известия).
 var PUSH_ENDPOINT = 'https://marveltour-push.marveltour.workers.dev';
 var CORE = [
   './index.html',
   './styles.css?v=155',
-  './app.js?v=178',
+  './app.js?v=179',
   './lang.js?v=136',
   './data/offers.js?v=139',
   './logo.svg?v=11',

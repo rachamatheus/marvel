@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>Австрия — Почивки | Marvel Tour</title>
+  <link rel="stylesheet" href="styles.css?v=155">
+  <link rel="icon" href="favicon.svg?v=9">
+  <meta name="theme-color" content="#1e3a8a">
+  <style>
+    /* ====== ДИЗАЙН-ШАБЛОН ЗА ОФЕРТИ (за интеграция в PeakView) ====== */
+    .demo-bg { position:fixed; inset:0; z-index:-2;
+      background:linear-gradient(rgba(248,251,254,0.92), rgba(248,251,254,0.95)),
+        url('https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=2000&q=80') center/cover no-repeat fixed; }
+    body { background:transparent; }
+    .demo-page { max-width:1600px; margin:90px auto 3rem; padding:0 18px; }
+    .demo-back { display:inline-flex; align-items:center; gap:6px; color:#1a3a6b; text-decoration:none; font-weight:600; font-size:0.92rem; margin-bottom:1rem; }
+    .demo-back:hover { color:#c9a84c; }
+    .demo-head { display:flex; align-items:center; gap:12px; margin:0 0 1.6rem; }
+    .demo-head img { width:46px; height:32px; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,.3); object-fit:cover; }
+    .demo-head h1 { font-family:'Playfair Display',serif; font-size:2rem; color:#1a3a6b; margin:0; }
+    .demo-head .cnt { margin-left:auto; font-size:0.9rem; color:#6b7280; font-weight:600; }
+
+    /* ГРИД: 5 оферти на ред (адаптивно) */
+    .offers-grid { display:grid; grid-template-columns:repeat(5, 1fr); gap:18px; }
+    @media(max-width:1300px){ .offers-grid{ grid-template-columns:repeat(4,1fr); } }
+    @media(max-width:1000px){ .offers-grid{ grid-template-columns:repeat(3,1fr); } }
+    @media(max-width:760px){ .offers-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:480px){ .offers-grid{ grid-template-columns:1fr; } }
+
+    /* КАРТА (балонче) */
+    .ocard { background:#fff; border:1px solid #eef0f4; border-radius:16px; overflow:hidden;
+      display:flex; flex-direction:column; box-shadow:0 6px 20px rgba(8,20,50,.08);
+      transition:box-shadow .2s ease, transform .2s ease; }
+    .ocard:hover { box-shadow:0 16px 40px rgba(8,20,50,.16); transform:translateY(-4px); }
+    .ocard-img { position:relative; height:150px; background:#dceaf6; }
+    .ocard-img img { width:100%; height:100%; object-fit:cover; display:block; }
+    .ocard-badge { position:absolute; top:10px; left:10px; background:rgba(26,58,107,.92); color:#fff;
+      font-size:0.68rem; font-weight:700; letter-spacing:.4px; padding:4px 9px; border-radius:100px; text-transform:uppercase; }
+    .ocard-body { padding:12px 13px 14px; display:flex; flex-direction:column; gap:7px; flex:1; }
+    .ocard-title { font-size:0.92rem; font-weight:700; color:#1a3a6b; line-height:1.3; }
+    .ocard-meta { font-size:0.8rem; color:#6b7280; }
+    .ocard-dates { font-size:0.78rem; color:#9ca3af; }
+    .ocard-price-row { margin-top:auto; }
+    .ocard-price-lbl { font-size:0.72rem; color:#9ca3af; }
+    .ocard-price { font-size:1.15rem; font-weight:800; color:#1a3a6b; }
+    .ocard-price-eur { font-size:0.8rem; color:#9ca3af; font-weight:500; }
+    .ocard-btn { display:block; text-align:center; margin-top:4px; background:#1a3a6b; color:#fff;
+      border:none; border-radius:10px; padding:9px 12px; font-weight:700; font-size:0.85rem; text-decoration:none;
+      box-shadow:0 6px 16px rgba(26,58,107,.22); transition:background .15s; cursor:pointer; }
+    .ocard-btn:hover { background:#c9a84c; }
+  </style>
+</head>
+<body>
+<div class="demo-bg"></div>
+
+<nav class="navbar scrolled" id="navbar" style="position:fixed;">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.svg?v=11" alt="Marvel Tour" class="nav-logo-img" style="height:64px;width:auto;object-fit:contain;">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dd"><button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddPochivki')">🏖️ Почивки ▾</button><div class="nav-dd-menu" id="ddPochivki"></div></li>
+    <li class="nav-dd"><button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddEkskurzii')">🗺️ Екскурзии ▾</button><div class="nav-dd-menu" id="ddEkskurzii"></div></li>
+    <li class="nav-dd"><button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddEkzotika')">🏝️ Екзотика ▾</button><div class="nav-dd-menu" id="ddEkzotika"></div></li>
+    <li><a href="kruizi.html">Круизи</a></li>
+    <li><a href="blog.html">Блог</a></li>
+    <li><a href="contact.html">Контакти</a></li>
+  </ul>
+</nav>
+
+<div class="demo-page">
+  <a href="index.html" class="demo-back">← Назад</a>
+  <div class="demo-head">
+    <img src="https://flagcdn.com/w80/at.png" alt="Австрия">
+    <h1>Австрия — Почивки</h1>
+    <span class="cnt" id="cnt"></span>
+  </div>
+  <div class="offers-grid" id="grid"></div>
+</div>
+
+<script src="navdd.js?v=4"></script>
+<script>
+(function () {
+  var IMGS = [
+    'https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=600&q=80',
+    'https://images.unsplash.com/photo-1571768015735-91faca8c79bb?w=600&q=80',
+    'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+    'https://images.unsplash.com/photo-1551867633-194f125bddfa?w=600&q=80',
+    'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=600&q=80'
+  ];
+  var CITIES = ['Виена','Залцбург','Инсбрук','Халщат','Грац','Цел ам Зее','Капрун','Бад Гащайн','Майерхофен','Велден'];
+  var NIGHTS = [3,4,5,7];
+  var offers = [];
+  for (var i = 0; i < 20; i++) {
+    var city = CITIES[i % CITIES.length];
+    var n = NIGHTS[i % NIGHTS.length];
+    var bgn = 590 + (i * 73) % 1200;
+    var eur = Math.round(bgn / 1.95583 * 100) / 100;
+    var d = 10 + (i % 18);
+    offers.push({
+      title: city + ' ' + (2026) + ' — ' + (n + 1) + ' дни',
+      img: IMGS[i % IMGS.length],
+      nights: n,
+      dates: (d < 10 ? '0' + d : d) + '.07.2026, ' + ((d + 7) % 28 + 1) + '.07…',
+      bgn: bgn,
+      eur: eur.toFixed(2)
+    });
+  }
+  document.getElementById('cnt').textContent = offers.length + ' оферти';
+  document.getElementById('grid').innerHTML = offers.map(function (o) {
+    return '<div class="ocard">' +
+      '<div class="ocard-img"><span class="ocard-badge">Почивка</span><img src="' + o.img + '" alt="" loading="lazy"></div>' +
+      '<div class="ocard-body">' +
+        '<div class="ocard-title">' + o.title + '</div>' +
+        '<div class="ocard-meta">' + (o.nights + 1) + ' дни / ' + o.nights + ' нощувки</div>' +
+        '<div class="ocard-dates">📅 ' + o.dates + '</div>' +
+        '<div class="ocard-price-row">' +
+          '<div class="ocard-price-lbl">Цена от</div>' +
+          '<div class="ocard-price">' + o.bgn + ' лв. <span class="ocard-price-eur">/ ' + o.eur + ' €</span></div>' +
+        '</div>' +
+        '<a class="ocard-btn" href="javascript:void(0)">Виж повече</a>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>
