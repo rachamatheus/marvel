@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>Оферта — Marvel Tour</title>
+  <link rel="stylesheet" href="styles.css?v=155">
+  <link rel="icon" href="favicon.svg?v=9">
+  <meta name="theme-color" content="#1e3a8a">
+  <style>
+    .od-bg { position:fixed; inset:0; z-index:-2; background:linear-gradient(rgba(248,251,254,0.93),rgba(248,251,254,0.96)),
+      url('https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=2000&q=80') center/cover no-repeat fixed; }
+    body { background:transparent; }
+    .od-page { max-width:1080px; margin:90px auto 3rem; padding:1.4rem 2rem 3rem; background:#fff; border-radius:22px; box-shadow:0 18px 55px rgba(8,20,50,.18); }
+    .od-back { display:inline-flex; align-items:center; gap:6px; color:#1a3a6b; text-decoration:none; font-weight:600; font-size:.9rem; margin-bottom:1rem; }
+    .od-back:hover { color:#c9a84c; }
+    .od-gallery { display:grid; grid-template-columns:2fr 1fr 1fr; grid-template-rows:130px 130px; gap:8px; }
+    .od-gallery img { width:100%; height:100%; object-fit:cover; border-radius:10px; display:block; cursor:pointer; }
+    .od-gallery img:first-child { grid-row:1/3; height:268px; }
+    .od-badges { display:flex; flex-wrap:wrap; gap:8px; margin:1.2rem 0 .6rem; }
+    .od-badge { font-size:.74rem; font-weight:700; padding:5px 11px; border-radius:100px; background:#eef2f7; color:#1a3a6b; }
+    .od-badge.gold { background:#1a3a6b; color:#fff; }
+    .od-title { font-family:'Playfair Display',serif; font-size:1.9rem; color:#1a3a6b; margin:.2rem 0 .6rem; }
+    .od-priceline { display:flex; align-items:baseline; gap:10px; margin-bottom:1.2rem; }
+    .od-price { font-size:1.8rem; font-weight:800; color:#1a3a6b; }
+    .od-price-eur { font-size:1rem; color:#9ca3af; }
+    .od-tabs { display:flex; flex-wrap:wrap; gap:6px; border-bottom:2px solid #eef0f4; margin:1.2rem 0 1.2rem; }
+    .od-tab { font-family:inherit; font-size:.92rem; font-weight:700; color:#4b5563; background:none; border:none; border-bottom:3px solid transparent; padding:10px 14px; cursor:pointer; }
+    .od-tab.active { color:#1a3a6b; border-bottom-color:#c9a84c; }
+    .od-pane { display:none; }
+    .od-pane.active { display:block; }
+    .od-h { font-size:1.05rem; font-weight:700; color:#1a3a6b; margin:1.2rem 0 .6rem; }
+    .od-list { margin:0 0 1rem 1.1rem; color:#374151; line-height:1.7; }
+    .od-list.bad li { color:#9b3b3b; }
+    .od-hotel { border:1px solid #eef0f4; border-radius:14px; overflow:hidden; margin-bottom:14px; }
+    .od-hotel-head { display:flex; gap:14px; padding:12px; align-items:center; }
+    .od-hotel-head img { width:120px; height:84px; object-fit:cover; border-radius:10px; flex:0 0 auto; }
+    .od-hotel-name { font-weight:700; color:#1a3a6b; font-size:1.02rem; }
+    .od-stars { color:#c9a84c; font-size:.9rem; }
+    .od-hotel-desc { font-size:.86rem; color:#6b7280; margin-top:3px; }
+    .od-ptable { width:100%; border-collapse:collapse; font-size:.86rem; margin:6px 0 4px; }
+    .od-ptable th { background:#eef2f7; color:#1a3a6b; text-align:left; padding:7px 10px; border:1px solid #eef0f4; }
+    .od-ptable td { padding:7px 10px; border:1px solid #eef0f4; color:#1f2430; }
+    .od-ptable tr:nth-child(even) td { background:rgba(0,0,0,.02); }
+    .od-ptable .p { color:#1a3a6b; font-weight:700; }
+    .od-cta { display:inline-block; margin-top:1.2rem; background:#1a3a6b; color:#fff; border:none; border-radius:12px; padding:13px 30px; font-weight:700; font-size:1rem; text-decoration:none; box-shadow:0 8px 20px rgba(26,58,107,.25); cursor:pointer; }
+    .od-cta:hover { background:#c9a84c; }
+    @media(max-width:700px){ .od-page{ margin:80px 8px 2rem; padding:1rem 1rem 2rem; } .od-gallery{ grid-template-columns:1fr 1fr; } .od-gallery img:first-child{ grid-column:1/3; grid-row:auto; height:180px; } }
+  </style>
+</head>
+<body>
+<div class="od-bg"></div>
+
+<nav class="navbar scrolled" id="navbar" style="position:fixed;">
+  <a href="index.html" class="nav-logo"><img src="logo.svg?v=11" alt="Marvel Tour" class="nav-logo-img" style="height:64px;width:auto;object-fit:contain;"></a>
+  <ul class="nav-links">
+    <li class="nav-dd"><button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddPochivki')">🏖️ Почивки ▾</button><div class="nav-dd-menu" id="ddPochivki"></div></li>
+    <li class="nav-dd"><button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddEkskurzii')">🗺️ Екскурзии ▾</button><div class="nav-dd-menu" id="ddEkskurzii"></div></li>
+    <li class="nav-dd"><button class="nav-dd-btn" onclick="event.stopPropagation();toggleNavDD('ddEkzotika')">🏝️ Екзотика ▾</button><div class="nav-dd-menu" id="ddEkzotika"></div></li>
+    <li><a href="kruizi.html">Круизи</a></li>
+    <li><a href="contact.html">Контакти</a></li>
+  </ul>
+</nav>
+
+<div class="od-page">
+  <a href="javascript:history.back()" class="od-back">← Назад към офертите</a>
+  <div class="od-gallery" id="gallery"></div>
+
+  <div class="od-badges">
+    <span class="od-badge gold">All Inclusive</span>
+    <span class="od-badge" id="bDuration">8 дни / 7 нощувки</span>
+    <span class="od-badge">✈️ Самолет</span>
+    <span class="od-badge">🧑‍✈️ Водач на български</span>
+  </div>
+  <h1 class="od-title" id="title">Оферта</h1>
+  <div class="od-priceline">
+    <span class="od-price" id="price">— лв.</span>
+    <span class="od-price-eur" id="priceEur"></span>
+  </div>
+
+  <div class="od-tabs" id="tabs">
+    <button class="od-tab active" data-p="hotels">Хотели</button>
+    <button class="od-tab" data-p="dates">Дати и цени</button>
+    <button class="od-tab" data-p="program">Програма</button>
+    <button class="od-tab" data-p="incl">Цената включва</button>
+  </div>
+
+  <div class="od-pane active" id="pane-hotels"></div>
+  <div class="od-pane" id="pane-dates"></div>
+  <div class="od-pane" id="pane-program"></div>
+  <div class="od-pane" id="pane-incl"></div>
+
+  <a class="od-cta" href="contact.html">Запитване за тази оферта</a>
+</div>
+
+<script src="navdd.js?v=4"></script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var city = q.get('city') || 'Виена';
+  var bgn = parseInt(q.get('bgn'), 10) || 890;
+  var eur = (bgn / 1.95583).toFixed(2);
+
+  var GAL = [
+    'https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=900&q=80',
+    'https://images.unsplash.com/photo-1571768015735-91faca8c79bb?w=500&q=80',
+    'https://images.unsplash.com/photo-1551867633-194f125bddfa?w=500&q=80',
+    'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=500&q=80',
+    'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=500&q=80'
+  ];
+  var HOTEL_IMG = [
+    'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80',
+    'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80',
+    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&q=80'
+  ];
+
+  document.title = city + ' 2026 — Marvel Tour';
+  document.getElementById('title').textContent = city + ' 2026 — All Inclusive почивка';
+  document.getElementById('price').textContent = 'от ' + bgn + ' лв.';
+  document.getElementById('priceEur').textContent = '/ ' + eur + ' €';
+  document.getElementById('gallery').innerHTML = GAL.map(function (s) { return '<img src="' + s + '" alt="" loading="lazy">'; }).join('');
+
+  var hotels = [
+    { name: 'Grand Hotel ' + city, stars: 5, desc: 'Луксозен хотел в центъра, спа център, басейн и изглед към планината.' },
+    { name: city + ' Resort & Spa', stars: 4, desc: 'Модерен курортен комплекс на 200 м от центъра, открит и закрит басейн.' },
+    { name: 'Alpine Boutique ' + city, stars: 4, desc: 'Уютен бутиков хотел с традиционна австрийска кухня и градина.' }
+  ];
+  function priceTable(base) {
+    var rows = [
+      ['Двойна стая', base, base + 120],
+      ['Студио (2+1)', base + 90, base + 230],
+      ['Апартамент (2+2)', base + 210, base + 380]
+    ];
+    return '<table class="od-ptable"><tr><th>Настаняване</th><th>05.07 – 12.07</th><th>19.07 – 26.07</th></tr>' +
+      rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td class="p">' + r[1] + ' лв.</td><td class="p">' + r[2] + ' лв.</td></tr>'; }).join('') + '</table>';
+  }
+  document.getElementById('pane-hotels').innerHTML = hotels.map(function (h, i) {
+    return '<div class="od-hotel"><div class="od-hotel-head"><img src="' + HOTEL_IMG[i % HOTEL_IMG.length] + '" alt="">' +
+      '<div><div class="od-hotel-name">' + h.name + '</div><div class="od-stars">' + '★'.repeat(h.stars) + '</div>' +
+      '<div class="od-hotel-desc">' + h.desc + '</div></div></div><div style="padding:0 12px 12px;">' + priceTable(bgn + i * 60) + '</div></div>';
+  }).join('');
+
+  var dates = ['28.06.2026', '05.07.2026', '12.07.2026', '19.07.2026', '26.07.2026', '02.08.2026', '09.08.2026'];
+  document.getElementById('pane-dates').innerHTML = '<div class="od-h">Заминавания и цени (на човек)</div><table class="od-ptable"><tr><th>Дата на тръгване</th><th>Нощувки</th><th>Цена от</th></tr>' +
+    dates.map(function (d, i) { return '<tr><td>' + d + '</td><td>7</td><td class="p">' + (bgn + i * 35) + ' лв. / ' + ((bgn + i * 35) / 1.95583).toFixed(2) + ' €</td></tr>'; }).join('') + '</table>';
+
+  document.getElementById('pane-program').innerHTML = '<div class="od-h">Кратка програма</div>' +
+    '<ul class="od-list"><li><b>Ден 1:</b> Полет до ' + city + ', трансфер и настаняване в хотела.</li>' +
+    '<li><b>Ден 2–6:</b> Свободно време, факултативни екскурзии, целодневно изхранване All Inclusive.</li>' +
+    '<li><b>Ден 7:</b> Възможност за разглеждане на забележителности и шопинг.</li>' +
+    '<li><b>Ден 8:</b> Освобождаване на стаите, трансфер до летището и полет обратно.</li></ul>';
+
+  document.getElementById('pane-incl').innerHTML = '<div class="od-h">Цената включва</div>' +
+    '<ul class="od-list"><li>Самолетен билет с включени летищни такси</li><li>7 нощувки на база All Inclusive</li>' +
+    '<li>Трансфери летище – хотел – летище</li><li>Представител на български език</li><li>Медицинска застраховка</li></ul>' +
+    '<div class="od-h">Цената не включва</div><ul class="od-list bad"><li>Факултативни екскурзии</li><li>Лични разходи</li><li>Туристическа такса, платима на място</li></ul>';
+
+  var tabs = document.getElementById('tabs');
+  tabs.addEventListener('click', function (e) {
+    var b = e.target.closest('.od-tab'); if (!b) return;
+    tabs.querySelectorAll('.od-tab').forEach(function (t) { t.classList.remove('active'); });
+    document.querySelectorAll('.od-pane').forEach(function (p) { p.classList.remove('active'); });
+    b.classList.add('active');
+    document.getElementById('pane-' + b.dataset.p).classList.add('active');
+  });
+})();
+</script>
+</body>
+</html>

@@ -99,6 +99,7 @@
     var eur = Math.round(bgn / 1.95583 * 100) / 100;
     var d = 10 + (i % 18);
     offers.push({
+      city: city,
       title: city + ' ' + (2026) + ' — ' + (n + 1) + ' дни',
       img: IMGS[i % IMGS.length],
       nights: n,
@@ -109,7 +110,8 @@
   }
   document.getElementById('cnt').textContent = offers.length + ' оферти';
   document.getElementById('grid').innerHTML = offers.map(function (o) {
-    return '<div class="ocard">' +
+    var href = 'oferta-demo.html?city=' + encodeURIComponent(o.city) + '&bgn=' + o.bgn;
+    return '<div class="ocard" onclick="location.href=\'' + href + '\'" style="cursor:pointer;">' +
       '<div class="ocard-img"><span class="ocard-badge">Почивка</span><img src="' + o.img + '" alt="" loading="lazy"></div>' +
       '<div class="ocard-body">' +
         '<div class="ocard-title">' + o.title + '</div>' +
@@ -119,7 +121,7 @@
           '<div class="ocard-price-lbl">Цена от</div>' +
           '<div class="ocard-price">' + o.bgn + ' лв. <span class="ocard-price-eur">/ ' + o.eur + ' €</span></div>' +
         '</div>' +
-        '<a class="ocard-btn" href="javascript:void(0)">Виж повече</a>' +
+        '<a class="ocard-btn" href="' + href + '">Виж повече</a>' +
       '</div>' +
     '</div>';
   }).join('');
