@@ -56,18 +56,30 @@
   .od-list { margin:0 0 1rem 1.1rem; color:#374151; line-height:1.7; }
   .od-list.bad li { color:#9b3b3b; }
 
-  /* ----- ХОТЕЛ + ТАБЛИЦА С ЦЕНИ ----- */
+  /* ----- ХОТЕЛ (акордеон) + ТАБЛИЦА С ЦЕНИ ----- */
   .od-hotel { border:1px solid #eef0f4; border-radius:14px; overflow:hidden; margin-bottom:14px; }
-  .od-hotel-head { display:flex; gap:14px; padding:12px; align-items:center; }
+  .od-hotel-head { display:flex; gap:14px; padding:12px; align-items:center; cursor:pointer; transition:background .15s; }
+  .od-hotel-head:hover { background:rgba(26,58,107,.04); }
   .od-hotel-head img { width:120px; height:84px; object-fit:cover; border-radius:10px; flex:0 0 auto; }
   .od-hotel-name { font-weight:700; color:var(--primary); font-size:1.02rem; }
   .od-stars { color:var(--gold); font-size:.9rem; }
   .od-hotel-desc { font-size:.86rem; color:#6b7280; margin-top:3px; }
+  .od-hotel-chev { margin-left:auto; flex:0 0 auto; color:var(--primary); font-size:1.1rem; transition:transform .25s; }
+  .od-hotel.open .od-hotel-chev { transform:rotate(180deg); }
+  .od-hotel-body { display:none; padding:0 12px 14px; border-top:1px solid #f0f3f8; }
+  .od-hotel.open .od-hotel-body { display:block; }
+  .od-hotel-full { font-size:.86rem; color:#4b5563; line-height:1.65; padding:12px 0; }
   .od-ptable { width:100%; border-collapse:collapse; font-size:.86rem; margin:6px 0 4px; }
   .od-ptable th { background:#eef2f7; color:var(--primary); text-align:left; padding:7px 10px; border:1px solid #eef0f4; }
   .od-ptable td { padding:7px 10px; border:1px solid #eef0f4; color:#1f2430; }
   .od-ptable tr:nth-child(even) td { background:rgba(0,0,0,.02); }
-  .od-ptable .p { color:var(--primary); font-weight:700; }
+  .od-ptable .p { color:var(--primary); font-weight:700; cursor:pointer; }
+  .od-ptable .p:hover { background:rgba(201,168,76,.18); }
+  .od-ptable tr.sel td { background:#dcfce7; color:#08351c; }
+  .od-ptable tr.sel td.p { background:#bbf7d0; color:#08351c; font-weight:800; }
+  .od-inquiry { margin-top:1.6rem; border-top:1px solid #eef0f4; padding-top:1.2rem; }
+  .od-sel { background:#f1f6fb; border:1px solid #dbe6f3; border-radius:12px; padding:12px 14px; font-size:.92rem; color:var(--primary); margin-bottom:12px; }
+  .od-inquiry textarea { width:100%; min-height:90px; border:1.5px solid #d6deea; border-radius:12px; padding:11px 13px; font-family:inherit; font-size:.92rem; resize:vertical; }
 
   .od-cta { display:inline-block; margin-top:1.2rem; background:var(--primary); color:#fff; border:none; border-radius:12px; padding:13px 30px; font-weight:700; font-size:1rem; text-decoration:none; box-shadow:0 8px 20px rgba(26,58,107,.25); cursor:pointer; }
   .od-cta:hover { background:var(--gold); }
@@ -116,23 +128,28 @@
   <!-- ----- ТАБ: ХОТЕЛИ ----- -->
   <div class="od-pane active" id="pane-hotels">
 
-    <!-- ХОТЕЛ (повтаря се за всеки хотел в офертата) -->
-    <div class="od-hotel">
-      <div class="od-hotel-head">
+    <!-- ХОТЕЛ (повтаря се за всеки хотел). Добавете клас "open" на първия, за да е отворен по подразбиране.
+         Хедърът се сгъва/разгъва при клик (onclick="toggleHotel(this)"). -->
+    <div class="od-hotel open">
+      <div class="od-hotel-head" onclick="toggleHotel(this)">
         <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=260&q=70&auto=format&fit=crop" alt="">
         <div>
           <div class="od-hotel-name">{{ИМЕ НА ХОТЕЛА}}</div>
           <div class="od-stars">★★★★★</div>
-          <div class="od-hotel-desc">{{КРАТКО ОПИСАНИЕ НА ХОТЕЛА}}</div>
+          <div class="od-hotel-desc">{{КРАТКО ОПИСАНИЕ}}</div>
         </div>
+        <span class="od-hotel-chev">▾</span>
       </div>
-      <div style="padding:0 12px 12px;">
+      <!-- Тяло на акордеона: пълна информация + таблица с цени ПО ДАТА -->
+      <div class="od-hotel-body">
+        <div class="od-hotel-full">{{ПЪЛНО ОПИСАНИЕ НА ХОТЕЛА — местоположение, басейн, изхранване, екстри...}}</div>
         <table class="od-ptable">
-          <tr><th>Настаняване</th><th>{{ПЕРИОД 1}}</th><th>{{ПЕРИОД 2}}</th></tr>
+          <!-- Колоните са ДАТИ на тръгване; всяка дата има своя цена -->
+          <tr><th>Настаняване</th><th>{{ДАТА 1}}</th><th>{{ДАТА 2}}</th><th>{{ДАТА 3}}</th></tr>
           <!-- РЕД (повтаря се за всеки тип настаняване) -->
-          <tr><td>{{ТИП СТАЯ}}</td><td class="p">{{ЦЕНА}} лв.</td><td class="p">{{ЦЕНА}} лв.</td></tr>
-          <tr><td>Двойна стая</td><td class="p">590 лв.</td><td class="p">710 лв.</td></tr>
-          <tr><td>Студио (2+1)</td><td class="p">680 лв.</td><td class="p">820 лв.</td></tr>
+          <tr><td>{{ТИП СТАЯ}}</td><td class="p" onclick="pickPrice(this)">{{ЦЕНА}} лв.</td><td class="p" onclick="pickPrice(this)">{{ЦЕНА}} лв.</td><td class="p" onclick="pickPrice(this)">{{ЦЕНА}} лв.</td></tr>
+          <tr><td>Двойна стая</td><td class="p" onclick="pickPrice(this)">590 лв.</td><td class="p" onclick="pickPrice(this)">635 лв.</td><td class="p" onclick="pickPrice(this)">680 лв.</td></tr>
+          <tr><td>Студио (2+1)</td><td class="p" onclick="pickPrice(this)">680 лв.</td><td class="p" onclick="pickPrice(this)">725 лв.</td><td class="p" onclick="pickPrice(this)">770 лв.</td></tr>
         </table>
       </div>
     </div>
@@ -146,8 +163,8 @@
     <table class="od-ptable">
       <tr><th>Дата на тръгване</th><th>Нощувки</th><th>Цена от</th></tr>
       <!-- РЕД (повтаря се за всяко заминаване) -->
-      <tr><td>{{ДАТА}}</td><td>{{НОЩУВКИ}}</td><td class="p">{{ЦЕНА}} лв. / {{ЦЕНА}} €</td></tr>
-      <tr><td>05.07.2026</td><td>7</td><td class="p">590 лв. / 301.66 €</td></tr>
+      <tr><td>{{ДАТА}}</td><td>{{НОЩУВКИ}}</td><td class="p" onclick="pickPrice(this)">{{ЦЕНА}} лв. / {{ЦЕНА}} €</td></tr>
+      <tr><td>05.07.2026</td><td>7</td><td class="p" onclick="pickPrice(this)">590 лв. / 301.66 €</td></tr>
     </table>
   </div>
 
@@ -168,7 +185,13 @@
     <ul class="od-list bad"><li>{{...}}</li></ul>
   </div>
 
-  <a class="od-cta" href="#">Запитване за тази оферта</a>
+  <!-- ========== ЗАПИТВАНЕ — попълва се с избрания хотел/цена ========== -->
+  <div class="od-inquiry">
+    <div class="od-h">Запитване за тази оферта</div>
+    <div class="od-sel" id="selInfo">👉 Изберете хотел и цена от таблиците по-горе, за да ги добавите към запитването.</div>
+    <textarea id="inqMsg" placeholder="Вашето съобщение..."></textarea>
+    <a class="od-cta" href="#">Изпрати запитване</a>
+  </div>
 </div>
 
 <script>
@@ -200,6 +223,28 @@
     document.getElementById('pane-' + b.dataset.p).classList.add('active');
   });
 })();
+
+/* Сгъване/разгъване на хотел (акордеон) */
+function toggleHotel(head) { head.parentNode.classList.toggle('open'); }
+
+/* Избор на хотел/цена → попълва запитването.
+   Чете данните директно от таблицата, така че работи с вашите данни без промяна. */
+function pickPrice(cell) {
+  var box = cell.closest('.od-hotel'); if (!box) return;
+  box.querySelectorAll('.od-ptable tr.sel').forEach(function (r) { r.classList.remove('sel'); });
+  var row = cell.parentNode; row.classList.add('sel');
+  var table = cell.closest('table');
+  var room = row.cells[0].textContent.trim();
+  var period = table.rows[0].cells[cell.cellIndex].textContent.trim();
+  var hotel = box.querySelector('.od-hotel-name').textContent.trim();
+  var price = cell.textContent.trim();
+  var title = (document.querySelector('.od-title') || {}).textContent || '';
+  document.getElementById('selInfo').innerHTML =
+    '✅ Избрано: <b>' + hotel + '</b> — ' + room + ', период ' + period + ': <b>' + price + '</b>';
+  document.getElementById('inqMsg').value =
+    'Здравейте, интересувам се от оферта „' + title.trim() + '".\n' +
+    'Хотел: ' + hotel + '\nНастаняване: ' + room + '\nПериод: ' + period + '\nЦена: ' + price + '\n\nМоля, свържете се с мен.';
+}
 </script>
 </body>
 </html>

@@ -40,17 +40,31 @@
     .od-list { margin:0 0 1rem 1.1rem; color:#374151; line-height:1.7; }
     .od-list.bad li { color:#9b3b3b; }
     .od-hotel { border:1px solid #eef0f4; border-radius:14px; overflow:hidden; margin-bottom:14px; }
-    .od-hotel-head { display:flex; gap:14px; padding:12px; align-items:center; }
+    .od-hotel-head { display:flex; gap:14px; padding:12px; align-items:center; cursor:pointer; transition:background .15s; }
+    .od-hotel-head:hover { background:rgba(26,58,107,.04); }
     .od-hotel-head img { width:120px; height:84px; object-fit:cover; border-radius:10px; flex:0 0 auto; }
     .od-hotel-name { font-weight:700; color:#1a3a6b; font-size:1.02rem; }
     .od-stars { color:#c9a84c; font-size:.9rem; }
     .od-hotel-desc { font-size:.86rem; color:#6b7280; margin-top:3px; }
+    .od-hotel-chev { margin-left:auto; flex:0 0 auto; color:#1a3a6b; font-size:1.1rem; transition:transform .25s; }
+    .od-hotel.open .od-hotel-chev { transform:rotate(180deg); }
+    .od-hotel-body { display:none; padding:0 12px 14px; border-top:1px solid #f0f3f8; }
+    .od-hotel.open .od-hotel-body { display:block; }
+    .od-hotel-full { font-size:.86rem; color:#4b5563; line-height:1.65; padding:12px 0; }
     .od-ptable { width:100%; border-collapse:collapse; font-size:.86rem; margin:6px 0 4px; }
     .od-ptable th { background:#eef2f7; color:#1a3a6b; text-align:left; padding:7px 10px; border:1px solid #eef0f4; }
     .od-ptable td { padding:7px 10px; border:1px solid #eef0f4; color:#1f2430; }
     .od-ptable tr:nth-child(even) td { background:rgba(0,0,0,.02); }
-    .od-ptable .p { color:#1a3a6b; font-weight:700; }
-    .od-cta { display:inline-block; margin-top:1.2rem; background:#1a3a6b; color:#fff; border:none; border-radius:12px; padding:13px 30px; font-weight:700; font-size:1rem; text-decoration:none; box-shadow:0 8px 20px rgba(26,58,107,.25); cursor:pointer; }
+    .od-ptable .p { color:#1a3a6b; font-weight:700; cursor:pointer; }
+    .od-ptable .p:hover { background:rgba(201,168,76,.18) !important; }
+    .od-ptable tr.sel td { background:#dcfce7 !important; color:#08351c; }
+    .od-ptable tr.sel td.p { background:#bbf7d0 !important; color:#08351c; font-weight:800; }
+    /* Поле за запитване с избрана оферта */
+    .od-inquiry { margin-top:1.6rem; border-top:1px solid #eef0f4; padding-top:1.2rem; }
+    .od-sel { background:#f1f6fb; border:1px solid #dbe6f3; border-radius:12px; padding:12px 14px; font-size:.92rem; color:#1a3a6b; margin-bottom:12px; }
+    .od-sel b { color:#08351c; }
+    .od-inquiry textarea { width:100%; min-height:90px; border:1.5px solid #d6deea; border-radius:12px; padding:11px 13px; font-family:inherit; font-size:.92rem; color:#1f2430; resize:vertical; }
+    .od-cta { display:inline-block; margin-top:12px; background:#1a3a6b; color:#fff; border:none; border-radius:12px; padding:13px 30px; font-weight:700; font-size:1rem; text-decoration:none; box-shadow:0 8px 20px rgba(26,58,107,.25); cursor:pointer; }
     .od-cta:hover { background:#c9a84c; }
     @media(max-width:700px){ .od-page{ margin:80px 8px 2rem; padding:1rem 1rem 2rem; } .od-gallery{ grid-template-columns:1fr 1fr; } .od-gallery img:first-child{ grid-column:1/3; grid-row:auto; height:180px; } }
   </style>
@@ -101,7 +115,12 @@
   <div class="od-pane" id="pane-program"></div>
   <div class="od-pane" id="pane-incl"></div>
 
-  <a class="od-cta" href="contact.html">Запитване за тази оферта</a>
+  <div class="od-inquiry">
+    <div class="od-h">Запитване за тази оферта</div>
+    <div class="od-sel" id="selInfo">👉 Изберете хотел и цена от таблиците по-горе, за да ги добавите към запитването.</div>
+    <textarea id="inqMsg" placeholder="Вашето съобщение..."></textarea>
+    <a class="od-cta" id="inqBtn" href="contact.html">Изпрати запитване</a>
+  </div>
 </div>
 
 <script src="navdd.js?v=4"></script>
@@ -147,24 +166,41 @@
   setInterval(function () { goTo(cur + 1); }, 4000);
 
   var hotels = [
-    { name: 'Grand Hotel ' + city, stars: 5, desc: 'Луксозен хотел в центъра, спа център, басейн и изглед към планината.' },
-    { name: city + ' Resort & Spa', stars: 4, desc: 'Модерен курортен комплекс на 200 м от центъра, открит и закрит басейн.' },
-    { name: 'Alpine Boutique ' + city, stars: 4, desc: 'Уютен бутиков хотел с традиционна австрийска кухня и градина.' }
+    { name: 'Grand Hotel ' + city, stars: 5, desc: 'Луксозен хотел в центъра, спа център и басейн.',
+      full: 'Разположен в самото сърце на ' + city + ', на 5 минути от основните забележителности. Разполага със спа център, закрит и открит басейн, фитнес, 2 ресторанта и лоби бар. Стаите са просторни, с климатик, мини бар и безплатен Wi-Fi. Закуска на блок маса.' },
+    { name: city + ' Resort & Spa', stars: 4, desc: 'Модерен курортен комплекс на 200 м от центъра.',
+      full: 'Модерен комплекс на 200 м от центъра, с открит и закрит басейн, детски кът, анимация и а-ла-карт ресторант. Подходящ за семейства. Трансфер до плажа/лифта. All Inclusive програма.' },
+    { name: 'Alpine Boutique ' + city, stars: 4, desc: 'Уютен бутиков хотел с традиционна кухня и градина.',
+      full: 'Камерен бутиков хотел с автентична австрийска атмосфера, ресторант с традиционна кухня и зелена градина. Идеален за двойки. Велосипеди под наем и организирани преходи.' }
   ];
+  // Цени по ДАТА на тръгване — различни за всяка дата.
   function priceTable(base) {
-    var rows = [
-      ['Двойна стая', base, base + 120],
-      ['Студио (2+1)', base + 90, base + 230],
-      ['Апартамент (2+2)', base + 210, base + 380]
-    ];
-    return '<table class="od-ptable"><tr><th>Настаняване</th><th>05.07 – 12.07</th><th>19.07 – 26.07</th></tr>' +
-      rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td class="p">' + r[1] + ' лв.</td><td class="p">' + r[2] + ' лв.</td></tr>'; }).join('') + '</table>';
+    var dts = ['28.06.2026', '05.07.2026', '12.07.2026', '19.07.2026'];
+    var rooms = [['Двойна стая', 0], ['Студио (2+1)', 90], ['Апартамент (2+2)', 210]];
+    var head = '<tr><th>Настаняване</th>' + dts.map(function (d) { return '<th>' + d + '</th>'; }).join('') + '</tr>';
+    var body = rooms.map(function (r) {
+      return '<tr><td>' + r[0] + '</td>' + dts.map(function (_, j) {
+        var pr = base + r[1] + j * 45;
+        return '<td class="p" onclick="pickPrice(this)">' + pr + ' лв.</td>';
+      }).join('') + '</tr>';
+    }).join('');
+    return '<table class="od-ptable">' + head + body + '</table>';
   }
   document.getElementById('pane-hotels').innerHTML = hotels.map(function (h, i) {
-    return '<div class="od-hotel"><div class="od-hotel-head"><img src="' + HOTEL_IMG[i % HOTEL_IMG.length] + '" alt="" loading="lazy">' +
-      '<div><div class="od-hotel-name">' + h.name + '</div><div class="od-stars">' + '★'.repeat(h.stars) + '</div>' +
-      '<div class="od-hotel-desc">' + h.desc + '</div></div></div><div style="padding:0 12px 12px;">' + priceTable(bgn + i * 60) + '</div></div>';
+    return '<div class="od-hotel' + (i === 0 ? ' open' : '') + '">' +
+      '<div class="od-hotel-head" onclick="toggleHotel(this)">' +
+        '<img src="' + HOTEL_IMG[i % HOTEL_IMG.length] + '" alt="" loading="lazy">' +
+        '<div><div class="od-hotel-name">' + h.name + '</div><div class="od-stars">' + '★'.repeat(h.stars) + '</div>' +
+        '<div class="od-hotel-desc">' + h.desc + '</div></div>' +
+        '<span class="od-hotel-chev">▾</span>' +
+      '</div>' +
+      '<div class="od-hotel-body">' +
+        '<div class="od-hotel-full">' + h.full + '</div>' +
+        priceTable(bgn + i * 60) +
+      '</div>' +
+    '</div>';
   }).join('');
+  window.toggleHotel = function (head) { head.parentNode.classList.toggle('open'); };
 
   var dates = ['28.06.2026', '05.07.2026', '12.07.2026', '19.07.2026', '26.07.2026', '02.08.2026', '09.08.2026'];
   document.getElementById('pane-dates').innerHTML = '<div class="od-h">Заминавания и цени (на човек)</div><table class="od-ptable"><tr><th>Дата на тръгване</th><th>Нощувки</th><th>Цена от</th></tr>' +
@@ -189,6 +225,24 @@
     b.classList.add('active');
     document.getElementById('pane-' + b.dataset.p).classList.add('active');
   });
+
+  // ===== Избор на хотел/цена → попълва запитването =====
+  var OFFER_TITLE = city + ' 2026 — All Inclusive почивка';
+  window.pickPrice = function (cell) {
+    document.querySelectorAll('#pane-hotels .od-ptable tr.sel').forEach(function (r) { r.classList.remove('sel'); });
+    var row = cell.parentNode; row.classList.add('sel');
+    var table = cell.closest('table');
+    var room = row.cells[0].textContent.trim();
+    var period = table.rows[0].cells[cell.cellIndex].textContent.trim();
+    var box = cell.closest('.od-hotel');
+    var hotel = box ? box.querySelector('.od-hotel-name').textContent.trim() : '';
+    var price = cell.textContent.trim();
+    document.getElementById('selInfo').innerHTML =
+      '✅ Избрано: <b>' + hotel + '</b> — ' + room + ', период ' + period + ': <b>' + price + '</b>';
+    document.getElementById('inqMsg').value =
+      'Здравейте, интересувам се от оферта „' + OFFER_TITLE + '".\n' +
+      'Хотел: ' + hotel + '\nНастаняване: ' + room + '\nПериод: ' + period + '\nЦена: ' + price + '\n\nМоля, свържете се с мен.';
+  };
 })();
 </script>
 </body>
