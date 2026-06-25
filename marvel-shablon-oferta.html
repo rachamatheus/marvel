@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marvel Tour — дизайн-шаблон за оферта (за интеграция)</title>
+<!--
+  ============================================================================
+  ДИЗАЙН-ШАБЛОН ЗА ДЕТАЙЛНА СТРАНИЦА НА ОФЕРТА — Marvel Tour
+  За интеграция от PeakView (white-label ifr_id = 38188).
+
+  Цел: страницата на оферта (programa.php) да изглежда като този шаблон.
+  Цветове: основен #1a3a6b (navy), акцент #c9a84c (златисто), фон #f6f9fd.
+  Шрифт: Inter (текст) + Playfair Display (заглавия).
+
+  Маркерите {{...}} показват КЪДЕ влизат вашите данни.
+  Секциите с коментар "повтаря се" се генерират в цикъл.
+  ============================================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root { --primary:#1a3a6b; --gold:#c9a84c; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif; color:#1f2430;
+    background:linear-gradient(160deg,#eaf1fb 0%,#f6f9fd 60%,#eef4f0 100%); }
+  .od-page { max-width:1080px; margin:30px auto; padding:1.4rem 2rem 3rem; background:#fff; border-radius:22px; box-shadow:0 18px 55px rgba(8,20,50,.18); }
+  .od-back { display:inline-flex; align-items:center; gap:6px; color:var(--primary); text-decoration:none; font-weight:600; font-size:.9rem; margin-bottom:1rem; }
+  .od-back:hover { color:var(--gold); }
+
+  /* ----- ГАЛЕРИЯ (слайдшоу) ----- */
+  .od-slider { position:relative; border-radius:16px; overflow:hidden; height:360px; background:#dceaf6; }
+  .od-slider img { width:100%; height:100%; object-fit:cover; display:block; opacity:0; transition:opacity .6s ease; position:absolute; inset:0; }
+  .od-slider img.show { opacity:1; }
+  .od-slide-nav { position:absolute; top:50%; transform:translateY(-50%); width:42px; height:42px; border:none; border-radius:50%; background:rgba(255,255,255,.85); color:var(--primary); font-size:1.5rem; line-height:1; cursor:pointer; z-index:2; box-shadow:0 2px 10px rgba(0,0,0,.2); }
+  .od-slide-nav.prev { left:12px; } .od-slide-nav.next { right:12px; }
+  .od-dots { position:absolute; bottom:13px; left:50%; transform:translateX(-50%); display:flex; gap:7px; z-index:2; }
+  .od-dots b { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.55); cursor:pointer; transition:all .2s; }
+  .od-dots b.on { background:#fff; width:22px; border-radius:5px; }
+
+  /* ----- БЕЙДЖОВЕ + ЗАГЛАВИЕ + ЦЕНА ----- */
+  .od-badges { display:flex; flex-wrap:wrap; gap:8px; margin:1.2rem 0 .6rem; }
+  .od-badge { font-size:.74rem; font-weight:700; padding:5px 11px; border-radius:100px; background:#eef2f7; color:var(--primary); }
+  .od-badge.gold { background:var(--primary); color:#fff; }
+  .od-title { font-family:'Playfair Display',serif; font-size:1.9rem; color:var(--primary); margin:.2rem 0 .6rem; }
+  .od-priceline { display:flex; align-items:baseline; gap:10px; margin-bottom:1.2rem; }
+  .od-price { font-size:1.8rem; font-weight:800; color:var(--primary); }
+  .od-price-eur { font-size:1rem; color:#9ca3af; }
+
+  /* ----- ТАБОВЕ ----- */
+  .od-tabs { display:flex; flex-wrap:wrap; gap:6px; border-bottom:2px solid #eef0f4; margin:1.2rem 0; }
+  .od-tab { font-family:inherit; font-size:.92rem; font-weight:700; color:#4b5563; background:none; border:none; border-bottom:3px solid transparent; padding:10px 14px; cursor:pointer; }
+  .od-tab.active { color:var(--primary); border-bottom-color:var(--gold); }
+  .od-pane { display:none; } .od-pane.active { display:block; }
+  .od-h { font-size:1.05rem; font-weight:700; color:var(--primary); margin:1.2rem 0 .6rem; }
+  .od-list { margin:0 0 1rem 1.1rem; color:#374151; line-height:1.7; }
+  .od-list.bad li { color:#9b3b3b; }
+
+  /* ----- ХОТЕЛ + ТАБЛИЦА С ЦЕНИ ----- */
+  .od-hotel { border:1px solid #eef0f4; border-radius:14px; overflow:hidden; margin-bottom:14px; }
+  .od-hotel-head { display:flex; gap:14px; padding:12px; align-items:center; }
+  .od-hotel-head img { width:120px; height:84px; object-fit:cover; border-radius:10px; flex:0 0 auto; }
+  .od-hotel-name { font-weight:700; color:var(--primary); font-size:1.02rem; }
+  .od-stars { color:var(--gold); font-size:.9rem; }
+  .od-hotel-desc { font-size:.86rem; color:#6b7280; margin-top:3px; }
+  .od-ptable { width:100%; border-collapse:collapse; font-size:.86rem; margin:6px 0 4px; }
+  .od-ptable th { background:#eef2f7; color:var(--primary); text-align:left; padding:7px 10px; border:1px solid #eef0f4; }
+  .od-ptable td { padding:7px 10px; border:1px solid #eef0f4; color:#1f2430; }
+  .od-ptable tr:nth-child(even) td { background:rgba(0,0,0,.02); }
+  .od-ptable .p { color:var(--primary); font-weight:700; }
+
+  .od-cta { display:inline-block; margin-top:1.2rem; background:var(--primary); color:#fff; border:none; border-radius:12px; padding:13px 30px; font-weight:700; font-size:1rem; text-decoration:none; box-shadow:0 8px 20px rgba(26,58,107,.25); cursor:pointer; }
+  .od-cta:hover { background:var(--gold); }
+  @media(max-width:700px){ .od-page{ margin:0; padding:1rem 1rem 2rem; border-radius:0; } .od-slider{ height:230px; } }
+</style>
+</head>
+<body>
+
+<div class="od-page">
+  <a href="#" class="od-back">← Назад към офертите</a>
+
+  <!-- ========== ГАЛЕРИЯ: добавете по един <img> за всяка снимка на офертата ========== -->
+  <div class="od-slider" id="slider">
+    <img class="show" src="https://images.unsplash.com/photo-1516550893923-42d28e5677af?w=900&q=72&auto=format&fit=crop" alt="">
+    <img src="https://images.unsplash.com/photo-1551867633-194f125bddfa?w=900&q=72&auto=format&fit=crop" alt="">
+    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=900&q=72&auto=format&fit=crop" alt="">
+    <img src="https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=900&q=72&auto=format&fit=crop" alt="">
+    <button class="od-slide-nav prev" onclick="slide(-1)">‹</button>
+    <button class="od-slide-nav next" onclick="slide(1)">›</button>
+    <div class="od-dots" id="dots"></div>
+  </div>
+
+  <!-- ========== БЕЙДЖОВЕ (тип/дни/транспорт) ========== -->
+  <div class="od-badges">
+    <span class="od-badge gold">{{ТИП: напр. All Inclusive}}</span>
+    <span class="od-badge">{{ДНИ}} дни / {{НОЩУВКИ}} нощувки</span>
+    <span class="od-badge">✈ {{ТРАНСПОРТ}}</span>
+    <span class="od-badge">🧑‍✈️ Водач на български</span>
+  </div>
+
+  <!-- ========== ЗАГЛАВИЕ + ЦЕНА ========== -->
+  <h1 class="od-title">{{ЗАГЛАВИЕ НА ОФЕРТАТА}}</h1>
+  <div class="od-priceline">
+    <span class="od-price">от {{ЦЕНА_ЛВ}} лв.</span>
+    <span class="od-price-eur">/ {{ЦЕНА_EUR}} €</span>
+  </div>
+
+  <!-- ========== ТАБОВЕ ========== -->
+  <div class="od-tabs" id="tabs">
+    <button class="od-tab active" data-p="hotels">Хотели</button>
+    <button class="od-tab" data-p="dates">Дати и цени</button>
+    <button class="od-tab" data-p="program">Програма</button>
+    <button class="od-tab" data-p="incl">Цената включва</button>
+  </div>
+
+  <!-- ----- ТАБ: ХОТЕЛИ ----- -->
+  <div class="od-pane active" id="pane-hotels">
+
+    <!-- ХОТЕЛ (повтаря се за всеки хотел в офертата) -->
+    <div class="od-hotel">
+      <div class="od-hotel-head">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=260&q=70&auto=format&fit=crop" alt="">
+        <div>
+          <div class="od-hotel-name">{{ИМЕ НА ХОТЕЛА}}</div>
+          <div class="od-stars">★★★★★</div>
+          <div class="od-hotel-desc">{{КРАТКО ОПИСАНИЕ НА ХОТЕЛА}}</div>
+        </div>
+      </div>
+      <div style="padding:0 12px 12px;">
+        <table class="od-ptable">
+          <tr><th>Настаняване</th><th>{{ПЕРИОД 1}}</th><th>{{ПЕРИОД 2}}</th></tr>
+          <!-- РЕД (повтаря се за всеки тип настаняване) -->
+          <tr><td>{{ТИП СТАЯ}}</td><td class="p">{{ЦЕНА}} лв.</td><td class="p">{{ЦЕНА}} лв.</td></tr>
+          <tr><td>Двойна стая</td><td class="p">590 лв.</td><td class="p">710 лв.</td></tr>
+          <tr><td>Студио (2+1)</td><td class="p">680 лв.</td><td class="p">820 лв.</td></tr>
+        </table>
+      </div>
+    </div>
+    <!-- /ХОТЕЛ -->
+
+  </div>
+
+  <!-- ----- ТАБ: ДАТИ И ЦЕНИ ----- -->
+  <div class="od-pane" id="pane-dates">
+    <div class="od-h">Заминавания и цени (на човек)</div>
+    <table class="od-ptable">
+      <tr><th>Дата на тръгване</th><th>Нощувки</th><th>Цена от</th></tr>
+      <!-- РЕД (повтаря се за всяко заминаване) -->
+      <tr><td>{{ДАТА}}</td><td>{{НОЩУВКИ}}</td><td class="p">{{ЦЕНА}} лв. / {{ЦЕНА}} €</td></tr>
+      <tr><td>05.07.2026</td><td>7</td><td class="p">590 лв. / 301.66 €</td></tr>
+    </table>
+  </div>
+
+  <!-- ----- ТАБ: ПРОГРАМА ----- -->
+  <div class="od-pane" id="pane-program">
+    <div class="od-h">Програма по дни</div>
+    <ul class="od-list">
+      <li><b>Ден 1:</b> {{...}}</li>
+      <li><b>Ден 2–N:</b> {{...}}</li>
+    </ul>
+  </div>
+
+  <!-- ----- ТАБ: ЦЕНАТА ВКЛЮЧВА ----- -->
+  <div class="od-pane" id="pane-incl">
+    <div class="od-h">Цената включва</div>
+    <ul class="od-list"><li>{{...}}</li></ul>
+    <div class="od-h">Цената не включва</div>
+    <ul class="od-list bad"><li>{{...}}</li></ul>
+  </div>
+
+  <a class="od-cta" href="#">Запитване за тази оферта</a>
+</div>
+
+<script>
+/* Слайдшоу */
+(function () {
+  var slider = document.getElementById('slider'), dotsWrap = document.getElementById('dots');
+  var imgs = slider.querySelectorAll('img');
+  var dots = [].map.call(imgs, function (_, i) {
+    var b = document.createElement('b'); if (i === 0) b.className = 'on';
+    b.onclick = function () { goTo(i); }; dotsWrap.appendChild(b); return b;
+  });
+  var cur = 0;
+  function goTo(i) {
+    imgs[cur].classList.remove('show'); dots[cur].classList.remove('on');
+    cur = (i + imgs.length) % imgs.length;
+    imgs[cur].classList.add('show'); dots[cur].classList.add('on');
+  }
+  window.slide = function (d) { goTo(cur + d); };
+  if (imgs.length > 1) setInterval(function () { goTo(cur + 1); }, 4000);
+})();
+/* Табове */
+(function () {
+  var tabs = document.getElementById('tabs');
+  tabs.addEventListener('click', function (e) {
+    var b = e.target.closest('.od-tab'); if (!b) return;
+    tabs.querySelectorAll('.od-tab').forEach(function (t) { t.classList.remove('active'); });
+    document.querySelectorAll('.od-pane').forEach(function (p) { p.classList.remove('active'); });
+    b.classList.add('active');
+    document.getElementById('pane-' + b.dataset.p).classList.add('active');
+  });
+})();
+</script>
+</body>
+</html>
