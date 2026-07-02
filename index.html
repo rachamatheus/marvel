@@ -107,9 +107,9 @@
   </button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('vacation',null)">🏖️ Почивки</a>
-  <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('excursion',null)">🗺️ Екскурзии</a>
-  <a href="javascript:void(0)" onclick="toggleMobileMenu();filterCatCountry('exotic',null)">🏝️ Екзотика</a>
+  <div class="mm-group"><button class="mm-cat" onclick="toggleMM('mmVacation')">🏖️ Почивки <span class="mm-arr">▾</span></button><div class="mm-sub" id="mmVacation"></div></div>
+  <div class="mm-group"><button class="mm-cat" onclick="toggleMM('mmExcursion')">🗺️ Екскурзии <span class="mm-arr">▾</span></button><div class="mm-sub" id="mmExcursion"></div></div>
+  <div class="mm-group"><button class="mm-cat" onclick="toggleMM('mmExotic')">🏝️ Екзотика <span class="mm-arr">▾</span></button><div class="mm-sub" id="mmExotic"></div></div>
   <a href="kruizi.html">🚢 Круизи</a>
   <a href="blog.html">📖 Блог</a>
   <a href="#why-us" onclick="toggleMobileMenu()">💎 За нас</a>
@@ -789,7 +789,7 @@
 <script src="data/reviews.js?v=4"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="sb-init.js?v=128"></script>
-<script src="app.js?v=179"></script>
+<script src="app.js?v=180"></script>
 <script src="dest-util.js?v=5"></script>
 
 <!-- Real world map: accurate continent + island shapes (Natural Earth via d3) -->

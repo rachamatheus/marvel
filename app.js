@@ -375,6 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFilters();
   renderOffers();
   buildCategoryMenus();
+  buildMobileMenu();
   mtSyncOffersFromServer(); // изтегли авторитетния списък от сървъра (чисти заседнали оферти)
   // Apply ?cat / ?country from URL (links from inner pages' Почивки/Екскурзии)
   try {
@@ -1194,6 +1195,32 @@ function openDestFrame(name, ifrId, cc) {
 function openDestPage(page, name, cc) {
   closeAllNavDD();
   location.href = page + '?d=' + encodeURIComponent(name) + '&cc=' + encodeURIComponent(cc || '');
+}
+
+// Мобилно меню: разгъваеми дестинации под Почивки/Екскурзии/Екзотика.
+function buildMobileMenu() {
+  [['vacation', 'mmVacation'], ['excursion', 'mmExcursion'], ['exotic', 'mmExotic']].forEach(([cat, id]) => {
+    const el = document.getElementById(id);
+    if (!el || !FIXED_DD_GROUPS[cat]) return;
+    let html = '';
+    FIXED_DD_GROUPS[cat].forEach(([cont, list]) => {
+      html += `<div class="mm-cont">${cont}</div>`;
+      html += list.map(([name, cc, ifr]) => {
+        const esc = name.replace(/'/g, "\\'");
+        const oc = (typeof ifr === 'number')
+          ? `openDestFrame('${esc}','${ifr}','${cc}')`
+          : (typeof ifr === 'string')
+            ? `openDestPage('${ifr}','${esc}','${cc}')`
+            : `filterCatCountryName('${cat}','${esc}')`;
+        return `<a href="javascript:void(0)" onclick="toggleMobileMenu();${oc}">${flagImg(cc, 16)}<span>${name}</span></a>`;
+      }).join('');
+    });
+    el.innerHTML = html;
+  });
+}
+function toggleMM(id) {
+  const sub = document.getElementById(id);
+  if (sub) sub.parentNode.classList.toggle('open');
 }
 
 function toggleNavDD(id) {
